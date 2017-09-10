@@ -1,0 +1,50 @@
+<div class="topic-header-content">
+    <div class="content">
+        <a href="{{ currentUrl }}" class="header marginTop05">{{ topic.title }} {{#if topic.isTop}} <i class="pin icon"></i> {{/if}}</a>
+        <div class="ui divider"></div>
+        <div class="meta">
+            <img class="ui avatar image" src="{{ topic.userPhoto }}">
+            <span>{{ topic.username }}</span>
+            <div class="marginTop1">
+                {{#if topic.isClose}}
+                    <p style="color: red"><strong>{{gettext "This topic is closed"}}</strong></p>
+                {{/if}}
+
+                <span>{{{ topic.description }}}</span>
+                <div class="marginTop05">
+                    <img src="{{ topic.attachment }}" class="width100">
+                </div>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+        <div class="description">
+            <b>{{gettext "Total comments" }}</b> {{ topic.totalComments }} <i class="comments icon"></i>
+        </div>
+        <div class="extra">
+            <b>{{gettext "Created" }}</b>: {{ topic.date }}
+            /
+            <b>{{gettext "Last activity" }}</b>: {{ topic.lastActivity }}
+        </div>
+    </div>
+    <div class="extra content">
+        <div class="pull-left">
+            <p><b>{{gettext "Total likes" }}</b>: {{ topic.totalLikes }}</p>
+            <p><button class="ui button">Like</button> <button class="ui button">Unlike</button></p>
+        </div>
+        <div class="pull-right">
+            <p><a href="http://www.facebook.com/sharer.php?s=100&amp;p%5Burl%5D={{ currentUrl }}" target="_blank">
+            <i class="facebook icon"></i>
+            </a>
+            <a href="https://plus.google.com/share?url={{ currentUrl }}" target="_blank">
+            <i class="google plus icon"></i>
+            </a>
+            <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{ currentUrl }}">
+            <i class="twitter icon"></i>
+            </a></p>
+
+            <p><button class="ui button"><i class="reply icon"></i> {{ gettext "Reply" }}</button></p>
+        </div>
+    </div>
+</div>
+
+{{yield}}

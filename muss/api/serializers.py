@@ -36,6 +36,7 @@ class ForumSerializer(serializers.ModelSerializer):
 class TopicSerializer(serializers.ModelSerializer):
     total_comments = serializers.SerializerMethodField()
     user_photo = serializers.SerializerMethodField()
+    username = serializers.SerializerMethodField()
 
     def get_total_comments(self, obj):
         """
@@ -45,6 +46,9 @@ class TopicSerializer(serializers.ModelSerializer):
 
     def get_user_photo(self, obj):
         return utils.get_photo_profile(obj.user)
+
+    def get_username(self, obj):
+        return obj.user.username
 
     class Meta:
         model = models.Topic
