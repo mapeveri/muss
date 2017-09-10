@@ -1,11 +1,15 @@
 {{topic-header topic=model.topic}}
 
-<div style="margin-top: 10em">
+<div style="margin-top: 8em">
     {{list-comments comments=model.comments}}
 </div>
 
 {{#if model.comments}}
     {{infinite-scroll model=model submodel="comments" api="comment"}}
+{{/if}}
+
+{{#if model.suggests}}
+{{table-topics topics=model.suggests title="Suggested Topics"}}
 {{/if}}
 
 {{outlet}}

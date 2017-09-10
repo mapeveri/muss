@@ -1,0 +1,23 @@
+<table class="ui very basic collapsing celled table" style="width: 80%">
+    <thead>
+        <tr>
+            <th>{{gettext title }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each topics as |topic|}}
+        <tr>
+            <td>
+                <h4 class="ui image header">
+                <img src="{{ topic.userPhoto }}" class="ui mini rounded image">
+                <div class="content">
+                    {{ topic.title }}
+                </div>
+                </h4>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{yield}}

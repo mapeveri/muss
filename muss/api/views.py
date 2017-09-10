@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse_lazy
@@ -79,8 +80,24 @@ class TopicViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self, *args, **kwargs):
         slug = self.request.GET.get('slug')
+        suggest = self.request.GET.get('suggest')
         if slug:
+            # Filter topics by forum
             self.queryset = self.queryset.filter(forum__slug=slug)
+        elif suggest:
+            # Filter suggest topic
+            topic = get_object_or_404(models.Topic, pk=suggest)
+            words = topic.title.split(" ")
+            condition = Q()
+            for word in words:
+                condition |= Q(title__icontains=word)
+
+            self.queryset = models.Topic.objects.filter(
+                condition, Q(forum__pk=topic.forum_id)
+            ).exclude(
+                pk=topic.pk
+            )[:10]
+
         return self.queryset
 
     def get_permissions(self):
