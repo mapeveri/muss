@@ -1,3 +1,11 @@
 {{topic-header topic=model.topic}}
 
+<div style="margin-top: 10em">
+    {{list-comments comments=model.comments}}
+</div>
+
+{{#if model.comments}}
+    {{infinite-scroll model=model submodel="comments" api="comment"}}
+{{/if}}
+
 {{outlet}}

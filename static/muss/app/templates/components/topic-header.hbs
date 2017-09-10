@@ -11,9 +11,12 @@
                 {{/if}}
 
                 <span>{{{ topic.description }}}</span>
+
+                {{#if topic.attachment }}
                 <div class="marginTop05">
                     <img src="{{ topic.attachment }}" class="width100">
                 </div>
+                {{/if}}
             </div>
         </div>
         <div class="ui divider"></div>
@@ -29,7 +32,8 @@
     <div class="extra content">
         <div class="pull-left">
             <p><b>{{gettext "Total likes" }}</b>: {{ topic.totalLikes }}</p>
-            <p><button class="ui button">Like</button> <button class="ui button">Unlike</button></p>
+            <p><button class="ui button"><i class="thumbs outline up icon"></i></button>
+            <button class="ui button"><i class="thumbs outline down icon"></i></button></p>
         </div>
         <div class="pull-right">
             <p><a href="http://www.facebook.com/sharer.php?s=100&amp;p%5Burl%5D={{ currentUrl }}" target="_blank">

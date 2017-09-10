@@ -57,7 +57,7 @@ class TopicSerializer(serializers.ModelSerializer):
 
 # Serializers register
 class RegisterSerializer(serializers.ModelSerializer):
-
+    
     def __init__(self, *args, **kwargs):
         super(RegisterSerializer, self).__init__(*args, **kwargs)
         user = self.context['request'].user
@@ -82,6 +82,8 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 # Serializers comment
 class CommentSerializer(serializers.ModelSerializer):
+    username = serializers.SerializerMethodField()
+    user_photo = serializers.SerializerMethodField()
 
     def __init__(self, *args, **kwargs):
         super(CommentSerializer, self).__init__(*args, **kwargs)
@@ -96,9 +98,15 @@ class CommentSerializer(serializers.ModelSerializer):
                 is_close=False, moderate=True
             )
 
+    def get_username(self, obj):
+        return obj.user.username
+
+    def get_user_photo(self, obj):
+        return utils.get_photo_profile(obj.user)
+
     class Meta:
         model = models.Comment
-        exclude = ('date',)
+        fields = '__all__'
 
 
 # Serializers profile

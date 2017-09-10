@@ -1,0 +1,36 @@
+<div class="ui comments" style="max-width: 80%">
+  <h3 class="ui dividing header">{{gettext "Comments" }}</h3>
+
+    {{#each comments as |comment|}}
+    <div class="comment">
+        <a class="avatar">
+        <img src="{{ comment.userPhoto }}">
+        </a>
+        <div class="content">
+            <a class="author">{{ comment.username }}</a>
+            <div class="metadata">
+                <span class="date">{{ comment.date }}</span>
+            </div>
+            <div class="text">
+                {{{ comment.description }}}
+            </div>
+            <div class="actions">
+                <a class="reply">{{gettext "Reply"}}</a>
+                <a> <i class="thumbs outline up icon"></i></a>
+                <a> <i class="thumbs outline down icon"></i></a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+
+    <form class="ui reply form">
+        <div class="field">
+        <textarea></textarea>
+        </div>
+        <div class="ui blue labeled submit icon button">
+        <i class="icon edit"></i> {{gettext "Add Reply"}}
+        </div>
+    </form>
+</div>
+<br />
+{{yield}}

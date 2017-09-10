@@ -196,6 +196,12 @@ class CommentViewSet(viewsets.ModelViewSet):
                 self.permission_classes = [IsReadOnly, ]
         return super(CommentViewSet, self).get_permissions()
 
+    def get_queryset(self, *args, **kwargs):
+        topic = self.request.GET.get('topic')
+        if topic:
+            self.queryset = self.queryset.filter(topic__pk=topic)
+        return self.queryset
+
     def perform_create(self, serializer):
         request = self.request
         is_my_user = int(request.data['user']) == request.user.id
