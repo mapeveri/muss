@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+<head>
+    {% load i18n %}
+    {% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="robots" content="noodp">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <!--<meta name="KEYWORDS" content="{{ configurations.keywords }}">
+
+     {% block meta %}
+        <meta property="og:title" content="{{ SETTINGS.SITE_NAME }}" />
+        <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+        <meta property="og:type" content="website">
+        <meta name="twitter:url" content="{{ request.build_absolute_uri }}">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ SETTINGS.SITE_NAME }}">
+
+        {% if configurations.description  %}
+        <meta name="description" content="{{ configurations.description }}">
+        <meta property="og:description" content="{{ configurations.description }}">
+        <meta name="twitter:description" content="{{ configurations.description }}">
+        {% endif %}
+
+        <title> {{ SETTINGS.SITE_NAME }} </title>
+    {% endblock %}
+
+    {% if configurations.logo  %}
+    <meta property="og:image" content="{{request.scheme}}://{{ request.get_host }}{{ MEDIA_URL }}{{ configurations.logo }}" />
+    <meta name="twitter:image" content="{{request.scheme}}://{{ request.get_host }}{{ MEDIA_URL }}{{ configurations.logo }}">
+    {% else %}
+    <meta property="og:image" content="{{request.scheme}}://{{ request.get_host }}{% static 'muss/img/logo.png' %}" />
+    <meta name="twitter:image" content="{{request.scheme}}://{{ request.get_host }}{% static 'muss/img/logo.png' %}">
+    {% endif %}
+
+    {% if configurations.favicon %}
+        <link rel="shortcut icon" href="{{ MEDIA_URL }}{{ configurations.favicon }}" type="image/png" />
+    {% else %}
+        <link rel="shortcut icon" href="{% static 'muss/img/favicon.png' %}" type="image/png" />
+    {% endif %} -->
+    <link rel="stylesheet" type="text/css" href="{% static 'muss/dist/assets/vendor.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'muss/dist/assets/muss.css' %}">
+    <meta name="muss/config/environment" content="%7B%22modulePrefix%22%3A%22muss%22%2C%22environment%22%3A%22development%22%2C%22rootURL%22%3A%22/%22%2C%22locationType%22%3A%22auto%22%2C%22EmberENV%22%3A%7B%22FEATURES%22%3A%7B%7D%2C%22EXTEND_PROTOTYPES%22%3A%7B%22Date%22%3Afalse%7D%7D%2C%22APP%22%3A%7B%22API_HOST%22%3A%22http%3A//localhost%3A8000%22%2C%22API_NAMESPACE%22%3A%22api%22%2C%22name%22%3A%22muss%22%2C%22version%22%3A%220.0.0+b381da13%22%7D%2C%22exportApplicationGlobal%22%3Atrue%7D" />
+</head>
+
+<body>
+    <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
+    <script src="{% static 'muss/dist/assets/vendor.js' %}"></script>
+    <script src="{% static 'muss/dist/assets/muss.js' %}"></script>
+</body>
+</html>

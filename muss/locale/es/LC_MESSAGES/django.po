@@ -1,0 +1,764 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-31 20:10-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: conf/settings.py:117 tests/testsapp/settings.py:104
+msgid "English"
+msgstr "Inglés"
+
+#: conf/settings.py:118 tests/testsapp/settings.py:105
+msgid "Spanish"
+msgstr "Español"
+
+#: conf/settings.py:119 tests/testsapp/settings.py:106
+msgid "Italian"
+msgstr "Italiano"
+
+#: muss/admin.py:77 muss/admin.py:158
+#, python-format
+msgid "Successfully deleted %(count)d record/s."
+msgstr ""
+
+#: muss/admin.py:113 muss/admin.py:194
+#, python-format
+msgid "Delete selected %(verbose_name_plural)s"
+msgstr ""
+
+#: muss/admin.py:128 muss/models.py:72
+msgid "Moderators"
+msgstr "Moderadores"
+
+#: muss/admin.py:208 muss/models.py:92 muss/models.py:169
+#: muss/models.py:223 muss/models.py:437
+msgid "Forum"
+msgstr "Foro"
+
+#: muss/admin.py:233
+msgid "Profile"
+msgstr "Perfil"
+
+#: muss/forms.py:24 muss/forms.py:91
+msgid "Username"
+msgstr "Usuario"
+
+#: muss/forms.py:53
+msgid "Username or password incorrect."
+msgstr "Usuario o contraseña incorrecta"
+
+#: muss/forms.py:93 muss/templates/muss/password_reset_form.html:21
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: muss/forms.py:95
+msgid "Names"
+msgstr "Nombres"
+
+#: muss/forms.py:97
+msgid "Surname"
+msgstr "Apellido"
+
+#: muss/forms.py:99
+msgid "Password"
+msgstr "Contraseña"
+
+#: muss/forms.py:101
+msgid "Repeat password"
+msgstr "Repita la contraseña"
+
+#: muss/forms.py:109
+msgid "Passwords don't match"
+msgstr "Las contraseñas no coinciden"
+
+#: muss/forms.py:126
+msgid "Email addresses must be unique."
+msgstr "El correo electrónico debe ser único"
+
+#: muss/models.py:30 muss/models.py:69 muss/models.py:155
+#: muss/models.py:238 muss/models.py:345 muss/models.py:563
+msgid "Description"
+msgstr "Descripción"
+
+#: muss/models.py:33
+msgid "If checked, this category will be visible only for staff"
+msgstr "Si está marcada, esta categoría sólo será visible para el personal"
+
+#: muss/models.py:38 muss/models.py:62
+msgid "Category"
+msgstr "Categoría"
+
+#: muss/models.py:39
+msgid "Categories"
+msgstr "Categorías"
+
+#: muss/models.py:65
+msgid "Parent forum"
+msgstr "Foro padre"
+
+#: muss/models.py:68
+msgid "Name"
+msgstr "Nombre"
+
+#: muss/models.py:75 muss/models.py:233 muss/models.py:343
+#: muss/models.py:445
+msgid "Date"
+msgstr "Fecha"
+
+#: muss/models.py:78
+msgid "Total topics"
+msgstr "Temas totales"
+
+#: muss/models.py:81
+msgid "Hidden"
+msgstr "Oculto"
+
+#: muss/models.py:82
+msgid "If hide the forum in the index page"
+msgstr "Si oculta el foro de la página principal"
+
+#: muss/models.py:85
+msgid "Check topics"
+msgstr "Chequear temas"
+
+#: muss/models.py:86
+msgid "If the forum is moderated"
+msgstr "Si el foro es moderado"
+
+#: muss/models.py:93
+msgid "Forums"
+msgstr "Foros"
+
+#: muss/models.py:173
+msgid "Message to inform"
+msgstr "Mensaje a informar"
+
+#: muss/models.py:174
+msgid "If you want to report a message to a forum"
+msgstr "Si quiere reportar un mensaje al foro"
+
+#: muss/models.py:177
+msgid "Message expires from"
+msgstr "El mensaje expira desde"
+
+#: muss/models.py:178
+msgid "Date from message expired"
+msgstr "Fecha de expiración del mensaje"
+
+#: muss/models.py:181
+msgid "Message expires to"
+msgstr "El mensaje expira hasta"
+
+#: muss/models.py:182
+msgid "Date to message expired"
+msgstr "Fecha de expiración del mensaje"
+
+#: muss/models.py:186
+msgid "Message for forums"
+msgstr "Mensaje para foros"
+
+#: muss/models.py:187
+msgid "Messages for forums"
+msgstr "Mensajes para foros"
+
+#: muss/models.py:227 muss/models.py:340 muss/models.py:442
+msgid "User"
+msgstr "Usuario"
+
+#: muss/models.py:231
+msgid "Title"
+msgstr "Título"
+
+#: muss/models.py:236
+msgid "Last activity"
+msgstr "Última actividad"
+
+#: muss/models.py:241
+msgid "File"
+msgstr "Archivo"
+
+#: muss/models.py:245
+msgid "Closed topic"
+msgstr "Tema cerrado"
+
+#: muss/models.py:246
+msgid "If the topic is closed"
+msgstr "Si el tema está cerrado"
+
+#: muss/models.py:249
+msgid "Moderate"
+msgstr "Moderado"
+
+#: muss/models.py:250
+msgid "If the topic is moderated"
+msgstr "Si el tema está moderado"
+
+#: muss/models.py:253
+msgid "Top"
+msgstr "Arriba"
+
+#: muss/models.py:254
+msgid "If the topic is important and it will go top"
+msgstr "Si el tema es importante y va a ir arriba"
+
+#: muss/models.py:260 muss/models.py:335
+msgid "Topic"
+msgstr "Tema"
+
+#: muss/models.py:261
+msgid "Topics"
+msgstr "Temas"
+
+#: muss/models.py:350
+msgid "Comment"
+msgstr "Comentario"
+
+#: muss/models.py:351
+msgid "Comments"
+msgstr "Comentarios"
+
+#: muss/models.py:450
+msgid "Register"
+msgstr "Registrarse"
+
+#: muss/models.py:451
+msgid "Registers"
+msgstr "Registros"
+
+#: muss/models.py:482
+msgid "Photo"
+msgstr "Foto"
+
+#: muss/models.py:484
+msgid "About me"
+msgstr "Acerca de"
+
+#: muss/models.py:486
+msgid "Location"
+msgstr "Ubicación"
+
+#: muss/models.py:491
+msgid "Is troll"
+msgstr "Es troll"
+
+#: muss/models.py:492
+msgid "If the user is troll"
+msgstr "Si el usuario es troll"
+
+#: muss/models.py:495
+msgid "Receive Emails"
+msgstr ""
+
+#: muss/models.py:496
+msgid "If receive Emails"
+msgstr "Si recibe Emails"
+
+#: muss/models.py:553
+msgid "Logo width"
+msgstr "Ancho del logo"
+
+#: muss/models.py:554 muss/models.py:558
+msgid "In pixels"
+msgstr "En pixels"
+
+#: muss/models.py:557
+msgid "Logo height"
+msgstr "Altura del logo"
+
+#: muss/models.py:561
+msgid "Custom design"
+msgstr "Diseño customizado"
+
+#: muss/models.py:564
+msgid "Keywords"
+msgstr ""
+
+#: muss/models.py:567
+msgid "Configuration"
+msgstr "Configuración"
+
+#: muss/models.py:568
+msgid "Configurations"
+msgstr "Configuraciones"
+
+#: muss/templates/muss/admin/confirm_delete.html:6
+#: muss/templates/muss/password_reset_complete.html:6
+msgid "Home"
+msgstr "Inicio"
+
+#: muss/templates/muss/admin/confirm_delete.html:14
+msgid "Delete multiple objects"
+msgstr ""
+
+#: muss/templates/muss/admin/confirm_delete.html:22
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would result in deleting related "
+"objects, but your account doesn't have permission to delete the following "
+"types of objects:"
+msgstr ""
+
+#: muss/templates/muss/admin/confirm_delete.html:32
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would require deleting the following "
+"protected related objects:"
+msgstr ""
+
+#: muss/templates/muss/admin/confirm_delete.html:44
+msgid "Confirm deletion"
+msgstr ""
+
+#: muss/templates/muss/admin/confirm_delete.html:46
+#, python-format
+msgid ""
+"Are you sure you want to delete the selected %(objects_name)s? All of the "
+"following objects and their related items will be deleted:"
+msgstr ""
+
+#: muss/templates/muss/admin/confirm_delete.html:58
+msgid "Yes, I'm sure"
+msgstr ""
+
+#: muss/templates/muss/confirm_email.html:12
+#: muss/templates/muss/password_reset_complete.html:17
+msgid "Congratulations"
+msgstr "Felicitaciones"
+
+#: muss/templates/muss/confirm_email.html:15
+#: muss/templates/muss/confirm_email_expired.html:21
+msgid "Confirmation email"
+msgstr "Confirmación de correo electrónico"
+
+#: muss/templates/muss/confirm_email.html:17
+msgid "Congratulations, you are now an active member of "
+msgstr "Felicitaciones, usted ya es un usuario activo de "
+
+#: muss/templates/muss/confirm_email.html:19
+msgid "Thank you: "
+msgstr "Gracias: "
+
+#: muss/templates/muss/confirm_email.html:22
+#: muss/templates/muss/login.html:11
+#: muss/templates/muss/password_reset_complete.html:21
+msgid "Log in"
+msgstr "Iniciar sesión"
+
+#: muss/templates/muss/confirm_email_expired.html:13
+msgid "Please, check your email."
+msgstr "Por favor, revise su correo electrónico."
+
+#: muss/templates/muss/confirm_email_expired.html:18
+#: muss/templates/muss/confirm_email_expired.html:23
+msgid "The activation key has expired"
+msgstr "La clave de activación ha caducado"
+
+#: muss/templates/muss/confirm_email_expired.html:25
+msgid "Please click the following button to get a new activation key."
+msgstr ""
+"Por favor haga click en el siguiente botón para obtener una nueva clave de "
+"activación."
+
+#: muss/templates/muss/confirm_email_expired.html:29
+msgid "New activation key"
+msgstr "Nueva clave de activación"
+
+#: muss/templates/muss/index.html:7
+msgid "Please, you add forums and categories in the administrator."
+msgstr "Por favor, agregue los foros y categorías en el administrador"
+
+#: muss/templates/muss/index.html:8
+msgid "There are no forums created for the category"
+msgstr "No hay foros creados para la categoría"
+
+#: muss/templates/muss/login.html:41
+msgid "Forgot password?"
+msgstr "¿Olvidó la contraseña?"
+
+#: muss/templates/muss/login.html:43
+msgid "Sign in"
+msgstr "Ingresar"
+
+#: muss/templates/muss/password_reset_complete.html:7
+msgid "Password reset"
+msgstr "Resetear contraseña"
+
+#: muss/templates/muss/password_reset_complete.html:19
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr ""
+"Se ha establecido su contraseña. Usted puede seguir adelante y acceder ahora."
+
+#: muss/templates/muss/password_reset_confirm.html:15
+msgid "Change password"
+msgstr "Cambia la contraseña"
+
+#: muss/templates/muss/password_reset_confirm.html:19
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+"Ingrese su nueva contraseña dos veces para poder verificar que la escribió "
+"correctamente"
+
+#: muss/templates/muss/password_reset_confirm.html:23
+msgid "New password"
+msgstr "Nueva contraseña"
+
+#: muss/templates/muss/password_reset_confirm.html:31
+msgid "Confirm password"
+msgstr "Confirmar contraseña"
+
+#: muss/templates/muss/password_reset_confirm.html:37
+msgid "Change my password"
+msgstr "Cambiar mi contraseña"
+
+#: muss/templates/muss/password_reset_confirm.html:49
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+"El enlace de restablecimiento de contraseña no es válido, posiblemente "
+"porque ya se ha usado. Por favor restablezca su contraseña."
+
+#: muss/templates/muss/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+"Recibió este correo electrónico porque solicitó una restablecimiento de "
+"contraseña para su cuenta de usuario en %(site_name)s."
+
+#: muss/templates/muss/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "Por favor, vaya a la siguiente página y elija una nueva contraseña:"
+
+#: muss/templates/muss/password_reset_email.html:8
+msgid "Your username, in case you've forgotten:"
+msgstr "Su nombre de usuario, en caso de que lo hayas olvidado:"
+
+#: muss/templates/muss/password_reset_email.html:10
+msgid "Thanks for using our site!"
+msgstr "¡Gracias por usar nuestro sitio!"
+
+#: muss/templates/muss/password_reset_email.html:12
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "El equipo de %(site_name)s"
+
+#: muss/templates/muss/password_reset_form.html:13
+msgid "Reset password"
+msgstr "Restablecer contraseña"
+
+#: muss/templates/muss/password_reset_form.html:31
+msgid "Submit"
+msgstr "Enviar"
+
+#: muss/templates/muss/password_reset_subject.txt:3
+#, python-format
+msgid ""
+"Password reset for email %(email)s. Follow the link below: %(protocol)s://"
+"%(domain)s"
+msgstr ""
+"Restablecimiento de contraseña para correo electrónico %(email)s. Por favor "
+"siga el siguiente link : %(protocol)s://%(domain)s"
+
+#: muss/templates/muss/signup.html:12
+msgid "Sign up"
+msgstr "Regístrate"
+
+#: muss/templates/muss/signup.html:13
+msgid "Create a free account."
+msgstr "Crea una cuenta nueva"
+
+#: muss/templates/muss/signup.html:61
+msgid ""
+"By clicking Create my account, you agree to our Terms and that you have read "
+"our Data Use Policy, including our Cookie Use."
+msgstr ""
+"Al hacer click en Crear mi cuenta, acepta nuestros Términos y ha leído "
+"nuestra política de uso de datos, incluyendo nuestro uso de cookies"
+
+#: muss/templates/muss/signup.html:64
+msgid "Create my account"
+msgstr "Crear mi cuenta"
+
+#: muss/utils.py:179 muss/utils.py:181 muss/utils.py:185
+msgid "ago"
+msgstr "hace"
+
+#: muss/utils.py:185
+msgid "days ago"
+msgstr "días"
+
+#: muss/utils.py:256
+#, python-format
+msgid ""
+"Thank you for joining to %(site)s please enter to confirm your email to this "
+"address:"
+msgstr ""
+"Gracias por unirte a %(site)s por favor ingrese para confirmar su correo "
+"electrónico a esta dirección:"
+
+#: muss/utils.py:263
+msgid "Welcome to "
+msgstr "Bienvenido a "
+
+#: muss/utils.py:284
+#, python-format
+msgid "New comment in %(site)s"
+msgstr "Nuevo comentario en %(site)s"
+
+#: muss/utils.py:288
+#, python-format
+msgid "You have one new comment in the topic: %(site)s"
+msgstr "Usted tiene un nuevo comentario en el tema: %(site)s"
+
+#: muss/utils.py:315
+#, python-format
+msgid "New topic in %(site)s "
+msgstr "Nuevo tema en %(site)s"
+
+#: muss/utils.py:316
+#, python-format
+msgid "You have one new topic to moderate: %(site)s"
+msgstr "Usted tiene un nuevo tema para moderar: %(site)s"
+
+#: muss/validators.py:18
+msgid "Files allowed"
+msgstr "Archivos permitidos"
+
+#: muss/views.py:60
+msgid "The user is not active"
+msgstr "El usuario no está activo"
+
+#: muss/views.py:105
+msgid ""
+"Registration was successful. Please, check your email to validate the "
+"account."
+msgstr ""
+"El registro fue exitoso. Por favor, revise su correo electrónico para "
+"validar la cuenta."
+
+#: muss/views.py:111
+msgid "Invalid form"
+msgstr "Formulario invalido"
+
+#: muss/views.py:186
+msgid "Please, check your email"
+msgstr "Por favor, revise su correo electrónico"
+
+#~ msgid "Topics count"
+#~ msgstr "Total de temas"
+
+#~ msgid "Position"
+#~ msgstr "Posición"
+
+#~ msgid "You have no notifications"
+#~ msgstr "No tiene notificaciones"
+
+#~ msgid "Notifications"
+#~ msgstr "Notificaciones"
+
+#~ msgid "Your browser does not support JavaScript."
+#~ msgstr "Tu navegador no soporta JavaScript."
+
+#~ msgid "Some features may not work correctly."
+#~ msgstr "Algunas funcionalidades pueden no funcionar correctamente."
+
+#~ msgid "Edit profile"
+#~ msgstr "Editar perfil"
+
+#~ msgid "Save"
+#~ msgstr "Grabar"
+
+#~ msgid "Edit topic"
+#~ msgstr "Editar tema"
+
+#~ msgid "Attachment"
+#~ msgstr "Adjunto"
+
+#~ msgid "This topic is closed"
+#~ msgstr "El tema está cerrado"
+
+#~ msgid "Views"
+#~ msgstr "Vistas"
+
+#~ msgid "By"
+#~ msgstr "Por"
+
+#~ msgid "The forum "
+#~ msgstr "El foro"
+
+#~ msgid "is pending moderation"
+#~ msgstr "se encuentra pendiente de moderación"
+
+#~ msgid "New topic"
+#~ msgstr "Nuevo tema"
+
+#~ msgid "Unregister"
+#~ msgstr "Anular registro"
+
+#~ msgid "Join to forum"
+#~ msgstr "Unirse al foro"
+
+#~ msgid "Find Topics"
+#~ msgstr "Buscar temas"
+
+#~ msgid "Created"
+#~ msgstr "Creado"
+
+#~ msgid "This forum has"
+#~ msgstr "El foro tiene"
+
+#~ msgid "views"
+#~ msgstr "vistas"
+
+#~ msgid "view"
+#~ msgstr "vista"
+
+#~ msgid "Forum members"
+#~ msgstr "Miembros del foro"
+
+#~ msgid "Missing for moderate"
+#~ msgstr "Sin moderar"
+
+#~ msgid "Users"
+#~ msgstr "Usuarios"
+
+#~ msgid "Add"
+#~ msgstr "Agregar"
+
+#~ msgid "created the topic:"
+#~ msgstr "creó el tema:"
+
+#~ msgid "commented on:"
+#~ msgstr "comentó en:"
+
+#~ msgid "Now"
+#~ msgstr "Ahora"
+
+#~ msgid "All"
+#~ msgstr "Todo"
+
+#~ msgid "Logout"
+#~ msgstr "Cerrar sesión"
+
+#~ msgid "It is a troll"
+#~ msgstr "Es un troll"
+
+#~ msgid "It is not a troll"
+#~ msgstr "No es un troll"
+
+#~ msgid "Joined"
+#~ msgstr "Registrado"
+
+#~ msgid "Last Seen"
+#~ msgstr "Última conexión"
+
+#~ msgid "a while ago"
+#~ msgstr "hace un tiempo"
+
+#~ msgid "Edit"
+#~ msgstr "Editar"
+
+#~ msgid "Remove"
+#~ msgstr "Eliminar"
+
+#~ msgid "Edit comment"
+#~ msgstr "Editar comentario"
+
+#~ msgid "Remove comment"
+#~ msgstr "Eliminar comentario"
+
+#~ msgid "Do you want remove this comment?"
+#~ msgstr "¿Desea eliminar el comentario?"
+
+#~ msgid "This topic has"
+#~ msgstr "El tema tiene"
+
+#~ msgid "Delete"
+#~ msgstr "Eliminar"
+
+#~ msgid "Share"
+#~ msgstr "Compartir"
+
+#~ msgid "Close topic"
+#~ msgstr "Cerrar tema"
+
+#~ msgid "Open topic"
+#~ msgstr "Abrir tema"
+
+#~ msgid "minutes"
+#~ msgstr "minutos"
+
+#~ msgid "New comment"
+#~ msgstr "Nuevo comentario"
+
+#~ msgid "Delete topic"
+#~ msgstr "Eliminar tema"
+
+#~ msgid "Do you want to remove the topic?"
+#~ msgstr "¿Desea eliminar el tema?"
+
+#~ msgid "Share topic"
+#~ msgstr "Compartir tema"
+
+#~ msgid "Suggested Topics"
+#~ msgstr "Temas sugeridos"
+
+#~ msgid "No results"
+#~ msgstr "No hay resultados"
+
+#~ msgid "Moderator"
+#~ msgstr "Moderador"
+
+#~ msgid "No registered users"
+#~ msgstr "No hay usuarios registrados"
+
+#~ msgid "The topic '%(topic)s' was successfully created"
+#~ msgstr "El tema '%(topic)s' se creó correctamente"
+
+#~ msgid "The topic '%(topic)s' was successfully edited"
+#~ msgstr "El tema '%(topic)s' se editó correctamente"
+
+#~ msgid "The topic '%(topic)s' was successfully deleted"
+#~ msgstr "El tema '%(topic)s' se eliminó correctamente"
+
+#~ msgid "Added new comment"
+#~ msgstr "Nuevo comentario añadido"
+
+#~ msgid "Field required"
+#~ msgstr "Campo requerido"
+
+#~ msgid "Comment edited"
+#~ msgstr "Comentario editado"
+
+#~ msgid "Comment deleted"
+#~ msgstr "Comentario eliminado"
+
+#~ msgid "You have successfully registered"
+#~ msgstr "Se ha registrado exitosamente"
+
+#~ msgid "Registration was successfully canceled"
+#~ msgstr "El registro se canceló correctamente"
+
+#~ msgid "Your profile was successfully edited"
+#~ msgstr "Su perfil se editó correctamente"
+
+#~ msgid "company"
+#~ msgstr "Empresa"

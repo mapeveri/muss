@@ -1,0 +1,7 @@
+psycopg2
+Django==1.11.4
+channels==1.1.6
+asgi-redis==1.4.2
+djangorestframework
+djangorestframework-jsonapi==2.2.0
+django-cors-headers==2.1.0

@@ -1,0 +1,46 @@
+{{yield}}
+
+<table class="ui very basic celled table">
+	<thead>
+		<tr>
+			<th><h4>{{gettext "Forums"}}</h4></th>
+			<th><h4>{{gettext "Total topics"}}</h4></th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each model as |record|}}
+			{{#if record.isHeader}}
+				<tr>
+					<td>
+						<h5>{{ record.name }}</h5>
+						{{ record.description }}
+					</td>
+					<td></td>
+				</tr>
+			{{else}}
+				<tr>
+					<td>
+						<h4 class="ui image header">
+							<i class="comments icon"></i>
+							<div class="content">
+								{{#link-to "forum" record.pk record.slug class="header"}}{{ record.name }}{{/link-to}}
+								<div class="sub header">
+									<p>{{ record.description }}</p>
+								</div>
+							</div>
+						</h4>
+					</td>
+					<td>
+						{{ record.topicsCount }}
+					</td>
+				</tr>
+			{{/if}}
+		{{else}}
+			<p>{{gettext "Please, you add forums and categories in the administrator." }}</p>
+		{{/each}}
+	</tbody>
+</table>
+
+{{#if model}}
+    {{infinite-scroll model=model api="category"}}
+{{/if}}

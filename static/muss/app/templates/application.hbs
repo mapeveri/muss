@@ -1,0 +1,25 @@
+<div class="ui mini menu">
+  <a href="/" class="active item">
+    muss {{gettext "Forum" }}
+  </a>
+  <a class="item">
+    {{gettext "Forums" }}
+  </a>
+  <div class="right menu">
+    <div class="ui dropdown item">
+      Language <i class="dropdown icon"></i>
+      <div class="menu">
+        <a class="item">{{gettext "English" }}</a>
+        <a class="item">{{gettext "Italian" }}</a>
+        <a class="item">{{gettext "Spanish" }}</a>
+      </div>
+    </div>
+    <div class="item">
+        <div class="ui primary button">{{gettext "Log out" }}</div>
+    </div>
+  </div>
+</div>
+
+<div class="ui container">
+{{outlet}}
+</div>

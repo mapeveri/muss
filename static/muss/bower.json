@@ -1,0 +1,6 @@
+{
+  "name": "muss",
+  "dependencies": {
+    "semantic-ui": "^2.2.13"
+  }
+}

@@ -1,0 +1,55 @@
+{{yield}}
+
+<h1><a href="{{ currentUrl }}">{{ model.forum.name }}</a></h1>
+<p>{{ model.forum.description }}</p>
+
+<div class="ui right floated small  button">
+    {{gettext "Register"}}
+  </div>
+  <div class="ui right floated small  button">
+    {{gettext "Unregister"}}
+  </div>
+  <div class="ui small primary labeled icon button">
+    <i class="plus icon"></i> {{gettext "Add topic"}}
+</div>
+
+<table class="ui very basic celled table">
+    <thead>
+        <tr>
+            <th>{{gettext "Topic" }}</th>
+            <th>{{gettext "Answers"}}</th>
+            <th>{{gettext "Visits"}}</th>
+            <th>{{gettext "Last Activity"}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each model.topics as |topic|}}
+        <tr>
+            <td>
+                <h4 class="ui image header">
+                    <img src="{{ topic.userPhoto }}" class="ui mini rounded image">
+                    <div class="content">
+                        {{ topic.title}} {{#if topic.isTop}} <i class="pin icon"></i> {{/if}}
+                        <div class="sub header">{{ topic.date }}</div>
+                    </div>
+                </h4>
+            </td>
+            <td>
+                <b>{{ topic.totalComments }}</b>
+            </td>
+            <td>
+            </td>
+            <td>
+                {{ topic.lastActivity}}
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{#if model.topics}}
+    {{infinite-scroll model=model submodel="topics" api="topic"}}
+{{else}}
+    <br />
+    <b>{{gettext "The forum does not contain topics."}}</b>
+{{/if}}
