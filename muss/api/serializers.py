@@ -26,6 +26,33 @@ class CategorySerializer(serializers.ModelSerializer):
 
 # Serializers Forum
 class ForumSerializer(serializers.ModelSerializer):
+    childs_forums = serializers.SerializerMethodField()
+    parent_forums = serializers.SerializerMethodField()
+
+    def get_childs_forums(self, obj):
+        """
+        Get forums childs of forum
+        """
+        forums = []
+        for forum in obj.parents.all():
+            forums.append({
+                'pk': forum.pk, 'slug': forum.slug,
+                'name': forum.name
+            })
+        return forums
+
+    def get_parent_forums(self, obj):
+        """
+        Get forums parent of forum
+        """
+        forums = []
+        if obj:
+            if not(obj.parent is None):
+                forums.append({
+                    'pk': obj.parent.pk, 'slug': obj.parent.slug,
+                    'name': obj.parent.name
+                })
+        return forums
 
     class Meta:
         model = models.Forum
@@ -45,9 +72,15 @@ class TopicSerializer(serializers.ModelSerializer):
         return models.Comment.objects.filter(topic__pk=obj.pk).count()
 
     def get_user_photo(self, obj):
+        """
+        Get photo profile topic user
+        """
         return utils.get_photo_profile(obj.user)
 
     def get_username(self, obj):
+        """
+        Get username of topic user
+        """
         return obj.user.username
 
     class Meta:
@@ -57,7 +90,7 @@ class TopicSerializer(serializers.ModelSerializer):
 
 # Serializers register
 class RegisterSerializer(serializers.ModelSerializer):
-    
+
     def __init__(self, *args, **kwargs):
         super(RegisterSerializer, self).__init__(*args, **kwargs)
         user = self.context['request'].user
@@ -99,9 +132,15 @@ class CommentSerializer(serializers.ModelSerializer):
             )
 
     def get_username(self, obj):
+        """
+        Get username comment user
+        """
         return obj.user.username
 
     def get_user_photo(self, obj):
+        """
+        Get photo profile comment user
+        """
         return utils.get_photo_profile(obj.user)
 
     class Meta:

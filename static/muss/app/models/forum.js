@@ -2,8 +2,11 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
     name: DS.attr('string'),
+    slug: DS.attr('string'),
     category: DS.belongsTo('category'),
     parent: DS.belongsTo('forum'),
+    parentForums: DS.attr(),
+    childsForums: DS.attr(),
     //moderators: DS.belongsTo('user'),
     description: DS.attr('string'),
     date: DS.attr('date'),

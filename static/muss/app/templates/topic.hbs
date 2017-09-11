@@ -1,3 +1,11 @@
+<div class="ui breadcrumb">
+  {{#link-to 'index' class="section"}}{{gettext "Forums" }}{{/link-to}}
+  <i class="right chevron icon divider"></i>
+  {{#link-to 'forum' model.topic.forum.id model.topic.forum.slug class="section"}}{{ model.topic.forum.name }}{{/link-to}}
+  <i class="right arrow icon divider"></i>
+  <div class="active section">{{ model.topic.title }}</div>
+</div>
+
 {{topic-header topic=model.topic}}
 
 <div style="margin-top: 8em">

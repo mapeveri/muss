@@ -1,3 +1,31 @@
+<div class="ui breadcrumb">
+    {{#link-to 'index' class="section"}}{{gettext "Forums" }}{{/link-to}}
+    <i class="right chevron icon divider"></i>
+
+    {{#if model.forum.parentForums}}
+        {{#each model.forum.parentForums as |forumParent|}}
+            {{#link-to 'forum' forumParent.pk forumParent.slug class="section"}}{{ forumParent.name}}{{/link-to}}
+            <i class="right chevron icon divider"></i>
+        {{/each}}
+    {{/if}}
+
+    {{#if model.forum.childsForums}}
+        <div class="ui compact menu" style="height: 2em; min-height: 0">
+            <div class="ui simple dropdown item">
+                {{ model.forum.name }}
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    {{#each model.forum.childsForums as |forum|}}
+                        <div class="item">{{#link-to 'forum' forum.pk forum.slug}}{{ forum.name }}{{/link-to}}</div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    {{else}}
+        <div class="active section">{{ model.forum.name }}</div>
+    {{/if}}
+</div>
+
 {{forum-topics model=model}}
 
 {{outlet}}
