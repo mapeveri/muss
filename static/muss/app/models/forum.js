@@ -5,7 +5,7 @@ export default DS.Model.extend({
     slug: DS.attr('string'),
     category: DS.belongsTo('category'),
     parent: DS.belongsTo('forum'),
-    parentForums: DS.attr(),
+    parentsForums: DS.attr(),
     childsForums: DS.attr(),
     //moderators: DS.belongsTo('user'),
     description: DS.attr('string'),

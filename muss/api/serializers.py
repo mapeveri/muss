@@ -27,7 +27,7 @@ class CategorySerializer(serializers.ModelSerializer):
 # Serializers Forum
 class ForumSerializer(serializers.ModelSerializer):
     childs_forums = serializers.SerializerMethodField()
-    parent_forums = serializers.SerializerMethodField()
+    parents_forums = serializers.SerializerMethodField()
 
     def get_childs_forums(self, obj):
         """
@@ -41,17 +41,33 @@ class ForumSerializer(serializers.ModelSerializer):
             })
         return forums
 
-    def get_parent_forums(self, obj):
+    def get_parents_forums(self, obj):
         """
         Get forums parent of forum
         """
         forums = []
         if obj:
             if not(obj.parent is None):
-                forums.append({
-                    'pk': obj.parent.pk, 'slug': obj.parent.slug,
-                    'name': obj.parent.name
-                })
+                parents = models.Forum.objects.raw("""
+                    with recursive forums_parents as (
+                        select id, parent_id, name, slug
+                            from muss_forum
+                            where id = """ + str(obj.pk) + """
+                        union all
+                        select f.id, f.parent_id, f.name, f.slug
+                            from muss_forum f
+                            join forums_parents p on p.parent_id = f.id
+                        )
+                        select * from forums_parents
+                        WHERE id <> """ + str(obj.pk) + """
+                        ORDER BY id;"""
+                    )
+
+                for forum in parents:
+                    forums.append({
+                        'pk': forum.pk, 'slug': forum.slug,
+                        'name': forum.name
+                    })
         return forums
 
     class Meta:

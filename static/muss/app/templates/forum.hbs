@@ -2,8 +2,8 @@
     {{#link-to 'index' class="section"}}{{gettext "Forums" }}{{/link-to}}
     <i class="right chevron icon divider"></i>
 
-    {{#if model.forum.parentForums}}
-        {{#each model.forum.parentForums as |forumParent|}}
+    {{#if model.forum.parentsForums}}
+        {{#each model.forum.parentsForums as |forumParent|}}
             {{#link-to 'forum' forumParent.pk forumParent.slug class="section"}}{{ forumParent.name}}{{/link-to}}
             <i class="right chevron icon divider"></i>
         {{/each}}
