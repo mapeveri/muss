@@ -9,7 +9,7 @@ urlpatterns = [
     # Url for django-rest-framework
     url(r'^api/', include(router.urls)),
     # Url's muss
-    url(r'^(?:.*)/?$', views.IndexView.as_view(), name='index'),
+    url(r'^feed/(?P<pk>\d+)/(?P<forum>.+)/$', TopicFeed(), name='rss'),
     url(r'^login/', views.LoginView.as_view(), name='login'),
     url(r'^logout/', views.LogoutView.as_view(), name='logout'),
     url(r'^join/', views.SignUpView.as_view(), name='signup'),
@@ -24,5 +24,5 @@ urlpatterns = [
     ),
     url(r'^reset/done/$', views.reset_done_pass,
         name='password_reset_complete'),
-    url(r'^feed/(?P<category>.+)/(?P<forum>.+)/$', TopicFeed(), name='rss'),
+    url(r'^(?:.*)/?$', views.IndexView.as_view(), name='index'),
 ]

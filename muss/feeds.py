@@ -1,8 +1,9 @@
+from django.conf import settings
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 
-from .models import Category, Forum, Topic
+from .models import Forum, Topic
 
 
 class TopicFeed(Feed):
@@ -18,24 +19,23 @@ class TopicFeed(Feed):
     description = 'Feed for forums'
 
     def get_object(self, request, *args, **kwargs):
-        category = get_object_or_404(Category, name=kwargs['category'])
         forum = get_object_or_404(
-            Forum, category__name=category, name=kwargs['forum']
+            Forum, pk=kwargs['pk'], slug=kwargs['forum']
         )
         return forum
 
     def items(self, forum):
         # Get forum
-        return Topic.objects.filter(forum_id=forum.pk)
+        return Topic.objects.filter(forum=forum)
 
     def item_link(self, item):
-        return reverse("topic", args=[
-            item.forum.category.name, item.forum.name, item.slug, item.pk
-        ])
+        pk = str(item.forum.pk)
+        slug = item.slug
+        return settings.SITE_URL + "/" + pk + "/" + slug
 
     def link(self, forum):
         return reverse('rss', args=[
-            forum.category.name, forum.name
+            forum.pk, forum.slug
         ])
 
     def item_title(self, item):

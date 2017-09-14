@@ -3,9 +3,15 @@
 <h1><a href="{{ currentUrl }}">{{ model.forum.name }}</a></h1>
 <p>{{ model.forum.description }}</p>
 
+<div class="ui right floated small icon button">
+    <a href="{{ rssUrl }}{{ model.forum.id }}/{{ model.forum.slug }}/" target="_blank"><div class="column"><i class="rss icon"></i>Rss</div></a>
+</div>
+
 <div class="ui right floated small primary labeled icon button">
     <i class="plus icon"></i> {{gettext "Add topic"}}
 </div>
+
+
 <div class="ui small button">
     {{gettext "Register"}}
 </div>
