@@ -536,8 +536,8 @@ class Configuration(models.Model):
         :param logo_width: Width logo forum.
         :param logo_height: Height logo forum.
         :param custom_css: Personalization css of the forum.
-        :description: Description main forum site.
-        :keyword: Keywords words if the site for the SEO.
+        :description: Description site.
+        :keyword: Keywords for the SEO.
     """
     def generate_path_configuration(instance, filename):
         """
@@ -565,8 +565,14 @@ class Configuration(models.Model):
     custom_css = models.TextField(
         _("Custom design"), null=True, blank=True
     )
-    description = models.TextField(_('Description'), blank=True)
-    keywords = models.TextField(_('Keywords'), blank=True)
+    description = models.TextField(
+        _('Description'), blank=True,
+        help_text=_("Description site.")
+    )
+    keywords = models.TextField(
+        _('Keywords'), blank=True,
+        help_text=_("Keywords for the SEO.")
+    )
 
     class Meta(object):
         verbose_name = _('Configuration')

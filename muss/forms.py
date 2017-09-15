@@ -191,7 +191,7 @@ class FormAdminConfiguration(forms.ModelForm):
     - **parameters**:
         :param name_file_custom: Custom css file for the configuration.
     """
-    name_file_custom = finders.find('muss/css/custom.css')
+    name_file_custom = finders.find('css/custom.css')
 
     class Meta:
         model = models.Configuration
