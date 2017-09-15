@@ -14,7 +14,7 @@ class TextareaWidget(forms.Textarea):
     class Media:
         # tiny_mce
         js = ('//cdn.tinymce.com/4/tinymce.min.js',
-              static('muss/js/textareas.js'))
+              static('js/textareas.js'))
 
 
 class CustomClearableFileInput(ClearableFileInput):
