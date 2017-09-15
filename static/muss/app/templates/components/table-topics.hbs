@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th>{{gettext title }}</th>
+            <th>{{gettext "Date" }}</th>
         </tr>
     </thead>
     <tbody>
@@ -11,9 +12,12 @@
                 <h4 class="ui image header">
                 <img src="{{ topic.userPhoto }}" class="ui mini rounded image">
                 <div class="content">
-                    {{ topic.title }}
+                    {{#link-to 'topic' topic.id topic.slug invokeAction='goTop' }} {{ topic.title }} {{/link-to}}
                 </div>
                 </h4>
+            </td>
+            <td>
+                {{ topic.date }}
             </td>
         </tr>
         {{/each}}
