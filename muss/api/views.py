@@ -288,3 +288,29 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
 class MessageForumViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.MessageForum.objects.all()
     serializer_class = serializers.MessageForumSerializer
+
+
+# ViewSets for HitcountTopic
+class HitcountTopicViewSet(viewsets.ModelViewSet):
+    queryset = models.HitcountTopic.objects.all()
+    serializer_class = serializers.HitcountTopicSerializer
+    http_method_names = ['get', 'post']
+
+    def create(self, request):
+        if request.session.session_key is None:
+            request.session.save()
+
+        topic_id = request.data['topic']
+        session = request.session.session_key
+        ip = request.META['REMOTE_ADDR']
+
+        topic = get_object_or_404(models.Topic, pk=topic_id)
+
+        hit = models.HitcountTopic.objects.filter(topic=topic, session=session)
+        if not hit.exists():
+            models.HitcountTopic.objects.create(
+                topic=topic, ip=ip, session=session
+            )
+
+        count = models.HitcountTopic.objects.filter(topic=topic).count()
+        return Response({"success": True, "total": count})

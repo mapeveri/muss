@@ -527,7 +527,7 @@ class Profile(models.Model):
 
 class Configuration(models.Model):
     """
-    Model configuration mussete like logo and class css.
+    Model configuration muss like logo and class css.
 
     - **parameters**:
         :param site: Site relation.
@@ -580,3 +580,19 @@ class Configuration(models.Model):
 
     def __str__(self):
         return str(self.site)
+
+
+class HitcountTopic(models.Model):
+    """
+    Model for hit count topic.
+
+    - **parameters**:
+        :param topic: Topic relation.
+        :param ip: Ip user view.
+        :param session: Session user view.
+        :param created: Created hit count.
+    """
+    topic = models.ForeignKey(Topic, related_name='topichitcount')
+    ip = models.CharField(max_length=40)
+    session = models.CharField(max_length=40)
+    created = models.DateTimeField(auto_now_add=True)

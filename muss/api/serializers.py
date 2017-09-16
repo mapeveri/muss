@@ -178,3 +178,11 @@ class MessageForumSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.MessageForum
         fields = '__all__'
+
+
+# Serializers HitcountTopic
+class HitcountTopicSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.HitcountTopic
+        fields = '__all__'

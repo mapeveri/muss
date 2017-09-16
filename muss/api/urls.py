@@ -20,3 +20,5 @@ router.register(r'comments', views.CommentViewSet)
 router.register(r'profiles', views.ProfileViewSet)
 # Get message forum
 router.register(r'messages-forums', views.MessageForumViewSet)
+# Hitcount topic
+router.register(r'hitcounts', views.HitcountTopicViewSet)

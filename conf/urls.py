@@ -28,9 +28,12 @@ if settings.DEBUG:
 
 urlpatterns += [
     url(r'^admin/', admin.site.urls),
+    # I18n
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^jsi18n/$', JavaScriptCatalog.as_view(
         packages=['muss'], domain="django"), name='javascript-catalog'),
+    # Api app
     url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
+    # App
     url(r'^', include('muss.urls')),
 ]
