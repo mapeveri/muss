@@ -7,6 +7,7 @@ export default Ember.Component.extend({
     api: '',
     page: 2,
     store: Ember.inject.service(),
+
     didInsertElement() {
         let self = this;
         let query = null;
@@ -29,9 +30,8 @@ export default Ember.Component.extend({
                 if(self.isLoading) {
                     if(self.page <= pages) {
                         query['page'] = self.page;
+                        self.page = self.page + 1;
                         self.get('store').query(self.api, query).then(function(data) {
-                            self.page = self.page + 1;
-
                             if(self.submodel != null) {
                                 self.model[self.submodel].addObjects(data.get("content"));
                             } else {

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-15 19:18-0300\n"
+"POT-Creation-Date: 2017-09-16 12:22-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -432,6 +432,10 @@ msgstr ""
 
 #: muss/templates/muss/index.html:22
 msgid "Add Reply"
+msgstr ""
+
+#: muss/templates/muss/index.html:23
+msgid "Views"
 msgstr ""
 
 #: muss/templates/muss/login.html:41

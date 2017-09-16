@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-15 19:18-0300\n"
+"POT-Creation-Date: 2017-09-16 12:22-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -433,6 +433,10 @@ msgstr "Responder"
 msgid "Add Reply"
 msgstr "Responder"
 
+#: muss/templates/muss/index.html:23
+msgid "Views"
+msgstr "Vistas"
+
 #: muss/templates/muss/login.html:41
 msgid "Forgot password?"
 msgstr "¿Olvidó la contraseña?"
@@ -639,9 +643,6 @@ msgstr "Por favor, revise su correo electrónico"
 
 #~ msgid "This topic is closed"
 #~ msgstr "El tema está cerrado"
-
-#~ msgid "Views"
-#~ msgstr "Vistas"
 
 #~ msgid "By"
 #~ msgstr "Por"
