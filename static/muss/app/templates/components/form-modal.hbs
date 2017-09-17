@@ -1,0 +1,16 @@
+<div class="ui primary button" {{action "showForm" }}>{{gettext title }}</div>
+
+<div class="ui tiny {{ id }} modal">
+    <i class="close icon"></i>
+    <div class="header">
+    {{gettext title}}
+    </div>
+    <div class="image content">
+        {{yield}}
+    </div>
+    <div class="actions">
+        <div class="ui positive right button" {{ action "action"}}>
+            {{gettext title_action}}
+        </div>
+    </div>
+</div>

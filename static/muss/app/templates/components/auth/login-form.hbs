@@ -1,0 +1,16 @@
+{{yield}}
+
+{{#form-modal title="Login" title_action="Login" id="login-form" action=(action "authentication")}}
+<form class="ui form" id="login-form">
+    <div class="field">
+        <label>{{gettext "Email or username" }}</label>
+        <input type="text" name="email-username">
+    </div>
+    <div class="field">
+        <label>{{gettext "Password" }}</label>
+        <input type="password" name="password">
+    </div>
+</form>
+{{/form-modal}}
+
+

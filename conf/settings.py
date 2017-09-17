@@ -158,6 +158,8 @@ CHANNEL_LAYERS = {
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
+APPEND_SLASH = True
+
 # Render for production
 RENDERER_DRF = ('rest_framework_json_api.renderers.JSONRenderer',)
 if DEBUG:

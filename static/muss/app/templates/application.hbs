@@ -1,12 +1,15 @@
 <div class="ui mini menu">
-  {{logo-app}}
-  <div class="right menu">
-    <div class="item">
-        <div class="ui primary button">{{gettext "Log out" }}</div>
+    {{logo-app}}
+    <div class="right menu">
+        <div class="item">
+            {{auth/login-form}}
+        </div>
+        <div class="item">
+            {{auth/signup-form}}
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="ui container">
-{{outlet}}
+    {{outlet}}
 </div>

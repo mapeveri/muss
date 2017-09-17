@@ -1,0 +1,36 @@
+{{yield}}
+
+{{#form-modal title="Signup" title_action="Create" id="signup-form" action=(action "signup")}}
+<form class="ui form" id="signup-form">
+    <div class="field">
+        <label>{{gettext "First name" }}</label>
+        <input type="text" name="firstname">
+    </div>
+    <div class="field">
+        <label>{{gettext "Last name" }}</label>
+        <input type="text" name="lastname">
+    </div>
+    <div class="field">
+        <label>{{gettext "Username" }}</label>
+        <input type="text" name="username">
+    </div>
+    <div class="field">
+        <label>{{gettext "Email" }}</label>
+        <input type="email" name="email">
+    </div>
+    <div class="field">
+        <label>{{gettext "Password" }}</label>
+        <input type="password" name="password">
+    </div>
+    <div class="field">
+        <label>{{gettext "Repeat password" }}</label>
+        <input type="password" name="repeat_password">
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+        <input type="checkbox" tabindex="0" class="hidden">
+        <label>{{gettext "I agree to the Terms and Conditions"}}</label>
+        </div>
+    </div>
+</form>
+{{/form-modal}}
