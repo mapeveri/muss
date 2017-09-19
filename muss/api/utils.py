@@ -1,4 +1,5 @@
 from muss import models
+from muss.api.serializers import UserSerializer
 
 
 def get_categories_forums():
@@ -49,3 +50,13 @@ def get_categories_forums():
         id_json_api = id_json_api + 1
 
     return queryset
+
+
+def jwt_response_payload_handler(token, user=None, request=None):
+    """
+    Override payload jwt
+    """
+    return {
+        'token': token,
+        'user': UserSerializer(user, context={'request': request}).data
+    }

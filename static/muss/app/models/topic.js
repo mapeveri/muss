@@ -16,6 +16,7 @@ export default DS.Model.extend({
     isModerate: DS.attr('boolean'),
     isTop: DS.attr('boolean'),
     totalLikes: DS.attr('number'),
+    views: DS.attr('number'),
     totalComments: DS.attr('number'),
     topics: DS.hasMany('comment'),
 });

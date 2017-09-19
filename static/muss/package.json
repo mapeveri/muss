@@ -34,6 +34,7 @@
     "ember-link-action": "0.0.36",
     "ember-load-initializers": "^1.0.0",
     "ember-resolver": "^4.0.0",
+    "ember-simple-auth": "^1.4.0",
     "ember-source": "~2.14.1",
     "ember-welcome-page": "^3.0.0",
     "loader.js": "^4.2.3",

@@ -1,5 +1,7 @@
 from django.conf.urls import include, url
 
+from rest_framework_jwt import views as jwt_views
+
 from muss import views
 from muss.feeds import TopicFeed
 from muss.api.urls import router
@@ -8,6 +10,10 @@ from muss.api.urls import router
 urlpatterns = [
     # Url for django-rest-framework
     url(r'^api/', include(router.urls)),
+    # Authentication routes
+    url(r'^api/token-auth/', jwt_views.obtain_jwt_token),
+    url(r'^api/token-refresh/', jwt_views.refresh_jwt_token),
+    url(r'^api/verify-token/', jwt_views.verify_jwt_token),
     # Url's muss
     url(r'^feed/(?P<pk>\d+)/(?P<forum>.+)/$', TopicFeed(), name='rss'),
     # For ember-app

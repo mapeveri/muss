@@ -1,12 +1,25 @@
 <div class="ui mini menu">
     {{logo-app}}
     <div class="right menu">
+        {{#if session.isAuthenticated}}
+            <div class="item">
+                <div class="ui inline dropdown">
+                    <div class="text">
+                        {{ session.data.authenticated.user.username }}
+                        <img class="ui avatar image" src="{{ session.data.authenticated.user.user_photo }}">
+                    </div>
+                    <a {{action 'invalidateSession'}} style="cursor: pointer">{{ gettext "Logout" }}</a>
+                </div>
+            </div>
+        {{else}}
         <div class="item">
             {{auth/login-form}}
         </div>
         <div class="item">
             {{auth/signup-form}}
         </div>
+
+        {{/if}}
     </div>
 </div>
 

@@ -7,9 +7,10 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-    this.route('index', { path: '/' });
-    this.route('forum', { path: '/forum/:pk/:slug' });
-    this.route('topic', { path: '/topic/:pk/:slug' });
+  this.route('index', { path: '/' });
+  this.route('forum', { path: '/forum/:pk/:slug' });
+  this.route('topic', { path: '/topic/:pk/:slug' });
+  this.route('logout');
 });
 
 export default Router;

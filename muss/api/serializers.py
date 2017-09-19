@@ -7,12 +7,19 @@ from muss import models, utils
 
 # Serializers Users
 class UserSerializer(serializers.ModelSerializer):
+    user_photo = serializers.SerializerMethodField()
+
+    def get_user_photo(self, obj):
+        """
+        Get photo profile topic user
+        """
+        return utils.get_photo_profile(obj)
 
     class Meta:
         model = get_user_model()
         fields = (
             'username', 'is_superuser', 'first_name', 'last_name',
-            'email', 'is_staff', 'is_active', 'date_joined'
+            'email', 'is_staff', 'is_active', 'date_joined', 'user_photo'
         )
 
 
@@ -80,6 +87,7 @@ class TopicSerializer(serializers.ModelSerializer):
     total_comments = serializers.SerializerMethodField()
     user_photo = serializers.SerializerMethodField()
     username = serializers.SerializerMethodField()
+    views = serializers.SerializerMethodField()
 
     def get_total_comments(self, obj):
         """
@@ -98,6 +106,9 @@ class TopicSerializer(serializers.ModelSerializer):
         Get username of topic user
         """
         return obj.user.username
+
+    def get_views(self, obj):
+        return models.HitcountTopic.objects.filter(topic=obj).count()
 
     class Meta:
         model = models.Topic

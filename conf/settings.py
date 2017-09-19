@@ -179,6 +179,11 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.FormParser',
         'rest_framework.parsers.MultiPartParser'
     ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
     'DEFAULT_RENDERER_CLASSES': RENDERER_DRF,
     'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata',
     'DATETIME_FORMAT': DATETIME_INPUT_FORMATS[0],
@@ -187,3 +192,7 @@ REST_FRAMEWORK = {
 
 # Type keys api for ember-data models
 JSON_API_FORMAT_KEYS = 'dasherize'
+
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'muss.api.utils.jwt_response_payload_handler',
+}
