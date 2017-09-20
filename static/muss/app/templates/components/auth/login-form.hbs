@@ -3,14 +3,16 @@
 {{#form-modal title="Login" title_action="Login" id=id action=(action "authenticate")}}
 <form class="ui form" id={{id}}>
     {{#each errorMessage.errors.non_field_errors as |message|}}
-    <div class="ui red message">
-        <p> {{message}} </p>
-    </div>
+        <div class="ui red message">
+            <p> {{message}} </p>
+        </div>
     {{/each}}
+
     <div class="field">
-        <label>{{gettext "Email or username" }}</label>
+        <label>{{gettext "Username" }}</label>
         {{input value=user }}
     </div>
+
     <div class="field">
         <label>{{gettext "Password" }}</label>
         {{input value=password type='password'}}
