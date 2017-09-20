@@ -1,7 +1,7 @@
 {{yield}}
 
-{{#form-modal title="Login" title_action="Login" id=id action=(action "authenticate")}}
-<form class="ui form" id={{id}}>
+{{#form-modal title="Login" title_action="Login" initialize=(action "init") id=id action=(action "authenticate")}}
+<form class="ui form form100" id={{id}}>
     {{#each errorMessage.errors.non_field_errors as |message|}}
         <div class="ui red message">
             <p> {{message}} </p>

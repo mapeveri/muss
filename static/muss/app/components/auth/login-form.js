@@ -3,9 +3,18 @@ import { gettextHelper } from '../../helpers/gettext';
 
 export default Ember.Component.extend({
     id: 'login-form',
+    errorMessage: [],
     session: Ember.inject.service('session'),
-
     actions: {
+        /**
+        * @method: init
+        * @description: Initialize form
+        */
+        init() {
+            this.set('errorMessage', []);
+            this.set('user', '');
+            this.set('password', '');
+        },
         /**
         * @method: authenticate
         * @description: Login authentication

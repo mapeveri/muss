@@ -16,6 +16,8 @@ export default Ember.Component.extend({
                   return false;
                 }
               }).modal('show');
+              //Reset form
+              this.attrs['initialize'](...arguments);
         },
         /**
         * @method: action

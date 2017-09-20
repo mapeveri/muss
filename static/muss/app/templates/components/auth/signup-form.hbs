@@ -1,7 +1,7 @@
 {{yield}}
 
-{{#form-modal title="Signup" title_action="Create" id="signup-form" action=(action "signup")}}
-<form class="ui form" id="signup-form">
+{{#form-modal title="Signup" title_action="Create" initialize=(action "init") id="signup-form" action=(action "signup")}}
+<form class="ui form form100" id="signup-form">
     <div class="field">
         <label>{{gettext "First name" }}</label>
         <input type="text" name="firstname">
