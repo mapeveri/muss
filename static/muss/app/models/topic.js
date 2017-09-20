@@ -2,7 +2,6 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
     forum: DS.belongsTo('forum'),
-    //user: DS.belongsTo('user'),
     userPhoto: DS.attr('string'),
     username: DS.attr('string'),
     slug: DS.attr('string'),

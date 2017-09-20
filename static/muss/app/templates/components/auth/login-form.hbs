@@ -2,11 +2,11 @@
 
 {{#form-modal title="Login" title_action="Login" initialize=(action "init") id=id action=(action "authenticate")}}
 <form class="ui form form100" id={{id}}>
-    {{#each errorMessage.errors.non_field_errors as |message|}}
+    {{#if errorMessage}}
         <div class="ui red message">
-            <p> {{message}} </p>
+            <p> {{errorMessage}} </p>
         </div>
-    {{/each}}
+    {{/if}}
 
     <div class="field">
         <label>{{gettext "Username" }}</label>

@@ -3,7 +3,6 @@ import { gettextHelper } from '../../helpers/gettext';
 
 export default Ember.Component.extend({
     id: 'login-form',
-    errorMessage: [],
     session: Ember.inject.service('session'),
     actions: {
         /**
@@ -11,7 +10,7 @@ export default Ember.Component.extend({
         * @description: Initialize form
         */
         init() {
-            this.set('errorMessage', []);
+            this.set('errorMessage', '');
             this.set('user', '');
             this.set('password', '');
         },
@@ -23,13 +22,13 @@ export default Ember.Component.extend({
             let self = this;
             let { user, password } = this.getProperties('user', 'password');
 
-            if(Ember.isEmpty(user) || Ember.isEmpty(password)) {
-                this.set('errorMessage', {'errors': {'non_field_errors': [gettextHelper("Username or password incorrect.")]}});
+            if(!Ember.isPresent(user) || !Ember.isPresent(password)) {
+                this.set('errorMessage', gettextHelper("Username or password incorrect."));
             } else {
                 this.get('session').authenticate('authenticator:jwt', user, password).then(() => {
                     Ember.$('.tiny.'+self.id+'.modal').modal("hide");
                 }).catch((reason) => {
-                    this.set('errorMessage', reason.responseJSON);
+                    this.set('errorMessage', reason.responseJSON.errors.non_field_errors);
                 });
             }
         }

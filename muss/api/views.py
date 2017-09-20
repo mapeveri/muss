@@ -17,11 +17,27 @@ from muss.api.renderers import JSONRendererApiJson
 
 
 # ViewSets for user
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     User = get_user_model()
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
     lookup_field = 'username'
+    resource_name = 'users'
+
+    def perform_create(self, serializer):
+        request = self.request
+        # Save the record user
+        if serializer.is_valid():
+            serializer.save()
+        else:
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED
+        )
 
 
 # ViewSets for category

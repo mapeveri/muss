@@ -7,7 +7,6 @@ export default DS.Model.extend({
     parent: DS.belongsTo('forum'),
     parentsForums: DS.attr(),
     childsForums: DS.attr(),
-    //moderators: DS.belongsTo('user'),
     description: DS.attr('string'),
     date: DS.attr('date'),
     topicsCount: DS.attr('number'),
