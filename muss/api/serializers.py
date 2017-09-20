@@ -15,12 +15,21 @@ class UserSerializer(serializers.ModelSerializer):
         """
         return utils.get_photo_profile(obj)
 
+    def create(self, validated_data):
+        User = get_user_model()
+        user = User(
+            email=validated_data['email'],
+            username=validated_data['username']
+        )
+        user.is_active = False
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
+
     class Meta:
         model = get_user_model()
-        fields = (
-            'username', 'is_superuser', 'first_name', 'last_name',
-            'email', 'is_staff', 'is_active', 'date_joined', 'user_photo'
-        )
+        fields = '__all__'
+        extra_kwargs = {'password': {'write_only': True}}
 
 
 # Serializers Categories

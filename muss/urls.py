@@ -12,6 +12,10 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
     # Authentication routes jwt
     url(r'^api/token-auth/', jwt_views.obtain_jwt_token),
+    url(r'^confirm-email/$', views.ConfirmEmailView.as_view(),
+        name='confirm_email'),
+    url(r'^new_key_activation/', views.NewKeyActivationView.as_view(),
+        name='new_key_activation'),
     # Url's muss
     url(r'^feed/(?P<pk>\d+)/(?P<forum>.+)/$', TopicFeed(), name='rss'),
     # For ember-app

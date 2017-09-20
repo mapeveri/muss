@@ -259,7 +259,7 @@ def send_welcome_email(email, username, activation_key):
     ) % {
         'site': settings.SITE_NAME
     }
-    urlContent = "confirm_email/" + username + "/" + activation_key
+    urlContent = "/confirm-email/" + username + "/" + activation_key + "/"
     send_mail(
         _("Welcome to " + settings.SITE_NAME),
         _(content) + settings.SITE_URL + urlContent,

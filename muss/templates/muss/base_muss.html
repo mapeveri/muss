@@ -47,6 +47,8 @@
 </head>
 
 <body>
+    {% csrf_token %}
+    {% block content %}{% endblock %}
     {% if SETTINGS.DEBUG %}
     <script src="http://localhost:49153/livereload.js?snipver=1" type="text/javascript"></script>
     {% endif %}
@@ -67,6 +69,22 @@
             'logo_height': '45',
             {% endif %}
         }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    toastr.success("{{ message|safe }}");
+                {% else %}
+                    {% if message.tags == 'error' %}
+                        toastr.error("{{ message|safe }}");
+                    {% else %}
+                        toastr.info("{{ message|safe }}");
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        });
     </script>
 </body>
 </html>

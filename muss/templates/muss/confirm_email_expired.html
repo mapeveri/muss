@@ -1,36 +1,25 @@
-{% extends "muss/base_muss.html" %}
-
 {% load i18n %}
 
-{% block content %}
-<div class="confirm-background">
-    <br>
-    <div class="container" style="width: 50%;">
-        <div class="row">
-            {% if new_key %}
-                <div class="alert alert-info alert-dismissible" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  {% trans "Please, check your email." %}
-                </div>
-            {% endif %}
-            <div class="panel panel-danger">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">{% trans "The activation key has expired" %}</h3>
-                  </div>
-                  <div class="panel-body" style="min-height: 12em">
-                    <h4>{% trans "Confirmation email" %}</h4>
-                    <hr>
+<div class="ui container" >
+    <div class="ui cards">
+        <div class="card" style="width: 100%">
+            <div class="content">
+                <div class="header">
                     {% trans "The activation key has expired" %}
-                    <br>
-                    {% trans "Please click the following button to get a new activation key." %}
                 </div>
-                <div class="panel-footer">
-                    <form action="{% url 'new_key_activation' username %}" method="POST">{% csrf_token %}
-                    <input type="submit" class="btn btn-default btn-sm btn-block" value='{% trans "New activation key" %}' />
-                </div>
+                
+                <h4>{% trans "Confirmation email" %}</h4>
+                <div class="ui divider"></div>
+                {% trans "The activation key has expired" %}
+                <br>
+                {% trans "Please click the following button to get a new activation key." %}
+
+                <form action="{% url 'new_key_activation' %}" method="POST">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ token }}">
+                    <input type="hidden" name="username" value="{{ username }}" />
+                    <input type="submit" class="ui primary button" value='{% trans "New activation key" %}' />
+                </form>
             </div>
         </div>
     </div>
-    <br>
 </div>
-{% endblock %}

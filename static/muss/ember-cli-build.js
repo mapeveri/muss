@@ -22,6 +22,8 @@ module.exports = function(defaults) {
   // along with the exports of each module as its value.
 
   app.import("vendor/styles.css");
+  app.import("bower_components/toastr/toastr.min.css");
+  app.import("bower_components/toastr/toastr.min.js");
 
   return app.toTree();
 };
