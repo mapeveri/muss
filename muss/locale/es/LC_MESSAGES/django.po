@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-16 12:22-0300\n"
+"POT-Creation-Date: 2017-09-20 22:06-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,42 +53,6 @@ msgstr "Foro"
 msgid "Profile"
 msgstr "Perfil"
 
-#: muss/forms.py:24 muss/forms.py:91
-msgid "Username"
-msgstr "Usuario"
-
-#: muss/forms.py:53
-msgid "Username or password incorrect."
-msgstr "Usuario o contraseña incorrecta"
-
-#: muss/forms.py:93 muss/templates/muss/password_reset_form.html:21
-msgid "Email"
-msgstr "Correo electrónico"
-
-#: muss/forms.py:95
-msgid "Names"
-msgstr "Nombres"
-
-#: muss/forms.py:97
-msgid "Surname"
-msgstr "Apellido"
-
-#: muss/forms.py:99
-msgid "Password"
-msgstr "Contraseña"
-
-#: muss/forms.py:101
-msgid "Repeat password"
-msgstr "Repita la contraseña"
-
-#: muss/forms.py:109
-msgid "Passwords don't match"
-msgstr "Las contraseñas no coinciden"
-
-#: muss/forms.py:126
-msgid "Email addresses must be unique."
-msgstr "El correo electrónico debe ser único"
-
 #: muss/models.py:30 muss/models.py:69 muss/models.py:160 muss/models.py:243
 #: muss/models.py:350 muss/models.py:569
 msgid "Description"
@@ -118,7 +82,7 @@ msgstr "Nombre"
 msgid "Date"
 msgstr "Fecha"
 
-#: muss/models.py:79 muss/templates/muss/index.html:9
+#: muss/models.py:79 muss/templates/muss/index.html:7
 msgid "Total topics"
 msgstr "Temas totales"
 
@@ -138,7 +102,7 @@ msgstr "Chequear temas"
 msgid "If the forum is moderated"
 msgstr "Si el foro es moderado"
 
-#: muss/models.py:94 muss/templates/muss/index.html:10
+#: muss/models.py:94 muss/templates/muss/index.html:8
 msgid "Forums"
 msgstr "Foros"
 
@@ -214,7 +178,7 @@ msgstr "Arriba"
 msgid "If the topic is important and it will go top"
 msgstr "Si el tema es importante y va a ir arriba"
 
-#: muss/models.py:265 muss/models.py:340 muss/templates/muss/index.html:14
+#: muss/models.py:265 muss/models.py:340 muss/templates/muss/index.html:12
 msgid "Topic"
 msgstr "Tema"
 
@@ -230,7 +194,7 @@ msgstr "Comentario"
 msgid "Comments"
 msgstr "Comentarios"
 
-#: muss/models.py:455 muss/templates/muss/index.html:12
+#: muss/models.py:455 muss/templates/muss/index.html:10
 msgid "Register"
 msgstr "Registrarse"
 
@@ -343,107 +307,131 @@ msgstr ""
 msgid "Yes, I'm sure"
 msgstr ""
 
-#: muss/templates/muss/confirm_email.html:12
+#: muss/templates/muss/confirm_email.html:7
 #: muss/templates/muss/password_reset_complete.html:17
 msgid "Congratulations"
 msgstr "Felicitaciones"
 
-#: muss/templates/muss/confirm_email.html:15
-#: muss/templates/muss/confirm_email_expired.html:21
+#: muss/templates/muss/confirm_email.html:10
+#: muss/templates/muss/confirm_email_expired.html:11
 msgid "Confirmation email"
 msgstr "Confirmación de correo electrónico"
 
-#: muss/templates/muss/confirm_email.html:17
+#: muss/templates/muss/confirm_email.html:12
 msgid "Congratulations, you are now an active member of "
 msgstr "Felicitaciones, usted ya es un usuario activo de "
 
-#: muss/templates/muss/confirm_email.html:19
+#: muss/templates/muss/confirm_email.html:14
 msgid "Thank you: "
 msgstr "Gracias: "
 
-#: muss/templates/muss/confirm_email.html:22 muss/templates/muss/login.html:11
+#: muss/templates/muss/confirm_email.html:17
 #: muss/templates/muss/password_reset_complete.html:21
 msgid "Log in"
 msgstr "Iniciar sesión"
 
+#: muss/templates/muss/confirm_email_expired.html:8
 #: muss/templates/muss/confirm_email_expired.html:13
-msgid "Please, check your email."
-msgstr "Por favor, revise su correo electrónico."
-
-#: muss/templates/muss/confirm_email_expired.html:18
-#: muss/templates/muss/confirm_email_expired.html:23
 msgid "The activation key has expired"
 msgstr "La clave de activación ha caducado"
 
-#: muss/templates/muss/confirm_email_expired.html:25
+#: muss/templates/muss/confirm_email_expired.html:15
 msgid "Please click the following button to get a new activation key."
 msgstr ""
 "Por favor haga click en el siguiente botón para obtener una nueva clave de "
 "activación."
 
-#: muss/templates/muss/confirm_email_expired.html:29
+#: muss/templates/muss/confirm_email_expired.html:20
 msgid "New activation key"
 msgstr "Nueva clave de activación"
 
-#: muss/templates/muss/index.html:7
+#: muss/templates/muss/index.html:5
 msgid "Please, you add forums and categories in the administrator."
 msgstr "Por favor, agregue los foros y categorías en el administrador"
 
-#: muss/templates/muss/index.html:8
+#: muss/templates/muss/index.html:6
 msgid "There are no forums created for the category"
 msgstr "No hay foros creados para la categoría"
 
-#: muss/templates/muss/index.html:11
+#: muss/templates/muss/index.html:9
 msgid "Add topic"
 msgstr "Agregar tema"
 
-#: muss/templates/muss/index.html:13
+#: muss/templates/muss/index.html:11
 msgid "Unregister"
 msgstr "Anular registro"
 
-#: muss/templates/muss/index.html:15
+#: muss/templates/muss/index.html:13
 msgid "Answers"
 msgstr "Respuestas"
 
-#: muss/templates/muss/index.html:16
+#: muss/templates/muss/index.html:14
 msgid "Visits"
 msgstr "Visitas"
 
-#: muss/templates/muss/index.html:17
+#: muss/templates/muss/index.html:15
 msgid "Last Activity"
 msgstr "Última actividad"
 
-#: muss/templates/muss/index.html:18
+#: muss/templates/muss/index.html:16
 msgid "The forum does not contain topics."
 msgstr "El foro no contiene temas."
 
-#: muss/templates/muss/index.html:19
+#: muss/templates/muss/index.html:17
 msgid "Total likes"
 msgstr "Likes totales"
 
-#: muss/templates/muss/index.html:20
+#: muss/templates/muss/index.html:18
 msgid "Total comments"
 msgstr "Comentarios totales"
 
-#: muss/templates/muss/index.html:21
+#: muss/templates/muss/index.html:19
 msgid "Reply"
 msgstr "Responder"
 
-#: muss/templates/muss/index.html:22
+#: muss/templates/muss/index.html:20
 msgid "Add Reply"
 msgstr "Responder"
 
-#: muss/templates/muss/index.html:23
+#: muss/templates/muss/index.html:21
 msgid "Views"
 msgstr "Vistas"
 
-#: muss/templates/muss/login.html:41
+#: muss/templates/muss/index.html:22
+msgid "Sign up"
+msgstr "Regístrate"
+
+#: muss/templates/muss/index.html:23
+msgid "Sign in"
+msgstr "Ingresar"
+
+#: muss/templates/muss/index.html:24
+msgid "First name"
+msgstr "Nombre"
+
+#: muss/templates/muss/index.html:25
+msgid "Last name"
+msgstr "Apellido"
+
+#: muss/templates/muss/index.html:26
+msgid "Repeat password"
+msgstr "Repita la contraseña"
+
+#: muss/templates/muss/index.html:27
 msgid "Forgot password?"
 msgstr "¿Olvidó la contraseña?"
 
-#: muss/templates/muss/login.html:43
-msgid "Sign in"
-msgstr "Ingresar"
+#: muss/templates/muss/index.html:28
+msgid ""
+"By clicking Create my account, you agree to our Terms and that you have read "
+"our Data Use Policy, including our Cookie Use."
+msgstr ""
+"Al hacer click en Crear mi cuenta, acepta nuestros Términos y ha leído "
+"nuestra política de uso de datos, incluyendo nuestro uso de cookies"
+
+#: muss/templates/muss/index.html:29
+msgid "Create my account"
+msgstr "Crear mi cuenta"
 
 #: muss/templates/muss/password_reset_complete.html:7
 msgid "Password reset"
@@ -516,6 +504,10 @@ msgstr "El equipo de %(site_name)s"
 msgid "Reset password"
 msgstr "Restablecer contraseña"
 
+#: muss/templates/muss/password_reset_form.html:21
+msgid "Email"
+msgstr "Correo electrónico"
+
 #: muss/templates/muss/password_reset_form.html:31
 msgid "Submit"
 msgstr "Enviar"
@@ -528,26 +520,6 @@ msgid ""
 msgstr ""
 "Restablecimiento de contraseña para correo electrónico %(email)s. Por favor "
 "siga el siguiente link : %(protocol)s://%(domain)s"
-
-#: muss/templates/muss/signup.html:12
-msgid "Sign up"
-msgstr "Regístrate"
-
-#: muss/templates/muss/signup.html:13
-msgid "Create a free account."
-msgstr "Crea una cuenta nueva"
-
-#: muss/templates/muss/signup.html:61
-msgid ""
-"By clicking Create my account, you agree to our Terms and that you have read "
-"our Data Use Policy, including our Cookie Use."
-msgstr ""
-"Al hacer click en Crear mi cuenta, acepta nuestros Términos y ha leído "
-"nuestra política de uso de datos, incluyendo nuestro uso de cookies"
-
-#: muss/templates/muss/signup.html:64
-msgid "Create my account"
-msgstr "Crear mi cuenta"
 
 #: muss/utils.py:179 muss/utils.py:181 muss/utils.py:185
 msgid "ago"
@@ -594,25 +566,49 @@ msgstr "Usted tiene un nuevo tema para moderar: %(site)s"
 msgid "Files allowed"
 msgstr "Archivos permitidos"
 
-#: muss/views.py:60
-msgid "The user is not active"
-msgstr "El usuario no está activo"
+#: muss/views.py:99
+msgid "Please, check your email."
+msgstr "Por favor, revise su correo electrónico."
 
-#: muss/views.py:105
-msgid ""
-"Registration was successful. Please, check your email to validate the "
-"account."
-msgstr ""
-"El registro fue exitoso. Por favor, revise su correo electrónico para "
-"validar la cuenta."
+#~ msgid "Username"
+#~ msgstr "Usuario"
 
-#: muss/views.py:111
-msgid "Invalid form"
-msgstr "Formulario invalido"
+#~ msgid "Username or password incorrect."
+#~ msgstr "Usuario o contraseña incorrecta"
 
-#: muss/views.py:186
-msgid "Please, check your email"
-msgstr "Por favor, revise su correo electrónico"
+#~ msgid "Names"
+#~ msgstr "Nombres"
+
+#~ msgid "Surname"
+#~ msgstr "Apellido"
+
+#~ msgid "Password"
+#~ msgstr "Contraseña"
+
+#~ msgid "Passwords don't match"
+#~ msgstr "Las contraseñas no coinciden"
+
+#~ msgid "Email addresses must be unique."
+#~ msgstr "El correo electrónico debe ser único"
+
+#~ msgid "Create a free account."
+#~ msgstr "Crea una cuenta nueva"
+
+#~ msgid "The user is not active"
+#~ msgstr "El usuario no está activo"
+
+#~ msgid ""
+#~ "Registration was successful. Please, check your email to validate the "
+#~ "account."
+#~ msgstr ""
+#~ "El registro fue exitoso. Por favor, revise su correo electrónico para "
+#~ "validar la cuenta."
+
+#~ msgid "Invalid form"
+#~ msgstr "Formulario invalido"
+
+#~ msgid "Please, check your email"
+#~ msgstr "Por favor, revise su correo electrónico"
 
 #~ msgid "Topics count"
 #~ msgstr "Total de temas"
@@ -709,9 +705,6 @@ msgstr "Por favor, revise su correo electrónico"
 
 #~ msgid "Joined"
 #~ msgstr "Registrado"
-
-#~ msgid "Last Seen"
-#~ msgstr "Última conexión"
 
 #~ msgid "a while ago"
 #~ msgstr "hace un tiempo"

@@ -100,3 +100,21 @@ class NewKeyActivationView(View):
             return redirect("/")
         else:
             raise Http404
+
+
+class ResetPasswordView(View):
+    """
+    View for reset password
+    """
+    def get(self, request):
+        raise Http404
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            raise Http404
+
+        email = request.POST.get('email')
+        if email and request.is_ajax():
+            pass
+        else:
+            raise Http404

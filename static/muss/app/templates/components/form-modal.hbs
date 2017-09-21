@@ -1,4 +1,8 @@
-<div class="ui primary button" {{action "showForm" }}>{{gettext title }}</div>
+{{#if isLink }}
+    <a class="pointer" {{action "showForm" }}>{{gettext title }}</a>
+{{else}}
+    <div class="ui primary button" {{action "showForm" }}>{{gettext title }}</div>
+{{/if}}
 
 <div class="ui tiny {{ id }} modal">
     <i class="close icon"></i>
