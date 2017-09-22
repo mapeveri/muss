@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.dispatch import receiver
 
-from muss import models, utils
+from muss import models, notification_email as nt_email, utils
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
@@ -17,7 +17,7 @@ def post_save_user(sender, instance, **kwargs):
         user = User.objects.get(id=instance.id)
 
         # For confirm email
-        data = utils.get_data_confirm_email(user.email)
+        data = nt_email.get_data_confirm_email(user.email)
 
         # Insert profile
         profile = models.Profile(
@@ -28,7 +28,7 @@ def post_save_user(sender, instance, **kwargs):
         profile.save()
 
         # Send email for confirm user
-        utils.send_welcome_email(
+        nt_email.send_welcome_email(
             user.email, user.username, data['activation_key']
         )
 

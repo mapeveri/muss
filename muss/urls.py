@@ -18,6 +18,10 @@ urlpatterns = [
         name='new_key_activation'),
     url(r'^reset-password/$', views.ResetPasswordView.as_view(),
         name='reset_password'),
+    url(
+        r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        views.PasswordResetConfirm.as_view(), name='password_reset_confirm'
+    ),
     # Url's muss
     url(r'^feed/(?P<pk>\d+)/(?P<forum>.+)/$', TopicFeed(), name='rss'),
     # For ember-app

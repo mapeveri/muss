@@ -33,12 +33,19 @@ export default Ember.Component.extend({
             } else {
                 this.set('errorEmail', '');
 
-                /*return this.get('ajax').request('/reset-password/', {
+                let csrftoken = Ember.$("[name=csrfmiddlewaretoken]").first().val();
+                return this.get('ajax').request('/reset-password/', {
                     method: 'POST',
-                    data: {'email': email}
-                }).then(response => {
+                    data: {
+                        email: email,
+                        csrfmiddlewaretoken: csrftoken,
+                    }
+                }).then(() => {
                     Ember.$('.tiny.'+self.id+'.modal').modal("hide");
-                }); */
+                    window.toastr.success(gettextHelper('Please, check your email.'));
+                }).catch(() => {
+                    this.set('errorEmail', gettextHelper("Error sending email."));
+                });
             }
         }
     }

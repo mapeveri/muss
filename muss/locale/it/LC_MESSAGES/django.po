@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-20 22:06-0300\n"
+"POT-Creation-Date: 2017-09-21 23:07-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -268,6 +268,39 @@ msgstr "Configurazione"
 msgid "Configurations"
 msgstr "Configurazioni"
 
+#: muss/notification_email.py:24
+#, python-format
+msgid ""
+"Thank you for joining to %(site)s please enter to confirm your email to this "
+"address:"
+msgstr ""
+"Grazie per essere al %(site)s inserite per confermare la tua email per "
+"questo indirizo:"
+
+#: muss/notification_email.py:31
+msgid "Welcome to "
+msgstr "Benvenuto a "
+
+#: muss/notification_email.py:73
+#, python-format
+msgid "New comment in %(site)s"
+msgstr "Nuovo commento in %(site)s"
+
+#: muss/notification_email.py:77
+#, python-format
+msgid "You have one new comment in the topic: %(site)s"
+msgstr "Hai un nuovo commento nel argomento: %(site)s"
+
+#: muss/notification_email.py:104
+#, python-format
+msgid "New topic in %(site)s "
+msgstr "Nuovo argomento nel %(site)s"
+
+#: muss/notification_email.py:105
+#, python-format
+msgid "You have one new topic to moderate: %(site)s"
+msgstr "Hai un nuovo argomento a moderata: %(site)s"
+
 #: muss/templates/muss/admin/confirm_delete.html:6
 #: muss/templates/muss/password_reset_complete.html:6
 msgid "Home"
@@ -433,6 +466,22 @@ msgstr ""
 msgid "Create my account"
 msgstr "Creare il mio account"
 
+#: muss/templates/muss/index.html:30
+msgid "Error sending email."
+msgstr "Errore durante l'invio di email."
+
+#: muss/templates/muss/index.html:31 muss/views.py:105
+msgid "Please, check your email."
+msgstr "Si prega di controllare la tua email."
+
+#: muss/templates/muss/index.html:32
+msgid "Email is invalid."
+msgstr "L'email non è valida"
+
+#: muss/templates/muss/index.html:33
+msgid "Reset"
+msgstr ""
+
 #: muss/templates/muss/password_reset_complete.html:7
 msgid "Password reset"
 msgstr "Reimpostazione della password"
@@ -501,18 +550,6 @@ msgstr "Grazie per aver utilizzato il nostro sito!"
 msgid "The %(site_name)s team"
 msgstr "Il %(site_name)s team"
 
-#: muss/templates/muss/password_reset_form.html:13
-msgid "Reset password"
-msgstr "Resetta la password"
-
-#: muss/templates/muss/password_reset_form.html:21
-msgid "Email"
-msgstr "Email"
-
-#: muss/templates/muss/password_reset_form.html:31
-msgid "Submit"
-msgstr "Invia"
-
 #: muss/templates/muss/password_reset_subject.txt:3
 #, python-format
 msgid ""
@@ -522,54 +559,26 @@ msgstr ""
 "reimpostazione della password per la posta elettronica %(email)s. Seguite il "
 "link qui sotto: %(protocol)s://%(domain)s"
 
-#: muss/utils.py:179 muss/utils.py:181 muss/utils.py:185
+#: muss/utils.py:186 muss/utils.py:188 muss/utils.py:192
 msgid "ago"
 msgstr "fa"
 
-#: muss/utils.py:185
+#: muss/utils.py:192
 msgid "days ago"
 msgstr "giorni fa"
-
-#: muss/utils.py:257
-#, python-format
-msgid ""
-"Thank you for joining to %(site)s please enter to confirm your email to this "
-"address:"
-msgstr ""
-"Grazie per essere al %(site)s inserite per confermare la tua email per "
-"questo indirizo:"
-
-#: muss/utils.py:264
-msgid "Welcome to "
-msgstr "Benvenuto a "
-
-#: muss/utils.py:285
-#, python-format
-msgid "New comment in %(site)s"
-msgstr "Nuovo commento in %(site)s"
-
-#: muss/utils.py:289
-#, python-format
-msgid "You have one new comment in the topic: %(site)s"
-msgstr "Hai un nuovo commento nel argomento: %(site)s"
-
-#: muss/utils.py:316
-#, python-format
-msgid "New topic in %(site)s "
-msgstr "Nuovo argomento nel %(site)s"
-
-#: muss/utils.py:317
-#, python-format
-msgid "You have one new topic to moderate: %(site)s"
-msgstr "Hai un nuovo argomento a moderata: %(site)s"
 
 #: muss/validators.py:18
 msgid "Files allowed"
 msgstr "File accettati"
 
-#: muss/views.py:99
-msgid "Please, check your email."
-msgstr "Si prega di controllare la tua email."
+#~ msgid "Reset password"
+#~ msgstr "Resetta la password"
+
+#~ msgid "Email"
+#~ msgstr "Email"
+
+#~ msgid "Submit"
+#~ msgstr "Invia"
 
 #~ msgid "Username"
 #~ msgstr "Nome utente"

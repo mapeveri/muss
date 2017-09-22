@@ -1,7 +1,4 @@
-import base64
-import hashlib
 import os
-import random
 import shutil
 
 from django.conf import settings
@@ -15,7 +12,19 @@ from muss.models import (
     Forum, Topic, Comment, Register,
     Notification, Profile
 )
-from muss.email import send_mail
+
+
+def basename(value):
+    """
+    This method return basename of one path.
+
+    Args:
+        value (str): Path.
+
+    Returns:
+        string: Basename path.
+    """
+    return os.path.basename(value)
 
 
 def exists_folder(route):
@@ -59,27 +68,6 @@ def remove_file(route_file):
             os.remove(route_file)
 
 
-def get_folder_attachment(topic):
-    """
-    This method return the path of one folder attachment for app forum.
-
-    Args:
-        topic (obj): Topic object.
-
-    Returns:
-        str: Path attachment.
-    """
-    folder = ""
-    folder = "forum_" + str(topic.forum_id)
-    folder = folder + "_user_" + str(topic.user.username)
-    folder = folder + "_topic_" + str(topic.id_attachment)
-    path_folder = os.path.join("forum", folder)
-    media_path = settings.MEDIA_ROOT
-    path = media_path + "/" + path_folder
-
-    return path
-
-
 def remove_folder_attachment(pk):
     """
     This method remove folder attachment and subtract one topic.
@@ -107,6 +95,25 @@ def remove_folder_attachment(pk):
     # Remove attachment if exists
     if exists_folder(path):
         remove_folder(path)
+
+
+def get_route_file(file_path, file_name):
+    """
+    This method build the path for a file MEDIA.
+
+    Args:
+        file_path (str): File path.
+        file_name (str): File name.
+
+    Returns:
+        str: Concatenate file path + file name.
+    """
+    try:
+        route_file = file_path + "/" + file_name
+    except Exception:
+        route_file = ""
+
+    return route_file
 
 
 def get_users_topic(topic, myuser):
@@ -187,38 +194,6 @@ def get_datetime_topic(date):
     return difference
 
 
-def basename(value):
-    """
-    This method return basename of one path.
-
-    Args:
-        value (str): Path.
-
-    Returns:
-        string: Basename path.
-    """
-    return os.path.basename(value)
-
-
-def get_route_file(file_path, file_name):
-    """
-    This method build the path for a file MEDIA.
-
-    Args:
-        file_path (str): File path.
-        file_name (str): File name.
-
-    Returns:
-        str: Concatenate file path + file name.
-    """
-    try:
-        route_file = file_path + "/" + file_name
-    except Exception:
-        route_file = ""
-
-    return route_file
-
-
 def get_photo_profile(user):
     """
     This method return photo profile.
@@ -241,110 +216,6 @@ def get_photo_profile(user):
     else:
         field_photo = default_photo
     return field_photo
-
-
-def send_welcome_email(email, username, activation_key):
-    """
-    This method send email for confirm user.
-
-    Args:
-        email (str): Email user.
-        username (str): Username.
-        activation_key (str): Activation Key user.
-    """
-    username = base64.b64encode(username.encode("utf-8")).decode("ascii")
-    content = _(
-        "Thank you for joining to %(site)s "
-        "please enter to confirm your email to this address:"
-    ) % {
-        'site': settings.SITE_NAME
-    }
-    urlContent = "/confirm-email/" + username + "/" + activation_key + "/"
-    send_mail(
-        _("Welcome to " + settings.SITE_NAME),
-        _(content) + settings.SITE_URL + urlContent,
-        settings.EMAIL_MUSS,
-        [email],
-        fail_silently=False
-    )
-
-
-def send_mail_comment(url, list_email):
-    """
-    Send email comment.
-
-    Args:
-        url (str): Url site.
-        list_email (list(str): List email to send mail.
-    """
-    if settings.SITE_URL.endswith("/"):
-        site = settings.SITE_URL[:-1]
-    else:
-        site = settings.SITE_URL
-
-    title_email = _("New comment in %(site)s") % {
-        'site': settings.SITE_NAME
-    }
-
-    message = _("You have one new comment in the topic: %(site)s") % {
-        'site': site + url
-    }
-
-    email_from = settings.EMAIL_MUSS
-    if email_from:
-        send_mail(
-            title_email, message, email_from,
-            list_email, fail_silently=False
-        )
-
-
-def send_mail_topic(email_moderator, forum):
-    """
-    Send email topic.
-
-    Args:
-        email_moderator (str): Email moderator.
-        forum (obj): Forum object.
-    """
-    # Send email to moderator
-    if settings.SITE_URL.endswith("/"):
-        site = settings.SITE_URL + "forum/" + forum.name
-    else:
-        site = settings.SITE_URL + "/forum/" + forum.name
-
-    site_name = settings.SITE_NAME
-    title_email = _("New topic in %(site)s ") % {'site': site_name}
-    message = _("You have one new topic to moderate: %(site)s") % {
-        'site': site
-    }
-    email_from = settings.EMAIL_MUSS
-
-    if email_from:
-        send_mail(
-            title_email, message, email_from,
-            [email_moderator], fail_silently=False
-        )
-
-
-def get_data_confirm_email(email):
-    """
-    This method return info for email confirm.
-
-    Args:
-        email (str): Email user.
-
-    Returns:
-        dict: Activation key and key expires user.
-    """
-    salt = hashlib.sha1(str(random.random()).encode("utf-8")).hexdigest()[:5]
-    key = salt.encode("utf-8") + email.encode("utf-8")
-    activation_key = hashlib.sha1(key).hexdigest()
-    key_expires = timezone.now() + timezone.timedelta(2)
-
-    return {
-        'activation_key': activation_key,
-        'key_expires': key_expires
-    }
 
 
 def is_user_moderator_forum(category, forum, user):

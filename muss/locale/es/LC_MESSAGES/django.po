@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-20 22:06-0300\n"
+"POT-Creation-Date: 2017-09-21 23:07-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -268,6 +268,39 @@ msgstr "Configuración"
 msgid "Configurations"
 msgstr "Configuraciones"
 
+#: muss/notification_email.py:24
+#, python-format
+msgid ""
+"Thank you for joining to %(site)s please enter to confirm your email to this "
+"address:"
+msgstr ""
+"Gracias por unirte a %(site)s por favor ingrese para confirmar su correo "
+"electrónico a esta dirección:"
+
+#: muss/notification_email.py:31
+msgid "Welcome to "
+msgstr "Bienvenido a "
+
+#: muss/notification_email.py:73
+#, python-format
+msgid "New comment in %(site)s"
+msgstr "Nuevo comentario en %(site)s"
+
+#: muss/notification_email.py:77
+#, python-format
+msgid "You have one new comment in the topic: %(site)s"
+msgstr "Usted tiene un nuevo comentario en el tema: %(site)s"
+
+#: muss/notification_email.py:104
+#, python-format
+msgid "New topic in %(site)s "
+msgstr "Nuevo tema en %(site)s"
+
+#: muss/notification_email.py:105
+#, python-format
+msgid "You have one new topic to moderate: %(site)s"
+msgstr "Usted tiene un nuevo tema para moderar: %(site)s"
+
 #: muss/templates/muss/admin/confirm_delete.html:6
 #: muss/templates/muss/password_reset_complete.html:6
 msgid "Home"
@@ -433,9 +466,25 @@ msgstr ""
 msgid "Create my account"
 msgstr "Crear mi cuenta"
 
+#: muss/templates/muss/index.html:30
+msgid "Error sending email."
+msgstr "Error al enviar correo electrónico."
+
+#: muss/templates/muss/index.html:31 muss/views.py:105
+msgid "Please, check your email."
+msgstr "Por favor, revise su correo electrónico."
+
+#: muss/templates/muss/index.html:32
+msgid "Email is invalid."
+msgstr "Correo electrónico invalido."
+
+#: muss/templates/muss/index.html:33
+msgid "Reset"
+msgstr "Restablecer"
+
 #: muss/templates/muss/password_reset_complete.html:7
 msgid "Password reset"
-msgstr "Resetear contraseña"
+msgstr "Restablecer contraseña"
 
 #: muss/templates/muss/password_reset_complete.html:19
 msgid "Your password has been set.  You may go ahead and log in now."
@@ -500,18 +549,6 @@ msgstr "¡Gracias por usar nuestro sitio!"
 msgid "The %(site_name)s team"
 msgstr "El equipo de %(site_name)s"
 
-#: muss/templates/muss/password_reset_form.html:13
-msgid "Reset password"
-msgstr "Restablecer contraseña"
-
-#: muss/templates/muss/password_reset_form.html:21
-msgid "Email"
-msgstr "Correo electrónico"
-
-#: muss/templates/muss/password_reset_form.html:31
-msgid "Submit"
-msgstr "Enviar"
-
 #: muss/templates/muss/password_reset_subject.txt:3
 #, python-format
 msgid ""
@@ -521,54 +558,26 @@ msgstr ""
 "Restablecimiento de contraseña para correo electrónico %(email)s. Por favor "
 "siga el siguiente link : %(protocol)s://%(domain)s"
 
-#: muss/utils.py:179 muss/utils.py:181 muss/utils.py:185
+#: muss/utils.py:186 muss/utils.py:188 muss/utils.py:192
 msgid "ago"
 msgstr "hace"
 
-#: muss/utils.py:185
+#: muss/utils.py:192
 msgid "days ago"
 msgstr "días"
-
-#: muss/utils.py:257
-#, python-format
-msgid ""
-"Thank you for joining to %(site)s please enter to confirm your email to this "
-"address:"
-msgstr ""
-"Gracias por unirte a %(site)s por favor ingrese para confirmar su correo "
-"electrónico a esta dirección:"
-
-#: muss/utils.py:264
-msgid "Welcome to "
-msgstr "Bienvenido a "
-
-#: muss/utils.py:285
-#, python-format
-msgid "New comment in %(site)s"
-msgstr "Nuevo comentario en %(site)s"
-
-#: muss/utils.py:289
-#, python-format
-msgid "You have one new comment in the topic: %(site)s"
-msgstr "Usted tiene un nuevo comentario en el tema: %(site)s"
-
-#: muss/utils.py:316
-#, python-format
-msgid "New topic in %(site)s "
-msgstr "Nuevo tema en %(site)s"
-
-#: muss/utils.py:317
-#, python-format
-msgid "You have one new topic to moderate: %(site)s"
-msgstr "Usted tiene un nuevo tema para moderar: %(site)s"
 
 #: muss/validators.py:18
 msgid "Files allowed"
 msgstr "Archivos permitidos"
 
-#: muss/views.py:99
-msgid "Please, check your email."
-msgstr "Por favor, revise su correo electrónico."
+#~ msgid "Reset password"
+#~ msgstr "Restablecer contraseña"
+
+#~ msgid "Email"
+#~ msgstr "Correo electrónico"
+
+#~ msgid "Submit"
+#~ msgstr "Enviar"
 
 #~ msgid "Username"
 #~ msgstr "Usuario"

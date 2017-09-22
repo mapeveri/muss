@@ -10,7 +10,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.renderers import BrowsableAPIRenderer
 
-from muss import models, realtime, utils
+from muss import models, notification_email as nt_email, realtime, utils
 from muss.api import serializers, utils as utils_api
 from muss.api.permissions import ForumPermissions, IsReadOnly
 from muss.api.renderers import JSONRendererApiJson
@@ -256,7 +256,7 @@ class CommentViewSet(viewsets.ModelViewSet):
             })
 
             # Send e    mail
-            utils.send_mail_comment(str(url), list_email)
+            nt_email.send_mail_comment(str(url), list_email)
 
             # Data necessary for realtime
             data = realtime.data_base_realtime(topic, photo, forum, username)
