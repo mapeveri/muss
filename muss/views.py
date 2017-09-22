@@ -1,4 +1,5 @@
 import base64
+import json
 
 from django.conf import settings
 from django.contrib import messages
@@ -10,7 +11,7 @@ from django.template.loader import render_to_string
 from django.views.generic import TemplateView, View
 from django.utils import timezone
 from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.translation import ugettext_lazy as _
 
 from muss import models, notification_email as nt_email, utils
@@ -46,7 +47,11 @@ class ConfirmEmailView(View):
                 username.encode("utf-8")
             ).decode("ascii")
             # Parameters for template
-            data = {'username': username, 'token': csrf_token}
+            data = {
+                'username': username, 
+                'token': csrf_token,
+                'SITE_NAME': settings.SITE_NAME
+            }
 
             # Check if not expired key
             user_profile = get_object_or_404(
@@ -137,7 +142,6 @@ class ResetPasswordView(View):
             }
             from_email = None
             to_email = email
-            html_email_template_name = None
 
             nt_email.send_mail_reset_password(
                 subject_template_name, email_template_name, context,
@@ -149,15 +153,54 @@ class ResetPasswordView(View):
             raise Http404
 
 
-class PasswordResetConfirm(View):
+class PasswordResetConfirmView(View):
     """
     View for password reset confirm
     """
-    def get(self, request):
+    def get(self, request, uidb64, token):
         raise Http404
 
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated():
             raise Http404
+
+        uidb64 = request.POST.get('uidb64')
+        token = request.POST.get('token')
+        valid_link = int(request.POST.get('valid_link'))
+
+        assert uidb64 is not None and token is not None
+        User = get_user_model()
+        try:
+            # urlsafe_base64_decode() decodes to bytestring
+            uid = urlsafe_base64_decode(uidb64).decode()
+            user = User.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+
+        token_generator = default_token_generator
+        if user is not None and token_generator.check_token(user, token):
+            # Is a valid link
+            if valid_link:
+                return HttpResponse(200)
+
+            password = request.POST.get('password')
+            if password:
+                # Update password user
+                user.set_password(password)
+                user.save()
+            else:
+                # Invalid form
+                message = str(_("Failed to reset password."))
+                return HttpResponse(json.dumps({
+                    'status': 200, 'message': message
+                }))
         else:
+            # Invalid link
+            messages.error(request, _(
+                "The password reset link was invalid, "
+                "possibly because it has already been used. "
+                "Please request a new password reset."
+            ))
             raise Http404
+
+        return HttpResponse(json.dumps({'status': 200, 'message': ''}))

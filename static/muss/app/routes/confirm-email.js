@@ -21,6 +21,8 @@ export default Ember.Route.extend({
             }
         }).then(response => {
             return response;
+        }).catch(() => {
+            this.transitionTo('index');
         });
     },
 });

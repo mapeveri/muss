@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-21 23:07-0300\n"
+"POT-Creation-Date: 2017-09-22 13:51-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -224,7 +224,7 @@ msgstr "Se l'utente è un troll"
 
 #: muss/models.py:500
 msgid "Receive Emails"
-msgstr ""
+msgstr "Ricevi email"
 
 #: muss/models.py:501
 msgid "If receive Emails"
@@ -247,18 +247,16 @@ msgid "Custom design"
 msgstr "Design personalizzato"
 
 #: muss/models.py:570
-#, fuzzy
-#| msgid "Description"
 msgid "Description site."
-msgstr "Descrizione"
+msgstr "Descrizione sito"
 
 #: muss/models.py:573
 msgid "Keywords"
-msgstr ""
+msgstr "Parole chiave"
 
 #: muss/models.py:574
 msgid "Keywords for the SEO."
-msgstr ""
+msgstr "Parole chiave per SEO"
 
 #: muss/models.py:578
 msgid "Configuration"
@@ -302,7 +300,6 @@ msgid "You have one new topic to moderate: %(site)s"
 msgstr "Hai un nuovo argomento a moderata: %(site)s"
 
 #: muss/templates/muss/admin/confirm_delete.html:6
-#: muss/templates/muss/password_reset_complete.html:6
 msgid "Home"
 msgstr "Home"
 
@@ -340,8 +337,7 @@ msgstr ""
 msgid "Yes, I'm sure"
 msgstr ""
 
-#: muss/templates/muss/confirm_email.html:7
-#: muss/templates/muss/password_reset_complete.html:17
+#: muss/templates/muss/confirm_email.html:7 muss/templates/muss/index.html:40
 msgid "Congratulations"
 msgstr "Complimenti"
 
@@ -359,7 +355,6 @@ msgid "Thank you: "
 msgstr "Grazie"
 
 #: muss/templates/muss/confirm_email.html:17
-#: muss/templates/muss/password_reset_complete.html:21
 msgid "Log in"
 msgstr "Accesso"
 
@@ -470,7 +465,7 @@ msgstr "Creare il mio account"
 msgid "Error sending email."
 msgstr "Errore durante l'invio di email."
 
-#: muss/templates/muss/index.html:31 muss/views.py:105
+#: muss/templates/muss/index.html:31 muss/views.py:106
 msgid "Please, check your email."
 msgstr "Si prega di controllare la tua email."
 
@@ -482,19 +477,11 @@ msgstr "L'email non è valida"
 msgid "Reset"
 msgstr ""
 
-#: muss/templates/muss/password_reset_complete.html:7
-msgid "Password reset"
-msgstr "Reimpostazione della password"
-
-#: muss/templates/muss/password_reset_complete.html:19
-msgid "Your password has been set.  You may go ahead and log in now."
-msgstr "La password è stata impostata. Si può andare avanti e ora il login."
-
-#: muss/templates/muss/password_reset_confirm.html:15
+#: muss/templates/muss/index.html:34
 msgid "Change password"
 msgstr "Cambia la tua password"
 
-#: muss/templates/muss/password_reset_confirm.html:19
+#: muss/templates/muss/index.html:35
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
@@ -502,19 +489,11 @@ msgstr ""
 "Si prega di inserire due volte la nuova password in modo che possiamo "
 "verificare che è stata digitata in correttamente."
 
-#: muss/templates/muss/password_reset_confirm.html:23
-msgid "New password"
-msgstr "Nuova password"
-
-#: muss/templates/muss/password_reset_confirm.html:31
-msgid "Confirm password"
-msgstr "conferma password"
-
-#: muss/templates/muss/password_reset_confirm.html:37
+#: muss/templates/muss/index.html:36
 msgid "Change my password"
 msgstr "Cambia la mia password"
 
-#: muss/templates/muss/password_reset_confirm.html:49
+#: muss/templates/muss/index.html:37
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
@@ -522,6 +501,22 @@ msgstr ""
 "Il collegamento reimpostazione della password non è valida, forse perché è "
 "già stato. usato. Si prega di richiedere una nuova reimpostazione della "
 "password."
+
+#: muss/templates/muss/index.html:38
+msgid "Confirm password"
+msgstr "conferma password"
+
+#: muss/templates/muss/index.html:39
+msgid "New password"
+msgstr "Nuova password"
+
+#: muss/templates/muss/index.html:41
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr "La password è stata impostata. Si può andare avanti e ora il login."
+
+#: muss/templates/muss/index.html:42
+msgid "Passwords don't match"
+msgstr "Password non corrispondono"
 
 #: muss/templates/muss/password_reset_email.html:2
 #, python-format
@@ -571,8 +566,25 @@ msgstr "giorni fa"
 msgid "Files allowed"
 msgstr "File accettati"
 
-#~ msgid "Reset password"
-#~ msgstr "Resetta la password"
+#: muss/views.py:190
+msgid "Failed to reset password."
+msgstr "Impossibile reimpostare la password."
+
+#: muss/views.py:197
+#, fuzzy
+#| msgid ""
+#| "The password reset link was invalid, possibly because it has already been "
+#| "used.  Please request a new password reset."
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr ""
+"Il collegamento reimpostazione della password non è valida, forse perché è "
+"già stato. usato. Si prega di richiedere una nuova reimpostazione della "
+"password."
+
+#~ msgid "Password reset"
+#~ msgstr "Reimpostazione della password"
 
 #~ msgid "Email"
 #~ msgstr "Email"
@@ -594,9 +606,6 @@ msgstr "File accettati"
 
 #~ msgid "Password"
 #~ msgstr "Password"
-
-#~ msgid "Passwords don't match"
-#~ msgstr "Password non corrispondono"
 
 #~ msgid "Email addresses must be unique."
 #~ msgstr "Gli indirizzi email devono essere univoci."

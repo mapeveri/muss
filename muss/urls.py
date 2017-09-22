@@ -10,8 +10,9 @@ from muss.api.urls import router
 urlpatterns = [
     # Url for django-rest-framework
     url(r'^api/', include(router.urls)),
-    # Authentication routes jwt
+    # Authentication route jwt
     url(r'^api/token-auth/', jwt_views.obtain_jwt_token),
+    # Authentication routes
     url(r'^confirm-email/$', views.ConfirmEmailView.as_view(),
         name='confirm_email'),
     url(r'^new_key_activation/', views.NewKeyActivationView.as_view(),
@@ -19,8 +20,8 @@ urlpatterns = [
     url(r'^reset-password/$', views.ResetPasswordView.as_view(),
         name='reset_password'),
     url(
-        r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        views.PasswordResetConfirm.as_view(), name='password_reset_confirm'
+        r'^reset/$', views.PasswordResetConfirmView.as_view(),
+        name='password_reset_confirm'
     ),
     # Url's muss
     url(r'^feed/(?P<pk>\d+)/(?P<forum>.+)/$', TopicFeed(), name='rss'),
