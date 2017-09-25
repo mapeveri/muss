@@ -17,9 +17,7 @@ export default Ember.Component.extend({
         this._super();
         let self = this;
 
-        this.set('errorMessage', '');
-        this.set('errorPassword1', '');
-        this.set('errorPassword2', '');
+        this.actions.resetErrors(this);
 
         //Check if is valid link email
         this.get('ajax').request('/reset/', {
@@ -39,13 +37,20 @@ export default Ember.Component.extend({
     },
     actions: {
         /**
+        * @method: resetErrors
+        * @description: Reset errors messages
+        */
+        resetErrors(self) {
+            self.set('errorMessage', '');
+            self.set('errorPassword1', '');
+            self.set('errorPassword2', '');
+        },
+        /**
         * @method: setNewPassowrd
         * @description: Update password
         */
         setNewPassowrd() {
-            this.set('errorMessage', '');
-            this.set('errorPassword1', '');
-            this.set('errorPassword2', '');
+            this.actions.resetErrors(this);
 
             let { new_password1, new_password2 } = this.getProperties('new_password1', 'new_password2');
             let self = this;

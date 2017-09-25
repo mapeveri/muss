@@ -1,5 +1,6 @@
 from django.db.models import Q
 from django.contrib.auth import get_user_model
+from django.utils.translation import ugettext_lazy as _
 
 from rest_framework import serializers
 from muss import models, utils
@@ -17,6 +18,12 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         User = get_user_model()
+
+        # Check if exists the email
+        user = User.objects.filter(email=validated_data['email'])
+        if user:
+            raise serializers.ValidationError(_("The email already exists."))
+
         user = User(
             email=validated_data['email'],
             username=validated_data['username']

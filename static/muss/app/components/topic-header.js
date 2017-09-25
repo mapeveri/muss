@@ -3,6 +3,7 @@ import ENV from './../config/environment';
 
 export default Ember.Component.extend({
     ajax: Ember.inject.service(),
+    session: Ember.inject.service('session'),
     currentUrl: window.location.href,
     topic: null,
     hitTopic: null,

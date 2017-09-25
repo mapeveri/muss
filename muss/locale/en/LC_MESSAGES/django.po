@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-22 13:51-0300\n"
+"POT-Creation-Date: 2017-09-24 22:52-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,6 +50,10 @@ msgstr ""
 
 #: muss/admin.py:233
 msgid "Profile"
+msgstr ""
+
+#: muss/api/serializers.py:25
+msgid "The email already exists."
 msgstr ""
 
 #: muss/models.py:30 muss/models.py:69 muss/models.py:160 muss/models.py:243
@@ -464,7 +468,7 @@ msgstr ""
 msgid "Error sending email."
 msgstr ""
 
-#: muss/templates/muss/index.html:31 muss/views.py:106
+#: muss/templates/muss/index.html:31 muss/views.py:110
 msgid "Please, check your email."
 msgstr ""
 
@@ -512,6 +516,20 @@ msgstr ""
 msgid "Passwords don't match"
 msgstr ""
 
+#: muss/templates/muss/index.html:43
+msgid "Username or password incorrect."
+msgstr ""
+
+#: muss/templates/muss/index.html:44
+msgid "Open topic"
+msgstr "No loaded topics"
+
+#: muss/templates/muss/index.html:45
+#, fuzzy
+#| msgid "Closed topic"
+msgid "Close topic"
+msgstr "No loaded topics"
+
 #: muss/templates/muss/password_reset_email.html:2
 #, python-format
 msgid ""
@@ -555,20 +573,17 @@ msgstr ""
 msgid "Files allowed"
 msgstr ""
 
-#: muss/views.py:190
+#: muss/views.py:193
 msgid "Failed to reset password."
 msgstr ""
 
-#: muss/views.py:197
+#: muss/views.py:200
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used. Please request a new password reset."
 msgstr ""
 
 #~ msgid "This topic is closed"
-#~ msgstr "No loaded topics"
-
-#~ msgid "Open topic"
 #~ msgstr "No loaded topics"
 
 #~ msgid "Share topic"

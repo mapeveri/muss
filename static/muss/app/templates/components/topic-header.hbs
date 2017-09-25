@@ -33,10 +33,17 @@
     <div class="extra content">
         <div class="pull-left">
             <p><b>{{gettext "Total likes" }}</b>: {{ topic.totalLikes }}</p>
-            <p><button class="ui button"><i class="thumbs outline up icon"></i></button>
-            <button class="ui button"><i class="thumbs outline down icon"></i></button></p>
+            <p><button class="ui mini button"><i class="thumbs outline up icon"></i></button>
+            <button class="ui mini button"><i class="thumbs outline down icon"></i></button></p>
         </div>
         <div class="pull-right">
+            {{#if session.isAuthenticated}}
+            <p>
+                <button class="ui mini button">{{gettext "Open topic" }}</button>
+                <button class="ui mini button">{{gettext "Close topic" }}</button>
+            </p>
+            {{/if}}
+
             <p><a href="http://www.facebook.com/sharer.php?s=100&amp;p%5Burl%5D={{ currentUrl }}" target="_blank">
             <i class="facebook icon"></i>
             </a>
@@ -47,7 +54,7 @@
             <i class="twitter icon"></i>
             </a></p>
 
-            <p><button class="ui button"><i class="reply icon"></i> {{ gettext "Reply" }}</button></p>
+            <p><button class="ui mini button"><i class="reply icon"></i> {{ gettext "Reply" }}</button></p>
         </div>
     </div>
 </div>

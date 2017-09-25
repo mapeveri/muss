@@ -12,14 +12,23 @@ export default Ember.Component.extend({
         * @description: Initialize form
         */
         init() {
-            this.set('errorEmail', '');
+            this.actions.resetErrors(this);
             this.set('email', '');
+        },
+        /**
+        * @method: resetErrors
+        * @description: Reset errors messages
+        */
+        resetErrors(self) {
+            self.set('errorEmail', '');
         },
         /**
         * @method: reset
         * @description: Reset password
         */
         reset() {
+            this.actions.resetErrors(this);
+
             let self = this;
             let { email } = this.getProperties('email');
 

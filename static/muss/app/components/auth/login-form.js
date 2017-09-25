@@ -4,21 +4,31 @@ import { gettextHelper } from '../../helpers/gettext';
 export default Ember.Component.extend({
     id: 'login-form',
     session: Ember.inject.service('session'),
+
     actions: {
         /**
         * @method: init
         * @description: Initialize form
         */
         init() {
-            this.set('errorMessage', '');
+            this.actions.resetErrors(this);
             this.set('user', '');
             this.set('password', '');
+        },
+        /**
+        * @method: resetErrors
+        * @description: Reset errors messages
+        */
+        resetErrors(self) {
+            self.set('errorMessage', '');
         },
         /**
         * @method: authenticate
         * @description: Login authentication
         */
         authenticate() {
+            this.actions.resetErrors(this);
+
             let self = this;
             let { user, password } = this.getProperties('user', 'password');
 

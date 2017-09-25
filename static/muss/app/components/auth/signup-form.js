@@ -1,23 +1,19 @@
 import Ember from 'ember';
 import { gettextHelper } from '../../helpers/gettext';
+import { validateEmail } from '../../libs/utils';
 
 export default Ember.Component.extend({
     id: 'signup-form',
     store: Ember.inject.service('store'),
+
     actions: {
         /**
         * @method: init
         * @description: Initialize form
         */
         init() {
-            this.set('errorMessage', [])
-            this.set('errorFirstname', '');
-            this.set('errorLastname', '');
-            this.set('errorEmail', '');
-            this.set('errorUsername', '');
-            this.set('errorPassword', '');
-            this.set('errorRepeatPassword', '');
-            this.set('errorCheckPassword', '');
+            this.actions.resetErrors(this);
+
             this.set('firstname', '');
             this.set('lastname', '');
             this.set('email', '');
@@ -26,10 +22,26 @@ export default Ember.Component.extend({
             this.set('repeat_password', '');
         },
         /**
+        * @method: resetErrors
+        * @description: Reset errors messages
+        */
+        resetErrors(self) {
+            self.set('errorMessage', [])
+            self.set('errorFirstname', '');
+            self.set('errorLastname', '');
+            self.set('errorEmail', '');
+            self.set('errorUsername', '');
+            self.set('errorPassword', '');
+            self.set('errorRepeatPassword', '');
+            self.set('errorCheckPassword', '');
+        },
+        /**
         * @method: signup
         * @description: Create user
         */
         signup() {
+            this.actions.resetErrors(this);
+
             let firstname = this.get('firstname');
             let lastname = this.get('lastname');
             let email = this.get('email');
@@ -51,6 +63,11 @@ export default Ember.Component.extend({
             if(!Ember.isPresent(email)) {
                 this.set('errorEmail', gettextHelper("This field is required."));
                 isValid = false;
+            }
+
+            if(!validateEmail(email)) {
+                this.set('errorEmail', gettextHelper("Email is invalid."));
+                return false;
             }
 
             if(!Ember.isPresent(username)) {
