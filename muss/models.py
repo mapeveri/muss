@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.postgres.fields import JSONField
 from django.contrib.sites.models import Site
 from django.core.cache import cache
 from django.db import models
@@ -588,11 +589,7 @@ class HitcountTopic(models.Model):
 
     - **parameters**:
         :param topic: Topic relation.
-        :param ip: Ip user view.
-        :param session: Session user view.
-        :param created: Created hit count.
+        :param data: Data sessions
     """
     topic = models.ForeignKey(Topic, related_name='topichitcount')
-    ip = models.CharField(max_length=40)
-    session = models.CharField(max_length=40)
-    created = models.DateTimeField(auto_now_add=True)
+    data = JSONField()

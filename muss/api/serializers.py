@@ -124,7 +124,12 @@ class TopicSerializer(serializers.ModelSerializer):
         return obj.user.username
 
     def get_views(self, obj):
-        return models.HitcountTopic.objects.filter(topic=obj).count()
+        hit = models.HitcountTopic.objects.filter(topic=obj)
+        if hit.exists():
+            count = len(hit.first().data)
+        else:
+            count = 0
+        return count
 
     class Meta:
         model = models.Topic
