@@ -95,10 +95,7 @@ def send_mail_topic(email_moderator, forum):
         forum (obj): Forum object.
     """
     # Send email to moderator
-    if settings.SITE_URL.endswith("/"):
-        site = settings.SITE_URL + "forum/" + forum.name
-    else:
-        site = settings.SITE_URL + "/forum/" + forum.name
+    site = settings.SITE_URL + "/forum/" + forum.name
 
     site_name = settings.SITE_NAME
     title_email = _("New topic in %(site)s ") % {'site': site_name}

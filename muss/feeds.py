@@ -29,9 +29,11 @@ class TopicFeed(Feed):
         return Topic.objects.filter(forum=forum)
 
     def item_link(self, item):
-        pk = str(item.forum.pk)
+        print(item)
+        pk = str(item.pk)
         slug = item.slug
-        return settings.SITE_URL + "/" + pk + "/" + slug
+        # For url topic frontend
+        return settings.SITE_URL + "/topic/" + pk + "/" + slug + "/"
 
     def link(self, forum):
         return reverse('rss', args=[

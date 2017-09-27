@@ -133,7 +133,7 @@ class ResetPasswordView(View):
             email_template_name = "muss/password_reset_email.html"
             context = context = {
                 'email': email,
-                'domain': settings.SITE_URL,
+                'domain': request.META['HTTP_HOST'],
                 'site_name': settings.SITE_NAME,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode(),
                 'user': user,
@@ -169,38 +169,41 @@ class PasswordResetConfirmView(View):
         valid_link = int(request.POST.get('valid_link'))
 
         assert uidb64 is not None and token is not None
-        User = get_user_model()
-        try:
-            # urlsafe_base64_decode() decodes to bytestring
-            uid = urlsafe_base64_decode(uidb64).decode()
-            user = User.objects.get(pk=uid)
-        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-            user = None
+        if request.is_ajax():
+            User = get_user_model()
+            try:
+                # urlsafe_base64_decode() decodes to bytestring
+                uid = urlsafe_base64_decode(uidb64).decode()
+                user = User.objects.get(pk=uid)
+            except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+                user = None
 
-        token_generator = default_token_generator
-        if user is not None and token_generator.check_token(user, token):
-            # Is a valid link
-            if valid_link:
-                return HttpResponse(200)
+            token_generator = default_token_generator
+            if user is not None and token_generator.check_token(user, token):
+                # Is a valid link
+                if valid_link:
+                    return HttpResponse(200)
 
-            password = request.POST.get('password')
-            if password:
-                # Update password user
-                user.set_password(password)
-                user.save()
+                password = request.POST.get('password')
+                if password:
+                    # Update password user
+                    user.set_password(password)
+                    user.save()
+                else:
+                    # Invalid form
+                    message = str(_("Failed to reset password."))
+                    return HttpResponse(json.dumps({
+                        'status': 200, 'message': message
+                    }))
             else:
-                # Invalid form
-                message = str(_("Failed to reset password."))
-                return HttpResponse(json.dumps({
-                    'status': 200, 'message': message
-                }))
-        else:
-            # Invalid link
-            messages.error(request, _(
-                "The password reset link was invalid, "
-                "possibly because it has already been used. "
-                "Please request a new password reset."
-            ))
-            raise Http404
+                # Invalid link
+                messages.error(request, _(
+                    "The password reset link was invalid, "
+                    "possibly because it has already been used. "
+                    "Please request a new password reset."
+                ))
+                raise Http404
 
-        return HttpResponse(json.dumps({'status': 200, 'message': ''}))
+            return HttpResponse(json.dumps({'status': 200, 'message': ''}))
+        else:
+            raise Http404

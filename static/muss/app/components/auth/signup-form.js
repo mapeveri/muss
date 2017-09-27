@@ -99,9 +99,8 @@ export default Ember.Component.extend({
                     'password': password
                 });
 
-                let self = this;
                 user.save().then(() => {
-                    Ember.$('.tiny.'+self.id+'.modal').modal("hide");
+                    Ember.$('.tiny.'+this.id+'.modal').modal("hide");
                     window.toastr.success(gettextHelper('Please, check your email.'));
                 }).catch((err) => {
                     this.set('errorMessage', err.errors)

@@ -80,9 +80,14 @@ class TopicViewSet(viewsets.ModelViewSet):
     )
 
     def get_queryset(self, *args, **kwargs):
+        pk = self.request.GET.get('pk')
         slug = self.request.GET.get('slug')
         suggest = self.request.GET.get('suggest')
-        if slug:
+
+        if pk and slug:
+            # Get only topic
+            self.queryset = self.queryset.filter(pk=pk, slug=slug)
+        elif slug:
             # Filter topics by forum
             self.queryset = self.queryset.filter(forum__slug=slug)
         elif suggest:

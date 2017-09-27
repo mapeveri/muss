@@ -28,8 +28,6 @@ export default Ember.Component.extend({
         */
         reset() {
             this.actions.resetErrors(this);
-
-            let self = this;
             let { email } = this.getProperties('email');
 
             if(!validateEmail(email)) {
@@ -50,7 +48,7 @@ export default Ember.Component.extend({
                         csrfmiddlewaretoken: csrftoken,
                     }
                 }).then(() => {
-                    Ember.$('.tiny.'+self.id+'.modal').modal("hide");
+                    Ember.$('.tiny.'+this.id+'.modal').modal("hide");
                     window.toastr.success(gettextHelper('Please, check your email.'));
                 }).catch(() => {
                     this.set('errorEmail', gettextHelper("Error sending email."));

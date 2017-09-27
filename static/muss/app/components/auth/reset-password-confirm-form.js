@@ -5,18 +5,14 @@ export default Ember.Component.extend({
     ajax: Ember.inject.service(),
     uidb64: null,
     token: null,
-    errorMessage: null,
-    errorPassword1: null,
-    errorPassword2: null,
-    csrftoken: Ember.$("[name=csrfmiddlewaretoken]").first().val(),
+    csrftoken: null,
     self: this,
     isValidLink: false,
     isSuccess: false,
 
     didInsertElement() {
         this._super();
-        let self = this;
-
+        this.csrftoken = Ember.$("[name=csrfmiddlewaretoken]").first().val();
         this.actions.resetErrors(this);
 
         //Check if is valid link email
@@ -25,9 +21,9 @@ export default Ember.Component.extend({
             dataType: 'html',
             data: {
                 valid_link: 1,
-                uidb64: self.uidb64,
-                token: self.token,
-                csrfmiddlewaretoken: self.csrftoken,
+                uidb64: this.uidb64,
+                token: this.token,
+                csrfmiddlewaretoken: this.csrftoken,
             }
         }).then(() => {
             this.set('isValidLink', true);
@@ -51,9 +47,7 @@ export default Ember.Component.extend({
         */
         setNewPassowrd() {
             this.actions.resetErrors(this);
-
             let { new_password1, new_password2 } = this.getProperties('new_password1', 'new_password2');
-            let self = this;
             let isValid = true;
 
             if(!Ember.isPresent(new_password1)) {
@@ -77,10 +71,10 @@ export default Ember.Component.extend({
                     dataType: 'html',
                     data: {
                         valid_link: 0,
-                        uidb64: self.uidb64,
-                        token: self.token,
+                        uidb64: this.uidb64,
+                        token: this.token,
                         password: new_password1,
-                        csrfmiddlewaretoken: self.csrftoken,
+                        csrfmiddlewaretoken: this.csrftoken,
                     }
                 }).then((response) => {
                     let res = JSON.parse(response);
