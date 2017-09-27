@@ -9,5 +9,11 @@ export default Ember.Route.extend({
             comments: this.get("store").query("comment", {topic: params.pk}),
             suggests: this.get("store").query("topic", {suggest: params.pk}),
         });
+    },
+    afterModel(model) {
+        //Check if find topic
+        if (model.topic == undefined) {
+            this.transitionTo('index');
+        }
     }
 });

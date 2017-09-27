@@ -15,6 +15,8 @@ Router.map(function() {
   this.route('confirm-email', { path: '/confirm-email/:username/:activation_key' });
   this.route('reset-password');
   this.route('reset', { path: '/reset/:uidb64/:token'});
+
+  this.route('404', { path: '/*path' });
 });
 
 export default Router;

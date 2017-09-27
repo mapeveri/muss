@@ -70,6 +70,16 @@ class ForumViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.Forum.objects.all()
     serializer_class = serializers.ForumSerializer
 
+    def get_queryset(self, *args, **kwargs):
+        pk = self.request.GET.get('pk')
+        slug = self.request.GET.get('slug')
+
+        if pk and slug:
+            # Get only forum
+            self.queryset = self.queryset.filter(pk=pk, slug=slug)
+
+        return self.queryset
+
 
 # ViewSets for topic
 class TopicViewSet(viewsets.ModelViewSet):
