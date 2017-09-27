@@ -9,6 +9,7 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.renderers import BrowsableAPIRenderer
+from rest_framework.views import APIView
 
 from muss import models, notification_email as nt_email, realtime, utils
 from muss.api import serializers, utils as utils_api
@@ -347,3 +348,43 @@ class HitcountTopicViewSet(viewsets.ModelViewSet):
                 count = len(hit.first().data)
 
         return Response({"success": True, "total": count})
+
+
+class CheckPermissionsForumUser(APIView):
+    """
+    Check the permissions that a user has in a forum
+    """
+    def get(self, request, format=None):
+        response = {
+            'register': False,
+            'is_moderator': False,
+            'is_troll': False,
+        }
+
+        # Parameters
+        user_id = self.request.GET.get('user_id')
+        forum_id = self.request.GET.get('forum_id')
+
+        if user_id and forum_id:
+            # Check if user is registered in the forum
+            total_register = models.Register.objects.filter(
+                user__pk=user_id, forum__pk=forum_id
+            ).count()
+
+            if total_register > 0:
+                response['register'] = True
+
+            # Check if user logged is moderator in the forum
+            total_moderator = models.Forum.objects.filter(
+                moderators__in=[user_id]
+            ).count()
+
+            if total_moderator > 0:
+                response['is_moderator'] = True
+
+            # Check if user logged is a troll
+            profile = models.Profile.objects.filter(user__id=user_id)
+            if profile.exists():
+                response['is_troll'] = profile.first().is_troll
+
+        return Response(response)

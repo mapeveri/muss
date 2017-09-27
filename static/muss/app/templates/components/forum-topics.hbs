@@ -3,21 +3,30 @@
 <h1><a href="{{ currentUrl }}">{{ model.forum.name }}</a></h1>
 <p>{{ model.forum.description }}</p>
 
-<div class="ui right floated small icon button">
+<div class="ui right floated mini icon button">
     <a href="{{ rssUrl }}{{ model.forum.id }}/{{ model.forum.slug }}/" target="_blank"><div class="column"><i class="rss icon"></i>Rss</div></a>
 </div>
 
 {{#if session.isAuthenticated}}
-    <div class="ui right floated small primary labeled icon button">
-        <i class="plus icon"></i> {{gettext "Add topic"}}
-    </div>
+    {{#if canCreateTopic}}
+        <div class="ui right floated mini primary labeled icon button">
+            <i class="plus icon"></i> {{gettext "Add topic"}}
+        </div>
+    {{/if}}
 {{/if}}
 
-<div class="ui small button">
-    {{gettext "Register"}}
-</div>
-<div class="ui small button">
-    {{gettext "Unregister"}}
+<div style="margin-bottom: 5em">
+    {{#unless isAdminOrModerator}}
+        {{#if canRegister}}
+            <div class="ui mini button">
+                {{gettext "Register"}}
+            </div>
+        {{else}}
+            <div class="ui mini button">
+                {{gettext "Unregister"}}
+            </div>
+        {{/if}}
+    {{/unless}}
 </div>
 
 <table class="ui very basic celled table">

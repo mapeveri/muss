@@ -10,6 +10,7 @@ from muss.api.urls import router
 urlpatterns = [
     # Url for django-rest-framework
     url(r'^api/', include(router.urls)),
+    url(r'^api/', include('muss.api.urls')),
     # Authentication route jwt
     url(r'^api/token-auth/', jwt_views.obtain_jwt_token),
     # Authentication routes

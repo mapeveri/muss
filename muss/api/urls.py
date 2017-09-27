@@ -22,3 +22,9 @@ router.register(r'profiles', views.ProfileViewSet)
 router.register(r'messages-forums', views.MessageForumViewSet)
 # Hitcount topic
 router.register(r'hitcounts', views.HitcountTopicViewSet)
+
+
+urlpatterns = [
+    url(r'^check-permissions-forum-user/$',
+        views.CheckPermissionsForumUser.as_view()),
+]
