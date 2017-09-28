@@ -8,6 +8,7 @@ export default Ember.Component.extend({
     params: null,
     currentUrl: window.location.href,
     rssUrl: config.APP.API_HOST + "/" + "feed/",
+    isLoaded: false,
     canCreateTopic: false,
     canRegister: false,
     isAdminOrModerator: false,
@@ -34,6 +35,11 @@ export default Ember.Component.extend({
                 method: 'GET',
                 data: {'user_id': pk, 'forum_id': this.params.pk}
             }).then(response => {
+                //Is completed
+                this.set('isLoaded', true);
+                //Hide loading
+                this.get('loadingSpinner').set('loading', false);
+
                 let isRegistered = response.data.register;
                 let isModerator = response.data.is_moderator;
                 let isTroll = response.data.is_troll;

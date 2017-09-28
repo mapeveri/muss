@@ -1,3 +1,5 @@
-{{categories-forums model=model}}
+{{#loading-spinner as |loadingSpinner|}}
+    {{categories-forums model=model loadingSpinner=loadingSpinner}}
+{{/loading-spinner}}
 
 {{outlet}}

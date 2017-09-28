@@ -1,72 +1,74 @@
 {{yield}}
 
-<h1><a href="{{ currentUrl }}">{{ model.forum.name }}</a></h1>
-<p>{{ model.forum.description }}</p>
+{{#if isLoaded}}
+    <h1><a href="{{ currentUrl }}">{{ model.forum.name }}</a></h1>
+    <p>{{ model.forum.description }}</p>
 
-<div class="ui right floated mini icon button">
-    <a href="{{ rssUrl }}{{ model.forum.id }}/{{ model.forum.slug }}/" target="_blank"><div class="column"><i class="rss icon"></i>Rss</div></a>
-</div>
+    <div class="ui right floated mini icon button">
+        <a href="{{ rssUrl }}{{ model.forum.id }}/{{ model.forum.slug }}/" target="_blank"><div class="column"><i class="rss icon"></i>Rss</div></a>
+    </div>
 
-{{#if session.isAuthenticated}}
-    {{#if canCreateTopic}}
-        <div class="ui right floated mini primary labeled icon button">
-            <i class="plus icon"></i> {{gettext "Add topic"}}
-        </div>
-    {{/if}}
-{{/if}}
-
-<div style="margin-bottom: 5em">
-    {{#unless isAdminOrModerator}}
-        {{#if canRegister}}
-            <div class="ui mini button">
-                {{gettext "Register"}}
-            </div>
-        {{else}}
-            <div class="ui mini button">
-                {{gettext "Unregister"}}
+    {{#if session.isAuthenticated}}
+        {{#if canCreateTopic}}
+            <div class="ui right floated mini primary labeled icon button">
+                <i class="plus icon"></i> {{gettext "Add topic"}}
             </div>
         {{/if}}
-    {{/unless}}
-</div>
+    {{/if}}
 
-<table class="ui very basic celled table">
-    <thead>
-        <tr>
-            <th>{{gettext "Topic" }}</th>
-            <th>{{gettext "Answers"}}</th>
-            <th>{{gettext "Visits"}}</th>
-            <th>{{gettext "Last Activity"}}</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each model.topics as |topic|}}
-        <tr>
-            <td>
-                <h4 class="ui image header">
-                    <img src="{{ topic.userPhoto }}" class="ui mini rounded image">
-                    <div class="content">
-                        {{#link-to 'topic' topic.id topic.slug }}{{ topic.title}} {{#if topic.isTop}} <i class="pin icon"></i> {{/if}}{{/link-to}}
-                        <div class="sub header">{{ topic.date }}</div>
-                    </div>
-                </h4>
-            </td>
-            <td>
-                <b>{{ topic.totalComments }}</b>
-            </td>
-            <td>
-                {{ topic.views }}
-            </td>
-            <td>
-                {{ topic.lastActivity}}
-            </td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+    <div style="margin-bottom: 5em">
+        {{#unless isAdminOrModerator}}
+            {{#if canRegister}}
+                <div class="ui mini button">
+                    {{gettext "Register"}}
+                </div>
+            {{else}}
+                <div class="ui mini button">
+                    {{gettext "Unregister"}}
+                </div>
+            {{/if}}
+        {{/unless}}
+    </div>
 
-{{#if model.topics}}
-    {{infinite-scroll model=model submodel="topics" api="topic"}}
-{{else}}
-    <br />
-    <b>{{gettext "The forum does not contain topics."}}</b>
+    <table class="ui very basic celled table">
+        <thead>
+            <tr>
+                <th>{{gettext "Topic" }}</th>
+                <th>{{gettext "Answers"}}</th>
+                <th>{{gettext "Visits"}}</th>
+                <th>{{gettext "Last Activity"}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each model.topics as |topic|}}
+            <tr>
+                <td>
+                    <h4 class="ui image header">
+                        <img src="{{ topic.userPhoto }}" class="ui mini rounded image">
+                        <div class="content">
+                            {{#link-to 'topic' topic.id topic.slug }}{{ topic.title}} {{#if topic.isTop}} <i class="pin icon"></i> {{/if}}{{/link-to}}
+                            <div class="sub header">{{ topic.date }}</div>
+                        </div>
+                    </h4>
+                </td>
+                <td>
+                    <b>{{ topic.totalComments }}</b>
+                </td>
+                <td>
+                    {{ topic.views }}
+                </td>
+                <td>
+                    {{ topic.lastActivity}}
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    {{#if model.topics}}
+        {{infinite-scroll model=model submodel="topics" api="topic"}}
+    {{else}}
+        <br />
+        <b>{{gettext "The forum does not contain topics."}}</b>
+    {{/if}}
 {{/if}}

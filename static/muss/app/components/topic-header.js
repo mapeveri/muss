@@ -5,6 +5,7 @@ export default Ember.Component.extend({
     ajax: Ember.inject.service(),
     session: Ember.inject.service('session'),
     currentUrl: window.location.href,
+    isLoaded: false,
     topic: null,
     hitTopic: null,
 
@@ -24,6 +25,11 @@ export default Ember.Component.extend({
             data: {'topic': this.topic.id}
         }).then(response => {
             this.set('hitTopic', response.data.total);
+
+            //Is completed
+            this.set('isLoaded', true);
+            //Hide loading
+            this.get('loadingSpinner').set('loading', false);
         });
     }
 });

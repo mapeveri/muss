@@ -6,18 +6,20 @@
   <div class="active section">{{ model.topic.title }}</div>
 </div>
 
-{{topic-header topic=model.topic}}
+{{#loading-spinner as |loadingSpinner|}}
+    {{topic-header topic=model.topic loadingSpinner=loadingSpinner}}
 
-<div style="margin-top: 8em">
-    {{list-comments comments=model.comments}}
-</div>
+    <div style="margin-top: 8em">
+        {{list-comments comments=model.comments}}
+    </div>
 
-{{#if model.comments}}
-    {{infinite-scroll model=model submodel="comments" api="comment"}}
-{{/if}}
+    {{#if model.comments}}
+        {{infinite-scroll model=model submodel="comments" api="comment"}}
+    {{/if}}
 
-{{#if model.suggests}}
-{{table-topics topics=model.suggests title="Suggested Topics"}}
-{{/if}}
+    {{#if model.suggests}}
+        {{table-topics topics=model.suggests title="Suggested Topics"}}
+    {{/if}}
+{{/loading-spinner}}
 
 {{outlet}}
