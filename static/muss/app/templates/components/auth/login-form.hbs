@@ -1,6 +1,6 @@
 {{yield}}
 
-{{#form-modal title="Log in" title_action="Log in" initialize=(action "init") id=id action=(action "authenticate")}}
+{{#utils/form-modal title="Log in" title_action="Log in" initialize=(action "init") id=id action=(action "authenticate")}}
 <form class="ui form form100" id={{id}}>
     {{#if errorMessage}}
         <div class="ui red message">
@@ -22,6 +22,6 @@
         <center>{{auth/reset-password-form}}</center>
     </div>
 </form>
-{{/form-modal}}
+{{/utils/form-modal}}
 
 

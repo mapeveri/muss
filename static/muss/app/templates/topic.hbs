@@ -6,7 +6,7 @@
   <div class="active section">{{ model.topic.title }}</div>
 </div>
 
-{{#loading-spinner as |loadingSpinner|}}
+{{#utils/loading-spinner as |loadingSpinner|}}
     {{topic-header topic=model.topic loadingSpinner=loadingSpinner}}
 
     <div style="margin-top: 8em">
@@ -14,12 +14,12 @@
     </div>
 
     {{#if model.comments}}
-        {{infinite-scroll model=model submodel="comments" api="comment"}}
+        {{utils/infinite-scroll model=model submodel="comments" api="comment"}}
     {{/if}}
 
     {{#if model.suggests}}
         {{table-topics topics=model.suggests title="Suggested Topics"}}
     {{/if}}
-{{/loading-spinner}}
+{{/utils/loading-spinner}}
 
 {{outlet}}

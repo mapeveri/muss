@@ -64,6 +64,11 @@ export default Ember.Component.extend({
                     }
                 }
             });
+        } else {
+            //Is completed
+            this.set('isLoaded', true);
+            //Hide loading
+            this.get('loadingSpinner').set('loading', false);
         }
     }
 });

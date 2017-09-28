@@ -1,6 +1,6 @@
 {{yield}}
 
-{{#form-modal title="Sign up" title_action="Create my account" initialize=(action "init") id=id action=(action "signup")}}
+{{#utils/form-modal title="Sign up" title_action="Create my account" initialize=(action "init") id=id action=(action "signup")}}
 <form class="ui form form100" id={{id}}>
     {{#each errorMessage as |message|}}
         <div class="ui red message">
@@ -68,4 +68,4 @@
         {{/if}}
     </div>
 </form>
-{{/form-modal}}
+{{/utils/form-modal}}

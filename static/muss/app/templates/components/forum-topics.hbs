@@ -8,26 +8,26 @@
         <a href="{{ rssUrl }}{{ model.forum.id }}/{{ model.forum.slug }}/" target="_blank"><div class="column"><i class="rss icon"></i>Rss</div></a>
     </div>
 
-    {{#if session.isAuthenticated}}
-        {{#if canCreateTopic}}
-            <div class="ui right floated mini primary labeled icon button">
-                <i class="plus icon"></i> {{gettext "Add topic"}}
-            </div>
-        {{/if}}
+    {{#if (and session.isAuthenticated canCreateTopic)}}
+        <div class="ui right floated mini primary labeled icon button">
+            <i class="plus icon"></i> {{gettext "Add topic"}}
+        </div>
     {{/if}}
 
     <div style="margin-bottom: 5em">
-        {{#unless isAdminOrModerator}}
-            {{#if canRegister}}
-                <div class="ui mini button">
-                    {{gettext "Register"}}
-                </div>
-            {{else}}
-                <div class="ui mini button">
-                    {{gettext "Unregister"}}
-                </div>
-            {{/if}}
-        {{/unless}}
+        {{#if session.isAuthenticated}}
+            {{#unless isAdminOrModerator}}
+                {{#if canRegister}}
+                    <div class="ui mini button">
+                        {{gettext "Register"}}
+                    </div>
+                {{else}}
+                    <div class="ui mini button">
+                        {{gettext "Unregister"}}
+                    </div>
+                {{/if}}
+            {{/unless}}
+        {{/if}}
     </div>
 
     <table class="ui very basic celled table">
@@ -66,7 +66,7 @@
     </table>
 
     {{#if model.topics}}
-        {{infinite-scroll model=model submodel="topics" api="topic"}}
+        {{utils/infinite-scroll model=model submodel="topics" api="topic"}}
     {{else}}
         <br />
         <b>{{gettext "The forum does not contain topics."}}</b>

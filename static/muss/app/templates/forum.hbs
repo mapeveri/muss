@@ -26,8 +26,8 @@
     {{/if}}
 </div>
 
-{{#loading-spinner as |loadingSpinner|}}
+{{#utils/loading-spinner as |loadingSpinner|}}
     {{forum-topics model=model loadingSpinner=loadingSpinner}}
-{{/loading-spinner}}
+{{/utils/loading-spinner}}
 
 {{outlet}}
