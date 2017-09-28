@@ -19,12 +19,32 @@ export default Ember.Component.extend({
         this.checkPermissionsUser();
     },
     /**
+    * @method: FinishedLoading
+    * @description: Finished loading data server and hide loading
+    */
+    FinishedLoading() {
+        //Is completed
+        this.set('isLoaded', true);
+        //Hide loading
+        this.get('loadingSpinner').set('loading', false);
+    },
+    /**
     * @method: checkPermissionsUser
     * @description: Check if user logged can create topic or register, etc.
     */
     checkPermissionsUser(){
+        let publicForum = this.get('model.forum.publicForum');
         let isAuthenticated = this.get('session.isAuthenticated');
         if (isAuthenticated) {
+
+            // If is a public forum, not check permissions
+            if(publicForum) {
+                this.set('canCreateTopic', true);
+                //Is completed
+                this.FinishedLoading();
+                return;
+            }
+
             let namespace = config.APP.API_NAMESPACE;
             let pk = this.get('session').session.content.authenticated.user.id;
 
@@ -36,9 +56,7 @@ export default Ember.Component.extend({
                 data: {'user_id': pk, 'forum_id': this.params.pk}
             }).then(response => {
                 //Is completed
-                this.set('isLoaded', true);
-                //Hide loading
-                this.get('loadingSpinner').set('loading', false);
+                this.FinishedLoading();
 
                 let isRegistered = response.data.register;
                 let isModerator = response.data.is_moderator;
@@ -66,9 +84,7 @@ export default Ember.Component.extend({
             });
         } else {
             //Is completed
-            this.set('isLoaded', true);
-            //Hide loading
-            this.get('loadingSpinner').set('loading', false);
+            this.FinishedLoading();
         }
     }
 });

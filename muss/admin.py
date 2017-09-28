@@ -117,7 +117,8 @@ class TopicAdmin(admin.ModelAdmin):
 class ForumAdmin(admin.ModelAdmin):
     list_display = (
         'name', 'slug', 'category', 'forum_description',
-        'topics_count', 'is_moderate', 'get_moderators'
+        'topics_count', 'is_moderate', 'get_moderators',
+        'public_forum'
     )
     list_filter = ['name', 'category']
     search_fields = ['name']

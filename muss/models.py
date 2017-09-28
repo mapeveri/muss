@@ -57,6 +57,7 @@ class Forum(models.Model):
         :param topic_count: Total topics that contains the forum.
         :param hidden: If a hidden forum.
         :param is_moderate: If the forum is moderated.
+        :param public_forum: If the forum is public and don't to register
     """
     category = models.ForeignKey(
         Category, related_name='categories',
@@ -86,6 +87,12 @@ class Forum(models.Model):
     is_moderate = models.BooleanField(
         _('Check topics'), default=False,
         help_text=_('If the forum is moderated')
+    )
+    public_forum = models.BooleanField(
+        _('Public'), default=False,
+        help_text=_(
+            "If the forum is public and don't to register to the forum"
+        )
     )
 
     class Meta(object):

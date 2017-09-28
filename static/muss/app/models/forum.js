@@ -12,6 +12,7 @@ export default DS.Model.extend({
     topicsCount: DS.attr('number'),
     hidden: DS.attr('boolean'),
     isModerate: DS.attr('boolean'),
+    publicForum: DS.attr('boolean'),
     messagesForums: DS.hasMany('message-forum'),
     topics: DS.hasMany('topic')
 });

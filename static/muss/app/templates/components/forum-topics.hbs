@@ -15,19 +15,21 @@
     {{/if}}
 
     <div style="margin-bottom: 5em">
-        {{#if session.isAuthenticated}}
-            {{#unless isAdminOrModerator}}
-                {{#if canRegister}}
-                    <div class="ui mini button">
-                        {{gettext "Register"}}
-                    </div>
-                {{else}}
-                    <div class="ui mini button">
-                        {{gettext "Unregister"}}
-                    </div>
-                {{/if}}
-            {{/unless}}
-        {{/if}}
+        {{#unless model.forum.publicForum}}
+            {{#if session.isAuthenticated}}
+                {{#unless isAdminOrModerator}}
+                    {{#if canRegister}}
+                        <div class="ui mini button">
+                            {{gettext "Register"}}
+                        </div>
+                    {{else}}
+                        <div class="ui mini button">
+                            {{gettext "Unregister"}}
+                        </div>
+                    {{/if}}
+                {{/unless}}
+            {{/if}}
+        {{/unless}}
     </div>
 
     <table class="ui very basic celled table">
