@@ -6,20 +6,19 @@
   <div class="active section">{{ model.topic.title }}</div>
 </div>
 
-{{#utils/loading-spinner as |loadingSpinner|}}
-    {{topic-header topic=model.topic loadingSpinner=loadingSpinner}}
+{{topic-header topic=model.topic}}
 
-    <div style="margin-top: 8em">
-        {{list-comments comments=model.comments}}
-    </div>
+<div style="margin-top: 8em">
+    {{list-comments comments=model.comments}}
+</div>
 
-    {{#if model.comments}}
-        {{utils/infinite-scroll model=model submodel="comments" api="comment"}}
-    {{/if}}
+{{#if model.comments}}
+    {{utils/infinite-scroll model=model submodel="comments" api="comment"}}
+{{/if}}
 
-    {{#if model.suggests}}
-        {{table-topics topics=model.suggests title="Suggested Topics"}}
-    {{/if}}
-{{/utils/loading-spinner}}
+{{#if model.suggests}}
+    {{table-topics topics=model.suggests title="Suggested Topics"}}
+{{/if}}
+
 
 {{outlet}}

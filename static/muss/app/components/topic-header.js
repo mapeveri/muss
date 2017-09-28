@@ -28,8 +28,6 @@ export default Ember.Component.extend({
 
             //Is completed
             this.set('isLoaded', true);
-            //Hide loading
-            this.get('loadingSpinner').set('loading', false);
         });
     }
 });
