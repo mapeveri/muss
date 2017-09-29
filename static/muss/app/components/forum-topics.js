@@ -19,7 +19,7 @@ export default Ember.Component.extend({
         this.checkPermissionsUser();
     },
     /**
-    * @method: FinishedLoading
+    * @method FinishedLoading
     * @description: Finished loading data server and hide loading
     */
     FinishedLoading() {
@@ -27,7 +27,7 @@ export default Ember.Component.extend({
         this.set('isLoaded', true);
     },
     /**
-    * @method: checkPermissionsUser
+    * @method checkPermissionsUser
     * @description: Check if user logged can create topic or register, etc.
     */
     checkPermissionsUser(){

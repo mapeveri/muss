@@ -91,17 +91,24 @@ class TopicViewSet(viewsets.ModelViewSet):
     )
 
     def get_queryset(self, *args, **kwargs):
+        type_filter = self.request.GET.get('filter')
         pk = self.request.GET.get('pk')
         slug = self.request.GET.get('slug')
+        search_title = self.request.GET.get('title')
         suggest = self.request.GET.get('suggest')
 
-        if pk and slug:
+        if type_filter == 'only_topic' and pk and slug:
             # Get only topic
             self.queryset = self.queryset.filter(pk=pk, slug=slug)
-        elif slug:
+        elif type_filter == 'by_forum' and slug:
             # Filter topics by forum
             self.queryset = self.queryset.filter(forum__slug=slug)
-        elif suggest:
+        elif type_filter == 'search' and search_title:
+            # Search topics
+            self.queryset = self.queryset.filter(
+                title__icontains=search_title, is_moderate=True
+            )
+        elif type_filter == 'suggests' and suggest:
             # Filter suggest topic
             topic = get_object_or_404(models.Topic, pk=suggest)
             words = topic.title.split(" ")

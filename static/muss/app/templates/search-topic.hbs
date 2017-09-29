@@ -1,0 +1,7 @@
+{{outlet}}
+
+{{search-topic topics=model}}
+
+{{#if model}}
+    {{utils/infinite-scroll model=model api="topic"}}
+{{/if}}

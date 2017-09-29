@@ -1,0 +1,30 @@
+{{yield}}
+
+<h3>{{gettext "Find Topics" }}</h3>
+
+<div class="ui divider"></div>
+
+<div class="ui divided items">
+    {{#each topics as |topic|}}
+    <div class="item">
+        <div class="ui tiny image">
+            <img src="{{ topic.userPhoto }}" class="ui mini rounded image">
+        </div>
+        <div class="middle aligned content">
+            {{#link-to 'topic' topic.id topic.slug }}{{ topic.title}} {{#if topic.isTop}} <i class="pin icon"></i> {{/if}}{{/link-to}}
+            <br />
+            {{#link-to 'forum' topic.forum.id topic.forum.slug class="ui mini blue label"}} {{ topic.forum.name }} {{/link-to}}
+            <br />
+
+            {{{truncate-text topic.description limit=450}}}
+
+            <br />
+            {{ topic.date }}
+        </div>
+    </div>
+    {{else}}
+        <p>{{gettext "No results"}}</p>
+    {{/each}}
+</div>
+
+<div class="ui divider"></div>

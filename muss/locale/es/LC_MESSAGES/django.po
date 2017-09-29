@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-28 09:40-0300\n"
+"POT-Creation-Date: 2017-09-28 22:17-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -547,6 +547,14 @@ msgstr "Cerrar tema"
 msgid "Loading"
 msgstr "Cargando"
 
+#: muss/templates/muss/index.html:47
+msgid "Find Topics"
+msgstr "Buscar temas"
+
+#: muss/templates/muss/index.html:48
+msgid "No results"
+msgstr "No hay resultados"
+
 #: muss/templates/muss/password_reset_email.html:2
 #, python-format
 msgid ""
@@ -695,9 +703,6 @@ msgstr ""
 #~ msgid "Join to forum"
 #~ msgstr "Unirse al foro"
 
-#~ msgid "Find Topics"
-#~ msgstr "Buscar temas"
-
 #~ msgid "Created"
 #~ msgstr "Creado"
 
@@ -787,9 +792,6 @@ msgstr ""
 
 #~ msgid "Suggested Topics"
 #~ msgstr "Temas sugeridos"
-
-#~ msgid "No results"
-#~ msgstr "No hay resultados"
 
 #~ msgid "Moderator"
 #~ msgstr "Moderador"

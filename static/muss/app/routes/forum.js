@@ -6,7 +6,7 @@ export default Ember.Route.extend({
             forum: this.get("store").query("forum", {pk: params.pk, slug: params.slug}).then((forum) => {
                 return forum.get("firstObject");
             }),
-            topics: this.get("store").query("topic", {slug: params.slug}),
+            topics: this.get("store").query("topic", {slug: params.slug, filter: "by_forum"}),
         });
     },
     afterModel(model) {

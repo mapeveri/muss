@@ -10,6 +10,14 @@ export default Ember.Controller.extend({
         */
         invalidateSession() {
             this.get('session').invalidate();
+        },
+        /**
+        * @method onSearch
+        * @description: Event onkeyup input search
+        * @param {*} q
+        */
+        onSearch(q) {
+            this.transitionToRoute('search-topic', { queryParams: { q: q } });
         }
     }
 });
