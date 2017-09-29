@@ -26,5 +26,6 @@ router.register(r'hitcounts', views.HitcountTopicViewSet)
 
 urlpatterns = [
     url(r'^check-permissions-forum-user/$',
-        views.CheckPermissionsForumUser.as_view()),
+        views.CheckPermissionsForumUserView.as_view()),
+    url(r'^check-user-like-topic/$', views.CheckUserLikeView.as_view()),
 ]

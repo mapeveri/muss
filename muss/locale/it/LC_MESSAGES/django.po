@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-28 22:17-0300\n"
+"POT-Creation-Date: 2017-09-29 11:53-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -198,7 +198,7 @@ msgstr "Argomento"
 msgid "Topics"
 msgstr "Argomenti"
 
-#: muss/models.py:363
+#: muss/models.py:363 muss/templates/muss/index.html:53
 msgid "Comment"
 msgstr "Commento"
 
@@ -349,7 +349,7 @@ msgstr ""
 msgid "Yes, I'm sure"
 msgstr ""
 
-#: muss/templates/muss/confirm_email.html:7 muss/templates/muss/index.html:40
+#: muss/templates/muss/confirm_email.html:7 muss/templates/muss/index.html:41
 msgid "Congratulations"
 msgstr "Complimenti"
 
@@ -434,34 +434,38 @@ msgid "Add Reply"
 msgstr "Replica"
 
 #: muss/templates/muss/index.html:21
+msgid "View"
+msgstr "Visualizzazione"
+
+#: muss/templates/muss/index.html:22
 msgid "Views"
 msgstr "Visualizzazioni"
 
-#: muss/templates/muss/index.html:22
+#: muss/templates/muss/index.html:23
 msgid "Sign up"
 msgstr "Registrazione"
 
-#: muss/templates/muss/index.html:23
+#: muss/templates/muss/index.html:24
 msgid "Sign in"
 msgstr "Registrati"
 
-#: muss/templates/muss/index.html:24
+#: muss/templates/muss/index.html:25
 msgid "First name"
 msgstr "Nome"
 
-#: muss/templates/muss/index.html:25
+#: muss/templates/muss/index.html:26
 msgid "Last name"
 msgstr "Cognome"
 
-#: muss/templates/muss/index.html:26
+#: muss/templates/muss/index.html:27
 msgid "Repeat password"
 msgstr "Ripetere password"
 
-#: muss/templates/muss/index.html:27
+#: muss/templates/muss/index.html:28
 msgid "Forgot password?"
 msgstr "Ha dimenticato la password?"
 
-#: muss/templates/muss/index.html:28
+#: muss/templates/muss/index.html:29
 msgid ""
 "By clicking Create my account, you agree to our Terms and that you have read "
 "our Data Use Policy, including our Cookie Use."
@@ -469,31 +473,31 @@ msgstr ""
 "Facendo clic su Creare il mio account, l'utente accetta i termini e che "
 "avete letto la nostra politica dei dati Usa, tra cui la nostra Cookie Usa."
 
-#: muss/templates/muss/index.html:29
+#: muss/templates/muss/index.html:30
 msgid "Create my account"
 msgstr "Creare il mio account"
 
-#: muss/templates/muss/index.html:30
+#: muss/templates/muss/index.html:31
 msgid "Error sending email."
 msgstr "Errore durante l'invio di email."
 
-#: muss/templates/muss/index.html:31 muss/views.py:110
+#: muss/templates/muss/index.html:32 muss/views.py:110
 msgid "Please, check your email."
 msgstr "Si prega di controllare la tua email."
 
-#: muss/templates/muss/index.html:32
+#: muss/templates/muss/index.html:33
 msgid "Email is invalid."
 msgstr "L'email non è valida"
 
-#: muss/templates/muss/index.html:33
+#: muss/templates/muss/index.html:34
 msgid "Reset"
 msgstr ""
 
-#: muss/templates/muss/index.html:34
+#: muss/templates/muss/index.html:35
 msgid "Change password"
 msgstr "Cambia la tua password"
 
-#: muss/templates/muss/index.html:35
+#: muss/templates/muss/index.html:36
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
@@ -501,11 +505,11 @@ msgstr ""
 "Si prega di inserire due volte la nuova password in modo che possiamo "
 "verificare che è stata digitata in correttamente."
 
-#: muss/templates/muss/index.html:36
+#: muss/templates/muss/index.html:37
 msgid "Change my password"
 msgstr "Cambia la mia password"
 
-#: muss/templates/muss/index.html:37
+#: muss/templates/muss/index.html:38
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
@@ -514,45 +518,57 @@ msgstr ""
 "già stato. usato. Si prega di richiedere una nuova reimpostazione della "
 "password."
 
-#: muss/templates/muss/index.html:38
+#: muss/templates/muss/index.html:39
 msgid "Confirm password"
 msgstr "conferma password"
 
-#: muss/templates/muss/index.html:39
+#: muss/templates/muss/index.html:40
 msgid "New password"
 msgstr "Nuova password"
 
-#: muss/templates/muss/index.html:41
+#: muss/templates/muss/index.html:42
 msgid "Your password has been set.  You may go ahead and log in now."
 msgstr "La password è stata impostata. Si può andare avanti e ora il login."
 
-#: muss/templates/muss/index.html:42
+#: muss/templates/muss/index.html:43
 msgid "Passwords don't match"
 msgstr "Password non corrispondono"
 
-#: muss/templates/muss/index.html:43
+#: muss/templates/muss/index.html:44
 msgid "Username or password incorrect."
 msgstr "Nome utente o password scorretto."
 
-#: muss/templates/muss/index.html:44
+#: muss/templates/muss/index.html:45
 msgid "Open topic"
 msgstr "Apri argomento"
 
-#: muss/templates/muss/index.html:45
+#: muss/templates/muss/index.html:46
 msgid "Close topic"
 msgstr "Chiudi argomento"
 
-#: muss/templates/muss/index.html:46
+#: muss/templates/muss/index.html:47
 msgid "Loading"
 msgstr "Caricamento in corso"
 
-#: muss/templates/muss/index.html:47
+#: muss/templates/muss/index.html:48
 msgid "Find Topics"
 msgstr "Trova argomenti"
 
-#: muss/templates/muss/index.html:48
+#: muss/templates/muss/index.html:49
 msgid "No results"
 msgstr "Nessun risultato"
+
+#: muss/templates/muss/index.html:50
+msgid "Edit"
+msgstr "Modifica"
+
+#: muss/templates/muss/index.html:51
+msgid "Likes"
+msgstr ""
+
+#: muss/templates/muss/index.html:52
+msgid "Like"
+msgstr ""
 
 #: muss/templates/muss/password_reset_email.html:2
 #, python-format
@@ -757,9 +773,6 @@ msgstr ""
 
 #~ msgid "a while ago"
 #~ msgstr "un po 'di tempo fa"
-
-#~ msgid "Edit"
-#~ msgstr "Modifica"
 
 #~ msgid "Remove"
 #~ msgstr "Rimuovere"

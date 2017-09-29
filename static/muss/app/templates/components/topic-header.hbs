@@ -4,8 +4,8 @@
             <h1><a href="{{ currentUrl }}" class="header marginTop05">{{ topic.title }} {{#if topic.isTop}} <i class="pin icon"></i> {{/if}}</a></h1>
             <div class="ui divider"></div>
             <div class="meta">
-                <img class="ui avatar image" src="{{ topic.userPhoto }}">
-                <span>{{ topic.username }}</span>
+                <img class="ui avatar image" src="{{ topic.user.userPhoto }}">
+                <span>{{ topic.user.username }}</span>
                 <div class="marginTop1">
                     {{#if topic.isClose}}
                         <p style="color: red"><strong>{{gettext "This topic is closed"}}</strong></p>
@@ -21,41 +21,93 @@
                 </div>
             </div>
             <div class="ui divider"></div>
-            <div class="description">
-                <b>{{gettext "Views" }}</b> {{ hitTopic }}
-                <b>{{gettext "Total comments" }}</b> {{ topic.totalComments }} <i class="comments icon"></i>
-            </div>
-            <div class="extra">
-                <b>{{gettext "Created" }}</b>: {{ topic.date }}
-                /
-                <b>{{gettext "Last activity" }}</b>: {{ topic.lastActivity }}
-            </div>
         </div>
         <div class="extra content">
-            <div class="pull-left">
-                <p><b>{{gettext "Total likes" }}</b>: {{ topic.totalLikes }}</p>
-                <p><button class="ui mini button"><i class="thumbs outline up icon"></i></button>
-                <button class="ui mini button"><i class="thumbs outline down icon"></i></button></p>
-            </div>
-            <div class="pull-right">
-                {{#if session.isAuthenticated}}
-                <p>
-                    <button class="ui mini button">{{gettext "Open topic" }}</button>
-                    <button class="ui mini button">{{gettext "Close topic" }}</button>
-                </p>
-                {{/if}}
+            <div class="ui grid">
+                <div class="ten wide column">
+                    <div class="ui mini horizontal statistic">
+                        <div class="value">
+                            {{ hitTopic }}
+                        </div>
+                        <div class="label">
+                            {{#if (not-eq hitTopic 0)}}
+                                {{#if (gt hitTopic 1) }}
+                                    {{gettext "Views" }}
+                                {{else}}
+                                    {{gettext "View" }}
+                                {{/if}}
+                            {{else}}
+                                {{gettext "Views" }}
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="ui mini horizontal statistic">
+                        <div class="value">
+                        {{ topic.totalComments }}
+                        </div>
+                        <div class="label">
+                            {{#if (not-eq topic.totalComments 0)}}
+                                {{#if (gt topic.totalComments 1) }}
+                                    {{gettext "Comments" }}
+                                {{else}}
+                                    {{gettext "Comment" }}
+                                {{/if}}
+                            {{else}}
+                                {{gettext "Comments" }}
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="ui mini horizontal statistic">
+                        <div class="value">
+                        {{ topic.totalLikes }}
+                        </div>
+                        <div class="label">
+                            {{#if (not-eq topic.totalLikes 0)}}
+                                {{#if (gt topic.totalLikes 1) }}
+                                    {{gettext "Likes" }}
+                                {{else}}
+                                    {{gettext "Like" }}
+                                {{/if}}
+                            {{else}}
+                                {{gettext "Likes" }}
+                            {{/if}}
+                        </div>
 
-                <p><a href="http://www.facebook.com/sharer.php?s=100&amp;p%5Burl%5D={{ currentUrl }}" target="_blank">
-                <i class="facebook icon"></i>
-                </a>
-                <a href="https://plus.google.com/share?url={{ currentUrl }}" target="_blank">
-                <i class="google plus icon"></i>
-                </a>
-                <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{ currentUrl }}">
-                <i class="twitter icon"></i>
-                </a></p>
+                        <div style="margin-left: 0.5em">
+                            {{#if isLikeTopicUser}}
+                                <p><button class="circular ui mini icon button"><i class="thumbs outline down icon"></i></button></p>
+                            {{else}}
+                                <p><button class="circular ui mini icon button"><i class="thumbs outline up icon"></i></button></p>
+                            {{/if}}
+                        </div>
+                    </div>
 
-                <p><button class="ui mini button"><i class="reply icon"></i> {{ gettext "Reply" }}</button></p>
+                    <p><b>{{gettext "Created" }}</b>: {{ topic.date }}</p>
+                    <p><b>{{gettext "Last activity" }}</b>: {{ topic.lastActivity }}</p>
+                </div>
+                <div class="six wide column">
+                    {{#if (and session.isAuthenticated isCreatorTopic)}}
+                        <p>
+                            {{#if topic.isClose}}
+                                <button class="ui mini button">{{gettext "Open topic" }}</button>
+                            {{else}}
+                                <button class="ui mini button">{{gettext "Close topic" }}</button>
+                            {{/if}}
+                            <button class="ui mini button"><i class="reply icon"></i> {{ gettext "Edit" }}</button>
+                            <button class="ui mini red button"><i class="reply icon"></i> {{ gettext "Delete" }}</button>
+                        </p>
+                    {{/if}}
+
+                    <p><a href="http://www.facebook.com/sharer.php?s=100&amp;p%5Burl%5D={{ currentUrl }}" target="_blank">
+                    <i class="facebook icon"></i>
+                    </a>
+                    <a href="https://plus.google.com/share?url={{ currentUrl }}" target="_blank">
+                    <i class="google plus icon"></i>
+                    </a>
+                    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{ currentUrl }}">
+                    <i class="twitter icon"></i>
+                    </a></p>
+                </div>
             </div>
         </div>
     </div>

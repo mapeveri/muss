@@ -22,7 +22,6 @@ class UserViewSet(viewsets.ModelViewSet):
     User = get_user_model()
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
-    lookup_field = 'username'
     resource_name = 'users'
 
 
@@ -357,7 +356,7 @@ class HitcountTopicViewSet(viewsets.ModelViewSet):
         return Response({"success": True, "total": count})
 
 
-class CheckPermissionsForumUser(APIView):
+class CheckPermissionsForumUserView(APIView):
     """
     Check the permissions that a user has in a forum
     """
@@ -395,3 +394,18 @@ class CheckPermissionsForumUser(APIView):
                 response['is_troll'] = profile.first().is_troll
 
         return Response(response)
+
+
+class CheckUserLikeView(APIView):
+    """
+    Check if user logged make like in topic
+    """
+    def post(self, request, format=None):
+        user_id = self.request.POST.get('user_id')
+        topic_id = self.request.POST.get('topic_id')
+
+        total = models.LikeTopic.objects.filter(
+            user__id=user_id, topic__id=topic_id
+        ).count()
+
+        return Response({'is_like': total > 0})

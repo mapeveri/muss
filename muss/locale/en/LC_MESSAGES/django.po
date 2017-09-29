@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-28 22:17-0300\n"
+"POT-Creation-Date: 2017-09-29 11:53-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -197,7 +197,7 @@ msgstr ""
 msgid "Topics"
 msgstr ""
 
-#: muss/models.py:363
+#: muss/models.py:363 muss/templates/muss/index.html:53
 msgid "Comment"
 msgstr ""
 
@@ -346,7 +346,7 @@ msgstr ""
 msgid "Yes, I'm sure"
 msgstr ""
 
-#: muss/templates/muss/confirm_email.html:7 muss/templates/muss/index.html:40
+#: muss/templates/muss/confirm_email.html:7 muss/templates/muss/index.html:41
 msgid "Congratulations"
 msgstr ""
 
@@ -435,121 +435,137 @@ msgid "Add Reply"
 msgstr ""
 
 #: muss/templates/muss/index.html:21
-msgid "Views"
+msgid "View"
 msgstr ""
 
 #: muss/templates/muss/index.html:22
-msgid "Sign up"
+msgid "Views"
 msgstr ""
 
 #: muss/templates/muss/index.html:23
-msgid "Sign in"
+msgid "Sign up"
 msgstr ""
 
 #: muss/templates/muss/index.html:24
-msgid "First name"
+msgid "Sign in"
 msgstr ""
 
 #: muss/templates/muss/index.html:25
-msgid "Last name"
+msgid "First name"
 msgstr ""
 
 #: muss/templates/muss/index.html:26
-msgid "Repeat password"
+msgid "Last name"
 msgstr ""
 
 #: muss/templates/muss/index.html:27
-msgid "Forgot password?"
+msgid "Repeat password"
 msgstr ""
 
 #: muss/templates/muss/index.html:28
+msgid "Forgot password?"
+msgstr ""
+
+#: muss/templates/muss/index.html:29
 msgid ""
 "By clicking Create my account, you agree to our Terms and that you have read "
 "our Data Use Policy, including our Cookie Use."
 msgstr ""
 
-#: muss/templates/muss/index.html:29
+#: muss/templates/muss/index.html:30
 msgid "Create my account"
 msgstr ""
 
-#: muss/templates/muss/index.html:30
+#: muss/templates/muss/index.html:31
 msgid "Error sending email."
 msgstr ""
 
-#: muss/templates/muss/index.html:31 muss/views.py:110
+#: muss/templates/muss/index.html:32 muss/views.py:110
 msgid "Please, check your email."
 msgstr ""
 
-#: muss/templates/muss/index.html:32
+#: muss/templates/muss/index.html:33
 msgid "Email is invalid."
 msgstr ""
 
-#: muss/templates/muss/index.html:33
+#: muss/templates/muss/index.html:34
 msgid "Reset"
 msgstr ""
 
-#: muss/templates/muss/index.html:34
+#: muss/templates/muss/index.html:35
 msgid "Change password"
 msgstr ""
 
-#: muss/templates/muss/index.html:35
+#: muss/templates/muss/index.html:36
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
 msgstr ""
 
-#: muss/templates/muss/index.html:36
+#: muss/templates/muss/index.html:37
 msgid "Change my password"
 msgstr ""
 
-#: muss/templates/muss/index.html:37
+#: muss/templates/muss/index.html:38
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
 msgstr ""
 
-#: muss/templates/muss/index.html:38
+#: muss/templates/muss/index.html:39
 msgid "Confirm password"
 msgstr ""
 
-#: muss/templates/muss/index.html:39
+#: muss/templates/muss/index.html:40
 msgid "New password"
 msgstr ""
 
-#: muss/templates/muss/index.html:41
+#: muss/templates/muss/index.html:42
 msgid "Your password has been set.  You may go ahead and log in now."
 msgstr ""
 
-#: muss/templates/muss/index.html:42
+#: muss/templates/muss/index.html:43
 msgid "Passwords don't match"
 msgstr ""
 
-#: muss/templates/muss/index.html:43
+#: muss/templates/muss/index.html:44
 msgid "Username or password incorrect."
 msgstr ""
 
-#: muss/templates/muss/index.html:44
+#: muss/templates/muss/index.html:45
 msgid "Open topic"
 msgstr "No loaded topics"
 
-#: muss/templates/muss/index.html:45
+#: muss/templates/muss/index.html:46
 #, fuzzy
 #| msgid "Closed topic"
 msgid "Close topic"
 msgstr "No loaded topics"
 
-#: muss/templates/muss/index.html:46
+#: muss/templates/muss/index.html:47
 msgid "Loading"
 msgstr ""
 
-#: muss/templates/muss/index.html:47
+#: muss/templates/muss/index.html:48
 #, fuzzy
 #| msgid "Closed topic"
 msgid "Find Topics"
 msgstr "No loaded topics"
 
-#: muss/templates/muss/index.html:48
+#: muss/templates/muss/index.html:49
 msgid "No results"
+msgstr ""
+
+#: muss/templates/muss/index.html:50
+msgid "Edit"
+msgstr ""
+
+#: muss/templates/muss/index.html:51
+msgid "Likes"
+msgstr ""
+
+#: muss/templates/muss/index.html:52
+msgid "Like"
 msgstr ""
 
 #: muss/templates/muss/password_reset_email.html:2

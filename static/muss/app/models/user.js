@@ -9,4 +9,6 @@ export default DS.Model.extend({
     userPhoto: DS.attr('string'),
     isActive: DS.attr('boolean'),
     isSuperUser: DS.attr('boolean'),
+    topics: DS.hasMany('topic'),
+    comments: DS.hasMany('comment'),
 });

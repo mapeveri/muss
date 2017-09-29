@@ -4,10 +4,10 @@
     {{#each comments as |comment|}}
     <div class="comment">
         <a class="avatar">
-        <img src="{{ comment.userPhoto }}">
+        <img src="{{ comment.user.userPhoto }}">
         </a>
         <div class="content">
-            <a class="author">{{ comment.username }}</a>
+            <a class="author">{{ comment.user.username }}</a>
             <div class="metadata">
                 <span class="date">{{ comment.date }}</span>
             </div>

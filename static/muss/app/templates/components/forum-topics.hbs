@@ -49,7 +49,7 @@
             <tr>
                 <td>
                     <h4 class="ui image header">
-                        <img src="{{ topic.userPhoto }}" class="ui mini rounded image">
+                        <img src="{{ topic.user.userPhoto }}" class="ui mini rounded image">
                         <div class="content">
                             {{#link-to 'topic' topic.id topic.slug }}{{ topic.title}} {{#if topic.isTop}} <i class="pin icon"></i> {{/if}}{{/link-to}}
                             <div class="sub header">{{ topic.date }}</div>

@@ -8,7 +8,7 @@
     {{#each topics as |topic|}}
     <div class="item">
         <div class="ui tiny image">
-            <img src="{{ topic.userPhoto }}" class="ui mini rounded image">
+            <img src="{{ topic.user.userPhoto }}" class="ui mini rounded image">
         </div>
         <div class="middle aligned content">
             {{#link-to 'topic' topic.id topic.slug }}{{ topic.title}} {{#if topic.isTop}} <i class="pin icon"></i> {{/if}}{{/link-to}}

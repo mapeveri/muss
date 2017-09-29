@@ -101,8 +101,6 @@ class ForumSerializer(serializers.ModelSerializer):
 # Serializers Topic
 class TopicSerializer(serializers.ModelSerializer):
     total_comments = serializers.SerializerMethodField()
-    user_photo = serializers.SerializerMethodField()
-    username = serializers.SerializerMethodField()
     views = serializers.SerializerMethodField()
 
     def get_total_comments(self, obj):
@@ -111,19 +109,10 @@ class TopicSerializer(serializers.ModelSerializer):
         """
         return models.Comment.objects.filter(topic__pk=obj.pk).count()
 
-    def get_user_photo(self, obj):
-        """
-        Get photo profile topic user
-        """
-        return utils.get_photo_profile(obj.user)
-
-    def get_username(self, obj):
-        """
-        Get username of topic user
-        """
-        return obj.user.username
-
     def get_views(self, obj):
+        """
+        Get total hitcounts
+        """
         hit = models.HitcountTopic.objects.filter(topic=obj)
         if hit.exists():
             count = len(hit.first().data)
@@ -163,8 +152,6 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 # Serializers comment
 class CommentSerializer(serializers.ModelSerializer):
-    username = serializers.SerializerMethodField()
-    user_photo = serializers.SerializerMethodField()
 
     def __init__(self, *args, **kwargs):
         super(CommentSerializer, self).__init__(*args, **kwargs)
@@ -178,18 +165,6 @@ class CommentSerializer(serializers.ModelSerializer):
             self.fields['topic'].queryset = models.Topic.objects.filter(
                 is_close=False, moderate=True
             )
-
-    def get_username(self, obj):
-        """
-        Get username comment user
-        """
-        return obj.user.username
-
-    def get_user_photo(self, obj):
-        """
-        Get photo profile comment user
-        """
-        return utils.get_photo_profile(obj.user)
 
     class Meta:
         model = models.Comment
