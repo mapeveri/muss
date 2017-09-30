@@ -2,25 +2,7 @@
   <h3 class="ui dividing header">{{gettext "Comments" }}</h3>
 
     {{#each comments as |comment|}}
-    <div class="comment">
-        <a class="avatar">
-        <img src="{{ comment.user.userPhoto }}">
-        </a>
-        <div class="content">
-            <a class="author">{{ comment.user.username }}</a>
-            <div class="metadata">
-                <span class="date">{{ comment.date }}</span>
-            </div>
-            <div class="text">
-                {{{ comment.description }}}
-            </div>
-            <div class="actions">
-                <a class="reply">{{gettext "Reply"}}</a>
-                <a> <i class="thumbs outline up icon"></i></a>
-                <a> <i class="thumbs outline down icon"></i></a>
-            </div>
-        </div>
-    </div>
+        {{card-comment comment=comment}}
     {{/each}}
 
     {{reply-comment topic=topic comments=comments}}

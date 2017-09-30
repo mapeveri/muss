@@ -1,0 +1,24 @@
+{{yield}}
+
+<div class="comment" style="margin-bottom: 1em">
+    <a class="avatar">
+    <img src="{{ comment.user.userPhoto }}">
+    </a>
+    <div class="content">
+        {{#if isCreatorComment}}
+            <div class="pull-right pointer" {{action "removeComment"}}>x</div>
+        {{/if}}
+        <a class="author">{{ comment.user.username }}</a>
+        <div class="metadata">
+            <span class="date">{{ comment.date }}</span>
+        </div>
+        <div class="text">
+            {{{ comment.description }}}
+        </div>
+        <div class="actions">
+            <a class="reply">{{gettext "Reply"}}</a>
+            <a> <i class="thumbs outline up icon"></i></a>
+            <a> <i class="thumbs outline down icon"></i></a>
+        </div>
+    </div>
+</div>
