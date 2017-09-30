@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'muss.middleware.AuthenticationMiddlewareJWT',
     'muss.middleware.ActiveUserMiddleware',
     # 'muss.middleware.RestrictStaffToAdminMiddleware',
 ]
@@ -193,6 +195,10 @@ REST_FRAMEWORK = {
 # Type keys api for ember-data models
 JSON_API_FORMAT_KEYS = 'dasherize'
 
+# Pluralize relations in endpoints
+JSON_API_PLURALIZE_RELATION_TYPE = True
+
 JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'muss.api.utils.jwt_response_payload_handler',
+    'JWT_VERIFY_EXPIRATION': False,
 }

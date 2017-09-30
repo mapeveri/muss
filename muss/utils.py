@@ -443,3 +443,12 @@ def check_topic_moderate(user, forum):
         return True
     else:
         return False
+
+
+def get_domain(request):
+    """
+    Return main domain
+    """
+    protocol = 'https' if request.is_secure() else 'http'
+    host = request.META['HTTP_HOST']
+    return protocol + "://" + host

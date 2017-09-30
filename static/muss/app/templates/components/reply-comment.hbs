@@ -1,0 +1,12 @@
+{{yield}}
+
+{{#if session.isAuthenticated}}
+    <div class="ui reply form marginTop1">
+        <div class="field">
+            {{textarea type="text" value=reply autofocus="autofocus" rows=1 max-rows=4}}
+        </div>
+        <div class="ui blue labeled submit icon button {{if enableReply 'disabled'}}" disabled={{enableReply}} {{action "createComment"}}>
+            <i class="icon edit"></i> {{gettext "Add Reply"}}
+        </div>
+    </div>
+{{/if}}

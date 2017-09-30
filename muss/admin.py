@@ -51,7 +51,9 @@ class TopicAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         instance = form.save(commit=False)
-        instance.moderate = utils.check_topic_moderate(request.user, obj.forum)
+        instance.is_moderate = utils.check_topic_moderate(
+            request.user, obj.forum
+        )
         instance.save()
 
     def delete_topic(self, request, queryset):

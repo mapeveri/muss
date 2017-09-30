@@ -5,11 +5,11 @@ export default Base.extend({
     session: Ember.inject.service(),
     authorize(data, block) {
         if (Ember.testing) {
-            block('Authorization', 'Bearer beyonce');
+            block('Authorization', 'jwt beyonce');
         }
         const { token } = data
         if (this.get('session.isAuthenticated') && token) {
-            block('Authorization', `Bearer ${token}`);
+            block('Authorization', `jwt ${token}`);
         }
     }
 });

@@ -1,9 +1,13 @@
 from django.conf import settings
+from django.contrib.auth.middleware import get_user
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.utils import timezone
 from django.utils.deprecation import MiddlewareMixin
+from django.utils.functional import SimpleLazyObject
+
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 
 class ActiveUserMiddleware(MiddlewareMixin):
@@ -31,3 +35,27 @@ class RestrictStaffToAdminMiddleware(MiddlewareMixin):
                     raise Http404
             else:
                 raise Http404
+
+
+class AuthenticationMiddlewareJWT(MiddlewareMixin):
+    """
+    Middleware for auth django and jwt
+    """
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        request.user = SimpleLazyObject(
+            lambda: self.__class__.get_jwt_user(request)
+        )
+        return self.get_response(request)
+
+    @staticmethod
+    def get_jwt_user(request):
+        user = get_user(request)
+        if user.is_authenticated:
+            return user
+        jwt_authentication = JSONWebTokenAuthentication()
+        if jwt_authentication.get_jwt_value(request):
+            user, jwt = jwt_authentication.authenticate(request)
+        return user

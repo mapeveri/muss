@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.renderers import BrowsableAPIRenderer
 from rest_framework.views import APIView
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from muss import models, notification_email as nt_email, realtime, utils
 from muss.api import serializers, utils as utils_api
@@ -225,12 +226,14 @@ class RegisterViewSet(viewsets.ModelViewSet):
 
 # ViewSets for comment
 class CommentViewSet(viewsets.ModelViewSet):
+    resource_name = 'comments'
     queryset = models.Comment.objects.all()
     serializer_class = serializers.CommentSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, ForumPermissions,)
+    authentication_classes = (JSONWebTokenAuthentication,)
+    permission_classes = (ForumPermissions,)
 
     def get_permissions(self):
-            # If is troll then only is read only
+        # If is troll then only is read only
         if self.request.user.is_authenticated():
             if self.request.user.user.is_troll:
                 self.permission_classes = [IsReadOnly, ]
@@ -241,6 +244,15 @@ class CommentViewSet(viewsets.ModelViewSet):
         if topic:
             self.queryset = self.queryset.filter(topic__pk=topic)
         return self.queryset
+
+    def create(self, request):
+        topic_id = request.data['topic']
+        request.data['topic'] = topic_id['id']
+
+        user_id = request.data['user']
+        request.data['user'] = user_id['id']
+
+        return super(CommentViewSet, self).create(request)
 
     def perform_create(self, serializer):
         request = self.request
@@ -256,6 +268,7 @@ class CommentViewSet(viewsets.ModelViewSet):
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
+            # Get topic
             topic_id = request.data['topic']
             topic = get_object_or_404(models.Topic, pk=topic_id)
 
@@ -272,10 +285,9 @@ class CommentViewSet(viewsets.ModelViewSet):
             list_email = params['list_email']
 
             # Get url for email
-            url = reverse_lazy('topic', kwargs={
-                'category': topic.forum.category, 'forum': forum,
-                'slug': topic.slug, 'idtopic': str(topic.pk)
-            })
+            url = ""
+            url += utils.get_domain(request)
+            url += "/topic/" + str(topic.pk) + "/" + topic.slug + "/"
 
             # Send e    mail
             nt_email.send_mail_comment(str(url), list_email)
@@ -297,7 +309,7 @@ class CommentViewSet(viewsets.ModelViewSet):
             )
         else:
             raise PermissionDenied({
-                    "message": "Not your user"
+                    "message": "Error: User incorrect."
                 })
 
 

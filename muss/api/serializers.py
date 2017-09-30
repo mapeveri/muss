@@ -163,7 +163,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
             # Topic not is close and is moderate not show
             self.fields['topic'].queryset = models.Topic.objects.filter(
-                is_close=False, moderate=True
+                is_close=False, is_moderate=True
             )
 
     class Meta:

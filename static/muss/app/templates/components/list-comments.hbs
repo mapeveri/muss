@@ -23,16 +23,7 @@
     </div>
     {{/each}}
 
-    {{#if session.isAuthenticated}}
-        <form class="ui reply form">
-            <div class="field">
-            <textarea></textarea>
-            </div>
-            <div class="ui blue labeled submit icon button">
-            <i class="icon edit"></i> {{gettext "Add Reply"}}
-            </div>
-        </form>
-    {{/if}}
+    {{reply-comment topic=topic comments=comments}}
 </div>
 <br />
 {{yield}}

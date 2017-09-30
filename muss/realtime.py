@@ -56,7 +56,7 @@ def new_comment(data_comment, comment_description):
         data_comment (list): Data for create a new comment.
         comment_description (str): Comment description.
     """
-    topic = data_comment['pk']
+    topic = data_comment['id_topic']
     # Publish new comment in topic
     data_comment['description'] = comment_description
     json_data_comment = json.dumps(data_comment)
