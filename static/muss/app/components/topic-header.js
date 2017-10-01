@@ -11,6 +11,9 @@ export default Ember.Component.extend({
     hitTopic: null,
     isCreatorTopic: false,
     isLikeTopicUser: false,
+    totalCommentsWatcher: function() {
+        this.set('topic.totalComments', this.get('comments.content').length);
+    }.observes('comments.content.[]'),
 
     didInsertElement() {
         this._super();
