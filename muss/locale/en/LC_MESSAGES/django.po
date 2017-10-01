@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-30 23:09-0300\n"
+"POT-Creation-Date: 2017-10-01 17:09-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,6 +56,236 @@ msgstr ""
 msgid "The email already exists."
 msgstr ""
 
+#: muss/i18n.py:4
+msgid "Please, you add forums and categories in the administrator."
+msgstr ""
+
+#: muss/i18n.py:5
+msgid "There are no forums created for the category"
+msgstr ""
+
+#: muss/i18n.py:6 muss/models.py:81
+msgid "Total topics"
+msgstr "Total topics"
+
+#: muss/i18n.py:7 muss/models.py:102
+msgid "Forums"
+msgstr ""
+
+#: muss/i18n.py:8
+#, fuzzy
+#| msgid "Closed topic"
+msgid "Add topic"
+msgstr "No loaded topics"
+
+#: muss/i18n.py:9 muss/models.py:463
+msgid "Register"
+msgstr ""
+
+#: muss/i18n.py:10
+msgid "Unregister"
+msgstr ""
+
+#: muss/i18n.py:11 muss/models.py:273 muss/models.py:348
+msgid "Topic"
+msgstr ""
+
+#: muss/i18n.py:12
+msgid "Answers"
+msgstr ""
+
+#: muss/i18n.py:13
+msgid "Visits"
+msgstr ""
+
+#: muss/i18n.py:14
+msgid "Last Activity"
+msgstr ""
+
+#: muss/i18n.py:15
+msgid "The forum does not contain topics."
+msgstr ""
+
+#: muss/i18n.py:16
+#, fuzzy
+#| msgid "Total topics"
+msgid "Total likes"
+msgstr "Total topics"
+
+#: muss/i18n.py:17
+#, fuzzy
+#| msgid "Total topics"
+msgid "Total comments"
+msgstr "Total topics"
+
+#: muss/i18n.py:18
+msgid "Reply"
+msgstr ""
+
+#: muss/i18n.py:19
+msgid "Add Reply"
+msgstr ""
+
+#: muss/i18n.py:20
+msgid "View"
+msgstr ""
+
+#: muss/i18n.py:21
+msgid "Views"
+msgstr ""
+
+#: muss/i18n.py:22
+msgid "Sign up"
+msgstr ""
+
+#: muss/i18n.py:23
+msgid "Sign in"
+msgstr ""
+
+#: muss/i18n.py:24
+msgid "First name"
+msgstr ""
+
+#: muss/i18n.py:25
+msgid "Last name"
+msgstr ""
+
+#: muss/i18n.py:26
+msgid "Repeat password"
+msgstr ""
+
+#: muss/i18n.py:27
+msgid "Forgot password?"
+msgstr ""
+
+#: muss/i18n.py:28
+msgid ""
+"By clicking Create my account, you agree to our Terms and that you have read "
+"our Data Use Policy, including our Cookie Use."
+msgstr ""
+
+#: muss/i18n.py:29
+msgid "Create my account"
+msgstr ""
+
+#: muss/i18n.py:30
+msgid "Error sending email."
+msgstr ""
+
+#: muss/i18n.py:31 muss/views.py:110
+msgid "Please, check your email."
+msgstr ""
+
+#: muss/i18n.py:32
+msgid "Email is invalid."
+msgstr ""
+
+#: muss/i18n.py:33
+msgid "Reset"
+msgstr ""
+
+#: muss/i18n.py:34
+msgid "Change password"
+msgstr ""
+
+#: muss/i18n.py:35
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+
+#: muss/i18n.py:36
+msgid "Change my password"
+msgstr ""
+
+#: muss/i18n.py:37
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+
+#: muss/i18n.py:38
+msgid "Confirm password"
+msgstr ""
+
+#: muss/i18n.py:39
+msgid "New password"
+msgstr ""
+
+#: muss/i18n.py:40 muss/templates/muss/confirm_email.html:7
+msgid "Congratulations"
+msgstr ""
+
+#: muss/i18n.py:41
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr ""
+
+#: muss/i18n.py:42
+msgid "Passwords don't match"
+msgstr ""
+
+#: muss/i18n.py:43
+msgid "Username or password incorrect."
+msgstr ""
+
+#: muss/i18n.py:44
+msgid "Open topic"
+msgstr "No loaded topics"
+
+#: muss/i18n.py:45
+#, fuzzy
+#| msgid "Closed topic"
+msgid "Close topic"
+msgstr "No loaded topics"
+
+#: muss/i18n.py:46
+msgid "Loading"
+msgstr ""
+
+#: muss/i18n.py:47
+#, fuzzy
+#| msgid "Closed topic"
+msgid "Find Topics"
+msgstr "No loaded topics"
+
+#: muss/i18n.py:48
+msgid "No results"
+msgstr ""
+
+#: muss/i18n.py:49
+msgid "Edit"
+msgstr ""
+
+#: muss/i18n.py:50
+msgid "Likes"
+msgstr ""
+
+#: muss/i18n.py:51
+msgid "Like"
+msgstr ""
+
+#: muss/i18n.py:52 muss/models.py:363
+msgid "Comment"
+msgstr ""
+
+#: muss/i18n.py:53
+msgid "Do you want remove this comment?"
+msgstr ""
+
+#: muss/i18n.py:54
+msgid "There was an error creating your comment."
+msgstr ""
+
+#: muss/i18n.py:55
+#, fuzzy
+#| msgid "Total topics"
+msgid "Remove comment"
+msgstr "Total topics"
+
+#: muss/i18n.py:56
+msgid "Cancel"
+msgstr ""
+
 #: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:251
 #: muss/models.py:358 muss/models.py:577
 msgid "Description"
@@ -85,10 +315,6 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: muss/models.py:81 muss/templates/muss/index.html:7
-msgid "Total topics"
-msgstr "Total topics"
-
 #: muss/models.py:84
 msgid "Hidden"
 msgstr ""
@@ -111,10 +337,6 @@ msgstr ""
 
 #: muss/models.py:94
 msgid "If the forum is public and don't to register to the forum"
-msgstr ""
-
-#: muss/models.py:102 muss/templates/muss/index.html:8
-msgid "Forums"
 msgstr ""
 
 #: muss/models.py:186
@@ -189,24 +411,12 @@ msgstr ""
 msgid "If the topic is important and it will go top"
 msgstr ""
 
-#: muss/models.py:273 muss/models.py:348 muss/templates/muss/index.html:12
-msgid "Topic"
-msgstr ""
-
 #: muss/models.py:274
 msgid "Topics"
 msgstr ""
 
-#: muss/models.py:363 muss/templates/muss/index.html:53
-msgid "Comment"
-msgstr ""
-
 #: muss/models.py:364
 msgid "Comments"
-msgstr ""
-
-#: muss/models.py:463 muss/templates/muss/index.html:10
-msgid "Register"
 msgstr ""
 
 #: muss/models.py:464
@@ -346,10 +556,6 @@ msgstr ""
 msgid "Yes, I'm sure"
 msgstr ""
 
-#: muss/templates/muss/confirm_email.html:7 muss/templates/muss/index.html:41
-msgid "Congratulations"
-msgstr ""
-
 #: muss/templates/muss/confirm_email.html:10
 #: muss/templates/muss/confirm_email_expired.html:11
 msgid "Confirmation email"
@@ -378,212 +584,6 @@ msgstr ""
 
 #: muss/templates/muss/confirm_email_expired.html:20
 msgid "New activation key"
-msgstr ""
-
-#: muss/templates/muss/index.html:5
-msgid "Please, you add forums and categories in the administrator."
-msgstr ""
-
-#: muss/templates/muss/index.html:6
-msgid "There are no forums created for the category"
-msgstr ""
-
-#: muss/templates/muss/index.html:9
-#, fuzzy
-#| msgid "Closed topic"
-msgid "Add topic"
-msgstr "No loaded topics"
-
-#: muss/templates/muss/index.html:11
-msgid "Unregister"
-msgstr ""
-
-#: muss/templates/muss/index.html:13
-msgid "Answers"
-msgstr ""
-
-#: muss/templates/muss/index.html:14
-msgid "Visits"
-msgstr ""
-
-#: muss/templates/muss/index.html:15
-msgid "Last Activity"
-msgstr ""
-
-#: muss/templates/muss/index.html:16
-msgid "The forum does not contain topics."
-msgstr ""
-
-#: muss/templates/muss/index.html:17
-#, fuzzy
-#| msgid "Total topics"
-msgid "Total likes"
-msgstr "Total topics"
-
-#: muss/templates/muss/index.html:18
-#, fuzzy
-#| msgid "Total topics"
-msgid "Total comments"
-msgstr "Total topics"
-
-#: muss/templates/muss/index.html:19
-msgid "Reply"
-msgstr ""
-
-#: muss/templates/muss/index.html:20
-msgid "Add Reply"
-msgstr ""
-
-#: muss/templates/muss/index.html:21
-msgid "View"
-msgstr ""
-
-#: muss/templates/muss/index.html:22
-msgid "Views"
-msgstr ""
-
-#: muss/templates/muss/index.html:23
-msgid "Sign up"
-msgstr ""
-
-#: muss/templates/muss/index.html:24
-msgid "Sign in"
-msgstr ""
-
-#: muss/templates/muss/index.html:25
-msgid "First name"
-msgstr ""
-
-#: muss/templates/muss/index.html:26
-msgid "Last name"
-msgstr ""
-
-#: muss/templates/muss/index.html:27
-msgid "Repeat password"
-msgstr ""
-
-#: muss/templates/muss/index.html:28
-msgid "Forgot password?"
-msgstr ""
-
-#: muss/templates/muss/index.html:29
-msgid ""
-"By clicking Create my account, you agree to our Terms and that you have read "
-"our Data Use Policy, including our Cookie Use."
-msgstr ""
-
-#: muss/templates/muss/index.html:30
-msgid "Create my account"
-msgstr ""
-
-#: muss/templates/muss/index.html:31
-msgid "Error sending email."
-msgstr ""
-
-#: muss/templates/muss/index.html:32 muss/views.py:110
-msgid "Please, check your email."
-msgstr ""
-
-#: muss/templates/muss/index.html:33
-msgid "Email is invalid."
-msgstr ""
-
-#: muss/templates/muss/index.html:34
-msgid "Reset"
-msgstr ""
-
-#: muss/templates/muss/index.html:35
-msgid "Change password"
-msgstr ""
-
-#: muss/templates/muss/index.html:36
-msgid ""
-"Please enter your new password twice so we can verify you typed it in "
-"correctly."
-msgstr ""
-
-#: muss/templates/muss/index.html:37
-msgid "Change my password"
-msgstr ""
-
-#: muss/templates/muss/index.html:38
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used.  Please request a new password reset."
-msgstr ""
-
-#: muss/templates/muss/index.html:39
-msgid "Confirm password"
-msgstr ""
-
-#: muss/templates/muss/index.html:40
-msgid "New password"
-msgstr ""
-
-#: muss/templates/muss/index.html:42
-msgid "Your password has been set.  You may go ahead and log in now."
-msgstr ""
-
-#: muss/templates/muss/index.html:43
-msgid "Passwords don't match"
-msgstr ""
-
-#: muss/templates/muss/index.html:44
-msgid "Username or password incorrect."
-msgstr ""
-
-#: muss/templates/muss/index.html:45
-msgid "Open topic"
-msgstr "No loaded topics"
-
-#: muss/templates/muss/index.html:46
-#, fuzzy
-#| msgid "Closed topic"
-msgid "Close topic"
-msgstr "No loaded topics"
-
-#: muss/templates/muss/index.html:47
-msgid "Loading"
-msgstr ""
-
-#: muss/templates/muss/index.html:48
-#, fuzzy
-#| msgid "Closed topic"
-msgid "Find Topics"
-msgstr "No loaded topics"
-
-#: muss/templates/muss/index.html:49
-msgid "No results"
-msgstr ""
-
-#: muss/templates/muss/index.html:50
-msgid "Edit"
-msgstr ""
-
-#: muss/templates/muss/index.html:51
-msgid "Likes"
-msgstr ""
-
-#: muss/templates/muss/index.html:52
-msgid "Like"
-msgstr ""
-
-#: muss/templates/muss/index.html:54
-msgid "Do you want remove this comment?"
-msgstr ""
-
-#: muss/templates/muss/index.html:55
-msgid "There was an error creating your comment."
-msgstr ""
-
-#: muss/templates/muss/index.html:56
-#, fuzzy
-#| msgid "Total topics"
-msgid "Remove comment"
-msgstr "Total topics"
-
-#: muss/templates/muss/index.html:57
-msgid "Cancel"
 msgstr ""
 
 #: muss/templates/muss/password_reset_email.html:2

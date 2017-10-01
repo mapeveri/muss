@@ -5,7 +5,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     session: Ember.inject.service('session'),
 
     /**
-    * @method: renderTemplate
+    * @method renderTemplate
     * @description: Render all templates and show loading before
     */
     renderTemplate() {

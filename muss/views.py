@@ -21,7 +21,7 @@ class IndexView(TemplateView):
     """
     Index app
     """
-    template_name = "muss/index.html"
+    template_name = "muss/base_muss.html"
 
 
 class ConfirmEmailView(View):

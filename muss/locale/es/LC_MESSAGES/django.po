@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-30 23:09-0300\n"
+"POT-Creation-Date: 2017-10-01 17:09-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,6 +57,232 @@ msgstr "Perfil"
 msgid "The email already exists."
 msgstr "El correo electrónico ya se encuentra registrado."
 
+#: muss/i18n.py:4
+msgid "Please, you add forums and categories in the administrator."
+msgstr "Por favor, agregue los foros y categorías en el administrador"
+
+#: muss/i18n.py:5
+msgid "There are no forums created for the category"
+msgstr "No hay foros creados para la categoría"
+
+#: muss/i18n.py:6 muss/models.py:81
+msgid "Total topics"
+msgstr "Temas totales"
+
+#: muss/i18n.py:7 muss/models.py:102
+msgid "Forums"
+msgstr "Foros"
+
+#: muss/i18n.py:8
+msgid "Add topic"
+msgstr "Agregar tema"
+
+#: muss/i18n.py:9 muss/models.py:463
+msgid "Register"
+msgstr "Registrarse"
+
+#: muss/i18n.py:10
+msgid "Unregister"
+msgstr "Anular registro"
+
+#: muss/i18n.py:11 muss/models.py:273 muss/models.py:348
+msgid "Topic"
+msgstr "Tema"
+
+#: muss/i18n.py:12
+msgid "Answers"
+msgstr "Respuestas"
+
+#: muss/i18n.py:13
+msgid "Visits"
+msgstr "Visitas"
+
+#: muss/i18n.py:14
+msgid "Last Activity"
+msgstr "Última actividad"
+
+#: muss/i18n.py:15
+msgid "The forum does not contain topics."
+msgstr "El foro no contiene temas."
+
+#: muss/i18n.py:16
+msgid "Total likes"
+msgstr "Likes totales"
+
+#: muss/i18n.py:17
+msgid "Total comments"
+msgstr "Comentarios totales"
+
+#: muss/i18n.py:18
+msgid "Reply"
+msgstr "Responder"
+
+#: muss/i18n.py:19
+msgid "Add Reply"
+msgstr "Responder"
+
+#: muss/i18n.py:20
+msgid "View"
+msgstr "Vista"
+
+#: muss/i18n.py:21
+msgid "Views"
+msgstr "Vistas"
+
+#: muss/i18n.py:22
+msgid "Sign up"
+msgstr "Regístrate"
+
+#: muss/i18n.py:23
+msgid "Sign in"
+msgstr "Ingresar"
+
+#: muss/i18n.py:24
+msgid "First name"
+msgstr "Nombre"
+
+#: muss/i18n.py:25
+msgid "Last name"
+msgstr "Apellido"
+
+#: muss/i18n.py:26
+msgid "Repeat password"
+msgstr "Repita la contraseña"
+
+#: muss/i18n.py:27
+msgid "Forgot password?"
+msgstr "¿Olvidó la contraseña?"
+
+#: muss/i18n.py:28
+msgid ""
+"By clicking Create my account, you agree to our Terms and that you have read "
+"our Data Use Policy, including our Cookie Use."
+msgstr ""
+"Al hacer click en Crear mi cuenta, acepta nuestros Términos y ha leído "
+"nuestra política de uso de datos, incluyendo nuestro uso de cookies"
+
+#: muss/i18n.py:29
+msgid "Create my account"
+msgstr "Crear mi cuenta"
+
+#: muss/i18n.py:30
+msgid "Error sending email."
+msgstr "Error al enviar correo electrónico."
+
+#: muss/i18n.py:31 muss/views.py:110
+msgid "Please, check your email."
+msgstr "Por favor, revise su correo electrónico."
+
+#: muss/i18n.py:32
+msgid "Email is invalid."
+msgstr "Correo electrónico invalido."
+
+#: muss/i18n.py:33
+msgid "Reset"
+msgstr "Restablecer"
+
+#: muss/i18n.py:34
+msgid "Change password"
+msgstr "Cambiar la contraseña"
+
+#: muss/i18n.py:35
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+"Ingrese su nueva contraseña dos veces para poder verificar que la escribió "
+"correctamente"
+
+#: muss/i18n.py:36
+msgid "Change my password"
+msgstr "Cambiar mi contraseña"
+
+#: muss/i18n.py:37
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+"El enlace de restablecimiento de contraseña no es válido, posiblemente "
+"porque ya se ha usado. Por favor solicitar un nuevo restablecimiento de la "
+"contraseña."
+
+#: muss/i18n.py:38
+msgid "Confirm password"
+msgstr "Confirmar contraseña"
+
+#: muss/i18n.py:39
+msgid "New password"
+msgstr "Nueva contraseña"
+
+#: muss/i18n.py:40 muss/templates/muss/confirm_email.html:7
+msgid "Congratulations"
+msgstr "Felicitaciones"
+
+#: muss/i18n.py:41
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr ""
+"Se ha establecido su contraseña. Usted puede seguir adelante y acceder ahora."
+
+#: muss/i18n.py:42
+msgid "Passwords don't match"
+msgstr "Las contraseñas no coinciden"
+
+#: muss/i18n.py:43
+msgid "Username or password incorrect."
+msgstr "Usuario o contraseña incorrecta"
+
+#: muss/i18n.py:44
+msgid "Open topic"
+msgstr "Abrir tema"
+
+#: muss/i18n.py:45
+msgid "Close topic"
+msgstr "Cerrar tema"
+
+#: muss/i18n.py:46
+msgid "Loading"
+msgstr "Cargando"
+
+#: muss/i18n.py:47
+msgid "Find Topics"
+msgstr "Buscar temas"
+
+#: muss/i18n.py:48
+msgid "No results"
+msgstr "No hay resultados"
+
+#: muss/i18n.py:49
+msgid "Edit"
+msgstr "Editar"
+
+#: muss/i18n.py:50
+msgid "Likes"
+msgstr ""
+
+#: muss/i18n.py:51
+msgid "Like"
+msgstr ""
+
+#: muss/i18n.py:52 muss/models.py:363
+msgid "Comment"
+msgstr "Comentario"
+
+#: muss/i18n.py:53
+msgid "Do you want remove this comment?"
+msgstr "¿Desea eliminar el comentario?"
+
+#: muss/i18n.py:54
+msgid "There was an error creating your comment."
+msgstr "Se ha producido un error al crear tu comentario."
+
+#: muss/i18n.py:55
+msgid "Remove comment"
+msgstr "Eliminar comentario"
+
+#: muss/i18n.py:56
+msgid "Cancel"
+msgstr "Cancelar"
+
 #: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:251
 #: muss/models.py:358 muss/models.py:577
 msgid "Description"
@@ -86,10 +312,6 @@ msgstr "Nombre"
 msgid "Date"
 msgstr "Fecha"
 
-#: muss/models.py:81 muss/templates/muss/index.html:7
-msgid "Total topics"
-msgstr "Temas totales"
-
 #: muss/models.py:84
 msgid "Hidden"
 msgstr "Oculto"
@@ -113,10 +335,6 @@ msgstr "Público"
 #: muss/models.py:94
 msgid "If the forum is public and don't to register to the forum"
 msgstr "Si el foro es público y no se registra en el foro"
-
-#: muss/models.py:102 muss/templates/muss/index.html:8
-msgid "Forums"
-msgstr "Foros"
 
 #: muss/models.py:186
 msgid "Message to inform"
@@ -190,25 +408,13 @@ msgstr "Arriba"
 msgid "If the topic is important and it will go top"
 msgstr "Si el tema es importante y va a ir arriba"
 
-#: muss/models.py:273 muss/models.py:348 muss/templates/muss/index.html:12
-msgid "Topic"
-msgstr "Tema"
-
 #: muss/models.py:274
 msgid "Topics"
 msgstr "Temas"
 
-#: muss/models.py:363 muss/templates/muss/index.html:53
-msgid "Comment"
-msgstr "Comentario"
-
 #: muss/models.py:364
 msgid "Comments"
 msgstr "Comentarios"
-
-#: muss/models.py:463 muss/templates/muss/index.html:10
-msgid "Register"
-msgstr "Registrarse"
 
 #: muss/models.py:464
 msgid "Registers"
@@ -349,10 +555,6 @@ msgstr ""
 msgid "Yes, I'm sure"
 msgstr ""
 
-#: muss/templates/muss/confirm_email.html:7 muss/templates/muss/index.html:41
-msgid "Congratulations"
-msgstr "Felicitaciones"
-
 #: muss/templates/muss/confirm_email.html:10
 #: muss/templates/muss/confirm_email_expired.html:11
 msgid "Confirmation email"
@@ -384,208 +586,6 @@ msgstr ""
 #: muss/templates/muss/confirm_email_expired.html:20
 msgid "New activation key"
 msgstr "Nueva clave de activación"
-
-#: muss/templates/muss/index.html:5
-msgid "Please, you add forums and categories in the administrator."
-msgstr "Por favor, agregue los foros y categorías en el administrador"
-
-#: muss/templates/muss/index.html:6
-msgid "There are no forums created for the category"
-msgstr "No hay foros creados para la categoría"
-
-#: muss/templates/muss/index.html:9
-msgid "Add topic"
-msgstr "Agregar tema"
-
-#: muss/templates/muss/index.html:11
-msgid "Unregister"
-msgstr "Anular registro"
-
-#: muss/templates/muss/index.html:13
-msgid "Answers"
-msgstr "Respuestas"
-
-#: muss/templates/muss/index.html:14
-msgid "Visits"
-msgstr "Visitas"
-
-#: muss/templates/muss/index.html:15
-msgid "Last Activity"
-msgstr "Última actividad"
-
-#: muss/templates/muss/index.html:16
-msgid "The forum does not contain topics."
-msgstr "El foro no contiene temas."
-
-#: muss/templates/muss/index.html:17
-msgid "Total likes"
-msgstr "Likes totales"
-
-#: muss/templates/muss/index.html:18
-msgid "Total comments"
-msgstr "Comentarios totales"
-
-#: muss/templates/muss/index.html:19
-msgid "Reply"
-msgstr "Responder"
-
-#: muss/templates/muss/index.html:20
-msgid "Add Reply"
-msgstr "Responder"
-
-#: muss/templates/muss/index.html:21
-msgid "View"
-msgstr "Vista"
-
-#: muss/templates/muss/index.html:22
-msgid "Views"
-msgstr "Vistas"
-
-#: muss/templates/muss/index.html:23
-msgid "Sign up"
-msgstr "Regístrate"
-
-#: muss/templates/muss/index.html:24
-msgid "Sign in"
-msgstr "Ingresar"
-
-#: muss/templates/muss/index.html:25
-msgid "First name"
-msgstr "Nombre"
-
-#: muss/templates/muss/index.html:26
-msgid "Last name"
-msgstr "Apellido"
-
-#: muss/templates/muss/index.html:27
-msgid "Repeat password"
-msgstr "Repita la contraseña"
-
-#: muss/templates/muss/index.html:28
-msgid "Forgot password?"
-msgstr "¿Olvidó la contraseña?"
-
-#: muss/templates/muss/index.html:29
-msgid ""
-"By clicking Create my account, you agree to our Terms and that you have read "
-"our Data Use Policy, including our Cookie Use."
-msgstr ""
-"Al hacer click en Crear mi cuenta, acepta nuestros Términos y ha leído "
-"nuestra política de uso de datos, incluyendo nuestro uso de cookies"
-
-#: muss/templates/muss/index.html:30
-msgid "Create my account"
-msgstr "Crear mi cuenta"
-
-#: muss/templates/muss/index.html:31
-msgid "Error sending email."
-msgstr "Error al enviar correo electrónico."
-
-#: muss/templates/muss/index.html:32 muss/views.py:110
-msgid "Please, check your email."
-msgstr "Por favor, revise su correo electrónico."
-
-#: muss/templates/muss/index.html:33
-msgid "Email is invalid."
-msgstr "Correo electrónico invalido."
-
-#: muss/templates/muss/index.html:34
-msgid "Reset"
-msgstr "Restablecer"
-
-#: muss/templates/muss/index.html:35
-msgid "Change password"
-msgstr "Cambiar la contraseña"
-
-#: muss/templates/muss/index.html:36
-msgid ""
-"Please enter your new password twice so we can verify you typed it in "
-"correctly."
-msgstr ""
-"Ingrese su nueva contraseña dos veces para poder verificar que la escribió "
-"correctamente"
-
-#: muss/templates/muss/index.html:37
-msgid "Change my password"
-msgstr "Cambiar mi contraseña"
-
-#: muss/templates/muss/index.html:38
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used.  Please request a new password reset."
-msgstr ""
-"El enlace de restablecimiento de contraseña no es válido, posiblemente "
-"porque ya se ha usado. Por favor solicitar un nuevo restablecimiento de la "
-"contraseña."
-
-#: muss/templates/muss/index.html:39
-msgid "Confirm password"
-msgstr "Confirmar contraseña"
-
-#: muss/templates/muss/index.html:40
-msgid "New password"
-msgstr "Nueva contraseña"
-
-#: muss/templates/muss/index.html:42
-msgid "Your password has been set.  You may go ahead and log in now."
-msgstr ""
-"Se ha establecido su contraseña. Usted puede seguir adelante y acceder ahora."
-
-#: muss/templates/muss/index.html:43
-msgid "Passwords don't match"
-msgstr "Las contraseñas no coinciden"
-
-#: muss/templates/muss/index.html:44
-msgid "Username or password incorrect."
-msgstr "Usuario o contraseña incorrecta"
-
-#: muss/templates/muss/index.html:45
-msgid "Open topic"
-msgstr "Abrir tema"
-
-#: muss/templates/muss/index.html:46
-msgid "Close topic"
-msgstr "Cerrar tema"
-
-#: muss/templates/muss/index.html:47
-msgid "Loading"
-msgstr "Cargando"
-
-#: muss/templates/muss/index.html:48
-msgid "Find Topics"
-msgstr "Buscar temas"
-
-#: muss/templates/muss/index.html:49
-msgid "No results"
-msgstr "No hay resultados"
-
-#: muss/templates/muss/index.html:50
-msgid "Edit"
-msgstr "Editar"
-
-#: muss/templates/muss/index.html:51
-msgid "Likes"
-msgstr ""
-
-#: muss/templates/muss/index.html:52
-msgid "Like"
-msgstr ""
-
-#: muss/templates/muss/index.html:54
-msgid "Do you want remove this comment?"
-msgstr "¿Desea eliminar el comentario?"
-
-#: muss/templates/muss/index.html:55
-msgid "There was an error creating your comment."
-msgstr "Se ha producido un error al crear tu comentario."
-
-#: muss/templates/muss/index.html:56
-msgid "Remove comment"
-msgstr "Eliminar comentario"
-
-#: muss/templates/muss/index.html:57
-msgid "Cancel"
-msgstr "Cancelar"
 
 #: muss/templates/muss/password_reset_email.html:2
 #, python-format
