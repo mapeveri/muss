@@ -1,4 +1,3 @@
-from django.db.models import Q
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 
@@ -128,23 +127,6 @@ class TopicSerializer(serializers.ModelSerializer):
 # Serializers register
 class RegisterSerializer(serializers.ModelSerializer):
 
-    def __init__(self, *args, **kwargs):
-        super(RegisterSerializer, self).__init__(*args, **kwargs)
-        user = self.context['request'].user
-        # If no is superuser, get forum that
-        # not is register or not is moderator
-        if not user.is_superuser and user.is_authenticated():
-            registers = models.Register.objects.filter(user=user)
-            self.fields['forum'].queryset = models.Forum.objects.filter(
-                ~Q(moderators__in=[user.id]), ~Q(
-                    register_forums__in=registers
-                )
-            )
-
-            # Only my user
-            User = get_user_model()
-            self.fields['user'].queryset = User.objects.filter(id=user.id)
-
     class Meta:
         model = models.Register
         exclude = ('date',)
@@ -152,19 +134,6 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 # Serializers comment
 class CommentSerializer(serializers.ModelSerializer):
-
-    def __init__(self, *args, **kwargs):
-        super(CommentSerializer, self).__init__(*args, **kwargs)
-        user = self.context['request'].user
-        if not user.is_superuser and user.is_authenticated():
-            # Only my user
-            User = get_user_model()
-            self.fields['user'].queryset = User.objects.filter(id=user.id)
-
-            # Topic not is close and is moderate not show
-            self.fields['topic'].queryset = models.Topic.objects.filter(
-                is_close=False, is_moderate=True
-            )
 
     class Meta:
         model = models.Comment

@@ -14,7 +14,10 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from muss import models, notification_email as nt_email, realtime, utils
 from muss.api import serializers, utils as utils_api
-from muss.api.permissions import ForumPermissions, IsReadOnly
+from muss.api.permissions import (
+    CommentPermissions, TopicPermissions, IsReadOnly,
+    RegisterPermissions
+)
 from muss.api.renderers import JSONRendererApiJson
 
 
@@ -87,7 +90,7 @@ class TopicViewSet(viewsets.ModelViewSet):
     queryset = models.Topic.objects.all()
     serializer_class = serializers.TopicSerializer
     permission_classes = (
-        IsAuthenticatedOrReadOnly, ForumPermissions,
+        IsAuthenticatedOrReadOnly, TopicPermissions,
     )
 
     def get_queryset(self, *args, **kwargs):
@@ -193,7 +196,7 @@ class TopicViewSet(viewsets.ModelViewSet):
 class RegisterViewSet(viewsets.ModelViewSet):
     queryset = models.Register.objects.all()
     serializer_class = serializers.RegisterSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, ForumPermissions,)
+    permission_classes = (IsAuthenticatedOrReadOnly, RegisterPermissions)
 
     def get_permissions(self):
         # If is troll then only is read only
@@ -230,7 +233,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     queryset = models.Comment.objects.all()
     serializer_class = serializers.CommentSerializer
     authentication_classes = (JSONWebTokenAuthentication,)
-    permission_classes = (ForumPermissions,)
+    permission_classes = (CommentPermissions,)
 
     def get_permissions(self):
         # If is troll then only is read only
