@@ -2,7 +2,7 @@
   <h3 class="ui dividing header">{{gettext "Comments" }}</h3>
 
     {{#each comments as |comment|}}
-        {{card-comment comment=comment}}
+        {{card-comment comment=comment comments=comments}}
     {{/each}}
 
     {{reply-comment topic=topic comments=comments}}

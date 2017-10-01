@@ -1,13 +1,24 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-    title: '',
+    //Title modal
+    title_modal: '',
+    //Title action unique
     title_action: '',
+    //Id modal
     id: '',
+    //If show button or link for display modal
+    hasUiForShowModal: true,
+    //Check if has custom actions or manage a unique action (this is default)
+    customActions: false,
+    //For check if is the section default content
+    sectionContent: {isSectionContent: true},
+    //For check if is the section actions
+    sectionActions: {isSectionActions: true},
 
     actions: {
         /**
-        * @method: showForm
+        * @method showForm
         * @description: Display modal form
         */
         showForm() {
@@ -15,12 +26,19 @@ export default Ember.Component.extend({
                 onApprove: () => {
                   return false;
                 }
-              }).modal('show');
-              //Reset form
-              this.attrs['initialize'](...arguments);
+            }).modal('show');
+            //Reset form
+            this.attrs['initialize'](...arguments);
         },
         /**
-        * @method: action
+        * @method cancelModal
+        * @description: Cancel modal
+        */
+        cancelModal() {
+            Ember.$('.tiny.'+this.id+'.modal').modal('hide');
+        },
+        /**
+        * @method action
         * @description: Call action param
         */
         action() {

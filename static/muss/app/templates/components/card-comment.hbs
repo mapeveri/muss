@@ -6,7 +6,7 @@
     </a>
     <div class="content">
         {{#if isCreatorComment}}
-            <div class="pull-right pointer" {{action "removeComment"}}>x</div>
+            <div class="pull-right pointer" {{action "confirmRemoveComment" comment.id}}>x</div>
         {{/if}}
         <a class="author">{{ comment.user.username }}</a>
         <div class="metadata">
@@ -22,3 +22,15 @@
         </div>
     </div>
 </div>
+
+{{#utils/form-modal title_modal="Remove comment" id=comment.id hasUiForShowModal=false customActions=true as |section|}}
+    {{#if section.isSectionActions}}
+        <!-- Section actions -->
+        <button class="ui red button" {{ action "removeComment"}}>{{gettext "Remove"}}</button>
+    {{/if}}
+
+    {{#if section.isSectionContent}}
+        <!-- Section default content -->
+        {{gettext "Do you want remove this comment?"}}
+    {{/if}}
+{{/utils/form-modal}}

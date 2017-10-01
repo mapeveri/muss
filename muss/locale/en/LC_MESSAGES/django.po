@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-29 11:53-0300\n"
+"POT-Creation-Date: 2017-09-30 23:09-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,38 +17,38 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: conf/settings.py:118 tests/testsapp/settings.py:104
+#: conf/settings.py:120 tests/testsapp/settings.py:104
 msgid "English"
 msgstr ""
 
-#: conf/settings.py:119 tests/testsapp/settings.py:105
+#: conf/settings.py:121 tests/testsapp/settings.py:105
 msgid "Spanish"
 msgstr ""
 
-#: conf/settings.py:120 tests/testsapp/settings.py:106
+#: conf/settings.py:122 tests/testsapp/settings.py:106
 msgid "Italian"
 msgstr ""
 
-#: muss/admin.py:77 muss/admin.py:159
+#: muss/admin.py:79 muss/admin.py:161
 #, python-format
 msgid "Successfully deleted %(count)d record/s."
 msgstr ""
 
-#: muss/admin.py:113 muss/admin.py:195
+#: muss/admin.py:115 muss/admin.py:197
 #, python-format
 msgid "Delete selected %(verbose_name_plural)s"
 msgstr ""
 
-#: muss/admin.py:129 muss/models.py:75
+#: muss/admin.py:131 muss/models.py:75
 msgid "Moderators"
 msgstr ""
 
-#: muss/admin.py:209 muss/models.py:101 muss/models.py:182 muss/models.py:236
+#: muss/admin.py:211 muss/models.py:101 muss/models.py:182 muss/models.py:236
 #: muss/models.py:450
 msgid "Forum"
 msgstr ""
 
-#: muss/admin.py:234
+#: muss/admin.py:236
 msgid "Profile"
 msgstr ""
 
@@ -566,6 +566,24 @@ msgstr ""
 
 #: muss/templates/muss/index.html:52
 msgid "Like"
+msgstr ""
+
+#: muss/templates/muss/index.html:54
+msgid "Do you want remove this comment?"
+msgstr ""
+
+#: muss/templates/muss/index.html:55
+msgid "There was an error creating your comment."
+msgstr ""
+
+#: muss/templates/muss/index.html:56
+#, fuzzy
+#| msgid "Total topics"
+msgid "Remove comment"
+msgstr "Total topics"
+
+#: muss/templates/muss/index.html:57
+msgid "Cancel"
 msgstr ""
 
 #: muss/templates/muss/password_reset_email.html:2

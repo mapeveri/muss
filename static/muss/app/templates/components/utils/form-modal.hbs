@@ -1,20 +1,27 @@
-{{#if isLink }}
-    <a class="pointer" {{action "showForm" }}>{{gettext title }}</a>
-{{else}}
-    <div class="ui primary button" {{action "showForm" }}>{{gettext title }}</div>
+{{#if hasUiForShowModal }}
+    {{#if isLink }}
+        <a class="pointer" {{action "showForm" }}>{{gettext title_modal }}</a>
+    {{else}}
+        <div class="ui primary button" {{action "showForm" }}>{{gettext title_modal }}</div>
+    {{/if}}
 {{/if}}
 
 <div class="ui tiny {{ id }} modal">
     <i class="close icon"></i>
     <div class="header">
-    {{gettext title}}
+        {{gettext title_modal}}
     </div>
     <div class="image content">
-        {{yield}}
+        {{yield sectionContent}}
     </div>
     <div class="actions">
-        <div class="ui positive right button" {{ action "action"}}>
-            {{gettext title_action}}
-        </div>
+        {{#if customActions}}
+            {{yield sectionActions}}
+            <button class="ui grey button" {{ action "cancelModal"}}>{{gettext "Cancel"}}</button>
+        {{else}}
+            <div class="ui positive right button" {{ action "action"}}>
+                {{gettext title_action}}
+            </div>
+        {{/if}}
     </div>
 </div>
