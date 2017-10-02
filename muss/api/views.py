@@ -1,4 +1,4 @@
-from django.db.models import Q
+from django.db.models import F, Q
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse_lazy
@@ -424,3 +424,84 @@ class CheckUserLikeView(APIView):
         ).count()
 
         return Response({'is_like': total > 0})
+
+
+# Viewset for LikeComment
+class LikeCommentViewSet(viewsets.ModelViewSet):
+    queryset = models.LikeComment.objects.all()
+    serializer_class = serializers.LikeCommentSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+    http_method_names = ['get', 'post', 'delete']
+
+    def get_queryset(self, *arg, **kwargs):
+        type_filter = self.request.GET.get('filter')
+
+        # Check if exists like in comment
+        if type_filter == 'check_like_exists':
+            user = self.request.GET.get('user')
+            comment = self.request.GET.get('comment')
+
+            lc = self.queryset.filter(comment__pk=comment)
+            if lc.exists():
+                exists = lc.filter(users__contains=[{'user': user}])
+                if exists:
+                    self.queryset = lc
+                else:
+                    self.queryset = models.LikeComment.objects.none()
+            else:
+                self.queryset = models.LikeComment.objects.none()
+
+        return self.queryset
+
+    def create(self, request):
+        comment_pk = request.data['comment']
+        user = request.data['users']
+        lc = models.LikeComment.objects.filter(comment__pk=comment_pk)
+        if lc.exists():
+            s = lc.filter(users__contains=[{'user': user}])
+            if not s.exists():
+                # Not exists, then i add the user
+                record = lc.first()
+                users = record.users
+                # Insert new user to existing users
+                users.append({'user': user})
+                record.users = users
+                # Update record in the field users
+                record.save()
+
+                # Increment total like
+                models.Comment.objects.filter(pk=comment_pk).update(
+                    total_likes=F('total_likes') + 1
+                )
+        else:
+            comment = models.Comment.objects.filter(pk=comment_pk)
+            models.LikeComment.objects.create(
+                comment=comment.first(), users=[{'user': user}]
+            )
+
+            # Increment total like
+            comment.update(
+                total_likes=F('total_likes') + 1
+            )
+
+        return Response({'success': 'ok'})
+
+    def destroy(self, request, pk=None):
+        user_pk = request.data['users']
+        lc = models.LikeComment.objects.filter(comment__pk=pk).first()
+        users = lc.users
+
+        for i, d in enumerate(users):
+            if d['user'] == user_pk:
+                users.pop(i)
+                break
+
+        lc.users = users
+        lc.save()
+
+        # Decrement like in total like
+        models.Comment.objects.filter(pk=pk).update(
+            total_likes=F('total_likes') - 1
+        )
+
+        return Response({'success': 'ok'})

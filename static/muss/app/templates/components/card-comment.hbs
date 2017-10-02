@@ -17,8 +17,11 @@
         </div>
         <div class="actions">
             <a class="reply">{{gettext "Reply"}}</a>
-            <a> <i class="thumbs outline up icon"></i></a>
-            <a> <i class="thumbs outline down icon"></i></a>
+            {{#if showLike }}
+            <a {{action "likeComment" }}> <i class="thumbs outline up icon"></i></a>
+            {{else}}
+            <a {{action "unLikeComment" }} style="color: red"> <i class="thumbs outline up icon"></i></a>
+            {{/if}} {{ comment.totalLikes }}
         </div>
     </div>
 </div>

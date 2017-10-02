@@ -2,6 +2,7 @@ from django.conf.urls import url
 from rest_framework import routers
 from muss.api import views
 
+
 # Routers provide a way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 # Get users endpoint
@@ -19,9 +20,11 @@ router.register(r'comments', views.CommentViewSet)
 # Get profiles endpoint
 router.register(r'profiles', views.ProfileViewSet)
 # Get message forum
-router.register(r'messages-forums', views.MessageForumViewSet)
+router.register(r'messageforums', views.MessageForumViewSet)
 # Hitcount topic
 router.register(r'hitcounts', views.HitcountTopicViewSet)
+# Like comment endpoint
+router.register(r'likecomments', views.LikeCommentViewSet)
 
 
 urlpatterns = [
