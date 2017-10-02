@@ -411,19 +411,85 @@ class CheckPermissionsForumUserView(APIView):
         return Response(response)
 
 
-class CheckUserLikeView(APIView):
-    """
-    Check if user logged make like in topic
-    """
-    def post(self, request, format=None):
-        user_id = self.request.POST.get('user_id')
-        topic_id = self.request.POST.get('topic_id')
+# Viewset for LikeTopic
+class LikeTopicViewSet(viewsets.ModelViewSet):
+    queryset = models.LikeTopic.objects.all()
+    serializer_class = serializers.LikeTopicSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+    http_method_names = ['get', 'post', 'delete']
 
-        total = models.LikeTopic.objects.filter(
-            user__id=user_id, topic__id=topic_id
-        ).count()
+    def get_queryset(self, *arg, **kwargs):
+        type_filter = self.request.GET.get('filter')
 
-        return Response({'is_like': total > 0})
+        # Check if exists like in topic
+        if type_filter == 'check_like_exists':
+            user = self.request.GET.get('user')
+            topic = self.request.GET.get('topic')
+
+            lt = self.queryset.filter(topic__pk=topic)
+            if lt.exists():
+                exists = lt.filter(users__contains=[{'user': user}])
+                if exists:
+                    self.queryset = lt
+                else:
+                    self.queryset = models.LikeTopic.objects.none()
+            else:
+                self.queryset = models.LikeTopic.objects.none()
+
+        return self.queryset
+
+    def create(self, request):
+        topic_pk = request.data['topic']
+        user = request.data['users']
+        lt = models.LikeTopic.objects.filter(topic__pk=topic_pk)
+        if lt.exists():
+            s = lt.filter(users__contains=[{'user': user}])
+            if not s.exists():
+                # Not exists, then i add the user
+                record = lt.first()
+                users = record.users
+                # Insert new user to existing users
+                users.append({'user': user})
+                record.users = users
+                # Update record in the field users
+                record.save()
+
+                # Increment total like
+                models.Topic.objects.filter(pk=topic_pk).update(
+                    total_likes=F('total_likes') + 1
+                )
+        else:
+            topic = models.Topic.objects.filter(pk=topic_pk)
+            models.LikeTopic.objects.create(
+                topic=topic.first(), users=[{'user': user}]
+            )
+
+            # Increment total like
+            topic.update(
+                total_likes=F('total_likes') + 1
+            )
+
+        return Response({'success': 'ok'})
+
+    def destroy(self, request, pk=None):
+        user_pk = request.data['users']
+        lt = models.LikeTopic.objects.filter(topic__pk=pk).first()
+        users = lt.users
+
+        for i, d in enumerate(users):
+            if d['user'] == user_pk:
+                users.pop(i)
+                break
+
+        lt.users = users
+        lt.save()
+
+        # Decrement like in total like
+        models.Topic.objects.filter(pk=pk).update(
+            total_likes=F('total_likes') - 1
+        )
+
+        return Response({'success': 'ok'})
 
 
 # Viewset for LikeComment

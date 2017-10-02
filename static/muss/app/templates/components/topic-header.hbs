@@ -74,10 +74,10 @@
                         </div>
 
                         <div style="margin-left: 0.5em">
-                            {{#if isLikeTopicUser}}
-                                <p><button class="circular ui mini icon button"><i class="thumbs outline down icon"></i></button></p>
+                            {{#if showLike}}
+                                <p><button class="circular ui mini icon button" {{action "likeTopic"}}><i class="thumbs outline up icon"></i></button></p>
                             {{else}}
-                                <p><button class="circular ui mini icon button"><i class="thumbs outline up icon"></i></button></p>
+                                <p><button class="circular ui mini icon button" {{action "unLikeTopic"}} style="color: red"><i class="thumbs outline up icon"></i></button></p>
                             {{/if}}
                         </div>
                     </div>

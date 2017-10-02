@@ -25,10 +25,11 @@ router.register(r'messageforums', views.MessageForumViewSet)
 router.register(r'hitcounts', views.HitcountTopicViewSet)
 # Like comment endpoint
 router.register(r'likecomments', views.LikeCommentViewSet)
+# Like topic endpoint
+router.register(r'liketopics', views.LikeTopicViewSet)
 
 
 urlpatterns = [
     url(r'^check-permissions-forum-user/$',
         views.CheckPermissionsForumUserView.as_view()),
-    url(r'^check-user-like-topic/$', views.CheckUserLikeView.as_view()),
 ]

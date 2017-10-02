@@ -164,6 +164,14 @@ class HitcountTopicSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+# Serializers LikeTopic
+class LikeTopicSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.LikeTopic
+        fields = '__all__'
+
+
 # Serializers LikeComment
 class LikeCommentSerializer(serializers.ModelSerializer):
 

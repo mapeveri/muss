@@ -403,15 +403,12 @@ class LikeTopic(models.Model):
 
     - **parameters**:
         :param topic: Topic that gave it 'like'.
-        :param user: User that created the 'like'.
+        :param users: Data with tee users that created the 'like'.
     """
     topic = models.ForeignKey(
         Topic, related_name='likes_topic', on_delete=models.CASCADE
     )
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='likes_topic_users',
-        on_delete=models.CASCADE
-    )
+    users = JSONField()
 
     def __str__(self):
         return str(self.topic.pk)
