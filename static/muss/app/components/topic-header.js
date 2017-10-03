@@ -4,6 +4,7 @@ import ENV from './../config/environment';
 export default Ember.Component.extend({
     ajax: Ember.inject.service(),
     session: Ember.inject.service('session'),
+    router: Ember.inject.service('-routing'),
     currentUser: Ember.inject.service('current-user'),
     namespace: ENV.APP.API_NAMESPACE,
     currentUrl: window.location.href,
@@ -110,6 +111,33 @@ export default Ember.Component.extend({
             }).then(() => {
                 this.set('showLike', true);
                 this.set('topic.totalLikes', this.get('topic.totalLikes') - 1);
+            });
+        },
+        /**
+        * @method confirmRemoveTopic
+        * @description: Display modal for confirm remove topic
+        * @param {*} id
+        */
+        confirmRemoveTopic(id) {
+            Ember.$('.tiny.'+id+'.modal').modal({
+                onApprove: () => {
+                  return false;
+                }
+            }).modal('show');
+        },
+        /**
+        * @method removeTopic
+        * @description: Remove the topic in db
+        */
+        removeTopic() {
+            let id = this.get('topic.id');
+            let forum_id = this.get('topic.forum.id');
+            let forum_slug = this.get('topic.forum.slug');
+
+            Ember.$('.tiny.'+id+'.modal').modal('hide');
+
+            this.topic.destroyRecord().then(() => {
+                this.sendAction('redirectForum', forum_id, forum_slug);
             });
         }
     }

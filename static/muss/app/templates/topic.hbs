@@ -6,7 +6,7 @@
   <div class="active section">{{ model.topic.title }}</div>
 </div>
 
-{{topic-header topic=model.topic comments=model.comments}}
+{{topic-header topic=model.topic comments=model.comments redirectForum='redirectoToForum'}}
 
 <div style="margin-top: 4em">
     {{list-comments comments=model.comments topic=model.topic}}

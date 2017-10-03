@@ -15,5 +15,16 @@ export default Ember.Route.extend({
         if (model.topic == undefined) {
             this.transitionTo('index');
         }
+    },
+    actions: {
+        /**
+        * @method redirectoToForum
+        * @description: Redirect to route forum
+        * @param {*} forum_id
+        * @param {*} forum_slug
+        */
+        redirectoToForum(forum_id, forum_slug) {
+            this.transitionTo("forum", forum_id, forum_slug);
+        }
     }
 });

@@ -17,6 +17,7 @@ Execute Fronted:
 Translates:
 
     python manage.py makemessages  --ignore=static
+
     python manage.py compilemessages
 
 

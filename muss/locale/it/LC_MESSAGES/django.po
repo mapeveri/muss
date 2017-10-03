@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-01 17:09-0300\n"
+"POT-Creation-Date: 2017-10-02 09:33-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgid "Moderators"
 msgstr "Moderatori"
 
 #: muss/admin.py:211 muss/models.py:101 muss/models.py:182 muss/models.py:236
-#: muss/models.py:450
+#: muss/models.py:444
 msgid "Forum"
 msgstr "Forum"
 
@@ -53,7 +53,7 @@ msgstr "Forum"
 msgid "Profile"
 msgstr "Profilo"
 
-#: muss/api/serializers.py:25
+#: muss/api/serializers.py:24
 msgid "The email already exists."
 msgstr "L'email esiste già."
 
@@ -77,7 +77,7 @@ msgstr "Forums"
 msgid "Add topic"
 msgstr "Aggiungi argomento"
 
-#: muss/i18n.py:9 muss/models.py:463
+#: muss/i18n.py:9 muss/models.py:457
 msgid "Register"
 msgstr "Registrare"
 
@@ -282,8 +282,26 @@ msgstr "Rimuovere commento"
 msgid "Cancel"
 msgstr "Annulla"
 
+#: muss/i18n.py:57
+#, fuzzy
+#| msgid "Do you want to remove the topic?"
+msgid "Do you want remove this topic?"
+msgstr "Non si desidera rimuovere l'argomento?"
+
+#: muss/i18n.py:58
+#, fuzzy
+#| msgid "There was an error creating your comment."
+msgid "There was an error creating your topic."
+msgstr "Si è verificato un errore durante la creazione del tuo commento."
+
+#: muss/i18n.py:59
+#, fuzzy
+#| msgid "Close topic"
+msgid "Remove topic"
+msgstr "Chiudi argomento"
+
 #: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:251
-#: muss/models.py:358 muss/models.py:577
+#: muss/models.py:358 muss/models.py:571
 msgid "Description"
 msgstr "Descrizione"
 
@@ -307,7 +325,7 @@ msgstr "Forum padre"
 msgid "Name"
 msgstr "Nome"
 
-#: muss/models.py:78 muss/models.py:246 muss/models.py:356 muss/models.py:458
+#: muss/models.py:78 muss/models.py:246 muss/models.py:356 muss/models.py:452
 msgid "Date"
 msgstr "Data"
 
@@ -367,7 +385,7 @@ msgstr "Messagio per i forums"
 msgid "Messages for forums"
 msgstr "Messagi per i forums"
 
-#: muss/models.py:240 muss/models.py:353 muss/models.py:455
+#: muss/models.py:240 muss/models.py:353 muss/models.py:449
 msgid "User"
 msgstr "Utente"
 
@@ -415,71 +433,71 @@ msgstr "Argomenti"
 msgid "Comments"
 msgstr "Commenti"
 
-#: muss/models.py:464
+#: muss/models.py:458
 msgid "Registers"
 msgstr "Registri"
 
-#: muss/models.py:495
+#: muss/models.py:489
 msgid "Photo"
 msgstr "Fotografia "
 
-#: muss/models.py:497
+#: muss/models.py:491
 msgid "About me"
 msgstr "A proposito di me"
 
-#: muss/models.py:499
+#: muss/models.py:493
 msgid "Location"
 msgstr "luogo"
 
-#: muss/models.py:504
+#: muss/models.py:498
 msgid "Is troll"
 msgstr "Se sei un troll"
 
-#: muss/models.py:505
+#: muss/models.py:499
 msgid "If the user is troll"
 msgstr "Se l'utente è un troll"
 
-#: muss/models.py:508
+#: muss/models.py:502
 msgid "Receive Emails"
 msgstr "Ricevi email"
 
-#: muss/models.py:509
+#: muss/models.py:503
 msgid "If receive Emails"
 msgstr "Se ricevi le email"
 
-#: muss/models.py:566
+#: muss/models.py:560
 msgid "Logo width"
 msgstr "Larghezza logo"
 
-#: muss/models.py:567 muss/models.py:571
+#: muss/models.py:561 muss/models.py:565
 msgid "In pixels"
 msgstr "In pixels"
 
-#: muss/models.py:570
+#: muss/models.py:564
 msgid "Logo height"
 msgstr "Altezza logo"
 
-#: muss/models.py:574
+#: muss/models.py:568
 msgid "Custom design"
 msgstr "Design personalizzato"
 
-#: muss/models.py:578
+#: muss/models.py:572
 msgid "Description site."
 msgstr "Descrizione sito"
 
-#: muss/models.py:581
+#: muss/models.py:575
 msgid "Keywords"
 msgstr "Parole chiave"
 
-#: muss/models.py:582
+#: muss/models.py:576
 msgid "Keywords for the SEO."
 msgstr "Parole chiave per SEO"
 
-#: muss/models.py:586
+#: muss/models.py:580
 msgid "Configuration"
 msgstr "Configurazione"
 
-#: muss/models.py:587
+#: muss/models.py:581
 msgid "Configurations"
 msgstr "Configurazioni"
 
@@ -810,9 +828,6 @@ msgstr ""
 
 #~ msgid "Delete topic"
 #~ msgstr "Cancella argomento"
-
-#~ msgid "Do you want to remove the topic?"
-#~ msgstr "Non si desidera rimuovere l'argomento?"
 
 #~ msgid "Share topic"
 #~ msgstr "Condividi argomento"
