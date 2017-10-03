@@ -1,7 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 
-from rest_framework import serializers
+from rest_framework_json_api import serializers
+
 from muss import models, utils
 
 
@@ -101,6 +102,8 @@ class ForumSerializer(serializers.ModelSerializer):
 class TopicSerializer(serializers.ModelSerializer):
     total_comments = serializers.SerializerMethodField()
     views = serializers.SerializerMethodField()
+    forum = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+    user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
 
     def get_total_comments(self, obj):
         """

@@ -139,6 +139,22 @@ export default Ember.Component.extend({
             this.topic.destroyRecord().then(() => {
                 this.sendAction('redirectForum', forum_id, forum_slug);
             });
+        },
+        /**
+        * @method openTopic
+        * @description: Open topic in db
+        */
+        openTopic() {
+            this.topic.set('isClose', false);
+            this.topic.save();
+        },
+        /**
+        * @method closeTopic
+        * @description: Close topic in db
+        */
+        closeTopic() {
+            this.topic.set('isClose', true);
+            this.topic.save();
         }
     }
 });

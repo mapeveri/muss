@@ -87,6 +87,7 @@ class ForumViewSet(viewsets.ReadOnlyModelViewSet):
 
 # ViewSets for topic
 class TopicViewSet(viewsets.ModelViewSet):
+    resource_name = 'topics'
     queryset = models.Topic.objects.all()
     serializer_class = serializers.TopicSerializer
     permission_classes = (

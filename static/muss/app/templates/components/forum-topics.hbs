@@ -51,6 +51,9 @@
                     <h4 class="ui image header">
                         <img src="{{ topic.user.userPhoto }}" class="ui mini rounded image">
                         <div class="content">
+                            {{#if topic.isClose}}
+                                <p class="red" style="margin-bottom: 0.1em"><strong>{{gettext "This topic is closed"}}</strong></p>
+                            {{/if}}
                             {{#link-to 'topic' topic.id topic.slug }}{{ topic.title}} {{#if topic.isTop}} <i class="pin icon"></i> {{/if}}{{/link-to}}
                             <div class="sub header">{{ topic.date }}</div>
                         </div>

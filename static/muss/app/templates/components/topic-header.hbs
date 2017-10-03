@@ -4,13 +4,13 @@
             <h1><a href="{{ currentUrl }}" class="header marginTop05">{{ topic.title }} {{#if topic.isTop}} <i class="pin icon"></i> {{/if}}</a></h1>
             <div class="ui divider"></div>
             <div class="meta">
+                {{#if topic.isClose}}
+                    <p class="red"><strong>{{gettext "This topic is closed"}}</strong></p>
+                {{/if}}
+
                 <img class="ui avatar image" src="{{ topic.user.userPhoto }}">
                 <span>{{ topic.user.username }}</span>
                 <div class="marginTop1">
-                    {{#if topic.isClose}}
-                        <p style="color: red"><strong>{{gettext "This topic is closed"}}</strong></p>
-                    {{/if}}
-
                     <span>{{{ topic.description }}}</span>
 
                     {{#if topic.attachment }}
@@ -89,9 +89,9 @@
                     {{#if (and session.isAuthenticated isCreatorTopic)}}
                         <p>
                             {{#if topic.isClose}}
-                                <button class="ui mini button">{{gettext "Open topic" }}</button>
+                                <button class="ui mini button" {{ action "openTopic" }}>{{gettext "Open topic" }}</button>
                             {{else}}
-                                <button class="ui mini button">{{gettext "Close topic" }}</button>
+                                <button class="ui mini button" {{ action "closeTopic" }}>{{gettext "Close topic" }}</button>
                             {{/if}}
                             <button class="ui mini button"><i class="reply icon"></i> {{ gettext "Edit" }}</button>
                             <button class="ui mini red button" {{action "confirmRemoveTopic" topic.id}}><i class="reply icon"></i> {{ gettext "Delete" }}</button>
