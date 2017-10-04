@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ENV from './../config/environment';
+import { showModalLogin } from '../libs/utils';
 
 export default Ember.Component.extend({
     ajax: Ember.inject.service('ajax'),
@@ -72,17 +73,21 @@ export default Ember.Component.extend({
         * @description: Save like comment in db
         */
         likeComment() {
-            this.get('ajax').request('/' + this.namespace + '/likecomments/', {
-                method: 'POST',
-                data: {
-                    'comment': this.commentId,
-                    'users': this.userLogin
-                },
-                headers: {"Authorization": "jwt " + this.jwt}
-            }).then(() => {
-                this.set('showLike', false);
-                this.set('comment.totalLikes', this.get('comment.totalLikes') + 1);
-            });
+            if(this.get('session.isAuthenticated')) {
+                this.get('ajax').request('/' + this.namespace + '/likecomments/', {
+                    method: 'POST',
+                    data: {
+                        'comment': this.commentId,
+                        'users': this.userLogin
+                    },
+                    headers: {"Authorization": "jwt " + this.jwt}
+                }).then(() => {
+                    this.set('showLike', false);
+                    this.set('comment.totalLikes', this.get('comment.totalLikes') + 1);
+                });
+            } else {
+                showModalLogin();
+            }
         },
         /**
         * @method unLikeComment

@@ -97,16 +97,20 @@
                             <button class="ui mini red button" {{action "confirmRemoveTopic" topic.id}}><i class="reply icon"></i> {{ gettext "Delete" }}</button>
                         </p>
                     {{/if}}
+                    <p>
+                        <button class="ui mini button" {{ action "replyComment" }}><i class="reply icon"></i> {{ gettext "Reply" }}</button>
+                        <a href="http://www.facebook.com/sharer.php?s=100&amp;p%5Burl%5D={{ currentUrl }}" target="_blank">
+                            <i class="facebook icon"></i>
+                        </a>
+                         <a href="https://plus.google.com/share?url={{ currentUrl }}" target="_blank">
+                            <i class="google plus icon"></i>
+                        </a>
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{ currentUrl }}">
+                            <i class="twitter icon"></i>
+                        </a>
+                    </p>
 
-                    <p><a href="http://www.facebook.com/sharer.php?s=100&amp;p%5Burl%5D={{ currentUrl }}" target="_blank">
-                    <i class="facebook icon"></i>
-                    </a>
-                    <a href="https://plus.google.com/share?url={{ currentUrl }}" target="_blank">
-                    <i class="google plus icon"></i>
-                    </a>
-                    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{ currentUrl }}">
-                    <i class="twitter icon"></i>
-                    </a></p>
+
                 </div>
             </div>
         </div>

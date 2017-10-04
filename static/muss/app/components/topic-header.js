@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ENV from './../config/environment';
+import { showModalLogin } from '../libs/utils';
 
 export default Ember.Component.extend({
     ajax: Ember.inject.service(),
@@ -35,10 +36,10 @@ export default Ember.Component.extend({
 
             this.set('topicId', this.get('topic.id'));
             this.set('jwt', this.get('session').session.content.authenticated.token);
-        }
 
-        //Check user like in topic
-        this.getCheckUserLike();
+            //Check user like in topic
+            this.getCheckUserLike();
+        }
 
         //Get or make hit count for topic
         this.getOrMakeHitTopic();
@@ -85,17 +86,21 @@ export default Ember.Component.extend({
         * @description: Save like topic in db
         */
         likeTopic() {
-            this.get('ajax').request('/' + this.namespace + '/liketopics/', {
-                method: 'POST',
-                data: {
-                    'topic': this.topicId,
-                    'users': this.userLogin
-                },
-                headers: {"Authorization": "jwt " + this.jwt}
-            }).then(() => {
-                this.set('showLike', false);
-                this.set('topic.totalLikes', this.get('topic.totalLikes') + 1);
-            });
+            if(this.get('session.isAuthenticated')) {
+                this.get('ajax').request('/' + this.namespace + '/liketopics/', {
+                    method: 'POST',
+                    data: {
+                        'topic': this.topicId,
+                        'users': this.userLogin
+                    },
+                    headers: {"Authorization": "jwt " + this.jwt}
+                }).then(() => {
+                    this.set('showLike', false);
+                    this.set('topic.totalLikes', this.get('topic.totalLikes') + 1);
+                });
+            } else {
+                showModalLogin();
+            }
         },
         /**
         * @method unLikeTopic
@@ -155,6 +160,17 @@ export default Ember.Component.extend({
         closeTopic() {
             this.topic.set('isClose', true);
             this.topic.save();
+        },
+        /**
+        * @method replyComment
+        * @description: Go to reply form
+        */
+        replyComment() {
+            if(this.get('session.isAuthenticated')) {
+                Ember.$("#reply_comment").focus()
+            } else {
+                showModalLogin();
+            }
         }
     }
 });
