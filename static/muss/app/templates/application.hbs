@@ -2,7 +2,7 @@
     {{utils/logo-app}}
     <div class="right menu">
         <div class="item ui input">
-            {{input type="text" placeholder=(gettext 'Find Topics') action="onSearch"}}
+            {{input type="text" placeholder=(gettext 'Find Topics') enter="onSearch"}}
         </div>
         {{#if session.isAuthenticated}}
             <div class="item">

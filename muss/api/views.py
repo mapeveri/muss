@@ -2,6 +2,7 @@ from django.db.models import F, Q
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse_lazy
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 
 from rest_framework import status, viewsets
@@ -568,3 +569,31 @@ class LikeCommentViewSet(viewsets.ModelViewSet):
         )
 
         return Response({'success': 'ok'})
+
+
+class OpenCloseTopicView(APIView):
+    """
+    Open or close topic
+    """
+    def get(self, request, format=None):
+        raise Http404
+
+    def post(self, request, format=None):
+        response = {
+            'success': False
+        }
+
+        # Parameters
+        user_id = int(self.request.POST.get('user'))
+        topic_id = int(self.request.POST.get('topic'))
+        is_close_int = int(self.request.POST.get('is_close'))
+        is_close = True if is_close_int == 1 else False
+
+        User = get_user_model()
+        user = get_object_or_404(User, pk=user_id)
+        if user_id and topic_id and (user_id == request.user.id):
+            models.Topic.objects.filter(pk=topic_id).update(
+                is_close=is_close
+            )
+            response['success'] = True
+        return Response(response)

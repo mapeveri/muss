@@ -30,6 +30,10 @@ router.register(r'liketopics', views.LikeTopicViewSet)
 
 
 urlpatterns = [
+    # Get permissions of the forum for user
     url(r'^check-permissions-forum-user/$',
         views.CheckPermissionsForumUserView.as_view()),
+    # Open or close topic
+    url(r'^open-close-topic/$',
+        views.OpenCloseTopicView.as_view()),
 ]

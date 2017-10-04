@@ -150,16 +150,34 @@ export default Ember.Component.extend({
         * @description: Open topic in db
         */
         openTopic() {
-            this.topic.set('isClose', false);
-            this.topic.save();
+            this.get('ajax').request('/' + this.namespace + '/open-close-topic/', {
+                method: 'POST',
+                data: {
+                    'user': this.userLogin,
+                    'topic': this.topic.id,
+                    'is_close': 0
+                },
+                headers: {"Authorization": "jwt " + this.jwt}
+            }).then(() => {
+                this.topic.set('isClose', false);
+            });
         },
         /**
         * @method closeTopic
         * @description: Close topic in db
         */
         closeTopic() {
-            this.topic.set('isClose', true);
-            this.topic.save();
+            this.get('ajax').request('/' + this.namespace + '/open-close-topic/', {
+                method: 'POST',
+                data: {
+                    'user': this.userLogin,
+                    'topic': this.topic.id,
+                    'is_close': 1
+                },
+                headers: {"Authorization": "jwt " + this.jwt}
+            }).then(() => {
+                this.topic.set('isClose', true);
+            });
         },
         /**
         * @method replyComment
