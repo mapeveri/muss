@@ -119,7 +119,7 @@ export default Ember.Component.extend({
         * @param {*} id
         */
         confirmRemoveTopic(id) {
-            Ember.$('.tiny.'+id+'.modal').modal({
+            Ember.$('.tiny.topic_'+id+'.modal').modal({
                 onApprove: () => {
                   return false;
                 }
@@ -134,7 +134,7 @@ export default Ember.Component.extend({
             let forum_id = this.get('topic.forum.id');
             let forum_slug = this.get('topic.forum.slug');
 
-            Ember.$('.tiny.'+id+'.modal').modal('hide');
+            Ember.$('.tiny.topic_'+id+'.modal').modal('hide');
 
             this.topic.destroyRecord().then(() => {
                 this.sendAction('redirectForum', forum_id, forum_slug);

@@ -26,7 +26,7 @@
     </div>
 </div>
 
-{{#utils/form-modal title_modal="Remove comment" id=comment.id hasUiForShowModal=false customActions=true as |section|}}
+{{#utils/form-modal title_modal="Remove comment" id=(concat "comment_" comment.id) hasUiForShowModal=false customActions=true as |section|}}
     {{#if section.isSectionActions}}
         <!-- Section actions -->
         <button class="ui red button" {{ action "removeComment"}}>{{gettext "Remove"}}</button>

@@ -40,9 +40,11 @@ export default Ember.Component.extend({
 
                             if(self.page >= pages) {
                                 Ember.$(window).unbind('scroll');
-                                setTimeout(() => {
+                                try{
                                     self.set("isLoading", false);
-                                }, 500);
+                                } catch(e) {
+                                    // Ignore
+                                }
                             }
                         });
                     }

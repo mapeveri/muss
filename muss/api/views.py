@@ -249,32 +249,28 @@ class CommentViewSet(viewsets.ModelViewSet):
             self.queryset = self.queryset.filter(topic__pk=topic)
         return self.queryset
 
-    def create(self, request):
-        topic_id = request.data['topic']
-        request.data['topic'] = topic_id['id']
-
-        user_id = request.data['user']
-        request.data['user'] = user_id['id']
-
-        return super(CommentViewSet, self).create(request)
-
     def perform_create(self, serializer):
         request = self.request
-        is_my_user = int(request.data['user']) == request.user.id
+        # Get user id
+        user_id = request.data['user']['id']
+
+        # Get topic
+        topic_id = request.data['topic']['id']
+        topic = get_object_or_404(models.Topic, pk=topic_id)
+
+        is_my_user = int(user_id) == request.user.id
         # If is my user or is superuser can create
         if is_my_user or request.user.is_superuser:
             # Save the record comment
             if serializer.is_valid():
-                comment = serializer.save()
+                comment = serializer.save(
+                    topic=topic, user=request.user
+                )
             else:
                 return Response(
                     serializer.errors,
                     status=status.HTTP_400_BAD_REQUEST
                 )
-
-            # Get topic
-            topic_id = request.data['topic']
-            topic = get_object_or_404(models.Topic, pk=topic_id)
 
             # Parameters for notification comments
             photo = utils.get_photo_profile(request.user)

@@ -137,6 +137,8 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 # Serializers comment
 class CommentSerializer(serializers.ModelSerializer):
+    topic = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+    user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
 
     class Meta:
         model = models.Comment

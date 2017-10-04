@@ -49,7 +49,7 @@ export default Ember.Component.extend({
         * @param {*} id
         */
         confirmRemoveComment(id) {
-            Ember.$('.tiny.'+id+'.modal').modal({
+            Ember.$('.tiny.comment_'+id+'.modal').modal({
                 onApprove: () => {
                   return false;
                 }
@@ -65,7 +65,7 @@ export default Ember.Component.extend({
             this.comment.save();
 
             this.get('comments.content').removeObject(this.comment._internalModel);
-            Ember.$('.tiny.'+id+'.modal').modal('hide');
+            Ember.$('.tiny.comment_'+id+'.modal').modal('hide');
         },
         /**
         * @method likeComment
