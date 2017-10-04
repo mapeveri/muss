@@ -14,5 +14,6 @@ export default DS.Model.extend({
     isModerate: DS.attr('boolean'),
     publicForum: DS.attr('boolean'),
     messagesForums: DS.hasMany('message-forum'),
-    topics: DS.hasMany('topic')
+    topics: DS.hasMany('topic'),
+    registers: DS.hasMany('register'),
 });

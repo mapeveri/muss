@@ -11,4 +11,5 @@ export default DS.Model.extend({
     isSuperUser: DS.attr('boolean'),
     topics: DS.hasMany('topic'),
     comments: DS.hasMany('comment'),
+    registers: DS.hasMany('register'),
 });

@@ -196,6 +196,7 @@ class TopicViewSet(viewsets.ModelViewSet):
 
 # ViewSets for register
 class RegisterViewSet(viewsets.ModelViewSet):
+    resource_name = 'registers'
     queryset = models.Register.objects.all()
     serializer_class = serializers.RegisterSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, RegisterPermissions)
@@ -207,11 +208,24 @@ class RegisterViewSet(viewsets.ModelViewSet):
                 self.permission_classes = [IsReadOnly, ]
         return super(RegisterViewSet, self).get_permissions()
 
+    def get_queryset(self, *args, **kwargs):
+        user = self.request.GET.get('user')
+        forum = self.request.GET.get('forum')
+
+        if forum and user:
+            user_id = int(user)
+            forum_id = int(forum)
+            self.queryset = self.queryset.filter(
+                forum__pk=forum_id, user__pk=user_id
+            )
+        return self.queryset
+
     def create(self, request, **kwargs):
-        is_my_user = int(request.data['user']) == request.user.id
+        user_id = int(request.data['user']['id'])
+        is_my_user = user_id == request.user.id
         # If is my user or is superuser can create
         if is_my_user or request.user.is_superuser:
-            forum_id = request.data['forum']
+            forum_id = int(request.data['forum']['id'])
             exists_register = models.Register.objects.filter(
                 forum_id=forum_id, user=request.user
             )
@@ -227,6 +241,24 @@ class RegisterViewSet(viewsets.ModelViewSet):
             raise PermissionDenied({
                     "message": "Not your user"
                 })
+
+    def perform_create(self, serializer):
+        request = self.request
+        forum_id = int(request.data['forum']['id'])
+        forum = get_object_or_404(models.Forum, pk=forum_id)
+        if serializer.is_valid():
+            serializer.save(
+                forum=forum, user=request.user
+            )
+        else:
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED
+        )
 
 
 # ViewSets for comment

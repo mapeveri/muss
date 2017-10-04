@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 09:33-0300\n"
+"POT-Creation-Date: 2017-10-04 09:54-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,7 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
-#: muss/api/serializers.py:24
+#: muss/api/serializers.py:25
 msgid "The email already exists."
 msgstr ""
 
@@ -299,6 +299,14 @@ msgstr ""
 #| msgid "Closed topic"
 msgid "Remove topic"
 msgstr "No loaded topics"
+
+#: muss/i18n.py:60
+msgid "Failed to register"
+msgstr ""
+
+#: muss/i18n.py:61
+msgid "Failed to unregister"
+msgstr ""
 
 #: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:251
 #: muss/models.py:358 muss/models.py:571

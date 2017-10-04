@@ -129,6 +129,8 @@ class TopicSerializer(serializers.ModelSerializer):
 
 # Serializers register
 class RegisterSerializer(serializers.ModelSerializer):
+    forum = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+    user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
 
     class Meta:
         model = models.Register

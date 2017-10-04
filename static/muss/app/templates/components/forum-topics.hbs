@@ -10,11 +10,11 @@
                 {{#if session.isAuthenticated}}
                     {{#unless isAdminOrModerator}}
                         {{#if canRegister}}
-                            <div class="ui mini button">
+                            <div class="ui mini button" {{ action "registerUser" }}>
                                 {{gettext "Register"}}
                             </div>
                         {{else}}
-                            <div class="ui mini button">
+                            <div class="ui mini button" {{ action "unRegisterUser" }}>
                                 {{gettext "Unregister"}}
                             </div>
                         {{/if}}

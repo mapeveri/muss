@@ -1,14 +1,18 @@
 import Ember from 'ember';
 import config from './../config/environment';
+import { gettextHelper } from '../helpers/gettext';
 
 export default Ember.Component.extend({
+    store: Ember.inject.service('store'),
     session: Ember.inject.service('session'),
     ajax: Ember.inject.service('ajax'),
     routing: Ember.inject.service('-routing'),
+    currentUser: Ember.inject.service('current-user'),
     params: null,
     currentUrl: window.location.href,
     rssUrl: config.APP.API_HOST + "/" + "feed/",
     isLoaded: false,
+    userLogin: null,
     canCreateTopic: false,
     canRegister: false,
     isAdminOrModerator: false,
@@ -16,6 +20,12 @@ export default Ember.Component.extend({
     didInsertElement() {
         this._super();
         this.params = this.get('routing.router.currentState.routerJsState.params.forum');
+
+        if (this.get('session.isAuthenticated')) {
+            let user_login = parseInt(this.get('currentUser').user.id);
+            this.set('userLogin', user_login);
+        }
+
         this.checkPermissionsUser();
     },
     /**
@@ -84,5 +94,41 @@ export default Ember.Component.extend({
             //Is completed
             this.FinishedLoading();
         }
+    },
+    actions: {
+        /**
+        * @method registerUser
+        * @description: Register user in forum
+        */
+        registerUser() {
+            this.get('store').find('user', this.userLogin).then((user) => {
+                let register = this.get('store').createRecord('register', {
+                    'forum': this.model.forum,
+                    'user': user
+                });
+
+                register.save().then(() => {
+                    this.set('canRegister', false);
+                    this.set('canCreateTopic', true);
+                }).catch(() => {
+                    window.toastr.error(gettextHelper("Failed to register"))
+                });
+            });
+        },
+        /**
+        * @method unRegisterUser
+        * @description: Remove register user in forum
+        */
+        unRegisterUser() {
+            this.get('store').query('register', {'user': this.userLogin, 'forum': this.model.forum.id}).then((register_aux) => {
+                let register = register_aux.get("firstObject");
+                register.destroyRecord().then(() => {
+                    this.set('canRegister', true);
+                    this.set('canCreateTopic', false);
+                });
+            }).catch(() => {
+                window.toastr.error(gettextHelper("Failed to unregister"))
+            })
+        },
     }
 });
