@@ -4,18 +4,7 @@ export default Ember.Component.extend({
     logo: (typeof(window.muss) === "undefined" ? "" : window.muss.logo),
     width: (typeof(window.muss) === "undefined" ? "" : window.muss.logo_width + "px"),
     height: (typeof(window.muss) === "undefined" ? "" : window.muss.logo_height + "px"),
-    styles: '',
-
-    didInsertElement() {
-        this._super();
-        this.getStyles();
-    },
-
-    /**
-    * @method: getStyles
-    * @description: Get styles for logo app
-    */
-    getStyles() {
+    styles: Ember.computed('color', function() {
         let styles = "";
         let width = this.get('width');
         let height = this.get('height');
@@ -31,6 +20,6 @@ export default Ember.Component.extend({
             styles += "height: " + height + ";";
         }
 
-        this.set('styles', styles);
-    },
+        return Ember.String.htmlSafe(styles);
+    }),
 });

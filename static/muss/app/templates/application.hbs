@@ -11,7 +11,7 @@
                         {{ session.data.authenticated.user.username }}
                         <img class="ui avatar image" src="{{ session.data.authenticated.user.user_photo }}">
                     </div>
-                    <a {{action 'invalidateSession'}} style="cursor: pointer">{{ gettext "Logout" }}</a>
+                    <a {{action 'invalidateSession'}} class="pointer">{{ gettext "Logout" }}</a>
                 </div>
             </div>
         {{else}}

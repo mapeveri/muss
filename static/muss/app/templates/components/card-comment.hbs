@@ -1,6 +1,6 @@
 {{yield}}
 
-<div class="comment" style="margin-bottom: 1em">
+<div class="comment marginBottom1">
     <a class="avatar">
     <img src="{{ comment.user.userPhoto }}">
     </a>
@@ -20,11 +20,13 @@
             {{#if showLike }}
             <a {{action "likeComment" }}> <i class="thumbs outline up icon"></i></a>
             {{else}}
-            <a {{action "unLikeComment" }} style="color: red"> <i class="thumbs outline up icon"></i></a>
+            <a {{action "unLikeComment" }} class="red"> <i class="thumbs outline up icon"></i></a>
             {{/if}} {{ comment.totalLikes }}
         </div>
     </div>
 </div>
+
+<div class="ui divider"></div>
 
 {{#utils/form-modal title_modal="Remove comment" id=(concat "comment_" comment.id) hasUiForShowModal=false customActions=true as |section|}}
     {{#if section.isSectionActions}}

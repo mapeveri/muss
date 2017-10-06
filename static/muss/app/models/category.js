@@ -10,4 +10,5 @@ export default DS.Model.extend({
     isHeader: DS.attr('boolean'),
     pk: DS.attr('number'),
     slug: DS.attr('string'),
+    forums: DS.hasMany('forum'),
 });

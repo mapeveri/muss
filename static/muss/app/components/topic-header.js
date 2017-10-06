@@ -42,7 +42,10 @@ export default Ember.Component.extend({
         }
 
         //Get or make hit count for topic
-        this.getOrMakeHitTopic();
+        this.getOrMakeHitTopic().then(() => {
+            //Is completed
+            this.set('isLoaded', true);
+        });
     },
 
     /**
@@ -55,9 +58,6 @@ export default Ember.Component.extend({
             data: {'topic': this.topic.id}
         }).then(response => {
             this.set('hitTopic', response.data.total);
-
-            //Is completed
-            this.set('isLoaded', true);
         });
     },
 

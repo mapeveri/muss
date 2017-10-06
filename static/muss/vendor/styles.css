@@ -14,12 +14,44 @@
     width: 100%;
 }
 
+.width80 {
+    width: 80% !important;
+}
+
+.height2 {
+    height: 2em !important;
+}
+
+.minWidth80 {
+    min-width: 80% !important;
+}
+
+.minHeight0 {
+    min-height: 0 !important;
+}
+
 .marginTop05 {
     margin-top: 0.5em;
 }
 
 .marginTop1 {
     margin-top: 1em;
+}
+
+.marginTop4 {
+    margin-top: 4em !important;
+}
+
+.marginBottom01 {
+    margin-bottom: 0.1em !important;
+}
+
+.marginBottom1 {
+    margin-bottom: 1em !important;
+}
+
+.marginLeft05 {
+    margin-left: 0.5em !important;
 }
 
 .form100 {
@@ -31,7 +63,7 @@
 }
 
 .red {
-    color: red;
+    color: red !important;
 }
 
 /* Modal mde */

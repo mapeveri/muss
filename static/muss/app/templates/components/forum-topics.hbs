@@ -4,7 +4,7 @@
     <h1><a href="{{ currentUrl }}">{{ model.forum.name }}</a></h1>
     <p>{{ model.forum.description }}</p>
 
-    <div class="ui grid" style="margin-bottom: 1em">
+    <div class="ui grid marginBottom1">
         <div class="fourteen wide column">
             {{#unless model.forum.publicForum}}
                 {{#if session.isAuthenticated}}
@@ -52,7 +52,7 @@
                         <img src="{{ topic.user.userPhoto }}" class="ui mini rounded image">
                         <div class="content">
                             {{#if topic.isClose}}
-                                <p class="red" style="margin-bottom: 0.1em"><strong>{{gettext "This topic is closed"}}</strong></p>
+                                <p class="red marginBottom01"><strong>{{gettext "This topic is closed"}}</strong></p>
                             {{/if}}
                             {{#link-to 'topic' topic.id topic.slug }}{{ topic.title}} {{#if topic.isTop}} <i class="pin icon"></i> {{/if}}{{/link-to}}
                             <div class="sub header">{{ topic.date }}</div>
