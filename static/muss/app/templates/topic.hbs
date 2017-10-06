@@ -1,23 +1,25 @@
-<div class="ui breadcrumb">
-  {{#link-to 'index' class="section"}}{{gettext "Forums" }}{{/link-to}}
-  <i class="right chevron icon divider"></i>
-  {{#link-to 'forum' model.topic.forum.id model.topic.forum.slug class="section"}}{{ model.topic.forum.name }}{{/link-to}}
-  <i class="right arrow icon divider"></i>
-  <div class="active section">{{ model.topic.title }}</div>
+<div id="content-topic">
+    <div class="ui breadcrumb">
+    {{#link-to 'index' class="section"}}{{gettext "Forums" }}{{/link-to}}
+    <i class="right chevron icon divider"></i>
+    {{#link-to 'forum' model.topic.forum.id model.topic.forum.slug class="section"}}{{ model.topic.forum.name }}{{/link-to}}
+    <i class="right arrow icon divider"></i>
+    <div class="active section">{{ model.topic.title }}</div>
+    </div>
+
+    {{topic-header topic=model.topic comments=model.comments redirectForum='redirectoToForum'}}
+
+    <div class="marginTop4">
+        {{list-comments comments=model.comments topic=model.topic}}
+    </div>
+
+    {{#if model.comments}}
+        {{utils/infinite-scroll model=model submodel="comments" api="comment"}}
+    {{/if}}
+
+    {{#if model.suggests}}
+        {{table-topics topics=model.suggests title="Suggested Topics"}}
+    {{/if}}
 </div>
-
-{{topic-header topic=model.topic comments=model.comments redirectForum='redirectoToForum'}}
-
-<div class="marginTop4">
-    {{list-comments comments=model.comments topic=model.topic}}
-</div>
-
-{{#if model.comments}}
-    {{utils/infinite-scroll model=model submodel="comments" api="comment"}}
-{{/if}}
-
-{{#if model.suggests}}
-    {{table-topics topics=model.suggests title="Suggested Topics"}}
-{{/if}}
 
 {{outlet}}

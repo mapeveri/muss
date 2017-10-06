@@ -1,19 +1,12 @@
 {{#if session.isAuthenticated}}
-    <div id="mdeReplyModal" class="mde-modal">
-        <div class="mde-modal-content">
-            <span class="mde-modal-close" onClick='Ember.$("#mdeReplyModal").hide("hide");'><i class="angle down icon"></i></span>
-            <div class="ui reply form marginTop1">
-                <div class="field">
-                    <div>
-                        {{utils/simple-mde-editor value=reply elementId="reply_comment"}}
-                    </div>
-                </div>
-                <div class="ui mini blue labeled submit icon button {{if enableReply 'disabled'}}" disabled={{enableReply}} {{action "createComment"}}>
-                    <i class="icon edit"></i> {{gettext "Add Reply"}}
-                </div>
+    {{#utils/modal-simple-mde-editor contentId="content-topic" field=reply textareaId="reply_comment" modalId="mdeReplyModal" as |section|}}
+        {{#if section.isSectionActions}}
+            <div class="ui mini blue labeled submit icon button {{if enableReply 'disabled'}}" disabled={{enableReply}} {{action "createComment"}}>
+                <i class="icon edit"></i> {{gettext "Add Reply"}}
             </div>
-        </div>
-    </div>
+        {{/if}}
+    {{/utils/modal-simple-mde-editor}}
+
 {{/if}}
 
 {{yield}}

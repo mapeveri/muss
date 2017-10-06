@@ -5,12 +5,12 @@
             <div class="ui divider"></div>
             <div class="meta">
                 {{#if topic.isClose}}
-                    <p class="red"><strong>{{gettext "This topic is closed"}}</strong></p>
+                    <p class="red-color"><strong>{{gettext "This topic is closed"}}</strong></p>
                 {{/if}}
 
                 <img class="ui avatar image" src="{{ topic.user.userPhoto }}">
                 <span>{{ topic.user.username }}</span>
-                <div class="marginTop1">
+                <div class="marginTop1 text-content">
                     <span>{{{ topic.markdownDescription }}}</span>
 
                     {{#if topic.attachment }}
@@ -77,7 +77,7 @@
                             {{#if showLike}}
                                 <p><button class="circular ui mini icon button" {{action "likeTopic"}}><i class="thumbs outline up icon"></i></button></p>
                             {{else}}
-                                <p><button class="circular ui mini icon button" {{action "unLikeTopic"}}><div class="red"><i class="thumbs outline up icon"></i></div></button></p>
+                                <p><button class="circular ui mini icon button" {{action "unLikeTopic"}}><div class="red-color"><i class="thumbs outline up icon"></i></div></button></p>
                             {{/if}}
                         </div>
                     </div>

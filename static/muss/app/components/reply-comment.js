@@ -28,6 +28,12 @@ export default Ember.Component.extend({
                 comment.save().then((record) => {
                     this.get('comments.content').pushObject(record._internalModel);
                     this.set('reply', '');
+
+                    //Hide modal reply
+                    setTimeout(() => {
+                        Ember.$("#mdeReplyModal").hide()
+                        Ember.$("#content-topic").removeClass("paddingEditorMde");
+                    }, 100);
                 }).catch(() => {
                     window.toastr.error(gettextHelper("There was an error creating your comment."))
                 });

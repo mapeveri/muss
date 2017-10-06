@@ -110,7 +110,8 @@ export default Ember.Component.extend({
         * @description: Show modal reply form
         */
         replyComment() {
-            Ember.$("#mdeReplyModal").show('slow');
+            Ember.$("#content-topic").addClass("paddingEditorMde");
+            Ember.$("#mdeReplyModal").show();
         }
     }
 });

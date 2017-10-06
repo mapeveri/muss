@@ -62,7 +62,7 @@
     cursor: pointer;
 }
 
-.red {
+.red-color {
     color: red !important;
 }
 
@@ -71,7 +71,7 @@
     display: none; /* Hidden by default */
     position: absolute; /* Stay in place */
     width: 100%; /* Full width */
-    height: 70%; /* Full height */
+    height: 0%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     left: 0;
     bottom: 0;
@@ -79,7 +79,6 @@
 
 /* Modal Content/Box */
 .mde-modal-content {
-    background-color: #fefefe;
     padding: 20px;
     border: 1px solid #888;
     border-radius: 2px;
@@ -90,6 +89,9 @@
     left:auto;
     bottom:0;
     width: 100%;
+    height: 350px;
+
+    background-color: whitesmoke;
 }
 
 /* The Close Button */
@@ -110,4 +112,32 @@
 .CodeMirror {
     height: 200px !important;
     min-height: 200px !important;
+}
+
+.CodeMirror-scroll {
+    min-height: 0px !important;
+}
+
+.paddingEditorMde {
+    padding-bottom: 350px !important;
+}
+
+.ui.image {
+    position: initial !important;
+}
+
+pre {
+    background-color: #f8f8f8;
+    margin-top: -0.3em;
+}
+
+pre code {
+    background-color: #f8f8f8;
+}
+
+.text-content {
+    overflow: hidden;
+    overflow-x: auto;
+    display: grid;
+    margin-top: 1em !important;
 }

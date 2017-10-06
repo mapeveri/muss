@@ -185,7 +185,8 @@ export default Ember.Component.extend({
         */
         replyComment() {
             if(this.get('session.isAuthenticated')) {
-                Ember.$("#mdeReplyModal").show('slow');
+                Ember.$("#content-topic").addClass("paddingEditorMde");
+                Ember.$("#mdeReplyModal").show();
             } else {
                 showModalLogin();
             }
