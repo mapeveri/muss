@@ -12,9 +12,17 @@ class TextareaWidget(forms.Textarea):
     Widget rich textarea.
     """
     class Media:
-        # tiny_mce
-        js = ('//cdn.tinymce.com/4/tinymce.min.js',
-              static('js/textareas.js'))
+        # Simplemde
+        js = (
+            'https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js',
+            static('js/textareas.js'),
+        )
+        css = {
+            'all': (
+                'https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css',
+                static('css/custom_editor.css'),
+            )
+        }
 
 
 class CustomClearableFileInput(ClearableFileInput):

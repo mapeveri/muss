@@ -104,6 +104,13 @@ export default Ember.Component.extend({
                 this.set('showLike', true);
                 this.set('comment.totalLikes', this.get('comment.totalLikes') - 1);
             });
+        },
+        /**
+        * @method: replyComment
+        * @description: Show modal reply form
+        */
+        replyComment() {
+            Ember.$("#mdeReplyModal").show('slow');
         }
     }
 });

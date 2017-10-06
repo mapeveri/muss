@@ -185,7 +185,7 @@ export default Ember.Component.extend({
         */
         replyComment() {
             if(this.get('session.isAuthenticated')) {
-                Ember.$("#reply_comment").focus()
+                Ember.$("#mdeReplyModal").show('slow');
             } else {
                 showModalLogin();
             }

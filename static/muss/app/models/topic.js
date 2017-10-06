@@ -8,6 +8,7 @@ export default DS.Model.extend({
     date: DS.attr(),
     lastActivity: DS.attr(),
     description: DS.attr('string'),
+    markdownDescription: DS.attr(),
     attachment: DS.attr('string'),
     idAttachment: DS.attr('string'),
     isClose: DS.attr('boolean'),

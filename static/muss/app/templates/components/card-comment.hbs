@@ -13,10 +13,10 @@
             <span class="date">{{ comment.date }}</span>
         </div>
         <div class="text">
-            {{{ comment.description }}}
+            {{{ comment.markdownDescription }}}
         </div>
         <div class="actions">
-            <a class="reply">{{gettext "Reply"}}</a>
+            <a class="reply" {{ action "replyComment" }}>{{gettext "Reply"}}</a>
             {{#if showLike }}
             <a {{action "likeComment" }}> <i class="thumbs outline up icon"></i></a>
             {{else}}

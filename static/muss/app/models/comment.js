@@ -5,5 +5,6 @@ export default DS.Model.extend({
     user: DS.belongsTo('user'),
     date: DS.attr('string'),
     description: DS.attr('string'),
+    markdownDescription: DS.attr(),
     totalLikes: DS.attr('number')
 });

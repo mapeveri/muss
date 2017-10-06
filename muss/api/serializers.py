@@ -1,3 +1,5 @@
+import mistune
+
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 
@@ -104,6 +106,7 @@ class TopicSerializer(serializers.ModelSerializer):
     views = serializers.SerializerMethodField()
     forum = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
     user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+    markdown_description = serializers.SerializerMethodField()
 
     def get_total_comments(self, obj):
         """
@@ -121,6 +124,10 @@ class TopicSerializer(serializers.ModelSerializer):
         else:
             count = 0
         return count
+
+    def get_markdown_description(self, obj):
+        # Parse markdown
+        return mistune.markdown(obj.description)
 
     class Meta:
         model = models.Topic
@@ -141,6 +148,11 @@ class RegisterSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     topic = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
     user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+    markdown_description = serializers.SerializerMethodField()
+
+    def get_markdown_description(self, obj):
+        # Parse markdown
+        return mistune.markdown(obj.description)
 
     class Meta:
         model = models.Comment

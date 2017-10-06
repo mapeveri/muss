@@ -39,7 +39,9 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
         type_filter = self.request.GET.get('filter')
         if type_filter == 'forums':
             if settings.DEBUG:
-                renderers_classes = (JSONRendererApiJson, BrowsableAPIRenderer,)
+                renderers_classes = (
+                    JSONRendererApiJson, BrowsableAPIRenderer,
+                )
             else:
                 renderers_classes = (JSONRendererApiJson,)
             self.renderer_classes = renderers_classes
