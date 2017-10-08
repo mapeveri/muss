@@ -160,7 +160,7 @@ export default Component.extend({
         replyComment() {
             if(this.get('session.isAuthenticated')) {
                 $("#content-topic").addClass("paddingEditorMde");
-                $("#mdeReplyModal").show();
+                $("#mdeReplyModal").fadeToggle('slow');
             } else {
                 showModalLogin();
             }

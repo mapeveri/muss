@@ -104,7 +104,7 @@ export default Component.extend({
         */
         replyComment() {
             $("#content-topic").addClass("paddingEditorMde");
-            $("#mdeReplyModal").show();
+            $("#mdeReplyModal").fadeToggle('slow');
         }
     }
 });

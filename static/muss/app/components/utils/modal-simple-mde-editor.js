@@ -11,7 +11,7 @@ export default Component.extend({
         * @description: Close modal and remove padding for fixed scroll
         */
         closeModal() {
-            $("#" + this.modalId).hide();
+            $("#" + this.modalId).fadeToggle('slow');
             $("#" + this.contentId).removeClass("paddingEditorMde");
         },
     }
