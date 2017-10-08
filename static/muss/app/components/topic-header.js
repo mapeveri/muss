@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import { inject as service} from '@ember/service';
 import $ from 'jquery';
 import ENV from './../config/environment';
-import { showModalLogin } from '../libs/utils';
+import { closeAllEditor, showModalLogin } from '../libs/utils';
 
 export default Component.extend({
     ajax: service('ajax'),
@@ -159,6 +159,8 @@ export default Component.extend({
         */
         replyComment() {
             if(this.get('session.isAuthenticated')) {
+                //If exists other editor mde opened, when close all
+                closeAllEditor();
                 //Show modal editor
                 $("#mdeReplyModal").addClass('mde-modal-content-open').height(300).trigger("open");
             } else {

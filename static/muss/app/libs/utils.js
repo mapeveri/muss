@@ -17,3 +17,11 @@ export function validateEmail(email) {
 export function showModalLogin() {
     $('.tiny.login-form.modal').modal("show");
 }
+
+/**
+* @method closeAllEditor
+* @description: Close all editor mde
+*/
+export function closeAllEditor() {
+    $(".mde-modal-content").removeClass('mde-modal-content-open').height(0).trigger("close");
+}

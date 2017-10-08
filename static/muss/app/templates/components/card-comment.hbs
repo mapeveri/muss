@@ -13,7 +13,7 @@
             <span class="date">{{ comment.date }}</span>
         </div>
         <div class="text text-content">
-            {{{ comment.markdownDescription }}}
+            {{{ comment.htmlDescription }}}
         </div>
         <div class="actions">
             <a class="reply" {{ action "replyComment" }}>{{gettext "Reply"}}</a>
@@ -43,3 +43,11 @@
         {{gettext "Do you want remove this comment?"}}
     {{/if}}
 {{/utils/form-modal}}
+
+{{#utils/modal-simple-mde-editor contentId="content-topic" field=contentEdit textareaId=(concat "edit_comment_" comment.id) modalId=(concat "mdeEditModal_" comment.id) as |section|}}
+    {{#if section.isSectionActions}}
+        <div class="ui mini blue labeled submit icon button {{if enableContentEdit 'disabled'}}" disabled={{enableContentEdit}} {{ action "editComment" }}>
+            <i class="icon edit"></i> {{gettext "Edit"}}
+        </div>
+    {{/if}}
+{{/utils/modal-simple-mde-editor}}

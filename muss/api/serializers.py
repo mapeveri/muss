@@ -106,7 +106,7 @@ class TopicSerializer(serializers.ModelSerializer):
     views = serializers.SerializerMethodField()
     forum = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
     user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
-    markdown_description = serializers.SerializerMethodField()
+    html_description = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
 
     def get_total_comments(self, obj):
@@ -126,7 +126,7 @@ class TopicSerializer(serializers.ModelSerializer):
             count = 0
         return count
 
-    def get_markdown_description(self, obj):
+    def get_html_description(self, obj):
         # Parse markdown
         return mistune.markdown(obj.description)
 
@@ -157,10 +157,11 @@ class RegisterSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     topic = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
     user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
-    markdown_description = serializers.SerializerMethodField()
+    html_description = serializers.SerializerMethodField()
+    html_description = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
 
-    def get_markdown_description(self, obj):
+    def get_html_description(self, obj):
         # Parse markdown
         return mistune.markdown(obj.description)
 

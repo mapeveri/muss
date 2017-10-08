@@ -90,6 +90,7 @@
     background-color: whitesmoke;
     height: 0px;
     transition: height 0.4s ease;
+    z-index: 100;
 }
 
 .mde-modal-content-open {
@@ -136,11 +137,12 @@ pre {
     margin-top: -0.3em;
 }
 
+/* Styles tag code in editor mde */
 pre code {
     background-color: #f8f8f8;
 }
 
-.text-content {
+.text-content pre code {
     overflow: hidden;
     overflow-x: auto;
     display: grid;

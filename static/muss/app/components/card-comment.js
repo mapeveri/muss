@@ -1,8 +1,9 @@
 import Component from '@ember/component';
 import { inject as service} from '@ember/service';
+import { isPresent } from "@ember/utils";
 import $ from 'jquery';
 import ENV from './../config/environment';
-import { showModalLogin } from '../libs/utils';
+import { closeAllEditor, showModalLogin } from '../libs/utils';
 
 export default Component.extend({
     ajax: service('ajax'),
@@ -13,6 +14,10 @@ export default Component.extend({
     userLogin: null,
     commentId: null,
     showLike: true,
+    contentEdit: '',
+    enableContentEdit: function() {
+        return !isPresent(this.contentEdit);
+    }.property('contentEdit'),
 
     didInsertElement() {
         this._super();
@@ -103,6 +108,8 @@ export default Component.extend({
         * @description: Show modal reply form
         */
         replyComment() {
+            //If exists other editor mde opened, when close all
+            closeAllEditor();
             //Show modal editor
             $("#mdeReplyModal").addClass('mde-modal-content-open').height(300).trigger("open");
         },
@@ -111,8 +118,25 @@ export default Component.extend({
         * @description: Show edit modal comment
         */
         showEditComment() {
-            let contentComment = this.get('comment.markdownDescription');
-            $("#mdeReplyModal").addClass('mde-modal-content-open').height(300).trigger("open");
+            //If exists other editor mde opened, when close all
+            closeAllEditor();
+
+            //Display editor mde for edit comment
+            let commentId = this.get('comment.id');
+            let contentComment = this.get('comment.description');
+            $("#mdeEditModal_" + commentId).addClass('mde-modal-content-open').height(300).trigger("open");
+            this.set('contentEdit', contentComment);
+        },
+        /**
+        * @method editComment
+        * @description: Save in db the edit comment
+        */
+        editComment() {
+            let commentId = this.get('comment.id');
+            this.comment.set('description', this.contentEdit);
+            this.comment.save().then(() => {
+                $("#mdeEditModal_" + commentId).removeClass('mde-modal-content-open').height(0).trigger("close");
+            });
         }
     }
 });
