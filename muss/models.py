@@ -405,7 +405,7 @@ class LikeTopic(models.Model):
         :param topic: Topic that gave it 'like'.
         :param users: Data with tee users that created the 'like'.
     """
-    topic = models.ForeignKey(
+    topic = models.OneToOneField(
         Topic, related_name='likes_topic', on_delete=models.CASCADE
     )
     users = JSONField()
@@ -422,7 +422,7 @@ class LikeComment(models.Model):
         :param comment: Coment that gave it 'like'.
         :param users: Data with the users that created the 'like'.
     """
-    comment = models.ForeignKey(
+    comment = models.OneToOneField(
         Comment, related_name='likes_comment', on_delete=models.CASCADE
     )
     users = JSONField()

@@ -450,29 +450,9 @@ class LikeTopicViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticatedOrReadOnly, )
     http_method_names = ['get', 'post', 'delete']
 
-    def get_queryset(self, *arg, **kwargs):
-        type_filter = self.request.GET.get('filter')
-
-        # Check if exists like in topic
-        if type_filter == 'check_like_exists':
-            user = self.request.GET.get('user')
-            topic = self.request.GET.get('topic')
-
-            lt = self.queryset.filter(topic__pk=topic)
-            if lt.exists():
-                exists = lt.filter(users__contains=[{'user': user}])
-                if exists:
-                    self.queryset = lt
-                else:
-                    self.queryset = models.LikeTopic.objects.none()
-            else:
-                self.queryset = models.LikeTopic.objects.none()
-
-        return self.queryset
-
     def create(self, request):
         topic_pk = request.data['topic']
-        user = request.data['users']
+        user = int(request.data['users'])
         lt = models.LikeTopic.objects.filter(topic__pk=topic_pk)
         if lt.exists():
             s = lt.filter(users__contains=[{'user': user}])
@@ -504,7 +484,7 @@ class LikeTopicViewSet(viewsets.ModelViewSet):
         return Response({'success': 'ok'})
 
     def destroy(self, request, pk=None):
-        user_pk = request.data['users']
+        user_pk = int(request.data['users'])
         lt = models.LikeTopic.objects.filter(topic__pk=pk).first()
         users = lt.users
 
@@ -531,29 +511,9 @@ class LikeCommentViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticatedOrReadOnly, )
     http_method_names = ['get', 'post', 'delete']
 
-    def get_queryset(self, *arg, **kwargs):
-        type_filter = self.request.GET.get('filter')
-
-        # Check if exists like in comment
-        if type_filter == 'check_like_exists':
-            user = self.request.GET.get('user')
-            comment = self.request.GET.get('comment')
-
-            lc = self.queryset.filter(comment__pk=comment)
-            if lc.exists():
-                exists = lc.filter(users__contains=[{'user': user}])
-                if exists:
-                    self.queryset = lc
-                else:
-                    self.queryset = models.LikeComment.objects.none()
-            else:
-                self.queryset = models.LikeComment.objects.none()
-
-        return self.queryset
-
     def create(self, request):
         comment_pk = request.data['comment']
-        user = request.data['users']
+        user = int(request.data['users'])
         lc = models.LikeComment.objects.filter(comment__pk=comment_pk)
         if lc.exists():
             s = lc.filter(users__contains=[{'user': user}])
@@ -585,7 +545,7 @@ class LikeCommentViewSet(viewsets.ModelViewSet):
         return Response({'success': 'ok'})
 
     def destroy(self, request, pk=None):
-        user_pk = request.data['users']
+        user_pk = int(request.data['users'])
         lc = models.LikeComment.objects.filter(comment__pk=pk).first()
         users = lc.users
 

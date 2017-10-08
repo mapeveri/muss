@@ -1,17 +1,18 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { inject as service} from '@ember/service';
+import $ from 'jquery';
 import ENV from './../config/environment';
 import { showModalLogin } from '../libs/utils';
 
-export default Ember.Component.extend({
-    ajax: Ember.inject.service('ajax'),
-    session: Ember.inject.service('session'),
-    currentUser: Ember.inject.service('current-user'),
+export default Component.extend({
+    ajax: service('ajax'),
+    session: service('session'),
+    currentUser: service('current-user'),
     namespace: ENV.APP.API_NAMESPACE,
     isCreatorComment: false,
     userLogin: null,
     commentId: null,
     showLike: true,
-    jwt: null,
 
     didInsertElement() {
         this._super();
@@ -26,21 +27,15 @@ export default Ember.Component.extend({
             }
 
             this.set('commentId', this.get('comment.id'));
-            this.set('jwt', this.get('session').session.content.authenticated.token);
 
-            this.get('ajax').request('/' + this.namespace + '/likecomments/', {
-                method: 'GET',
-                data: {
-                    'comment': this.commentId,
-                    'user': this.userLogin,
-                    'filter': 'check_like_exists'
-                },
-                headers: {"Authorization": "jwt " + this.jwt}
-            }).then((response) => {
-                if(response.data.length > 0) {
+            //Check if exists like user logged
+            let likes = this.get('comment.likes');
+            if (likes.length > 0) {
+                let exists = likes.find(o => o.user === user_login);
+                if(exists != undefined) {
                     this.set('showLike', false);
                 }
-            });
+            }
         }
     },
     actions: {
@@ -50,7 +45,7 @@ export default Ember.Component.extend({
         * @param {*} id
         */
         confirmRemoveComment(id) {
-            Ember.$('.tiny.comment_'+id+'.modal').modal({
+            $('.tiny.comment_'+id+'.modal').modal({
                 onApprove: () => {
                   return false;
                 }
@@ -66,7 +61,7 @@ export default Ember.Component.extend({
             this.comment.save();
 
             this.get('comments.content').removeObject(this.comment._internalModel);
-            Ember.$('.tiny.comment_'+id+'.modal').modal('hide');
+            $('.tiny.comment_'+id+'.modal').modal('hide');
         },
         /**
         * @method likeComment
@@ -80,7 +75,6 @@ export default Ember.Component.extend({
                         'comment': this.commentId,
                         'users': this.userLogin
                     },
-                    headers: {"Authorization": "jwt " + this.jwt}
                 }).then(() => {
                     this.set('showLike', false);
                     this.set('comment.totalLikes', this.get('comment.totalLikes') + 1);
@@ -99,7 +93,6 @@ export default Ember.Component.extend({
                 data: {
                     'users': this.userLogin
                 },
-                headers: {"Authorization": "jwt " + this.jwt}
             }).then(() => {
                 this.set('showLike', true);
                 this.set('comment.totalLikes', this.get('comment.totalLikes') - 1);
@@ -110,8 +103,8 @@ export default Ember.Component.extend({
         * @description: Show modal reply form
         */
         replyComment() {
-            Ember.$("#content-topic").addClass("paddingEditorMde");
-            Ember.$("#mdeReplyModal").show();
+            $("#content-topic").addClass("paddingEditorMde");
+            $("#mdeReplyModal").show();
         }
     }
 });

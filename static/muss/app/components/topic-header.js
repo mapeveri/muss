@@ -1,12 +1,14 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { inject as service} from '@ember/service';
+import $ from 'jquery';
 import ENV from './../config/environment';
 import { showModalLogin } from '../libs/utils';
 
-export default Ember.Component.extend({
-    ajax: Ember.inject.service(),
-    session: Ember.inject.service('session'),
-    router: Ember.inject.service('-routing'),
-    currentUser: Ember.inject.service('current-user'),
+export default Component.extend({
+    ajax: service(),
+    session: service('session'),
+    router: service('-routing'),
+    currentUser: service('current-user'),
     namespace: ENV.APP.API_NAMESPACE,
     currentUrl: window.location.href,
     isLoaded: false,
@@ -17,7 +19,6 @@ export default Ember.Component.extend({
     userLogin: null,
     topicId: null,
     showLike: true,
-    jwt: null,
     totalCommentsWatcher: function() {
         this.set('topic.totalComments', this.get('comments.content').length);
     }.observes('comments.content.[]'),
@@ -35,7 +36,6 @@ export default Ember.Component.extend({
             }
 
             this.set('topicId', this.get('topic.id'));
-            this.set('jwt', this.get('session').session.content.authenticated.token);
 
             //Check user like in topic
             this.getCheckUserLike();
@@ -66,19 +66,13 @@ export default Ember.Component.extend({
     * @description: Check if user logged make like in topic
     */
     getCheckUserLike() {
-        this.get('ajax').request('/' + this.namespace + '/liketopics/', {
-            method: 'GET',
-            data: {
-                'topic': this.topicId,
-                'user': this.userLogin,
-                'filter': 'check_like_exists'
-            },
-            headers: {"Authorization": "jwt " + this.jwt}
-        }).then((response) => {
-            if(response.data.length > 0) {
+        let likes = this.get('topic.likes');
+        if (likes.length > 0) {
+            let exists = likes.find(o => o.user === this.userLogin);
+            if(exists != undefined) {
                 this.set('showLike', false);
             }
-        });
+        }
     },
     actions: {
         /**
@@ -93,7 +87,6 @@ export default Ember.Component.extend({
                         'topic': this.topicId,
                         'users': this.userLogin
                     },
-                    headers: {"Authorization": "jwt " + this.jwt}
                 }).then(() => {
                     this.set('showLike', false);
                     this.set('topic.totalLikes', this.get('topic.totalLikes') + 1);
@@ -112,7 +105,6 @@ export default Ember.Component.extend({
                 data: {
                     'users': this.userLogin
                 },
-                headers: {"Authorization": "jwt " + this.jwt}
             }).then(() => {
                 this.set('showLike', true);
                 this.set('topic.totalLikes', this.get('topic.totalLikes') - 1);
@@ -124,7 +116,7 @@ export default Ember.Component.extend({
         * @param {*} id
         */
         confirmRemoveTopic(id) {
-            Ember.$('.tiny.topic_'+id+'.modal').modal({
+            $('.tiny.topic_'+id+'.modal').modal({
                 onApprove: () => {
                   return false;
                 }
@@ -139,7 +131,7 @@ export default Ember.Component.extend({
             let forum_id = this.get('topic.forum.id');
             let forum_slug = this.get('topic.forum.slug');
 
-            Ember.$('.tiny.topic_'+id+'.modal').modal('hide');
+            $('.tiny.topic_'+id+'.modal').modal('hide');
 
             this.topic.destroyRecord().then(() => {
                 this.sendAction('redirectForum', forum_id, forum_slug);
@@ -157,7 +149,6 @@ export default Ember.Component.extend({
                     'topic': this.topic.id,
                     'is_close': 0
                 },
-                headers: {"Authorization": "jwt " + this.jwt}
             }).then(() => {
                 this.topic.set('isClose', false);
             });
@@ -174,7 +165,6 @@ export default Ember.Component.extend({
                     'topic': this.topic.id,
                     'is_close': 1
                 },
-                headers: {"Authorization": "jwt " + this.jwt}
             }).then(() => {
                 this.topic.set('isClose', true);
             });
@@ -185,8 +175,8 @@ export default Ember.Component.extend({
         */
         replyComment() {
             if(this.get('session.isAuthenticated')) {
-                Ember.$("#content-topic").addClass("paddingEditorMde");
-                Ember.$("#mdeReplyModal").show();
+                $("#content-topic").addClass("paddingEditorMde");
+                $("#mdeReplyModal").show();
             } else {
                 showModalLogin();
             }

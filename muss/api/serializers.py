@@ -107,6 +107,7 @@ class TopicSerializer(serializers.ModelSerializer):
     forum = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
     user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
     markdown_description = serializers.SerializerMethodField()
+    likes = serializers.SerializerMethodField()
 
     def get_total_comments(self, obj):
         """
@@ -129,6 +130,14 @@ class TopicSerializer(serializers.ModelSerializer):
         # Parse markdown
         return mistune.markdown(obj.description)
 
+    def get_likes(self, obj):
+        # Get likes topic
+        try:
+            likes = obj.likes_topic.users
+        except models.LikeTopic.DoesNotExist:
+            likes = []
+        return likes
+
     class Meta:
         model = models.Topic
         fields = '__all__'
@@ -149,10 +158,19 @@ class CommentSerializer(serializers.ModelSerializer):
     topic = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
     user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
     markdown_description = serializers.SerializerMethodField()
+    likes = serializers.SerializerMethodField()
 
     def get_markdown_description(self, obj):
         # Parse markdown
         return mistune.markdown(obj.description)
+
+    def get_likes(self, obj):
+        # Get likes comment
+        try:
+            likes = obj.likes_comment.users
+        except models.LikeComment.DoesNotExist:
+            likes = []
+        return likes
 
     class Meta:
         model = models.Comment

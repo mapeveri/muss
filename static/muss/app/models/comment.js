@@ -6,5 +6,6 @@ export default DS.Model.extend({
     date: DS.attr('string'),
     description: DS.attr('string'),
     markdownDescription: DS.attr(),
-    totalLikes: DS.attr('number')
+    totalLikes: DS.attr('number'),
+    likes: DS.attr(),
 });
