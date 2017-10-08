@@ -142,32 +142,16 @@ export default Component.extend({
         * @description: Open topic in db
         */
         openTopic() {
-            this.get('ajax').request('/' + this.namespace + '/open-close-topic/', {
-                method: 'POST',
-                data: {
-                    'user': this.userLogin,
-                    'topic': this.topic.id,
-                    'is_close': 0
-                },
-            }).then(() => {
-                this.topic.set('isClose', false);
-            });
+            this.topic.set('isClose', false);
+            this.topic.save();
         },
         /**
         * @method closeTopic
         * @description: Close topic in db
         */
         closeTopic() {
-            this.get('ajax').request('/' + this.namespace + '/open-close-topic/', {
-                method: 'POST',
-                data: {
-                    'user': this.userLogin,
-                    'topic': this.topic.id,
-                    'is_close': 1
-                },
-            }).then(() => {
-                this.topic.set('isClose', true);
-            });
+            this.topic.set('isClose', true);
+            this.topic.save();
         },
         /**
         * @method replyComment
