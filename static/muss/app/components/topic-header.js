@@ -159,8 +159,8 @@ export default Component.extend({
         */
         replyComment() {
             if(this.get('session.isAuthenticated')) {
-                $("#content-topic").addClass("paddingEditorMde");
-                $("#mdeReplyModal").fadeToggle('slow');
+                //Show modal editor
+                $("#mdeReplyModal").addClass('mde-modal-content-open').height(300).trigger("open");
             } else {
                 showModalLogin();
             }

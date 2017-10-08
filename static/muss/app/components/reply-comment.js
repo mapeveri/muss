@@ -8,6 +8,7 @@ export default Component.extend({
     session: service('session'),
     store: service('store'),
     topic: null,
+    reply: '',
     enableReply: function() {
         return !isPresent(this.reply);
     }.property('reply'),
@@ -32,10 +33,9 @@ export default Component.extend({
                     this.get('comments.content').pushObject(record._internalModel);
                     this.set('reply', '');
 
-                    //Hide modal reply
                     setTimeout(() => {
-                        $("#mdeReplyModal").hide()
-                        $("#content-topic").removeClass("paddingEditorMde");
+                        //Hide modal editor
+                        $("#mdeReplyModal").removeClass('mde-modal-content-open').height(0).trigger("close");
                     }, 100);
                 }).catch(() => {
                     window.toastr.error(gettextHelper("There was an error creating your comment."))

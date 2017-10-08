@@ -1,13 +1,13 @@
-<div id="{{ modalId }}" class="mde-modal mde-modal-hidden">
-        <div class="mde-modal-content">
-            <span class="mde-modal-close" {{ action "closeModal" }}><i class="angle down icon"></i></span>
-            <div class="ui reply form marginTop1">
-                <div class="field">
-                    <div>
-                        {{utils/simple-mde-editor value=field elementId=textareaId}}
-                    </div>
+<div class="mde-modal mde-modal-hidden">
+    <div class="mde-modal-content" id="{{ modalId }}">
+        <span class="mde-modal-close" {{ action "closeModal" }}><i class="angle down icon"></i></span>
+        <div class="ui reply form marginTop1">
+            <div class="field">
+                <div>
+                    {{utils/simple-mde-editor value=field elementId=textareaId}}
                 </div>
-                {{yield sectionActions}}
             </div>
+            {{yield sectionActions}}
         </div>
+    </div>
 </div>

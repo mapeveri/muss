@@ -68,10 +68,10 @@
 
 /* Modal mde */
 .mde-modal {
-    display: none; /* Hidden by default */
+    display: block; /* Hidden by default */
     position: absolute; /* Stay in place */
     width: 100%; /* Full width */
-    height: 0%; /* Full height */
+    height: 0px; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     left: 0;
     bottom: 0;
@@ -79,8 +79,6 @@
 
 /* Modal Content/Box */
 .mde-modal-content {
-    padding: 20px;
-    border: 1px solid #888;
     border-radius: 2px;
     width: 100%; /* Could be more or less, depending on screen size */
     position:fixed;
@@ -89,9 +87,13 @@
     left:auto;
     bottom:0;
     width: 100%;
-    height: 350px;
-
     background-color: whitesmoke;
+    height: 0px;
+    transition: height 0.4s ease;
+}
+
+.mde-modal-content-open {
+    padding: 20px;
 }
 
 /* The Close Button */
@@ -109,6 +111,7 @@
     cursor: pointer;
 }
 
+/* Styles codemirro editor */
 .CodeMirror {
     height: 200px !important;
     min-height: 200px !important;
@@ -118,14 +121,16 @@
     min-height: 0px !important;
 }
 
+/* Add pading for content scroll when show modal editor*/
 .paddingEditorMde {
-    padding-bottom: 350px !important;
+    padding-bottom: 340px !important;
 }
 
 .ui.image {
     position: initial !important;
 }
 
+/* Styles for content code in editor */
 pre {
     background-color: #f8f8f8;
     margin-top: -0.3em;

@@ -103,8 +103,16 @@ export default Component.extend({
         * @description: Show modal reply form
         */
         replyComment() {
-            $("#content-topic").addClass("paddingEditorMde");
-            $("#mdeReplyModal").fadeToggle('slow');
+            //Show modal editor
+            $("#mdeReplyModal").addClass('mde-modal-content-open').height(300).trigger("open");
+        },
+        /**
+        * @method showEditComment
+        * @description: Show edit modal comment
+        */
+        showEditComment() {
+            let contentComment = this.get('comment.markdownDescription');
+            $("#mdeReplyModal").addClass('mde-modal-content-open').height(300).trigger("open");
         }
     }
 });
