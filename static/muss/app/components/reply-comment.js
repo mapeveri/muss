@@ -1,12 +1,15 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { inject as service} from '@ember/service';
+import { isPresent } from "@ember/utils";
+import $ from 'jquery';
 import { gettextHelper } from '../helpers/gettext';
 
-export default Ember.Component.extend({
-    session: Ember.inject.service('session'),
-    store: Ember.inject.service('store'),
+export default Component.extend({
+    session: service('session'),
+    store: service('store'),
     topic: null,
     enableReply: function() {
-        return !Ember.isPresent(this.reply);
+        return !isPresent(this.reply);
     }.property('reply'),
 
     actions: {
@@ -31,8 +34,8 @@ export default Ember.Component.extend({
 
                     //Hide modal reply
                     setTimeout(() => {
-                        Ember.$("#mdeReplyModal").hide()
-                        Ember.$("#content-topic").removeClass("paddingEditorMde");
+                        $("#mdeReplyModal").hide()
+                        $("#content-topic").removeClass("paddingEditorMde");
                     }, 100);
                 }).catch(() => {
                     window.toastr.error(gettextHelper("There was an error creating your comment."))

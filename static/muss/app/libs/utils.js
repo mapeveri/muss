@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import $ from 'jquery';
 
 /**
 * @method validateEmail
@@ -15,5 +15,5 @@ export function validateEmail(email) {
 * @description: Display the modal form login
 */
 export function showModalLogin() {
-    Ember.$('.tiny.login-form.modal').modal("show");
+    $('.tiny.login-form.modal').modal("show");
 }

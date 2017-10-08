@@ -1,10 +1,12 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { computed } from "@ember/object";
+import { htmlSafe } from "@ember/string";
 
-export default Ember.Component.extend({
+export default Component.extend({
     logo: (typeof(window.muss) === "undefined" ? "" : window.muss.logo),
     width: (typeof(window.muss) === "undefined" ? "" : window.muss.logo_width + "px"),
     height: (typeof(window.muss) === "undefined" ? "" : window.muss.logo_height + "px"),
-    styles: Ember.computed('color', function() {
+    styles: computed('color', function() {
         let styles = "";
         let width = this.get('width');
         let height = this.get('height');
@@ -20,6 +22,6 @@ export default Ember.Component.extend({
             styles += "height: " + height + ";";
         }
 
-        return Ember.String.htmlSafe(styles);
+        return htmlSafe(styles);
     }),
 });

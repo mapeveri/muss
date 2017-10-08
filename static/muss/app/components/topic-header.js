@@ -5,7 +5,7 @@ import ENV from './../config/environment';
 import { showModalLogin } from '../libs/utils';
 
 export default Component.extend({
-    ajax: service(),
+    ajax: service('ajax'),
     session: service('session'),
     router: service('-routing'),
     currentUser: service('current-user'),
@@ -49,7 +49,7 @@ export default Component.extend({
     },
 
     /**
-    * @method: getOrMakeHitTopic
+    * @method getOrMakeHitTopic
     * @description: Get or make hit count for topic
     */
     getOrMakeHitTopic() {
@@ -62,7 +62,7 @@ export default Component.extend({
     },
 
     /**
-    * @method: getCheckUserLike
+    * @method getCheckUserLike
     * @description: Check if user logged make like in topic
     */
     getCheckUserLike() {

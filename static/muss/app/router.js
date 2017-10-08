@@ -1,12 +1,12 @@
-import Ember from 'ember';
+import Router from "@ember/routing/router";
 import config from './config/environment';
 
-const Router = Ember.Router.extend({
+const router = Router.extend({
     location: config.locationType,
     rootURL: config.rootURL
 });
 
-Router.map(function() {
+router.map(function() {
   this.route('index', { path: '/' }, () => {
       this.route('forum', { path: '/forum/:pk/:slug' });
       this.route('search-topic', { path: '/search/'});
@@ -20,4 +20,4 @@ Router.map(function() {
   this.route('404', { path: '/*path' });
 });
 
-export default Router;
+export default router;

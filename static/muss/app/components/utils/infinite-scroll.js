@@ -1,12 +1,14 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { inject as service} from '@ember/service';
+import $ from 'jquery';
 
-export default Ember.Component.extend({
+export default Component.extend({
     isLoading: true,
     model: null,
     submodel: null,
     api: '',
     page: 2,
-    store: Ember.inject.service(),
+    store: service('store'),
 
     didInsertElement() {
         let self = this;
@@ -25,8 +27,8 @@ export default Ember.Component.extend({
             self.set("isLoading", false);
         }
 
-        Ember.$(window).scroll(function () {
-            if (Ember.$(window).scrollTop() >= (Ember.$(document).height() - Ember.$(window).height()) - 1) {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() >= ($(document).height() - $(window).height()) - 1) {
                 if(self.isLoading) {
                     if(self.page <= pages) {
                         query['page'] = self.page;
@@ -39,7 +41,7 @@ export default Ember.Component.extend({
                             }
 
                             if(self.page >= pages) {
-                                Ember.$(window).unbind('scroll');
+                                $(window).unbind('scroll');
                                 try{
                                     self.set("isLoading", false);
                                 } catch(e) {

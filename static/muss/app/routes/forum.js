@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import Route from "@ember/routing/route";
+import RSVP from "rsvp";
 
-export default Ember.Route.extend({
+export default Route.extend({
     model(params) {
-        return Ember.RSVP.hash({
+        return RSVP.hash({
             forum: this.get("store").query("forum", {pk: params.pk, slug: params.slug}).then((forum) => {
                 return forum.get("firstObject");
             }),

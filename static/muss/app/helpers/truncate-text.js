@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Helper from "@ember/component/helper";
 
 /**
 * @method truncateText
@@ -25,4 +25,4 @@ export function truncateText(params, hash) {
     return out;
 }
 
-export default Ember.Helper.helper(truncateText);
+export default Helper.helper(truncateText);

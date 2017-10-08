@@ -1,14 +1,17 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { inject as service} from '@ember/service';
+import { isPresent } from "@ember/utils";
+import $ from 'jquery';
 import { gettextHelper } from '../../helpers/gettext';
 import { validateEmail } from '../../libs/utils';
 
-export default Ember.Component.extend({
+export default Component.extend({
     id: 'signup-form',
-    store: Ember.inject.service('store'),
+    store: service('store'),
 
     actions: {
         /**
-        * @method: init
+        * @method init
         * @description: Initialize form
         */
         init() {
@@ -22,7 +25,7 @@ export default Ember.Component.extend({
             this.set('repeat_password', '');
         },
         /**
-        * @method: resetErrors
+        * @method resetErrors
         * @description: Reset errors messages
         */
         resetErrors(self) {
@@ -36,7 +39,7 @@ export default Ember.Component.extend({
             self.set('errorCheckPassword', '');
         },
         /**
-        * @method: signup
+        * @method signup
         * @description: Create user
         */
         signup() {
@@ -50,17 +53,17 @@ export default Ember.Component.extend({
             let repeat_password = this.get('repeat_password');
             let isValid = true;
 
-            if(!Ember.isPresent(firstname)) {
+            if(!isPresent(firstname)) {
                 this.set('errorFirstname', gettextHelper("This field is required."));
                 isValid = false;
             }
 
-            if(!Ember.isPresent(lastname)) {
+            if(!isPresent(lastname)) {
                 this.set('errorLastname', gettextHelper("This field is required."));
                 isValid = false;
             }
 
-            if(!Ember.isPresent(email)) {
+            if(!isPresent(email)) {
                 this.set('errorEmail', gettextHelper("This field is required."));
                 isValid = false;
             }
@@ -70,17 +73,17 @@ export default Ember.Component.extend({
                 return false;
             }
 
-            if(!Ember.isPresent(username)) {
+            if(!isPresent(username)) {
                 this.set('errorUsername', gettextHelper("This field is required."));
                 isValid = false;
             }
 
-            if(!Ember.isPresent(password)) {
+            if(!isPresent(password)) {
                 this.set('errorPassword', gettextHelper("This field is required."));
                 isValid = false;
             }
 
-            if(!Ember.isPresent(repeat_password)) {
+            if(!isPresent(repeat_password)) {
                 this.set('errorRepeatPassword', gettextHelper("This field is required."));
                 isValid = false;
             }
@@ -100,7 +103,7 @@ export default Ember.Component.extend({
                 });
 
                 user.save().then(() => {
-                    Ember.$('.tiny.'+this.id+'.modal').modal("hide");
+                    $('.tiny.'+this.id+'.modal').modal("hide");
                     window.toastr.success(gettextHelper('Please, check your email.'));
                 }).catch((err) => {
                     this.set('errorMessage', err.errors)

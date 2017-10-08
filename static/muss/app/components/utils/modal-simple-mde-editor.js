@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import $ from 'jquery';
 
-export default Ember.Component.extend({
+export default Component.extend({
     //For check if is the section actions
     sectionActions: {isSectionActions: true},
 
@@ -10,8 +11,8 @@ export default Ember.Component.extend({
         * @description: Close modal and remove padding for fixed scroll
         */
         closeModal() {
-            Ember.$("#" + this.modalId).hide();
-            Ember.$("#" + this.contentId).removeClass("paddingEditorMde");
+            $("#" + this.modalId).hide();
+            $("#" + this.contentId).removeClass("paddingEditorMde");
         },
     }
 });

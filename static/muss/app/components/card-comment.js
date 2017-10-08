@@ -99,7 +99,7 @@ export default Component.extend({
             });
         },
         /**
-        * @method: replyComment
+        * @method replyComment
         * @description: Show modal reply form
         */
         replyComment() {

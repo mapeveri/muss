@@ -1,8 +1,11 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { inject as service} from '@ember/service';
+import { isPresent } from "@ember/utils";
+import $ from 'jquery';
 import { gettextHelper } from '../../helpers/gettext';
 
-export default Ember.Component.extend({
-    ajax: Ember.inject.service(),
+export default Component.extend({
+    ajax: service('ajax'),
     uidb64: null,
     token: null,
     csrftoken: null,
@@ -12,7 +15,7 @@ export default Ember.Component.extend({
 
     didInsertElement() {
         this._super();
-        this.csrftoken = Ember.$("[name=csrfmiddlewaretoken]").first().val();
+        this.csrftoken = $("[name=csrfmiddlewaretoken]").first().val();
         this.actions.resetErrors(this);
 
         //Check if is valid link email
@@ -33,7 +36,7 @@ export default Ember.Component.extend({
     },
     actions: {
         /**
-        * @method: resetErrors
+        * @method resetErrors
         * @description: Reset errors messages
         */
         resetErrors(self) {
@@ -42,7 +45,7 @@ export default Ember.Component.extend({
             self.set('errorPassword2', '');
         },
         /**
-        * @method: setNewPassowrd
+        * @method setNewPassowrd
         * @description: Update password
         */
         setNewPassowrd() {
@@ -50,12 +53,12 @@ export default Ember.Component.extend({
             let { new_password1, new_password2 } = this.getProperties('new_password1', 'new_password2');
             let isValid = true;
 
-            if(!Ember.isPresent(new_password1)) {
+            if(!isPresent(new_password1)) {
                 this.set('errorPassword1', gettextHelper("This field is required."));
                 isValid = false;
             }
 
-            if(!Ember.isPresent(new_password2)) {
+            if(!isPresent(new_password2)) {
                 this.set('errorPassword2', gettextHelper("This field is required."));
                 isValid = false;
             }

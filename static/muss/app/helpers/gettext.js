@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Helper from "@ember/component/helper";
 
 /**
 * @method gettextHelper
@@ -13,4 +13,4 @@ export function gettextHelper(msgid) {
     }
 }
 
-export default Ember.Helper.helper(gettextHelper);
+export default Helper.helper(gettextHelper);

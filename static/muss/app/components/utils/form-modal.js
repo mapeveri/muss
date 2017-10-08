@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import $ from 'jquery';
 
-export default Ember.Component.extend({
+export default Component.extend({
     //Title modal
     title_modal: '',
     //Title action unique
@@ -22,7 +23,7 @@ export default Ember.Component.extend({
         * @description: Display modal form
         */
         showForm() {
-            Ember.$('.tiny.'+this.id+'.modal').modal({
+            $('.tiny.'+this.id+'.modal').modal({
                 onApprove: () => {
                   return false;
                 }
@@ -35,7 +36,7 @@ export default Ember.Component.extend({
         * @description: Cancel modal
         */
         cancelModal() {
-            Ember.$('.tiny.'+this.id+'.modal').modal('hide');
+            $('.tiny.'+this.id+'.modal').modal('hide');
         },
         /**
         * @method action

@@ -18,5 +18,5 @@ export default DS.Model.extend({
     likes: DS.attr(),
     views: DS.attr('number'),
     totalComments: DS.attr('number'),
-    topics: DS.hasMany('comment'),
+    comments: DS.hasMany('comment'),
 });

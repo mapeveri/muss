@@ -1,12 +1,11 @@
-import Ember from 'ember';
+import Service, { inject as service} from "@ember/service";
+import RSVP from "rsvp";
 
-const { inject: { service }, RSVP } = Ember;
-
-export default Ember.Service.extend({
+export default Service.extend({
     session: service('session'),
 
     /**
-    * @description: Get user logged
+    * @description Get user logged
     */
     init() {
         if (this.get('session.isAuthenticated')) {

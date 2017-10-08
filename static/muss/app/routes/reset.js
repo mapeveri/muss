@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import Route from "@ember/routing/route";
+import { inject as service} from '@ember/service';
 
-export default Ember.Route.extend({
-    session: Ember.inject.service('session'),
+export default Route.extend({
+    session: service('session'),
     beforeModel() {
         if(this.get('session').session.isAuthenticated) {
             this.transitionTo('index');

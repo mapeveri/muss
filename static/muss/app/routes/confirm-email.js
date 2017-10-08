@@ -1,8 +1,10 @@
-import Ember from 'ember';
+import Route from "@ember/routing/route";
+import { inject as service} from '@ember/service';
+import $ from 'jquery';
 
-export default Ember.Route.extend({
-    ajax: Ember.inject.service(),
-    session: Ember.inject.service('session'),
+export default Route.extend({
+    ajax: service('ajax'),
+    session: service('session'),
     beforeModel() {
         if(this.get('session').session.isAuthenticated) {
             this.transitionTo('index');
@@ -10,7 +12,7 @@ export default Ember.Route.extend({
         }
     },
     model(params) {
-        let csrftoken = Ember.$("[name=csrfmiddlewaretoken]").first().val();
+        let csrftoken = $("[name=csrfmiddlewaretoken]").first().val();
         return this.get('ajax').request('/confirm-email/', {
             method: 'POST',
             dataType: 'html',

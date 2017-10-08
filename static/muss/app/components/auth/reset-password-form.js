@@ -1,14 +1,17 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { inject as service} from '@ember/service';
+import { isPresent } from "@ember/utils";
+import $ from 'jquery';
 import { gettextHelper } from '../../helpers/gettext';
 import { validateEmail } from '../../libs/utils';
 
-export default Ember.Component.extend({
+export default Component.extend({
     id: 'reset-password-form',
-    ajax: Ember.inject.service(),
+    ajax: service('ajax'),
 
     actions: {
         /**
-        * @method: init
+        * @method init
         * @description: Initialize form
         */
         init() {
@@ -16,14 +19,14 @@ export default Ember.Component.extend({
             this.set('email', '');
         },
         /**
-        * @method: resetErrors
+        * @method resetErrors
         * @description: Reset errors messages
         */
         resetErrors(self) {
             self.set('errorEmail', '');
         },
         /**
-        * @method: reset
+        * @method reset
         * @description: Reset password
         */
         reset() {
@@ -35,12 +38,12 @@ export default Ember.Component.extend({
                 return false;
             }
 
-            if(!Ember.isPresent(email)) {
+            if(!isPresent(email)) {
                 this.set('errorEmail', gettextHelper("This field is required."));
             } else {
                 this.set('errorEmail', '');
 
-                let csrftoken = Ember.$("[name=csrfmiddlewaretoken]").first().val();
+                let csrftoken = $("[name=csrfmiddlewaretoken]").first().val();
                 return this.get('ajax').request('/reset-password/', {
                     method: 'POST',
                     data: {
@@ -48,7 +51,7 @@ export default Ember.Component.extend({
                         csrfmiddlewaretoken: csrftoken,
                     }
                 }).then(() => {
-                    Ember.$('.tiny.'+this.id+'.modal').modal("hide");
+                    $('.tiny.'+this.id+'.modal').modal("hide");
                     window.toastr.success(gettextHelper('Please, check your email.'));
                 }).catch(() => {
                     this.set('errorEmail', gettextHelper("Error sending email."));

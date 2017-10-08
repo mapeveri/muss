@@ -1,14 +1,13 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { inject as service} from '@ember/service';
 import config from './../config/environment';
 import { gettextHelper } from '../helpers/gettext';
 
-export default Ember.Component.extend({
-    store: Ember.inject.service('store'),
-    session: Ember.inject.service('session'),
-    ajax: Ember.inject.service('ajax'),
-    routing: Ember.inject.service('-routing'),
-    currentUser: Ember.inject.service('current-user'),
-    params: null,
+export default Component.extend({
+    store: service('store'),
+    session: service('session'),
+    ajax: service('ajax'),
+    currentUser: service('current-user'),
     currentUrl: window.location.href,
     rssUrl: config.APP.API_HOST + "/" + "feed/",
     isLoaded: false,
@@ -19,7 +18,6 @@ export default Ember.Component.extend({
 
     didInsertElement() {
         this._super();
-        this.params = this.get('routing.router.currentState.routerJsState.params.forum');
 
         if (this.get('session.isAuthenticated')) {
             let user_login = parseInt(this.get('currentUser').user.id);
@@ -61,7 +59,7 @@ export default Ember.Component.extend({
 
             return this.get('ajax').request('/' + namespace + '/check-permissions-forum-user/', {
                 method: 'GET',
-                data: {'user_id': pk, 'forum_id': this.params.pk}
+                data: {'user_id': pk, 'forum_id': this.model.forum.id}
             }).then(response => {
                 //Is completed
                 this.FinishedLoading();
