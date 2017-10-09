@@ -141,6 +141,7 @@ class TopicSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Topic
         fields = '__all__'
+        read_only_fields = ('slug', )
 
 
 # Serializers register

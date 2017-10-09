@@ -4,6 +4,7 @@
         <div class="ui reply form marginTop1">
             <div class="field">
                 <div>
+                    {{yield sectionContent}}
                     {{utils/simple-mde-editor value=field elementId=textareaId}}
                 </div>
             </div>

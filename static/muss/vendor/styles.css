@@ -126,6 +126,9 @@
 .paddingEditorMde {
     padding-bottom: 340px !important;
 }
+.paddingEditorMdeCreate {
+    padding-bottom: 390px !important;
+}
 
 .ui.image {
     position: initial !important;

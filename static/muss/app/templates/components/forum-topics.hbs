@@ -23,7 +23,7 @@
             {{/unless}}
 
             {{#if (and session.isAuthenticated canCreateTopic)}}
-                <div class="ui floated mini primary labeled icon button">
+                <div class="ui floated mini primary labeled icon button" {{ action "showAddTopic" }}>
                     <i class="plus icon"></i> {{gettext "Add topic"}}
                 </div>
             {{/if}}
@@ -79,4 +79,20 @@
         <br />
         <b>{{gettext "The forum does not contain topics."}}</b>
     {{/if}}
+{{/if}}
+
+
+{{#if session.isAuthenticated}}
+    {{#utils/modal-simple-mde-editor contentId="content-forum" contentClass="paddingEditorMdeCreate" fixedPadding="390" field=addTopicField textareaId="textarea_topic" modalId="mdeAddTopicModal" as |section|}}
+        {{#if section.isSectionContent}}
+            <div class="marginBottom1">
+                {{input type="text" value=addTopicTitle placeholder=(gettext "Title")}}
+            </div>
+        {{/if}}
+        {{#if section.isSectionActions}}
+            <div class="ui mini blue labeled submit icon button {{if enableAddTopic 'disabled'}}" disabled={{enableAddTopic}} {{action "createTopic"}}>
+                <i class="icon edit"></i> {{gettext "Add topic"}}
+            </div>
+        {{/if}}
+    {{/utils/modal-simple-mde-editor}}
 {{/if}}

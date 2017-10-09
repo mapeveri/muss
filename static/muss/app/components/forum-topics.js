@@ -1,11 +1,14 @@
 import Component from '@ember/component';
 import { inject as service} from '@ember/service';
+import { isPresent } from "@ember/utils";
+import $ from 'jquery';
 import config from './../config/environment';
 import { gettextHelper } from '../helpers/gettext';
 
 export default Component.extend({
     store: service('store'),
     session: service('session'),
+    router: service('-routing'),
     ajax: service('ajax'),
     currentUser: service('current-user'),
     currentUrl: window.location.href,
@@ -15,6 +18,11 @@ export default Component.extend({
     canCreateTopic: false,
     canRegister: false,
     isAdminOrModerator: false,
+    addTopicField: '',
+    addTopicTitle: '',
+    enableAddTopic: function() {
+        return !isPresent(this.addTopicField) || !isPresent(this.addTopicTitle);
+    }.property('addTopicField', 'addTopicTitle'),
 
     didInsertElement() {
         this._super();
@@ -128,5 +136,34 @@ export default Component.extend({
                 window.toastr.error(gettextHelper("Failed to unregister"))
             })
         },
+        /**
+        * @method showAddTopic
+        * @description: Show modal editor mde
+        */
+        showAddTopic() {
+            //Show modal editor
+            $("#mdeAddTopicModal").addClass('mde-modal-content-open').height(350).trigger("open");
+        },
+        /**
+        * @method createTopic
+        * @description: Add new topic
+        */
+        createTopic() {
+            this.get('store').find('user', this.userLogin).then((user) => {
+                let addTopic = this.get('store').createRecord('topic', {
+                    'user': user,
+                    'forum': this.model.forum,
+                    'title': this.addTopicTitle,
+                    'description': this.addTopicField
+                });
+
+                addTopic.save().then((topic) => {
+                    setTimeout(() => {
+                        let router = this.get('router');
+                        router.router.transitionTo('topic', topic.id, topic.get('slug'));
+                    }, 500);
+                });
+            });
+        }
     }
 });

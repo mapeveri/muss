@@ -140,12 +140,14 @@ class TopicViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         request = self.request
-        is_my_user = int(request.data['user']) == request.user.id
+        forum_id = int(request.data['forum']['id'])
+        user_id = int(request.data['user']['id'])
 
         # If is my user or is superuser can create
-        if is_my_user or request.user.is_superuser:
-            forum_id = request.data['forum']
+        if user_id == request.user.id or request.user.is_superuser:
             forum = get_object_or_404(models.Forum, pk=forum_id)
+            user = get_object_or_404(get_user_model(), pk=request.user.id)
+
             category = forum.category.name
             # If has permissions
             if utils.user_can_create_topic(category, forum, request.user):
@@ -156,7 +158,7 @@ class TopicViewSet(viewsets.ModelViewSet):
                         request, forum, serializer
                     )
                     # Save record
-                    topic = serializer.save()
+                    topic = serializer.save(forum=forum, user=user)
                 else:
                     return Response(
                         serializer.errors,
