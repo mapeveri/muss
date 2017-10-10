@@ -83,7 +83,7 @@
 
 
 {{#if session.isAuthenticated}}
-    {{#utils/modal-simple-mde-editor contentId="content-forum" contentClass="paddingEditorMdeCreate" fixedPadding="390" field=addTopicField textareaId="textarea_topic" modalId="mdeAddTopicModal" as |section|}}
+    {{#utils/modal-simple-mde-editor contentId="content-forum" contentClass="paddingEditorMdeCreate" field=addTopicField textareaId="textarea_topic" modalId="mdeAddTopicModal" as |section|}}
         {{#if section.isSectionContent}}
             <div class="marginBottom1">
                 {{input type="text" value=addTopicTitle placeholder=(gettext "Title")}}

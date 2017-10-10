@@ -24,7 +24,7 @@
         </div>
         <div class="extra content">
             <div class="ui grid">
-                <div class="ten wide column">
+                <div class="eight wide column">
                     <div class="ui mini horizontal statistic">
                         <div class="value">
                             {{ hitTopic }}
@@ -85,48 +85,73 @@
                     <p><b>{{gettext "Created" }}</b>: {{ topic.date }}</p>
                     <p><b>{{gettext "Last activity" }}</b>: {{ topic.lastActivity }}</p>
                 </div>
-                <div class="six wide column">
-                    {{#if (and session.isAuthenticated isCreatorTopic)}}
-                        <p>
-                            {{#if topic.isClose}}
-                                <button class="ui mini button" {{ action "openTopic" }}>{{gettext "Open topic" }}</button>
-                            {{else}}
-                                <button class="ui mini button" {{ action "closeTopic" }}>{{gettext "Close topic" }}</button>
-                            {{/if}}
-                            <button class="ui mini button"><i class="reply icon"></i> {{ gettext "Edit" }}</button>
-                            <button class="ui mini red button" {{action "confirmRemoveTopic" topic.id}}><i class="reply icon"></i> {{ gettext "Delete" }}</button>
-                        </p>
-                    {{/if}}
+                <div class="eight wide column">
                     <p>
-                        <a href="http://www.facebook.com/sharer.php?s=100&amp;p%5Burl%5D={{ currentUrl }}" target="_blank">
-                            <i class="facebook icon"></i>
-                        </a>
-                         <a href="https://plus.google.com/share?url={{ currentUrl }}" target="_blank">
-                            <i class="google plus icon"></i>
-                        </a>
-                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{ currentUrl }}">
-                            <i class="twitter icon"></i>
-                        </a>
-                        <button class="ui mini button" {{ action "replyComment" }}><i class="reply icon"></i> {{ gettext "Reply" }}</button>
+                        <div class="ui grid pull-right">
+                            <div class="sixteen wide column">
+                                {{#if (and session.isAuthenticated isCreatorTopic)}}
+                                    {{#if topic.isClose}}
+                                        <button class="circular ui icon button" {{ action "openTopic" }} title="{{gettext "Open topic" }}"><i class="fa fa-key"></i></button>
+                                    {{else}}
+                                        <button class="circular ui icon button" {{ action "closeTopic" }} title="{{gettext "Close topic" }}"><i class="window close outline icon"></i></button>
+                                    {{/if}}
+                                    <button class="circular ui icon button" {{ action 'showEditTopic' }} title="{{ gettext "Edit" }}"><i class="edit icon"></i></button>
+                                    <button class="circular ui icon button" {{action "confirmRemoveTopic" topic.id}} title="{{ gettext "Delete" }}"><i class="trash outline icon"></i></button>
+                                {{/if}}
+                                <button class="circular ui icon button" {{ action "replyComment" }} title="{{ gettext "Reply" }}"><i class="reply icon"></i></button>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="ui grid pull-right">
+                            <div class="sixteen wide column">
+                                <p>
+                                    <a href="http://www.facebook.com/sharer.php?s=100&amp;p%5Burl%5D={{ currentUrl }}" target="_blank">
+                                    <i class="facebook icon"></i>
+                                    </a>
+                                    <a href="https://plus.google.com/share?url={{ currentUrl }}" target="_blank">
+                                        <i class="google plus icon"></i>
+                                    </a>
+                                    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{ currentUrl }}">
+                                        <i class="twitter icon"></i>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
                     </p>
-
-
                 </div>
             </div>
         </div>
     </div>
 
-    {{#utils/form-modal title_modal="Remove topic" id=(concat "topic_" topic.id) hasUiForShowModal=false customActions=true as |section|}}
-        {{#if section.isSectionActions}}
-            <!-- Section actions -->
-            <button class="ui red button" {{ action "removeTopic"}}>{{gettext "Remove"}}</button>
-        {{/if}}
+    {{#if session.isAuthenticated}}
+        {{#utils/form-modal title_modal="Remove topic" id=(concat "topic_" topic.id) hasUiForShowModal=false customActions=true as |section|}}
+            {{#if section.isSectionActions}}
+                <!-- Section actions -->
+                <button class="ui red button" {{ action "removeTopic"}}>{{gettext "Remove"}}</button>
+            {{/if}}
 
-        {{#if section.isSectionContent}}
-            <!-- Section default content -->
-            {{gettext "Do you want remove this topic?"}}
-        {{/if}}
-    {{/utils/form-modal}}
+            {{#if section.isSectionContent}}
+                <!-- Section default content -->
+                {{gettext "Do you want remove this topic?"}}
+            {{/if}}
+        {{/utils/form-modal}}
+
+
+        {{#utils/modal-simple-mde-editor contentId="content-topic" contentClass="paddingEditorMdeCreate" field=editTopicField textareaId="edit_topic" modalId="mdeEditTopicModal" as |section|}}
+            {{#if section.isSectionContent}}
+                <div class="marginBottom1">
+                    {{input type="text" value=editTopicTitle placeholder=(gettext "Title")}}
+                </div>
+            {{/if}}
+            {{#if section.isSectionActions}}
+                <div class="ui mini blue labeled submit icon button {{if enableEditTopic 'disabled'}}" disabled={{enableEditTopic}} {{action "editTopic"}}>
+                    <i class="icon edit"></i> {{gettext "Edit"}}
+                </div>
+            {{/if}}
+        {{/utils/modal-simple-mde-editor}}
+    {{/if}}
 
     {{yield}}
 {{/if}}

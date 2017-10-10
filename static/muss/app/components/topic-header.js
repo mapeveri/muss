@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { inject as service} from '@ember/service';
+import { isPresent } from "@ember/utils";
 import $ from 'jquery';
 import ENV from './../config/environment';
 import { closeAllEditor, showModalLogin } from '../libs/utils';
@@ -22,6 +23,11 @@ export default Component.extend({
     totalCommentsWatcher: function() {
         this.set('topic.totalComments', this.get('comments.content').length);
     }.observes('comments.content.[]'),
+    editTopicField: '',
+    editTopicTitle: '',
+    enableEditTopic: function() {
+        return !isPresent(this.editTopicField) || !isPresent(this.editTopicTitle);
+    }.property('editTopicField', 'editTopicTitle'),
 
     didInsertElement() {
         this._super();
@@ -166,6 +172,30 @@ export default Component.extend({
             } else {
                 showModalLogin();
             }
+        },
+        /**
+        * @method showEditTopic
+        * @description: Show modal editor mde for edit topic
+        */
+        showEditTopic() {
+            //If exists other editor mde opened, when close all
+            closeAllEditor();
+            this.set('editTopicTitle', this.get('topic.title'));
+            this.set('editTopicField', this.get('topic.description'));
+            //Show modal editor
+            $("#mdeEditTopicModal").addClass('mde-modal-content-open').height(350).trigger("open");
+        },
+        /**
+        * @method editTopic
+        * @description: Update topic in db
+        */
+        editTopic() {
+            this.topic.set('title', this.editTopicTitle);
+            this.topic.set('description', this.editTopicField);
+            this.topic.save().then(() => {
+                //Close editor
+                closeAllEditor();
+            });
         }
     }
 });
