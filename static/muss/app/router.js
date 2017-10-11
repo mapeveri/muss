@@ -12,6 +12,7 @@ router.map(function() {
       this.route('members-forum', { path: '/members-forum/:pk/:slug' });
       this.route('search-topic', { path: '/search/'});
       this.route('topic', { path: '/topic/:pk/:slug' });
+      this.route('profile', { path: '/profile/:username'});
       this.route('logout');
   });
   this.route('confirm-email', { path: '/confirm-email/:username/:activation_key' });

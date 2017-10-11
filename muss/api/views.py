@@ -105,6 +105,7 @@ class TopicViewSet(viewsets.ModelViewSet):
         slug = self.request.GET.get('slug')
         search_title = self.request.GET.get('title')
         suggest = self.request.GET.get('suggest')
+        username = self.request.GET.get('username')
 
         if type_filter == 'only_topic' and pk and slug:
             # Get only topic
@@ -117,6 +118,9 @@ class TopicViewSet(viewsets.ModelViewSet):
             self.queryset = self.queryset.filter(
                 title__icontains=search_title, is_moderate=True
             )
+        elif type_filter == "by_user" and username:
+            # Filter by user topic
+            self.queryset = self.queryset.filter(user__username=username)
         elif type_filter == 'suggests' and suggest:
             # Filter suggest topic
             topic = get_object_or_404(models.Topic, pk=suggest)
@@ -368,9 +372,13 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 
 # ViewSets for profile
-class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
+class ProfileViewSet(viewsets.ModelViewSet):
+    resource_name = 'profiles'
     queryset = models.Profile.objects.all()
     serializer_class = serializers.ProfileSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+    http_method_names = ['get', 'patch']
+    lookup_field = 'user__username'
 
 
 # ViewSets for MessageForum

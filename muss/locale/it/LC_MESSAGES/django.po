@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-10 23:03-0300\n"
+"POT-Creation-Date: 2017-10-11 09:00-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -316,6 +316,22 @@ msgstr "Membri"
 msgid "of"
 msgstr "di"
 
+#: muss/i18n.py:64
+msgid "About"
+msgstr "A proposito di me"
+
+#: muss/i18n.py:65 muss/models.py:493
+msgid "Location"
+msgstr "luogo"
+
+#: muss/i18n.py:66
+msgid "There is no charged location"
+msgstr "Non esiste alcuna località caricata"
+
+#: muss/i18n.py:67
+msgid "No user information"
+msgstr "Nessuna informazione utente"
+
 #: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:251
 #: muss/models.py:358 muss/models.py:571
 msgid "Description"
@@ -460,10 +476,6 @@ msgstr "Fotografia "
 #: muss/models.py:491
 msgid "About me"
 msgstr "A proposito di me"
-
-#: muss/models.py:493
-msgid "Location"
-msgstr "luogo"
 
 #: muss/models.py:498
 msgid "Is troll"
@@ -711,9 +723,6 @@ msgstr ""
 
 #~ msgid "Create a free account."
 #~ msgstr "Creaare un account gratuito."
-
-#~ msgid "The user is not active"
-#~ msgstr "L'utente non è attivo"
 
 #~ msgid ""
 #~ "Registration was successful. Please, check your email to validate the "

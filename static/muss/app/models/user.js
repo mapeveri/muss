@@ -13,4 +13,5 @@ export default DS.Model.extend({
     comments: DS.hasMany('comment'),
     registers: DS.hasMany('register'),
     moderators: DS.hasMany('forum'),
+    profile: DS.belongsTo('profile'),
 });

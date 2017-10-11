@@ -1,0 +1,10 @@
+{{profile-header profile=model.profile topics=model.topics}}
+
+<div class="marginTop4">
+    {{#if model.topics}}
+        {{table-topics topics=model.topics title="Topics"}}
+        {{utils/infinite-scroll model=model submodel="topics" api="topic"}}
+    {{/if}}
+</div>
+
+{{outlet}}

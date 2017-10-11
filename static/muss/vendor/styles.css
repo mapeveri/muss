@@ -35,7 +35,7 @@
 }
 
 .marginTop1 {
-    margin-top: 1em;
+    margin-top: 1em !important;
 }
 
 .marginTop4 {
@@ -64,6 +64,10 @@
 
 .red-color {
     color: red !important;
+}
+
+.not-outside {
+    overflow: hidden !important;
 }
 
 /* Modal mde */

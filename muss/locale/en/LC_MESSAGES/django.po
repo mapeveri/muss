@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-10 23:03-0300\n"
+"POT-Creation-Date: 2017-10-11 09:00-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -316,6 +316,22 @@ msgstr ""
 msgid "of"
 msgstr ""
 
+#: muss/i18n.py:64
+msgid "About"
+msgstr ""
+
+#: muss/i18n.py:65 muss/models.py:493
+msgid "Location"
+msgstr ""
+
+#: muss/i18n.py:66
+msgid "There is no charged location"
+msgstr ""
+
+#: muss/i18n.py:67
+msgid "No user information"
+msgstr ""
+
 #: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:251
 #: muss/models.py:358 muss/models.py:571
 msgid "Description"
@@ -459,10 +475,6 @@ msgstr ""
 
 #: muss/models.py:491
 msgid "About me"
-msgstr ""
-
-#: muss/models.py:493
-msgid "Location"
 msgstr ""
 
 #: muss/models.py:498
