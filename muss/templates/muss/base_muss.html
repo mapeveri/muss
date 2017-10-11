@@ -50,7 +50,7 @@
     {% csrf_token %}
     {% block content %}{% endblock %}
     {% if SETTINGS.DEBUG %}
-    <script src="http://localhost:49153/livereload.js?snipver=1" type="text/javascript"></script>
+    <script src="http://localhost:7020/livereload.js?snipver=1" type="text/javascript"></script>
     {% endif %}
 
     <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
