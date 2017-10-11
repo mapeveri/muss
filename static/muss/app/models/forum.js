@@ -11,6 +11,7 @@ export default DS.Model.extend({
     date: DS.attr('date'),
     topicsCount: DS.attr('number'),
     hidden: DS.attr('boolean'),
+    moderators: DS.hasMany('user'),
     isModerate: DS.attr('boolean'),
     publicForum: DS.attr('boolean'),
     messagesForums: DS.hasMany('message-forum'),

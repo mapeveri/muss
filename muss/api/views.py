@@ -1,3 +1,5 @@
+from itertools import chain
+
 from django.db.models import F, Q
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -78,13 +80,13 @@ class ForumViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = serializers.ForumSerializer
 
     def get_queryset(self, *args, **kwargs):
+        type_filter = self.request.GET.get('filter')
         pk = self.request.GET.get('pk')
         slug = self.request.GET.get('slug')
 
-        if pk and slug:
+        if pk and slug and type_filter == "only":
             # Get only forum
             self.queryset = self.queryset.filter(pk=pk, slug=slug)
-
         return self.queryset
 
 
@@ -213,15 +215,30 @@ class RegisterViewSet(viewsets.ModelViewSet):
         return super(RegisterViewSet, self).get_permissions()
 
     def get_queryset(self, *args, **kwargs):
+        type_filter = self.request.GET.get('filter')
         user = self.request.GET.get('user')
         forum = self.request.GET.get('forum')
 
-        if forum and user:
+        if forum and user and type_filter == "get_register":
             user_id = int(user)
             forum_id = int(forum)
             self.queryset = self.queryset.filter(
                 forum__pk=forum_id, user__pk=user_id
             )
+        elif type_filter == "members" and forum:
+            forum_id = int(forum)
+            # Get register users
+            forum = get_object_or_404(
+                models.Forum, pk=forum_id, hidden=False
+            )
+            moderators = forum.moderators.all()
+            # Get registers, exclude moderators
+            self.queryset = forum.register_forums.filter(
+                ~Q(user__in=moderators)
+            )
+
+            # Add moderator to members
+            # users = list(chain(registers, moderators))
         return self.queryset
 
     def create(self, request, **kwargs):

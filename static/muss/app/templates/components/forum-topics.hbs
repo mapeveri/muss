@@ -32,6 +32,9 @@
             <div class="ui right floated mini icon button">
                 <a href="{{ rssUrl }}{{ model.forum.id }}/{{ model.forum.slug }}/" target="_blank"><div class="column"><i class="rss icon"></i>Rss</div></a>
             </div>
+            <div class="ui right">
+                {{#link-to "members-forum" model.forum.id model.forum.slug}} {{gettext "Members"}} {{/link-to}}
+            </div>
         </div>
     </div>
 

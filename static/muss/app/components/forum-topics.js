@@ -126,7 +126,7 @@ export default Component.extend({
         * @description: Remove register user in forum
         */
         unRegisterUser() {
-            this.get('store').query('register', {'user': this.userLogin, 'forum': this.model.forum.id}).then((register_aux) => {
+            this.get('store').query('register', {'user': this.userLogin, 'forum': this.model.forum.id, 'filter': 'get_register'}).then((register_aux) => {
                 let register = register_aux.get("firstObject");
                 register.destroyRecord().then(() => {
                     this.set('canRegister', true);

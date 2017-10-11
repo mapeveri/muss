@@ -1,0 +1,24 @@
+<h3>{{gettext "Members" }} {{gettext "of"}} {{ model.forum.name }}</h3>
+<p> {{ model.forum.description }} </p>
+<div class="ui divider"></div>
+
+<h5>{{gettext "Moderators"}}</h5>
+<div class="ui link cards">
+    {{#each model.forum.moderators as |member|}}
+        {{card-user user=member}}
+    {{/each}}
+</div>
+
+<div class="ui divider"></div>
+
+<div class="ui link cards">
+    {{#each model.users as |member|}}
+        {{card-user user=member.user}}
+    {{/each}}
+</div>
+
+{{#if model.users}}
+    {{utils/infinite-scroll model=model submodel="users" api="register"}}
+{{/if}}
+
+{{outlet}}

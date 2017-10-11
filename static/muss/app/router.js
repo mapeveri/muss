@@ -9,6 +9,7 @@ const router = Router.extend({
 router.map(function() {
   this.route('index', { path: '/' }, () => {
       this.route('forum', { path: '/forum/:pk/:slug' });
+      this.route('members-forum', { path: '/members-forum/:pk/:slug' });
       this.route('search-topic', { path: '/search/'});
       this.route('topic', { path: '/topic/:pk/:slug' });
       this.route('logout');

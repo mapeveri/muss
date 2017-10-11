@@ -1,0 +1,18 @@
+{{yield}}
+
+<div class="card">
+    <div class="image">
+        <img src="{{ user.userPhoto}}">
+    </div>
+    <div class="content">
+        <div class="header">{{ user.firstName }} {{ user.lastName }}</div>
+        <div class="meta">
+            <a>{{ user.username }}</a>
+        </div>
+    </div>
+    <div class="extra content">
+        <span class="right floated">
+            {{ user.email }}
+        </span>
+    </div>
+</div>
