@@ -16,61 +16,64 @@
         {{/if}}
     </div>
     <div class="twelve wide column">
-        <h4 class="ui header">{{ gettext "Location" }}</h4>
-        {{#if profile.location}}
-            <p>{{ profile.location }}</p>
-        {{else}}
-            <p>{{gettext "There is no charged location" }}</p>
-        {{/if}}
-        <div class="ui divider"></div>
+        <div id="content-profile">
+            <h4 class="ui header">{{ gettext "Location" }}</h4>
+            {{#if profile.location}}
+                <p>{{ profile.location }}</p>
+            {{else}}
+                <p>{{gettext "There is no charged location" }}</p>
+            {{/if}}
+            <div class="ui divider"></div>
 
-        <h4 class="ui header">{{ gettext "About" }}</h4>
-        {{#if profile.about }}
-            <p>{{ profile.about }}</p>
-        {{else}}
-            <p>{{gettext "No user information" }}</p>
-        {{/if}}
-        <div class="ui divider"></div>
+            <h4 class="ui header">{{ gettext "About" }}</h4>
+            {{#if profile.about }}
+                <p>{{ profile.about }}</p>
+            {{else}}
+                <p>{{gettext "No user information" }}</p>
+            {{/if}}
+            <div class="ui divider"></div>
 
-        <h4 class="ui header">{{ gettext "Email" }}</h4>
-        <p>{{ profile.user.email }}</p>
-        <div class="ui divider"></div>
+            <h4 class="ui header">{{ gettext "Email" }}</h4>
+            <p>{{ profile.user.email }}</p>
+            <div class="ui divider"></div>
 
-        <h4 class="ui header">{{ gettext "Total topics" }}</h4>
-        <p>{{gettext "Topics" }}: {{ topics.length }}</p>
+            <h4 class="ui header">{{ gettext "Total topics" }}</h4>
+            <p>{{gettext "Topics" }}: {{ topics.length }}</p>
+        </div>
+
+        <div id="content-profile-edit" class="hide">
+            {{#if canEdit}}
+                <form class="ui form form100" enctype="multipart/form-data" onSubmit={{action "editProfile"}}>
+                    {{#each errorMessage as |message|}}
+                        <div class="ui red message">
+                            <p> {{message.detail}} </p>
+                        </div>
+                    {{/each}}
+
+                    <div class="field">
+                        <label>{{gettext "Photo" }}</label>
+                        {{input type="file" value=profile.photo }}
+                        {{#if errorPhoto}}
+                            <div class="ui pointing red basic label">
+                                <p> {{errorPhoto}} </p>
+                            </div>
+                        {{/if}}
+                    </div>
+
+                    <div class="field">
+                        <label>{{gettext "Location" }}</label>
+                        {{utils/place-google id="id_location" value=profile.location name="location" }}
+                    </div>
+                    <div class="field">
+                        <label>{{gettext "About" }}</label>
+                        {{textarea value=profile.about }}
+                    </div>
+
+                    <input type="submit" class="ui button" value={{gettext "Save"}} />
+                </form>
+            {{/if}}
+        </div>
     </div>
 </div>
-
-{{#if canEdit}}
-    {{#utils/form-modal title_modal="Edit" title_action="Save" hasUiForShowModal=false id=idFormEdit action=(action "editProfile")}}
-        <form class="ui form form100">
-            {{#each errorMessage as |message|}}
-                <div class="ui red message">
-                    <p> {{message.detail}} </p>
-                </div>
-            {{/each}}
-
-            <div class="field">
-                <label>{{gettext "Photo" }}</label>
-                {{input type="file" value=profile.photo }}
-                {{#if errorPhoto}}
-                    <div class="ui pointing red basic label">
-                        <p> {{errorPhoto}} </p>
-                    </div>
-                {{/if}}
-            </div>
-
-            <div class="field">
-                <label>{{gettext "Location" }}</label>
-                {{utils/place-google id="id_location" value=profile.location name="location" }}
-            </div>
-            <div class="field">
-                <label>{{gettext "About" }}</label>
-                {{textarea value=profile.about }}
-            </div>
-        </form>
-    {{/utils/form-modal}}
-{{/if}}
-
 
 {{yield}}

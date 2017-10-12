@@ -42,6 +42,7 @@
         <thead>
             <tr>
                 <th>{{gettext "Topic" }}</th>
+                <th>{{gettext "User"}}</th>
                 <th>{{gettext "Answers"}}</th>
                 <th>{{gettext "Visits"}}</th>
                 <th>{{gettext "Last Activity"}}</th>
@@ -62,6 +63,7 @@
                         </div>
                     </h4>
                 </td>
+                <td>{{#link-to "profile" topic.user.username}} {{ topic.user.username }} {{/link-to}}</td>
                 <td>
                     <b>{{ topic.totalComments }}</b>
                 </td>

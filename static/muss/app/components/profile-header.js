@@ -29,19 +29,21 @@ export default Component.extend({
         * @description: Display form modal edit profile
         */
         showModalEditProfile() {
-            $('.tiny.'+this.idFormEdit+'.modal').modal({
-                onApprove: () => {
-                  return false;
-                }
-            }).modal('show');
+            $('#content-profile').hide('slow');
+            $('#content-profile-edit').removeClass('hide');
+            $('#content-profile-edit').show('slow');
         },
         /**
         * @method editProfile
         * @description: Save form profile in db
         */
-        editProfile() {
+        editProfile(e) {
+            e.preventDefault();
+
             this.profile.save().then(() => {
-                $('.tiny.'+this.idFormEdit+'.modal').modal("hide");
+                $('#content-profile-edit').hide('slow');
+                $('#content-profile-edit').addClass('hide');
+                $('#content-profile').show('slow');
             }).catch((err) => {
                 this.set('errorMessage', err.errors)
             });

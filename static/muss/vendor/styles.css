@@ -70,6 +70,14 @@
     overflow: hidden !important;
 }
 
+.hide {
+    display: none !important;
+}
+
+.show {
+    display: block !important;
+}
+
 /* Modal mde */
 .mde-modal {
     display: block; /* Hidden by default */
