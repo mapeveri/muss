@@ -183,6 +183,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 # Serializers profile
 class ProfileSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
 
     class Meta:
         model = models.Profile

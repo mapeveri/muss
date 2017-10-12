@@ -378,7 +378,14 @@ class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ProfileSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
     http_method_names = ['get', 'patch']
-    lookup_field = 'user__username'
+
+    def get_queryset(self, *args, **kwargs):
+        type_filter = self.request.GET.get('filter')
+        username = self.request.GET.get('username')
+
+        if type_filter == "get_profile_username" and username:
+            self.queryset = self.queryset.filter(user__username=username)
+        return self.queryset
 
 
 # ViewSets for MessageForum

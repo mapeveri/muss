@@ -22,6 +22,8 @@ EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 EMAIL_FROM = EMAIL_MUSS
 
+GOOGLE_API_KEY = ""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

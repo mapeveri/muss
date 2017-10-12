@@ -12,7 +12,7 @@
             </div>
         </div>
         {{#if canEdit}}
-            {{input type="button" class="ui button" value=(gettext "Edit")}}
+            <button class="ui button" {{ action "showModalEditProfile" }}> {{ gettext "Edit" }}</button>
         {{/if}}
     </div>
     <div class="twelve wide column">
@@ -40,5 +40,37 @@
         <p>{{gettext "Topics" }}: {{ topics.length }}</p>
     </div>
 </div>
+
+{{#if canEdit}}
+    {{#utils/form-modal title_modal="Edit" title_action="Save" hasUiForShowModal=false id=idFormEdit action=(action "editProfile")}}
+        <form class="ui form form100">
+            {{#each errorMessage as |message|}}
+                <div class="ui red message">
+                    <p> {{message.detail}} </p>
+                </div>
+            {{/each}}
+
+            <div class="field">
+                <label>{{gettext "Photo" }}</label>
+                {{input type="file" value=profile.photo }}
+                {{#if errorPhoto}}
+                    <div class="ui pointing red basic label">
+                        <p> {{errorPhoto}} </p>
+                    </div>
+                {{/if}}
+            </div>
+
+            <div class="field">
+                <label>{{gettext "Location" }}</label>
+                {{utils/place-google id="id_location" value=profile.location name="location" }}
+            </div>
+            <div class="field">
+                <label>{{gettext "About" }}</label>
+                {{textarea value=profile.about }}
+            </div>
+        </form>
+    {{/utils/form-modal}}
+{{/if}}
+
 
 {{yield}}
