@@ -43,7 +43,7 @@
 
         <div id="content-profile-edit" class="hide">
             {{#if canEdit}}
-                <form class="ui form form100" enctype="multipart/form-data" onSubmit={{action "editProfile"}}>
+                <form class="ui form form100" enctype="multipart/form-data">
                     {{#each errorMessage as |message|}}
                         <div class="ui red message">
                             <p> {{message.detail}} </p>
@@ -52,7 +52,10 @@
 
                     <div class="field">
                         <label>{{gettext "Photo" }}</label>
-                        {{input type="file" value=profile.photo }}
+                        {{#if profile.photo }}
+                           {{gettext "Clear"}} <input type="checkbox" id="clear_photo" name="clear_photo" />
+                        {{/if}}
+                        <input type="file" id="photo_id" accept="image/*" {{ action "setPhoto" on="change"}} />
                         {{#if errorPhoto}}
                             <div class="ui pointing red basic label">
                                 <p> {{errorPhoto}} </p>
@@ -69,7 +72,7 @@
                         {{textarea value=profile.about }}
                     </div>
 
-                    <input type="submit" class="ui button" value={{gettext "Save"}} />
+                    <input type="button" {{action "editProfile"}} class="ui button" value={{gettext "Save"}} />
                 </form>
             {{/if}}
         </div>

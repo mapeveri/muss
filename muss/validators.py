@@ -9,12 +9,13 @@ def valid_extension_image(value):
     Args:
         value (obj): Upload file object.
     """
-    if (not value.name.endswith('.png') and
-            not value.name.endswith('.jpeg') and
-            not value.name.endswith('.gif') and
-            not value.name.endswith('.bmp') and
-            not value.name.endswith('.jpg')):
+    if value.name:
+        if (not value.name.endswith('.png') and
+                not value.name.endswith('.jpeg') and
+                not value.name.endswith('.gif') and
+                not value.name.endswith('.bmp') and
+                not value.name.endswith('.jpg')):
 
-        text = _("Files allowed")
-        files = ".jpg, .jpeg, .png, .gif, .bmp"
-        raise ValidationError(text + ': ' + files)
+            text = _("Files allowed")
+            files = ".jpg, .jpeg, .png, .gif, .bmp"
+            raise ValidationError(text + ': ' + files)

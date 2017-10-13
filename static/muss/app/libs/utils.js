@@ -25,3 +25,11 @@ export function showModalLogin() {
 export function closeAllEditor() {
     $(".mde-modal-content").removeClass('mde-modal-content-open').height(0).trigger("close");
 }
+
+/**
+* @method getValidTypesImage
+* @description: Get types files valid
+*/
+export function getValidTypesImage() {
+    return ["image/gif", "image/jpeg", "image/png", "image/gif", "image/jpg"];
+}

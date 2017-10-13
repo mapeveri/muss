@@ -6,6 +6,8 @@ from django.utils.translation import ugettext_lazy as _
 from rest_framework_json_api import serializers
 
 from muss import models, utils
+from muss.api.fields import CustomFileField
+from muss.validators import valid_extension_image
 
 
 # Serializers Users
@@ -184,6 +186,10 @@ class CommentSerializer(serializers.ModelSerializer):
 # Serializers profile
 class ProfileSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+    photo = CustomFileField(
+        validators=[valid_extension_image],
+        max_length=None, allow_empty_file=True,
+    )
 
     class Meta:
         model = models.Profile
