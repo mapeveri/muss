@@ -27,6 +27,8 @@ router.register(r'hitcounts', views.HitcountTopicViewSet)
 router.register(r'likecomments', views.LikeCommentViewSet)
 # Like topic endpoint
 router.register(r'liketopics', views.LikeTopicViewSet)
+# Notifications endpoint
+router.register(r'notifications', views.NotificationViewSet)
 
 
 urlpatterns = [

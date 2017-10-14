@@ -226,3 +226,11 @@ class LikeCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.LikeComment
         fields = '__all__'
+
+
+# Serializers Notification
+class NotificationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Notification
+        fields = '__all__'

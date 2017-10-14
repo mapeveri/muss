@@ -597,3 +597,18 @@ class LikeCommentViewSet(viewsets.ModelViewSet):
         )
 
         return Response({'success': 'ok'})
+
+
+# ViewSets for user
+class NotificationViewSet(viewsets.ModelViewSet):
+    queryset = models.Notification.objects.all()
+    serializer_class = serializers.NotificationSerializer
+    resource_name = 'notifications'
+
+    def get_queryset(self, *args, **kwargs):
+        user = self.request.GET.get('user')
+
+        if user:
+            return self.queryset.filter(id_user=user)
+        else:
+            raise Http404
