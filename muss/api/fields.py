@@ -1,4 +1,3 @@
-
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils.translation import ugettext_lazy as _
 from rest_framework.fields import FileField

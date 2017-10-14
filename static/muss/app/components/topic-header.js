@@ -8,7 +8,6 @@ import { closeAllEditor, showModalLogin } from '../libs/utils';
 export default Component.extend({
     ajax: service('ajax'),
     session: service('session'),
-    router: service('-routing'),
     currentUser: service('current-user'),
     namespace: ENV.APP.API_NAMESPACE,
     currentUrl: window.location.href,
