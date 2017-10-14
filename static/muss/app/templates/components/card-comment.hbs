@@ -1,14 +1,15 @@
 {{yield}}
 
 <div class="comment marginBottom1">
-    <a class="avatar">
-    <img src="{{ comment.user.userPhoto }}">
-    </a>
+    {{#link-to "profile" comment.user.username class="avatar"}}
+        <img src="{{ comment.user.userPhoto }}">
+    {{/link-to}}
     <div class="content">
         {{#if isCreatorComment}}
             <div class="pull-right pointer" {{action "confirmRemoveComment" comment.id}}>x</div>
         {{/if}}
-        <a class="author">{{ comment.user.username }}</a>
+
+        {{#link-to "profile" comment.user.username class="author"}} {{ comment.user.username }} {{/link-to}}
         <div class="metadata">
             <span class="date">{{ comment.date }}</span>
         </div>

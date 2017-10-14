@@ -8,18 +8,19 @@
     {{#each topics as |topic|}}
     <div class="item">
         <div class="ui tiny image">
-            <img src="{{ topic.user.userPhoto }}" class="ui mini rounded image">
+            {{#link-to "profile" topic.user.username}}<img src="{{ topic.user.userPhoto }}" class="ui rounded image">{{/link-to}}
+            <center>{{#link-to "profile" topic.user.username}} {{ topic.user.username }}{{/link-to}}</center>
         </div>
         <div class="middle aligned content">
             {{#link-to 'topic' topic.id topic.slug }}{{ topic.title}} {{#if topic.isTop}} <i class="pin icon"></i> {{/if}}{{/link-to}}
-            <br />
-            {{#link-to 'forum' topic.forum.id topic.forum.slug class="ui mini blue label"}} {{ topic.forum.name }} {{/link-to}}
-            <br />
+            <div class="ui divider"></div>
 
-            {{{truncate-text topic.description limit=450}}}
+            {{{truncate-text topic.htmlDescription limit=450}}}
 
             <br />
             {{ topic.date }}
+            <br />
+            {{#link-to 'forum' topic.forum.id topic.forum.slug class="ui mini blue label"}} {{ topic.forum.name }} {{/link-to}}
         </div>
     </div>
     {{else}}

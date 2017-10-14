@@ -8,8 +8,10 @@
                     <p class="red-color"><strong>{{gettext "This topic is closed"}}</strong></p>
                 {{/if}}
 
-                <img class="ui avatar image" src="{{ topic.user.userPhoto }}">
-                <span>{{#link-to "profile" topic.user.username}} {{ topic.user.username }} {{/link-to}}</span>
+                {{#link-to "profile" topic.user.username}}
+                    <img class="ui avatar image" src="{{ topic.user.userPhoto }}">
+                    <span> {{ topic.user.username }} </span>
+                {{/link-to}}
                 <div class="marginTop1 text-content">
                     <span>{{{ topic.htmlDescription }}}</span>
 

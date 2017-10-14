@@ -8,8 +8,10 @@
             <div class="item">
                 <div class="ui inline dropdown">
                     <div class="text">
-                        {{ session.data.authenticated.user.username }}
-                        <img class="ui avatar image" src="{{ session.data.authenticated.user.user_photo }}">
+                        {{#link-to "profile" session.data.authenticated.user.username}}
+                            {{ session.data.authenticated.user.username }}
+                            <img class="ui avatar image" src="{{ session.data.authenticated.user.user_photo }}">
+                        {{/link-to}}
                     </div>
                     <a {{action 'invalidateSession'}} class="pointer">{{ gettext "Logout" }}</a>
                 </div>

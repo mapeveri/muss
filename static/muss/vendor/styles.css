@@ -58,6 +58,10 @@
     width: 100%;
 }
 
+.fontSizeTitle {
+    font-size: 1.07142857rem !important;
+}
+
 .pointer {
     cursor: pointer;
 }

@@ -52,7 +52,7 @@
             {{#each model.topics as |topic|}}
             <tr>
                 <td>
-                    <h4 class="ui image header">
+                   {{#link-to "profile" topic.user.username class="ui image header fontSizeTitle"}}
                         <img src="{{ topic.user.userPhoto }}" class="ui mini rounded image">
                         <div class="content">
                             {{#if topic.isClose}}
@@ -61,7 +61,7 @@
                             {{#link-to 'topic' topic.id topic.slug }}{{ topic.title}} {{#if topic.isTop}} <i class="pin icon"></i> {{/if}}{{/link-to}}
                             <div class="sub header">{{ topic.date }}</div>
                         </div>
-                    </h4>
+                    {{/link-to}}
                 </td>
                 <td>{{#link-to "profile" topic.user.username}} {{ topic.user.username }} {{/link-to}}</td>
                 <td>

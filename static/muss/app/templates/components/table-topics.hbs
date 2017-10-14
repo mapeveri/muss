@@ -1,7 +1,8 @@
 <table class="ui very basic collapsing celled table width80">
     <thead>
         <tr>
-            <th>{{gettext title }}</th>
+            <th>{{gettext "Title" }}</th>
+            <th>{{gettext "User" }}</th>
             <th>{{gettext "Date" }}</th>
         </tr>
     </thead>
@@ -9,12 +10,15 @@
         {{#each topics as |topic|}}
         <tr>
             <td>
-                <h4 class="ui image header">
-                <img src="{{ topic.user.userPhoto }}" class="ui mini rounded image">
-                <div class="content">
-                    {{#link-to 'topic' topic.id topic.slug invokeAction='goTop' }} {{ topic.title }} {{/link-to}}
-                </div>
-                </h4>
+                {{#link-to "profile" topic.user.username class="ui image header fontSizeTitle"}}
+                    <img src="{{ topic.user.userPhoto }}" class="ui mini rounded image">
+                    <div class="content">
+                        {{#link-to 'topic' topic.id topic.slug invokeAction='goTop' }} {{ topic.title }} {{/link-to}}
+                    </div>
+                 {{/link-to}}
+            </td>
+            <td>
+                {{#link-to "profile" topic.user.username}} {{ topic.user.username }} {{/link-to}}
             </td>
             <td>
                 {{ topic.date }}

@@ -2,12 +2,12 @@
 
 <div class="card">
     <div class="image">
-        <img src="{{ user.userPhoto}}">
+        {{#link-to "profile" user.username}}<img src="{{ user.userPhoto}}">{{/link-to}}
     </div>
     <div class="content">
         <div class="header">{{ user.firstName }} {{ user.lastName }}</div>
         <div class="meta">
-            <a>{{ user.username }}</a>
+            {{#link-to "profile" user.username}} {{ user.username }} {{/link-to}}
         </div>
     </div>
     <div class="extra content">
