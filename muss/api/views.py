@@ -603,12 +603,18 @@ class LikeCommentViewSet(viewsets.ModelViewSet):
 class NotificationViewSet(viewsets.ModelViewSet):
     queryset = models.Notification.objects.all()
     serializer_class = serializers.NotificationSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly, )
     resource_name = 'notifications'
 
     def get_queryset(self, *args, **kwargs):
-        user = self.request.GET.get('user')
-
-        if user:
-            return self.queryset.filter(id_user=user)
+        user = int(self.request.GET.get('user'))
+        limit = self.request.GET.get('limit')
+        if user == self.request.user.id:
+            if limit:
+                return self.queryset.filter(
+                    id_user=user
+                ).order_by("-date")[:int(limit)]
+            else:
+                return self.queryset.filter(id_user=user).order_by("-date")
         else:
             raise Http404

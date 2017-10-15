@@ -38,6 +38,7 @@ export default Component.extend({
             } else {
                 this.get('session').authenticate('authenticator:jwt', user, password).then(() => {
                     $('.tiny.'+this.id+'.modal').modal("hide");
+                    window.location.reload();
                 }).catch((reason) => {
                     this.set('errorMessage', reason.responseJSON.errors.non_field_errors);
                 });

@@ -9,7 +9,9 @@ export default Controller.extend({
         this._super();
 
         schedule('afterRender', () => {
-            $('.ui.dropdown').dropdown();
+            setTimeout(() => {
+                $('.ui.dropdown').dropdown();
+            }, 1000);
         });
     },
 

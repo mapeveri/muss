@@ -17,6 +17,11 @@
                             </div>
                             <i class="dropdown icon"></i>
                             <div class="menu">
+                                 {{#each model as |notification|}}
+                                    <div class="item">
+                                        <i class="alarm outline icon"></i> {{ notification.idUser }}
+                                    </div>
+                                 {{/each}}
                                 <div class="item">
                                     <a {{action 'invalidateSession'}} class="pointer">{{ gettext "Logout" }}</a>
                                 </div>
