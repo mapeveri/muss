@@ -50,8 +50,16 @@
     margin-bottom: 1em !important;
 }
 
+.marginBottomNegative2 {
+    margin-bottom: -2em !important
+}
+
 .marginLeft05 {
     margin-left: 0.5em !important;
+}
+
+.inlineBlock {
+    display: inline-block !important;
 }
 
 .form100 {
@@ -166,4 +174,10 @@ pre code {
     overflow-x: auto;
     display: grid;
     margin-top: 1em !important;
+}
+
+.line-separator{
+    height: 1px;
+    background: rgba(34, 36, 38, 0.1);
+    border-bottom: 1px solid rgba(34, 36, 38, 0.1);
 }

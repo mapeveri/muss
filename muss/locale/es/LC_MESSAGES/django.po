@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-11 09:00-0300\n"
+"POT-Creation-Date: 2017-10-16 17:12-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgid "Moderators"
 msgstr "Moderadores"
 
 #: muss/admin.py:211 muss/models.py:101 muss/models.py:182 muss/models.py:236
-#: muss/models.py:444
+#: muss/models.py:443
 msgid "Forum"
 msgstr "Foro"
 
@@ -53,7 +53,7 @@ msgstr "Foro"
 msgid "Profile"
 msgstr "Perfil"
 
-#: muss/api/serializers.py:27
+#: muss/api/serializers.py:29
 msgid "The email already exists."
 msgstr "El correo electrónico ya se encuentra registrado."
 
@@ -77,7 +77,7 @@ msgstr "Foros"
 msgid "Add topic"
 msgstr "Agregar tema"
 
-#: muss/i18n.py:9 muss/models.py:457
+#: muss/i18n.py:9 muss/models.py:456
 msgid "Register"
 msgstr "Registrarse"
 
@@ -315,7 +315,7 @@ msgstr "de"
 msgid "About"
 msgstr "Acerca de"
 
-#: muss/i18n.py:65 muss/models.py:493
+#: muss/i18n.py:65 muss/models.py:492
 msgid "Location"
 msgstr "Ubicación"
 
@@ -327,8 +327,28 @@ msgstr "No hay ninguna ubicación cargada"
 msgid "No user information"
 msgstr "No hay información del usuario"
 
+#: muss/i18n.py:68
+msgid "Incorrect image type"
+msgstr "Tipo de imagen incorrecta"
+
+#: muss/i18n.py:69
+msgid "Logout"
+msgstr "Cerrar sesión"
+
+#: muss/i18n.py:70
+msgid "Created"
+msgstr "Creado"
+
+#: muss/i18n.py:71
+msgid "By"
+msgstr "Por"
+
+#: muss/i18n.py:72
+msgid "New topic"
+msgstr "Nuevo tema"
+
 #: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:251
-#: muss/models.py:358 muss/models.py:571
+#: muss/models.py:358 muss/models.py:570
 msgid "Description"
 msgstr "Descripción"
 
@@ -352,7 +372,7 @@ msgstr "Foro padre"
 msgid "Name"
 msgstr "Nombre"
 
-#: muss/models.py:78 muss/models.py:246 muss/models.py:356 muss/models.py:452
+#: muss/models.py:78 muss/models.py:246 muss/models.py:356 muss/models.py:451
 msgid "Date"
 msgstr "Fecha"
 
@@ -412,7 +432,7 @@ msgstr "Mensaje para foros"
 msgid "Messages for forums"
 msgstr "Mensajes para foros"
 
-#: muss/models.py:240 muss/models.py:353 muss/models.py:449
+#: muss/models.py:240 muss/models.py:353 muss/models.py:448
 msgid "User"
 msgstr "Usuario"
 
@@ -460,71 +480,71 @@ msgstr "Temas"
 msgid "Comments"
 msgstr "Comentarios"
 
-#: muss/models.py:458
+#: muss/models.py:457
 msgid "Registers"
 msgstr "Registros"
 
-#: muss/models.py:489
+#: muss/models.py:488
 msgid "Photo"
 msgstr "Foto"
 
-#: muss/models.py:491
+#: muss/models.py:490
 msgid "About me"
 msgstr "Acerca de"
 
-#: muss/models.py:498
+#: muss/models.py:497
 msgid "Is troll"
 msgstr "Es troll"
 
-#: muss/models.py:499
+#: muss/models.py:498
 msgid "If the user is troll"
 msgstr "Si el usuario es troll"
 
-#: muss/models.py:502
+#: muss/models.py:501
 msgid "Receive Emails"
 msgstr "Recibe Emails"
 
-#: muss/models.py:503
+#: muss/models.py:502
 msgid "If receive Emails"
 msgstr "Si recibe Emails"
 
-#: muss/models.py:560
+#: muss/models.py:559
 msgid "Logo width"
 msgstr "Ancho del logo"
 
-#: muss/models.py:561 muss/models.py:565
+#: muss/models.py:560 muss/models.py:564
 msgid "In pixels"
 msgstr "En pixels"
 
-#: muss/models.py:564
+#: muss/models.py:563
 msgid "Logo height"
 msgstr "Altura del logo"
 
-#: muss/models.py:568
+#: muss/models.py:567
 msgid "Custom design"
 msgstr "Diseño customizado"
 
-#: muss/models.py:572
+#: muss/models.py:571
 msgid "Description site."
 msgstr "Descripción del sitio"
 
-#: muss/models.py:575
+#: muss/models.py:574
 msgid "Keywords"
 msgstr "Palabras claves"
 
-#: muss/models.py:576
+#: muss/models.py:575
 msgid "Keywords for the SEO."
 msgstr "Palabras claves para el SEO."
 
-#: muss/models.py:580
+#: muss/models.py:579
 msgid "Configuration"
 msgstr "Configuración"
 
-#: muss/models.py:581
+#: muss/models.py:580
 msgid "Configurations"
 msgstr "Configuraciones"
 
-#: muss/notification_email.py:24
+#: muss/notifications_email.py:24
 #, python-format
 msgid ""
 "Thank you for joining to %(site)s please enter to confirm your email to this "
@@ -533,26 +553,26 @@ msgstr ""
 "Gracias por unirte a %(site)s por favor ingrese para confirmar su correo "
 "electrónico a esta dirección:"
 
-#: muss/notification_email.py:31
+#: muss/notifications_email.py:31
 msgid "Welcome to "
 msgstr "Bienvenido a "
 
-#: muss/notification_email.py:73
+#: muss/notifications_email.py:73
 #, python-format
 msgid "New comment in %(site)s"
 msgstr "Nuevo comentario en %(site)s"
 
-#: muss/notification_email.py:77
+#: muss/notifications_email.py:77
 #, python-format
 msgid "You have one new comment in the topic: %(site)s"
 msgstr "Usted tiene un nuevo comentario en el tema: %(site)s"
 
-#: muss/notification_email.py:101
+#: muss/notifications_email.py:101
 #, python-format
 msgid "New topic in %(site)s "
 msgstr "Nuevo tema en %(site)s"
 
-#: muss/notification_email.py:102
+#: muss/notifications_email.py:102
 #, python-format
 msgid "You have one new topic to moderate: %(site)s"
 msgstr "Usted tiene un nuevo tema para moderar: %(site)s"
@@ -662,15 +682,15 @@ msgstr ""
 "Restablecimiento de contraseña para correo electrónico %(email)s. Por favor "
 "siga el siguiente link : %(protocol)s://%(domain)s"
 
-#: muss/utils.py:186 muss/utils.py:188 muss/utils.py:192
+#: muss/utils.py:166 muss/utils.py:168 muss/utils.py:172
 msgid "ago"
 msgstr "hace"
 
-#: muss/utils.py:192
+#: muss/utils.py:172
 msgid "days ago"
 msgstr "días"
 
-#: muss/validators.py:18
+#: muss/validators.py:19
 msgid "Files allowed"
 msgstr "Archivos permitidos"
 
@@ -757,23 +777,14 @@ msgstr ""
 #~ msgid "This topic is closed"
 #~ msgstr "El tema está cerrado"
 
-#~ msgid "By"
-#~ msgstr "Por"
-
 #~ msgid "The forum "
 #~ msgstr "El foro"
 
 #~ msgid "is pending moderation"
 #~ msgstr "se encuentra pendiente de moderación"
 
-#~ msgid "New topic"
-#~ msgstr "Nuevo tema"
-
 #~ msgid "Join to forum"
 #~ msgstr "Unirse al foro"
-
-#~ msgid "Created"
-#~ msgstr "Creado"
 
 #~ msgid "This forum has"
 #~ msgstr "El foro tiene"
@@ -804,9 +815,6 @@ msgstr ""
 
 #~ msgid "All"
 #~ msgstr "Todo"
-
-#~ msgid "Logout"
-#~ msgstr "Cerrar sesión"
 
 #~ msgid "It is a troll"
 #~ msgstr "Es un troll"

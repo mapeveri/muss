@@ -6,21 +6,38 @@
         </div>
         {{#if session.isAuthenticated}}
             <div class="item">
-                <div class="ui inline dropdown">
+                <div class="ui inline dropdown" {{ action "openNotifications" }}>
                     <div class="text">
                         <div class="ui inline dropdown">
-                            <div class="text">
+                            <div class="inlineBlock">
                                 {{#link-to "profile" session.data.authenticated.user.username}}
                                 <img class="ui avatar image" src="{{ session.data.authenticated.user.user_photo }}">
-                                {{ session.data.authenticated.user.username }}
                                 {{/link-to}}
                             </div>
                             <i class="dropdown icon"></i>
-                            <div class="menu">
+                            <div class="menu hide" id="menu_notifications">
+                                <div class="item">
+                                    {{#link-to "profile" session.data.authenticated.user.username}}
+                                    {{ session.data.authenticated.user.username }}
+                                    {{/link-to}}
+                                </div>
+                                <div class="line-separator"></div>
                                  {{#each model as |notification|}}
                                     <div class="item">
-                                        <i class="alarm outline icon"></i> {{ notification.idUser }}
+                                        {{#if notification.topic }}
+                                            <i class="alarm outline icon"></i> {{gettext "New topic"}}
+                                            {{#link-to "topic" notification.topic.topicid notification.topic.slug}}
+                                                {{ notification.topic.title }}
+                                            {{/link-to}}
+                                            {{gettext "By"}} {{ notification.topic.username }}
+                                        {{else}}
+                                            <i class="reply icon"></i> {{ notification.comment.username}}
+                                            {{#link-to "topic" notification.comment.topicid notification.comment.slug}}
+                                                {{ notification.comment.title }}
+                                            {{/link-to}}
+                                        {{/if}}
                                     </div>
+                                    <div class="line-separator"></div>
                                  {{/each}}
                                 <div class="item">
                                     <a {{action 'invalidateSession'}} class="pointer">{{ gettext "Logout" }}</a>

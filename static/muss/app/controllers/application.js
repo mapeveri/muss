@@ -14,7 +14,6 @@ export default Controller.extend({
             }, 1000);
         });
     },
-
     actions: {
         /**
         * @method invalidateSession
@@ -30,6 +29,9 @@ export default Controller.extend({
         */
         onSearch(q) {
             this.transitionToRoute('search-topic', { queryParams: { q: q } });
+        },
+        openNotifications() {
+            //
         }
     }
 });

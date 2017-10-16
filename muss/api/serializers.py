@@ -230,6 +230,31 @@ class LikeCommentSerializer(serializers.ModelSerializer):
 
 # Serializers Notification
 class NotificationSerializer(serializers.ModelSerializer):
+    comment = serializers.SerializerMethodField()
+    topic = serializers.SerializerMethodField()
+
+    def get_comment(self, obj):
+        if str(obj.content_object._meta) == "muss.comment":
+            return {
+                'topicid': obj.content_object.topic.pk,
+                'slug': obj.content_object.topic.slug,
+                'title': obj.content_object.topic.title,
+                'username': obj.content_object.user.username,
+                'userid': obj.content_object.user.pk
+            }
+            return None
+
+    def get_topic(self, obj):
+        if str(obj.content_object._meta) == "muss.topic":
+            return {
+                'topicid': obj.content_object.pk,
+                'slug': obj.content_object.slug,
+                'title': obj.content_object.title,
+                'username': obj.content_object.user.username,
+                'userid': obj.content_object.user.pk
+            }
+        else:
+            return None
 
     class Meta:
         model = models.Notification

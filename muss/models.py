@@ -373,9 +373,7 @@ class Notification(models.Model):
 
     - **parameters**:
         :param content_object: Relation topic or comment.
-        :param id_user: Identification user that belong the notification.
-        :param is_topic: If is a topic.
-        :param is_comment: If is a comment.
+        :param user: Identification user that belong the notification.
         :param is_seen: If the notification is seen
         :param date: Date notification.
     """
@@ -384,9 +382,10 @@ class Notification(models.Model):
     )
     id_object = models.PositiveIntegerField(null=True)
     content_object = GenericForeignKey('content_type', 'id_object')
-    id_user = models.IntegerField(default=0)
-    is_topic = models.BooleanField(default=0)
-    is_comment = models.BooleanField(default=0)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name='notifications_user',
+        null=False, blank=False,
+    )
     is_seen = models.BooleanField(default=0)
     date = models.DateTimeField(blank=True, db_index=True)
 
@@ -394,7 +393,7 @@ class Notification(models.Model):
         ordering = ['date']
 
     def __str__(self):
-        return str(self.pk)
+        return str(self.id_object)
 
 
 class LikeTopic(models.Model):

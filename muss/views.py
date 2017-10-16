@@ -14,7 +14,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.translation import ugettext_lazy as _
 
-from muss import models, notification_email as nt_email, utils
+from muss import models, notifications_email as nt_email
 
 
 class IndexView(TemplateView):

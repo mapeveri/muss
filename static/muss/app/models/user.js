@@ -14,4 +14,5 @@ export default DS.Model.extend({
     registers: DS.hasMany('register'),
     moderators: DS.hasMany('forum'),
     profile: DS.belongsTo('profile'),
+    notifications: DS.hasMany('notification'),
 });

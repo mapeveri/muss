@@ -2,16 +2,15 @@ import os
 import shutil
 
 from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from muss.models import (
-    Forum, Topic, Comment, Register,
-    Notification, Profile
+    Forum, Topic, Comment, Register, Profile
 )
+from muss.notifications_email import send_mail_topic
 
 
 def basename(value):
@@ -141,25 +140,6 @@ def get_users_topic(topic, myuser):
     return list_us, list_emails
 
 
-def get_notifications(id_user):
-    """
-    This method return Notification of one user.
-
-    Args:
-        id_user (int): Identification user.
-
-    Returns:
-        list(Notification): Notification of user.
-    """
-    try:
-        notif = Notification.objects.filter(
-            id_user=id_user).order_by("-date")
-    except Notification.DoesNotExist:
-        notif = None
-
-    return notif
-
-
 def get_datetime_topic(date):
     """
     This method return info one datetime for topic or notification.
@@ -271,128 +251,6 @@ def get_total_forum_moderate_user(user):
     return Forum.objects.filter(
         moderators=user
     ).count()
-
-
-def save_notification_model(related_object, id_object, id_user, is_topic):
-    """
-    Save new notificaiton.
-
-    Args:
-        related_object (obj): Object related (Topic or Comment).
-        id_object (int): Id object.
-        id_user (int): Identification user.
-        is_topic (bool): If is a topic.
-    """
-    if is_topic:
-        is_comment = False
-    else:
-        is_comment = True
-
-    now = timezone.now()
-    notification = Notification(
-        id_user=id_user, is_seen=False,
-        id_object=id_object, date=now,
-        is_topic=is_topic, is_comment=is_comment,
-        content_type=related_object
-    )
-    notification.save()
-
-
-def get_moderators_and_send_notification_topic(request, forum, topic):
-    """
-    Get list moderators to send notification for realtime
-    and send notificaiton to model Notification for topic.
-
-    Args:
-        request (obj): Object request.
-        forum (obj): Object forum.
-        topic (obj): Object topic.
-
-    Returns:
-        list(int): List users.
-    """
-    # Get moderators forum
-    list_us = []
-
-    related_object = ContentType.objects.get_for_model(topic)
-    for moderator in forum.moderators.all():
-        # If not is my user
-        if moderator.id != request.user.id:
-            # Send notification to moderator
-            save_notification_model(
-                related_object, topic.pk, moderator.id, True
-            )
-            list_us.append(moderator.id)
-
-    return list_us
-
-
-def get_users_and_send_notification_comment(request, topic, comment):
-    """
-    Get list users to send notification for realtime
-    and send notificaiton to model Notification for comment.
-
-    Args:
-        request (obj): Object request.
-        forum (obj): Object forum.
-        comment (obj): Object comment.
-
-    Returns:
-        dict: List users and list_emails.
-    """
-    now = timezone.now()
-
-    myuser = request.user.id
-    # Send notifications
-    list_us, list_emails = get_users_topic(topic, myuser)
-
-    # If not exists user that create topic, add
-    user_original_topic = topic.user_id
-    user_email = topic.user.email
-    comment_user = comment.user_id
-
-    # If the notificacion is mine send to all but not to me
-    if user_original_topic == myuser and comment_user == myuser:
-        # Not make nothing but list_user is already
-        # Not send email
-        pass
-    # If the notificacion is mine send to all but not to create to comment
-    elif user_original_topic == myuser and comment_user != myuser:
-        # The user comment not exists in list_us
-        # Add user that created topic
-        list_us.append(user_original_topic)
-        # Add user for send email
-        list_emails.append(user_email)
-    # If the notificacion not is mine send to all but not to me
-    elif user_original_topic != myuser and comment_user == myuser:
-        # Check if exists the created topic
-        if not(user_original_topic in list_us):
-            # Send to created topic
-            list_us.append(user_original_topic)
-
-        # Add user for send email to created topic
-        list_emails.append(user_email)
-    # If the notificacion not is mine send to all but not to create to comment
-    elif user_original_topic != myuser and comment_user != myuser:
-        # Check if exists the created topic
-        if not(user_original_topic in list_us):
-            # Send to created topic
-            list_us.append(user_original_topic)
-
-        # Add user for send email to created topic
-        list_emails.append(user_email)
-
-    # Get content type for comment model
-    related_object_type = ContentType.objects.get_for_model(comment)
-    for user in list_us:
-        save_notification_model(
-            related_object_type, comment.pk, user, False
-        )
-
-    return {
-        'list_us': list_us,
-        'list_email': list_emails
-    }
 
 
 def check_moderate_topic_email(request, forum, obj):

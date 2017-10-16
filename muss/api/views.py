@@ -15,7 +15,10 @@ from rest_framework.renderers import BrowsableAPIRenderer
 from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
-from muss import models, notification_email as nt_email, realtime, utils
+from muss import (
+    models, notifications_email as nt_email,
+    realtime, utils, notifications as nt
+)
 from muss.api import serializers, utils as utils_api
 from muss.api.permissions import (
     CommentPermissions, TopicPermissions, IsReadOnly,
@@ -177,7 +180,7 @@ class TopicViewSet(viewsets.ModelViewSet):
                 forum_name = forum.name
 
                 # Get moderators forum and send notification
-                list_us = utils.get_moderators_and_send_notification_topic(
+                list_us = nt.get_moderators_and_send_notification_topic(
                     request, forum, topic
                 )
 
@@ -336,7 +339,7 @@ class CommentViewSet(viewsets.ModelViewSet):
             forum = topic.forum.name
 
             # Send notifications comment
-            params = utils.get_users_and_send_notification_comment(
+            params = nt.get_users_and_send_notification_comment(
                 request, topic, comment
             )
             list_us = params['list_us']
@@ -607,14 +610,16 @@ class NotificationViewSet(viewsets.ModelViewSet):
     resource_name = 'notifications'
 
     def get_queryset(self, *args, **kwargs):
-        user = int(self.request.GET.get('user'))
+        user_id = int(self.request.GET.get('user'))
         limit = self.request.GET.get('limit')
-        if user == self.request.user.id:
+        if user_id == self.request.user.id:
+            User = get_user_model()
+            user = get_object_or_404(User, pk=user_id)
             if limit:
                 return self.queryset.filter(
-                    id_user=user
+                    user=user
                 ).order_by("-date")[:int(limit)]
             else:
-                return self.queryset.filter(id_user=user).order_by("-date")
+                return self.queryset.filter(user=user).order_by("-date")
         else:
             raise Http404
