@@ -35,4 +35,10 @@ urlpatterns = [
     # Get permissions of the forum for user
     url(r'^check-permissions-forum-user/$',
         views.CheckPermissionsForumUserView.as_view()),
+    # Get total notifications pending by user
+    url(r'^get-total-pending-notifications-user/$',
+        views.GetTotalPendingNotificationsUser.as_view()),
+    # Update is_seen property in notification by user
+    url(r'^update-seen-notifications-user/$',
+        views.UpdateSeenNotifications.as_view()),
 ]

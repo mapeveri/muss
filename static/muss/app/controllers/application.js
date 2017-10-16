@@ -2,9 +2,13 @@ import Controller from "@ember/controller";
 import { inject as service} from '@ember/service';
 import { schedule } from "@ember/runloop"
 import $ from 'jquery';
+import config from './../config/environment';
 
 export default Controller.extend({
+    ajax: service('ajax'),
     session: service('session'),
+    currentUser: service('current-user'),
+
     init() {
         this._super();
 
@@ -30,8 +34,23 @@ export default Controller.extend({
         onSearch(q) {
             this.transitionToRoute('search-topic', { queryParams: { q: q } });
         },
-        openNotifications() {
-            //
+        /**
+        * @method setSeenNotifications
+        * @description: Update notifications seen
+        */
+        setSeenNotifications() {
+            let namespace = config.APP.API_NAMESPACE;
+            let user_id = parseInt(this.get('currentUser').user.id);
+            let csrftoken = $("[name=csrfmiddlewaretoken]").first().val();
+            return this.get('ajax').request('/' + namespace + '/update-seen-notifications-user/', {
+                method: 'POST',
+                data: {
+                    user_id: user_id,
+                    csrfmiddlewaretoken: csrftoken,
+                }
+            }).then(() => {
+                $("#total_notifications").hide();
+            });
         }
     }
 });

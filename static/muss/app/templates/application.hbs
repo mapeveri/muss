@@ -6,13 +6,18 @@
         </div>
         {{#if session.isAuthenticated}}
             <div class="item">
-                <div class="ui inline dropdown" {{ action "openNotifications" }}>
+                <div class="ui inline dropdown" {{ action "setSeenNotifications" }}>
                     <div class="text">
                         <div class="ui inline dropdown">
                             <div class="inlineBlock">
                                 {{#link-to "profile" session.data.authenticated.user.username}}
                                 <img class="ui avatar image" src="{{ session.data.authenticated.user.user_photo }}">
                                 {{/link-to}}
+                                {{#if (gt model.totalNotifications.total 0)}}
+                                    <button id="total_notifications" class="circular ui icon button mini">
+                                        {{ model.totalNotifications.total}}
+                                    </button>
+                                {{/if}}
                             </div>
                             <i class="dropdown icon"></i>
                             <div class="menu hide" id="menu_notifications">
@@ -22,7 +27,7 @@
                                     {{/link-to}}
                                 </div>
                                 <div class="line-separator"></div>
-                                 {{#each model as |notification|}}
+                                 {{#each model.notifications as |notification|}}
                                     <div class="item">
                                         {{#if notification.topic }}
                                             <i class="alarm outline icon"></i> {{gettext "New topic"}}

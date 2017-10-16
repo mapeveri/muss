@@ -623,3 +623,45 @@ class NotificationViewSet(viewsets.ModelViewSet):
                 return self.queryset.filter(user=user).order_by("-date")
         else:
             raise Http404
+
+
+class GetTotalPendingNotificationsUser(APIView):
+    """
+    Get total pending notification user
+    """
+    def get(self, request, format=None):
+        # Parameters
+        user_id = self.request.GET.get('user_id')
+        if user_id:
+            user_id = int(user_id)
+            if user_id == self.request.user.id:
+                User = get_user_model()
+                user = get_object_or_404(User, pk=user_id)
+                total = models.Notification.objects.filter(
+                    user=user, is_seen=False
+                ).count()
+
+                return Response({"total": total})
+            else:
+                raise Http404
+        else:
+            raise Http404
+
+
+class UpdateSeenNotifications(APIView):
+    """
+    Update is_seen property in notification by user
+    """
+    def post(self, request, format=None):
+        user_id = self.request.POST.get('user_id')
+        if user_id:
+            user_id = int(user_id)
+            if user_id == self.request.user.id:
+                models.Notification.objects.filter(
+                    user=request.user
+                ).update(is_seen=True)
+                return Response({"success": True})
+            else:
+                raise Http404
+        else:
+            raise Http404
