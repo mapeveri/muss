@@ -20,14 +20,14 @@
                                 {{/if}}
                             </div>
                             <i class="dropdown icon"></i>
-                            <div class="menu hide" id="menu_notifications">
+                            <div class="menu hide min-width-notification-list" id="menu_notifications">
                                 <div class="item">
                                     {{#link-to "profile" session.data.authenticated.user.username}}
                                     {{ session.data.authenticated.user.username }}
                                     {{/link-to}}
                                 </div>
                                 <div class="line-separator"></div>
-                                 {{#each model.notifications as |notification|}}
+                                {{#each model.notifications as |notification|}}
                                     <div class="item">
                                         {{#if notification.topic }}
                                             <i class="alarm outline icon"></i> {{gettext "New topic"}}
@@ -43,9 +43,24 @@
                                         {{/if}}
                                     </div>
                                     <div class="line-separator"></div>
-                                 {{/each}}
-                                <div class="item">
-                                    <a {{action 'invalidateSession'}} class="pointer">{{ gettext "Logout" }}</a>
+                                {{/each}}
+
+                                {{#unless model.notifications}}
+                                    <div class="item">
+                                        {{gettext "No notifications"}}
+                                    </div>
+                                    <div class="line-separator"></div>
+                                {{/unless}}
+
+                                <div class="list-notification-end">
+                                    <div class="pull-left">
+                                        {{#if model.notifications}}
+                                            {{#link-to "notifications"}} {{ gettext "See everything"}} {{/link-to}}
+                                        {{/if}}
+                                    </div>
+                                    <div class="pull-right">
+                                        <a {{action 'invalidateSession'}} class="pointer">{{ gettext "Logout" }}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

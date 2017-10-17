@@ -20,6 +20,7 @@ router.map(function() {
   this.route('reset', { path: '/reset/:uidb64/:token'});
 
   this.route('404', { path: '/*path' });
+  this.route('notifications');
 });
 
 export default router;

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-16 17:12-0300\n"
+"POT-Creation-Date: 2017-10-16 21:13-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -346,6 +346,18 @@ msgstr "Por"
 #: muss/i18n.py:72
 msgid "New topic"
 msgstr "Nuevo tema"
+
+#: muss/i18n.py:73
+msgid "See everything"
+msgstr "Ver todo"
+
+#: muss/i18n.py:74
+msgid "No notifications"
+msgstr "No hay notificaciones"
+
+#: muss/i18n.py:75
+msgid "Notifications"
+msgstr "Notificaciones"
 
 #: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:251
 #: muss/models.py:358 muss/models.py:570
@@ -755,9 +767,6 @@ msgstr ""
 
 #~ msgid "You have no notifications"
 #~ msgstr "No tiene notificaciones"
-
-#~ msgid "Notifications"
-#~ msgstr "Notificaciones"
 
 #~ msgid "Your browser does not support JavaScript."
 #~ msgstr "Tu navegador no soporta JavaScript."

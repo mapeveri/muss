@@ -181,3 +181,12 @@ pre code {
     background: rgba(34, 36, 38, 0.1);
     border-bottom: 1px solid rgba(34, 36, 38, 0.1);
 }
+
+.list-notification-end {
+    margin: 1em;
+    padding-bottom: 1em;
+}
+
+.min-width-notification-list {
+    min-width: 300px !important;
+}
