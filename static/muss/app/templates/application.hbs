@@ -13,11 +13,10 @@
                                 {{#link-to "profile" session.data.authenticated.user.username}}
                                 <img class="ui avatar image" src="{{ session.data.authenticated.user.user_photo }}">
                                 {{/link-to}}
-                                {{#if (gt model.totalNotifications.total 0)}}
-                                    <button id="total_notifications" class="circular ui icon button mini">
-                                        {{ model.totalNotifications.total}}
-                                    </button>
-                                {{/if}}
+
+                                <button id="total_notifications" class="circular ui icon button mini {{if (gt model.totalNotifications.total 0) '' 'hide' }}">
+                                    {{ model.totalNotifications.total}}
+                                </button>
                             </div>
                             <i class="dropdown icon"></i>
                             <div class="menu hide min-width-notification-list" id="menu_notifications">

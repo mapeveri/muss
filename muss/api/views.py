@@ -186,7 +186,7 @@ class TopicViewSet(viewsets.ModelViewSet):
 
                 # Data necessary for realtime
                 data = realtime.data_base_realtime(
-                    topic, photo, forum_name, True
+                    topic, photo, forum, True
                 )
 
                 # Send new notification realtime
@@ -352,7 +352,9 @@ class CommentViewSet(viewsets.ModelViewSet):
             nt_email.send_mail_comment(str(url), list_email)
 
             # Data necessary for realtime
-            data = realtime.data_base_realtime(topic, photo, forum, False)
+            data = realtime.data_base_realtime(
+                comment, photo, topic.forum, False
+            )
 
             # Send new notification realtime
             realtime.new_notification(data, list_us)

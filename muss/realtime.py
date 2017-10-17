@@ -19,24 +19,28 @@ def data_base_realtime(obj, photo, forum, is_topic):
     # Data necessary for realtime
     data = {
         "settings_static": settings.STATIC_URL,
-        "forum": forum,
-        "category": obj.forum.category.name,
+        "forum": forum.name,
+        "category": forum.category.name,
         "photo": photo,
     }
 
-    record = {
-        'topicid': obj.pk,
-        'slug': obj.slug,
-        'title': obj.title,
-        'username': obj.user.username,
-        'userid': obj.user.pk
-    }
-
     if is_topic:
-        data['topic'] = record
+        data['topic'] = {
+            'topicid': obj.pk,
+            'slug': obj.slug,
+            'title': obj.title,
+            'username': obj.user.username,
+            'userid': obj.user.pk
+        }
         data['comment'] = None
     else:
-        data['comment'] = record
+        data['comment'] = {
+            'topicid': obj.topic.pk,
+            'slug': obj.topic.slug,
+            'title': obj.topic.title,
+            'username': obj.user.username,
+            'userid': obj.user.pk
+        }
         data['topic'] = None
 
     return data
