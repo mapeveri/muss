@@ -3,6 +3,7 @@ import { inject as service} from '@ember/service';
 import { schedule } from "@ember/runloop"
 import $ from 'jquery';
 import config from './../config/environment';
+import { getUrlConnectionWs } from '../libs/utils';
 
 export default Controller.extend({
     ajax: service('ajax'),
@@ -17,6 +18,15 @@ export default Controller.extend({
                 $('.ui.dropdown').dropdown();
             }, 1000);
         });
+
+        let urlWs = getUrlConnectionWs();
+        let url = urlWs + "notification?user=" + this.get('currentUser').user.id;
+        let ws = new WebSocket(url);
+        ws.onmessage = (evt) => {
+            let json = evt.data;
+            let obj = JSON.parse(json);
+            //this.get('model.notifications').addObjects(obj);
+        };
     },
     actions: {
         /**

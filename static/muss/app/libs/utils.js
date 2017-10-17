@@ -33,3 +33,19 @@ export function closeAllEditor() {
 export function getValidTypesImage() {
     return ["image/gif", "image/jpeg", "image/png", "image/gif", "image/jpg"];
 }
+
+/**
+* @method getUrlConnectionWs
+* @description: Get url for connect to ws
+*/
+export function getUrlConnectionWs() {
+    let protocol;
+    if (window.location.protocol === "https:") {
+        protocol = "wss:";
+    } else {
+        protocol = "ws:";
+    }
+
+    let url = protocol + "//" + window.location.hostname + ":8000/ws/";
+    return url;
+}

@@ -3,7 +3,7 @@ from channels import Group
 from django.conf import settings
 
 
-def data_base_realtime(obj, photo, forum, username):
+def data_base_realtime(obj, photo, forum, is_topic):
     """
     Get data comment for new topic or new comment.
 
@@ -11,22 +11,33 @@ def data_base_realtime(obj, photo, forum, username):
         obj (obj): Object topic.
         photo: Photo topic.
         forum (obj): Object forum.
-        username (obj): Username user.
+        is_topic (bool): If is topic or comment.
 
     Returns:
         dict: Data base for realtime.
     """
     # Data necessary for realtime
     data = {
-        "topic": obj.title,
-        "id_topic": obj.pk,
-        "slug": obj.slug,
         "settings_static": settings.STATIC_URL,
-        "username": username,
         "forum": forum,
         "category": obj.forum.category.name,
-        "photo": photo
+        "photo": photo,
     }
+
+    record = {
+        'topicid': obj.pk,
+        'slug': obj.slug,
+        'title': obj.title,
+        'username': obj.user.username,
+        'userid': obj.user.pk
+    }
+
+    if is_topic:
+        data['topic'] = record
+        data['comment'] = None
+    else:
+        data['comment'] = record
+        data['topic'] = None
 
     return data
 
@@ -43,7 +54,7 @@ def new_notification(data_notification, list_us):
     json_data_notification = json.dumps(data_notification)
 
     for user in list_us:
-        Group("notification-%s" % user).send({
+        Group("notification-%s" % user.id).send({
             'text': json_data_notification
         })
 
@@ -56,7 +67,7 @@ def new_comment(data_comment, comment_description):
         data_comment (list): Data for create a new comment.
         comment_description (str): Comment description.
     """
-    topic = data_comment['id_topic']
+    topic = data_comment['comment']['topicid']
     # Publish new comment in topic
     data_comment['description'] = comment_description
     json_data_comment = json.dumps(data_comment)
