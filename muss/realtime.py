@@ -1,15 +1,13 @@
 import json
 from channels import Group
-from django.conf import settings
 
 
-def data_base_realtime(obj, photo, forum, is_topic):
+def data_base_realtime(obj, forum, is_topic):
     """
     Get data comment for new topic or new comment.
 
     Args:
         obj (obj): Object topic.
-        photo: Photo topic.
         forum (obj): Object forum.
         is_topic (bool): If is topic or comment.
 
@@ -18,10 +16,7 @@ def data_base_realtime(obj, photo, forum, is_topic):
     """
     # Data necessary for realtime
     data = {
-        "settings_static": settings.STATIC_URL,
         "forum": forum.name,
-        "category": forum.category.name,
-        "photo": photo,
     }
 
     if is_topic:
@@ -30,7 +25,8 @@ def data_base_realtime(obj, photo, forum, is_topic):
             'slug': obj.slug,
             'title': obj.title,
             'username': obj.user.username,
-            'userid': obj.user.pk
+            'userid': obj.user.pk,
+            'isTop': obj.is_top,
         }
         data['comment'] = None
     else:
@@ -39,11 +35,25 @@ def data_base_realtime(obj, photo, forum, is_topic):
             'slug': obj.topic.slug,
             'title': obj.topic.title,
             'username': obj.user.username,
-            'userid': obj.user.pk
+            'userid': obj.user.pk,
+            'isTop': obj.topic.is_top,
         }
         data['topic'] = None
 
     return data
+
+
+def new_topic_forum(forum, json_data_topic):
+    """
+    Send new topic to timeline forum
+
+    Args:
+        forum: Forum to send.
+        json_data_topic (list): Data for create a new topic.
+    """
+    Group("forum-%s" % forum).send({
+        'text': json_data_topic
+    })
 
 
 def new_notification(data_notification, list_us):

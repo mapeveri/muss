@@ -65,7 +65,7 @@ def get_moderators_and_send_notification_topic(request, forum, topic):
             save_notification_model(
                 related_object, topic.pk, moderator
             )
-            list_us.append(moderator.id)
+            list_us.append(moderator)
 
     return list_us
 

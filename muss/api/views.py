@@ -175,7 +175,6 @@ class TopicViewSet(viewsets.ModelViewSet):
                     )
 
                 # Parameters for realtime
-                photo = utils.get_photo_profile(request.user)
                 username = request.user.username
                 forum_name = forum.name
 
@@ -186,11 +185,14 @@ class TopicViewSet(viewsets.ModelViewSet):
 
                 # Data necessary for realtime
                 data = realtime.data_base_realtime(
-                    topic, photo, forum, True
+                    topic, forum, True
                 )
 
                 # Send new notification realtime
                 realtime.new_notification(data, list_us)
+
+                # Send new topic in forum
+                realtime.new_topic_forum(forum_id, data)
 
                 return Response(
                     serializer.data, status=status.HTTP_201_CREATED
@@ -332,7 +334,6 @@ class CommentViewSet(viewsets.ModelViewSet):
                 )
 
             # Parameters for notification comments
-            photo = utils.get_photo_profile(request.user)
             username = request.user.username
             forum = topic.forum.name
 
@@ -353,7 +354,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
             # Data necessary for realtime
             data = realtime.data_base_realtime(
-                comment, photo, topic.forum, False
+                comment, topic.forum, False
             )
 
             # Send new notification realtime

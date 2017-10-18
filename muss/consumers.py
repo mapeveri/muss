@@ -31,6 +31,23 @@ def ws_disconnect_notification(message):
 
 
 @channel_session_user
+def ws_connect_forum(message):
+    """Socket connect to forum"""
+    forum = get_params(message.content['query_string'])
+    message.channel_session['forum'] = forum
+    Group("forum-%s" % forum).add(message.reply_channel)
+    # Accept the connection request
+    message.reply_channel.send({"accept": True})
+
+
+@channel_session_user
+def ws_disconnect_forum(message):
+    """Socket disconnect to forum"""
+    forum = message.channel_session['forum']
+    Group("forum-%s" % forum).discard(message.reply_channel)
+
+
+@channel_session_user
 def ws_connect_comment_topic(message):
     """Socket connect to comment topic"""
     topic = get_params(message.content['query_string'])
