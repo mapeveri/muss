@@ -26,23 +26,7 @@
                                     {{/link-to}}
                                 </div>
                                 <div class="line-separator"></div>
-                                {{#each model.notifications as |notification|}}
-                                    <div class="item">
-                                        {{#if notification.topic }}
-                                            <i class="alarm outline icon"></i> {{gettext "New topic"}}
-                                            {{#link-to "topic" notification.topic.topicid notification.topic.slug}}
-                                                {{ notification.topic.title }}
-                                            {{/link-to}}
-                                            {{gettext "By"}} {{ notification.topic.username }}
-                                        {{else}}
-                                            <i class="reply icon"></i> {{ notification.comment.username}}
-                                            {{#link-to "topic" notification.comment.topicid notification.comment.slug}}
-                                                {{ notification.comment.title }}
-                                            {{/link-to}}
-                                        {{/if}}
-                                    </div>
-                                    <div class="line-separator"></div>
-                                {{/each}}
+                                {{items-notifications model=model inDropdown=true}}
 
                                 {{#unless model.notifications}}
                                     <div class="item">

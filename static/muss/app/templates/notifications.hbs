@@ -2,30 +2,7 @@
 <div class="ui divider"></div>
 
 <div class="ui list">
-    {{#each model as |notification|}}
-        <div class="item">
-            {{#if notification.topic }}
-                <div class="content">
-                    <i class="alarm outline icon"></i> {{gettext "New topic"}}
-                    {{#link-to "topic" notification.topic.topicid notification.topic.slug}}
-                        {{ notification.topic.title }}
-                    {{/link-to}}
-                    {{gettext "By"}} {{ notification.topic.username }}
-                    <div class="description marginTop1">{{ notification.date  }}</div>
-                </div>
-            {{else}}
-                <div class="content">
-                    <i class="reply icon"></i> {{ notification.comment.username}}
-                    {{#link-to "topic" notification.comment.topicid notification.comment.slug}}
-                        {{ notification.comment.title }}
-                    {{/link-to}}
-                    <div class="description marginTop1">{{ notification.date  }}</div>
-                </div>
-            {{/if}}
-
-        </div>
-        <div class="ui divider"></div>
-    {{/each}}
+    {{items-notifications model=model inDropdown=false}}
 
     {{#unless model}}
         <div class="item">
