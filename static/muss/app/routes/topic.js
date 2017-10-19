@@ -8,7 +8,7 @@ export default Route.extend({
                 return topic.get("firstObject");
             }),
             comments: this.get("store").query("comment", {topic: params.pk}),
-            suggests: this.get("store").query("topic", {suggest: params.pk, filter: 'suggests'}),
+            suggests: this.get("store").query("topic", {suggest: params.pk, filter: 'suggests'}).catch(() => {}),
         });
     },
     afterModel(model) {

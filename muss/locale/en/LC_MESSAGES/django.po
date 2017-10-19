@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-19 09:25-0300\n"
+"POT-Creation-Date: 2017-10-19 10:19-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -578,24 +578,24 @@ msgstr ""
 msgid "Welcome to "
 msgstr ""
 
-#: muss/notifications_email.py:73
+#: muss/notifications_email.py:68
 #, python-format
 msgid "New comment in %(site)s"
 msgstr ""
 
-#: muss/notifications_email.py:77
+#: muss/notifications_email.py:72
 #, python-format
 msgid "You have one new comment in the topic: %(site)s"
 msgstr ""
 
-#: muss/notifications_email.py:101
+#: muss/notifications_email.py:102
 #, python-format
 msgid "New topic in %(site)s "
 msgstr ""
 
-#: muss/notifications_email.py:102
+#: muss/notifications_email.py:103
 #, python-format
-msgid "You have one new topic to moderate: %(site)s"
+msgid "Added a new topic %(url_topic)s to the forum: %(site)s"
 msgstr ""
 
 #: muss/templates/muss/admin/confirm_delete.html:6
@@ -697,11 +697,11 @@ msgid ""
 "%(domain)s"
 msgstr ""
 
-#: muss/utils.py:166 muss/utils.py:168 muss/utils.py:172
+#: muss/utils.py:165 muss/utils.py:167 muss/utils.py:171
 msgid "ago"
 msgstr ""
 
-#: muss/utils.py:172
+#: muss/utils.py:171
 msgid "days ago"
 msgstr ""
 

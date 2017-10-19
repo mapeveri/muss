@@ -175,6 +175,12 @@ class TopicViewSet(viewsets.ModelViewSet):
                         status=status.HTTP_400_BAD_REQUEST
                     )
 
+                domain = utils.get_domain(request)
+                # Send email to moderators
+                nt_email.send_notification_topic_to_moderators(
+                    forum, topic, domain
+                )
+
                 # Parameters for realtime
                 username = request.user.username
                 forum_name = forum.name
@@ -350,7 +356,7 @@ class CommentViewSet(viewsets.ModelViewSet):
             url += utils.get_domain(request)
             url += "/topic/" + str(topic.pk) + "/" + topic.slug + "/"
 
-            # Send e    mail
+            # Send email
             nt_email.send_mail_comment(str(url), list_email)
 
             # Data necessary for realtime
@@ -389,6 +395,27 @@ class ProfileViewSet(viewsets.ModelViewSet):
         if type_filter == "get_profile_username" and username:
             self.queryset = self.queryset.filter(user__username=username)
         return self.queryset
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+
+        # Update receive_emails if is string from request
+        r_emails = request.data.get('receive-emails')
+        if isinstance(r_emails, str):
+            receive_emails = True if r_emails == 'true' else False
+            instance.receive_emails = receive_emails
+
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            # If 'prefetch_related' has been applied to a queryset, we need to
+            # forcibly invalidate the prefetch cache on the instance.
+            instance._prefetched_objects_cache = {}
+
+        return Response(serializer.data)
 
 
 # ViewSets for MessageForum

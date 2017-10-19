@@ -71,6 +71,10 @@
                         <label>{{gettext "About" }}</label>
                         {{textarea value=profile.about }}
                     </div>
+                    <div class="field">
+                        <label>{{gettext "Receive Emails"}}</label>
+                        {{input type="checkbox" checked=profile.receiveEmails name="receiveEmails" id="id_receiveEmails"}}
+                    </div>
 
                     <input type="button" {{action "editProfile"}} class="ui button" value={{gettext "Save"}} />
                 </form>

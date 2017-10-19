@@ -65,17 +65,12 @@ def send_mail_comment(url, list_email):
         url (str): Url site.
         list_email (list(str): List email to send mail.
     """
-    if settings.SITE_URL.endswith("/"):
-        site = settings.SITE_URL[:-1]
-    else:
-        site = settings.SITE_URL
-
     title_email = _("New comment in %(site)s") % {
         'site': settings.SITE_NAME
     }
 
     message = _("You have one new comment in the topic: %(site)s") % {
-        'site': site + url
+        'site': url
     }
 
     email_from = settings.EMAIL_MUSS
@@ -86,21 +81,29 @@ def send_mail_comment(url, list_email):
         )
 
 
-def send_mail_topic(email_moderator, forum):
+def send_mail_topic(email_moderator, forum, topic, domain):
     """
     Send email topic.
 
     Args:
         email_moderator (str): Email moderator.
         forum (obj): Forum object.
+        topic (obj): Topic object.
+        domain (str): Domain url.
     """
     # Send email to moderator
-    site = settings.SITE_URL + "/forum/" + forum.name
+    site = settings.SITE_URL + "/forum/" + str(forum.pk) + "/" + forum.slug
+
+    # Url topic
+    url_topic = ""
+    url_topic += domain
+    url_topic += "/topic/" + str(topic.pk) + "/" + topic.slug + "/"
 
     site_name = settings.SITE_NAME
     title_email = _("New topic in %(site)s ") % {'site': site_name}
-    message = _("You have one new topic to moderate: %(site)s") % {
-        'site': site
+    message = _("Added a new topic %(url_topic)s to the forum: %(site)s") % {
+        'site': site,
+        'url_topic': url_topic,
     }
     email_from = settings.EMAIL_MUSS
 
@@ -126,3 +129,19 @@ def send_mail_reset_password(
         send_mail(
             subject, body, from_email, [to_email]
         )
+
+
+def send_notification_topic_to_moderators(forum, topic, domain):
+    """
+    Send email topic to moderators.
+
+    Args:
+        forum (obj): Forum object.
+        topic (obj): Topic object.
+        domain (str): Domain url.
+    """
+    # Get moderators forum
+    for moderator in forum.moderators.all():
+        if moderator.user.receive_emails:
+            # Send email
+            send_mail_topic(moderator.email, forum, topic, domain)

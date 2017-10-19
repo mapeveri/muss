@@ -471,6 +471,7 @@ class Profile(models.Model):
         :param activation_key: Activation key authentication.
         :param key_expire: Key activate expire authentication.
         :param is_troll: If the user is troll.
+        :param receive_emails: Check if receive emails.
     """
     def generate_path_profile(instance, filename):
         """

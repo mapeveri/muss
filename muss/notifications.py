@@ -99,13 +99,18 @@ def get_users_and_send_notification_comment(request, topic, comment):
         # Not make nothing but list_user is already
         # Not send email
         pass
+
     # If the notificacion is mine send to all but not to create to comment
     elif user_original_topic == myuser and comment_user != myuser:
         # The user comment not exists in list_us
         # Add user that created topic
         list_us.append(user_original_topic)
-        # Add user for send email
-        list_emails.append(user_email)
+
+        # Check if receive emails
+        if user_original_topic.user.receive_emails:
+            # Add user for send email
+            list_emails.append(user_email)
+
     # If the notificacion not is mine send to all but not to me
     elif user_original_topic != myuser and comment_user == myuser:
         # Check if exists the created topic
@@ -113,8 +118,11 @@ def get_users_and_send_notification_comment(request, topic, comment):
             # Send to created topic
             list_us.append(user_original_topic)
 
-        # Add user for send email to created topic
-        list_emails.append(user_email)
+        # Check if receive emails
+        if user_original_topic.user.receive_emails:
+            # Add user for send email to created topic
+            list_emails.append(user_email)
+
     # If the notificacion not is mine send to all but not to create to comment
     elif user_original_topic != myuser and comment_user != myuser:
         # Check if exists the created topic
@@ -122,8 +130,10 @@ def get_users_and_send_notification_comment(request, topic, comment):
             # Send to created topic
             list_us.append(user_original_topic)
 
-        # Add user for send email to created topic
-        list_emails.append(user_email)
+        # Check if receive emails
+        if user_original_topic.user.receive_emails:
+            # Add user for send email to created topic
+            list_emails.append(user_email)
 
     # Get content type for comment model
     related_object_type = ContentType.objects.get_for_model(comment)

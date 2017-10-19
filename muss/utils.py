@@ -10,7 +10,6 @@ from django.utils.translation import ugettext_lazy as _
 from muss.models import (
     Forum, Topic, Comment, Register, Profile
 )
-from muss.notifications_email import send_mail_topic
 
 
 def basename(value):
@@ -132,8 +131,8 @@ def get_users_topic(topic, myuser):
     list_emails = []
     for comment in comments:
         if comment.user_id != myuser:
-            if not (comment.user_id in list_us):
-                list_us.append(comment.user_id)
+            if not (comment.user in list_us):
+                list_us.append(comment.user)
                 if comment.user.user.receive_emails:
                     list_emails.append(comment.user.email)
 
@@ -274,12 +273,6 @@ def check_moderate_topic_email(request, forum, obj):
             obj.is_moderate = True
         else:
             obj.is_moderate = False
-
-            # Get moderators forum
-            for moderator in forum.moderators.all():
-                if moderator.user.receive_emails:
-                    # Send email
-                    send_mail_topic(moderator.email, forum)
     else:
         obj.moderate = True
 

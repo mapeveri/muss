@@ -7,4 +7,5 @@ export default DS.Model.extend({
     photo: DS.attr(),
     location: DS.attr('string'),
     isTroll: DS.attr('boolean'),
+    receiveEmails: DS.attr('boolean'),
 });

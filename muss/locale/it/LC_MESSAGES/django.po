@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-19 09:25-0300\n"
+"POT-Creation-Date: 2017-10-19 10:19-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -578,25 +578,25 @@ msgstr ""
 msgid "Welcome to "
 msgstr "Benvenuto a "
 
-#: muss/notifications_email.py:73
+#: muss/notifications_email.py:68
 #, python-format
 msgid "New comment in %(site)s"
 msgstr "Nuovo commento in %(site)s"
 
-#: muss/notifications_email.py:77
+#: muss/notifications_email.py:72
 #, python-format
 msgid "You have one new comment in the topic: %(site)s"
 msgstr "Hai un nuovo commento nel argomento: %(site)s"
 
-#: muss/notifications_email.py:101
+#: muss/notifications_email.py:102
 #, python-format
 msgid "New topic in %(site)s "
 msgstr "Nuovo argomento nel %(site)s"
 
-#: muss/notifications_email.py:102
+#: muss/notifications_email.py:103
 #, python-format
-msgid "You have one new topic to moderate: %(site)s"
-msgstr "Hai un nuovo argomento a moderata: %(site)s"
+msgid "Added a new topic %(url_topic)s to the forum: %(site)s"
+msgstr "Un nuovo argomento %(url_topic)s è stato aggiunto al forum: %(site)s"
 
 #: muss/templates/muss/admin/confirm_delete.html:6
 msgid "Home"
@@ -704,11 +704,11 @@ msgstr ""
 "reimpostazione della password per la posta elettronica %(email)s. Seguite il "
 "link qui sotto: %(protocol)s://%(domain)s"
 
-#: muss/utils.py:166 muss/utils.py:168 muss/utils.py:172
+#: muss/utils.py:165 muss/utils.py:167 muss/utils.py:171
 msgid "ago"
 msgstr "fa"
 
-#: muss/utils.py:172
+#: muss/utils.py:171
 msgid "days ago"
 msgstr "giorni fa"
 
@@ -732,6 +732,9 @@ msgstr ""
 "Il collegamento reimpostazione della password non è valida, forse perché è "
 "già stato. usato. Si prega di richiedere una nuova reimpostazione della "
 "password."
+
+#~ msgid "You have one new topic to moderate: %(site)s"
+#~ msgstr "Hai un nuovo argomento a moderata: %(site)s"
 
 #~ msgid "Password reset"
 #~ msgstr "Reimpostazione della password"
