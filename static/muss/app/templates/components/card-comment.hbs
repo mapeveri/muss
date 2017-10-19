@@ -1,6 +1,6 @@
 {{yield}}
 
-<div class="comment marginBottom1">
+<div class="comment marginBottom1 {{if comment.isRealTime 'newComment' }}">
     {{#link-to "profile" comment.user.username class="avatar"}}
         <img src="{{ comment.user.userPhoto }}">
     {{/link-to}}

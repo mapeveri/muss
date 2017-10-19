@@ -193,7 +193,13 @@ pre code {
     min-width: 300px !important;
 }
 
-/*Background topics realtime*/
+/*Background topics real time*/
 .hightTopic {
     background: #E0FFFF;
+}
+
+/* Backgroun comment real time*/
+.newComment {
+    background: #E0FFFF !important;
+    border-radius: 1em !important;
 }

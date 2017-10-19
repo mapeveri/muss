@@ -3,10 +3,11 @@ import { inject as service} from '@ember/service';
 import { isPresent } from "@ember/utils";
 import $ from 'jquery';
 import ENV from './../config/environment';
-import { closeAllEditor, showModalLogin } from '../libs/utils';
+import { closeAllEditor, getUrlConnectionWs, showModalLogin } from '../libs/utils';
 
 export default Component.extend({
     ajax: service('ajax'),
+    store: service('store'),
     session: service('session'),
     currentUser: service('current-user'),
     namespace: ENV.APP.API_NAMESPACE,
@@ -46,13 +47,46 @@ export default Component.extend({
             this.getCheckUserLike();
         }
 
+        //Comment and websockets
+        this.connectionCommentToWs();
+
         //Get or make hit count for topic
         this.getOrMakeHitTopic().then(() => {
             //Is completed
             this.set('isLoaded', true);
         });
     },
+    /**
+    * @method connectionCommentToWs
+    * @description: Connect to ws for get comments in realtime
+    */
+    connectionCommentToWs() {
+        let urlWs = getUrlConnectionWs();
+        let url = urlWs + "comment?topic=" + this.get('topic.id');
+        let ws = new WebSocket(url);
+        ws.onmessage = (evt) => {
+            let json = evt.data;
+            let obj = JSON.parse(json);
 
+            this.get('store').find('user', obj.comment.userid).then((user) => {
+                //Add record
+                let record = this.get('store').createRecord('comment', {
+                    topic: this.get('topic'),
+                    user: user,
+                    id: obj.comment.commentId,
+                    date: new Date().toLocaleString(),
+                    totalLikes: 0,
+                    likes: 0,
+                    htmlDescription: obj.html_description,
+                    description: obj.description,
+                    isRealTime: true,
+                });
+
+                this.get('comments').pushObject(record._internalModel);
+            });
+        };
+
+    },
     /**
     * @method getOrMakeHitTopic
     * @description: Get or make hit count for topic

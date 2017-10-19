@@ -1,4 +1,6 @@
 import json
+import mistune
+
 from channels import Group
 
 
@@ -27,10 +29,12 @@ def data_base_realtime(obj, forum, is_topic):
             'username': obj.user.username,
             'userid': obj.user.pk,
             'isTop': obj.is_top,
+            'commentId': None,
         }
         data['comment'] = None
     else:
         data['comment'] = {
+            'commentId': obj.pk,
             'topicid': obj.topic.pk,
             'slug': obj.topic.slug,
             'title': obj.topic.title,
@@ -84,6 +88,7 @@ def new_comment(data_comment, comment_description):
     topic = data_comment['comment']['topicid']
     # Publish new comment in topic
     data_comment['description'] = comment_description
+    data_comment['html_description'] = mistune.markdown(comment_description)
     json_data_comment = json.dumps(data_comment)
     Group("topiccomment-%s" % topic).send({
         'text': json_data_comment
