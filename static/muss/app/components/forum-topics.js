@@ -39,6 +39,12 @@ export default Component.extend({
         //Get users permissions
         this.checkPermissionsUser();
     },
+    didRender() {
+        //For close messages information
+        $('.close.icon').on('click', function() {
+            $(this).parent().transition('fade');
+        });
+    },
     /**
     * @method connectionToWs
     * @description: Connect to ws for get topics in realtime

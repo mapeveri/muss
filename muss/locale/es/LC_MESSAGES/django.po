@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-16 21:13-0300\n"
+"POT-Creation-Date: 2017-10-19 09:25-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -358,6 +358,10 @@ msgstr "No hay notificaciones"
 #: muss/i18n.py:75
 msgid "Notifications"
 msgstr "Notificaciones"
+
+#: muss/i18n.py:76
+msgid "Informative Message"
+msgstr "Mensaje informativo"
 
 #: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:251
 #: muss/models.py:358 muss/models.py:570

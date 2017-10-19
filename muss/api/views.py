@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse_lazy
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 
 from rest_framework import status, viewsets
 from rest_framework.exceptions import PermissionDenied
@@ -394,6 +395,21 @@ class ProfileViewSet(viewsets.ModelViewSet):
 class MessageForumViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.MessageForum.objects.all()
     serializer_class = serializers.MessageForumSerializer
+    http_method_names = ['get']
+
+    def get_queryset(self, *args, **kwargs):
+        forum_id = self.request.GET.get('forum')
+        if forum_id:
+            forum_id = int(forum_id)
+            now = timezone.now()
+            self.queryset = self.queryset.filter(
+                Q(forum__pk=forum_id),
+                Q(message_expires_from__lte=now, message_expires_to__gte=now)
+            )
+        else:
+            raise Http404
+
+        return self.queryset
 
 
 # ViewSets for HitcountTopic

@@ -4,6 +4,16 @@
     <h1><a href="{{ currentUrl }}">{{ model.forum.name }}</a></h1>
     <p>{{ model.forum.description }}</p>
 
+    {{#each model.messages as |message|}}
+        <div class="ui info message transition">
+            <i class="close icon"></i>
+            <div class="header">
+                {{gettext "Informative Message"}}
+            </div>
+            <p>{{message.attributes.message-information}}</p>
+        </div>
+    {{/each}}
+
     <div class="ui grid marginBottom1">
         <div class="fourteen wide column">
             {{#unless model.forum.publicForum}}
