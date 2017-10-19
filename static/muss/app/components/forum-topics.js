@@ -58,6 +58,7 @@ export default Component.extend({
                     let record = this.get('store').createRecord('topic', {
                         forum: this.get('model.forum'),
                         user: user,
+                        id: obj.topic.topicid,
                         title: obj.topic.title,
                         slug: obj.topic.slug,
                         isModerate: true,
@@ -68,6 +69,7 @@ export default Component.extend({
                         isTop: obj.topic.isTop,
                         date: new Date().toLocaleString(),
                         lastActivity: new Date().toLocaleString(),
+                        isRealTime: true,
                     });
 
                     this.get('model.topics').unshiftObject(record._internalModel);
@@ -199,10 +201,8 @@ export default Component.extend({
                 });
 
                 addTopic.save().then((topic) => {
-                    setTimeout(() => {
-                        let router = this.get('router');
-                        router.router.transitionTo('topic', topic.id, topic.get('slug'));
-                    }, 500);
+                    let router = this.get('router');
+                    router.router.transitionTo('topic', topic.id, topic.get('slug'));
                 });
             });
         }

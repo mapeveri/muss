@@ -52,7 +52,7 @@ def new_topic_forum(forum, json_data_topic):
         json_data_topic (list): Data for create a new topic.
     """
     Group("forum-%s" % forum).send({
-        'text': json_data_topic
+        'text': json.dumps(json_data_topic)
     })
 
 

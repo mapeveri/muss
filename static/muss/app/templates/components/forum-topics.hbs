@@ -50,7 +50,7 @@
         </thead>
         <tbody>
             {{#each model.topics as |topic|}}
-            <tr>
+            <tr class="{{if topic.isRealTime 'hightTopic'}}">
                 <td>
                    {{#link-to "profile" topic.user.username class="ui image header fontSizeTitle"}}
                         <img src="{{ topic.user.userPhoto }}" class="ui mini rounded image">

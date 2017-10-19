@@ -98,7 +98,7 @@
                                         <button class="circular ui icon button" {{ action "closeTopic" }} title="{{gettext "Close topic" }}"><i class="window close outline icon"></i></button>
                                     {{/if}}
                                     <button class="circular ui icon button" {{ action 'showEditTopic' }} title="{{ gettext "Edit" }}"><i class="edit icon"></i></button>
-                                    <button class="circular ui icon button" {{action "confirmRemoveTopic" topic.id}} title="{{ gettext "Delete" }}"><i class="trash outline icon"></i></button>
+                                    <button class="circular ui icon button red" {{action "confirmRemoveTopic" topic.id}} title="{{ gettext "Delete" }}"><i class="trash outline icon"></i></button>
                                 {{/if}}
                                 <button class="circular ui icon button" {{ action "replyComment" }} title="{{ gettext "Reply" }}"><i class="reply icon"></i></button>
                             </div>

@@ -176,12 +176,14 @@ pre code {
     margin-top: 1em !important;
 }
 
+/*Other line separtor like ui-divider but without margin */
 .line-separator{
     height: 1px;
     background: rgba(34, 36, 38, 0.1);
     border-bottom: 1px solid rgba(34, 36, 38, 0.1);
 }
 
+/* Styles for notifications list */
 .list-notification-end {
     margin: 1em;
     padding-bottom: 1em;
@@ -189,4 +191,9 @@ pre code {
 
 .min-width-notification-list {
     min-width: 300px !important;
+}
+
+/*Background topics realtime*/
+.hightTopic {
+    background: #E0FFFF;
 }
