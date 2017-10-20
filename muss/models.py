@@ -12,6 +12,7 @@ from django.db import models
 from django.shortcuts import get_object_or_404
 from django.template import defaultfilters
 from django.utils import timezone
+from django.utils.timesince import timesince
 from django.utils.crypto import get_random_string
 from django.utils.translation import ugettext_lazy as _
 
@@ -506,19 +507,32 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user.username)
 
+    @property
+    def last_seen_datetime(self):
+        """
+        Get last seen format datetime
+        """
+        return cache.get('seen_%s' % self.user.username)
+
+    @property
     def last_seen(self):
         """
         Get last seen
         """
-        return cache.get('seen_%s' % self.user.username)
+        last_seen = cache.get('seen_%s' % self.user.username)
+        if last_seen:
+            last_seen = timesince(last_seen)
 
+        return last_seen
+
+    @property
     def online(self):
         """
         Check if is online profile
         """
-        if self.last_seen():
+        if self.last_seen_datetime:
             now = timezone.now()
-            if now > self.last_seen() + timezone.timedelta(
+            if now > self.last_seen_datetime + timezone.timedelta(
                          seconds=settings.USER_ONLINE_TIMEOUT):
                 return False
             else:

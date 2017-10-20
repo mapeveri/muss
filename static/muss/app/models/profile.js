@@ -8,4 +8,6 @@ export default DS.Model.extend({
     location: DS.attr('string'),
     isTroll: DS.attr('boolean'),
     receiveEmails: DS.attr('boolean'),
+    online: DS.attr('boolean'),
+    lastSeen: DS.attr('string'),
 });

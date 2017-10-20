@@ -11,9 +11,18 @@
                 </center>
             </div>
         </div>
-        {{#if canEdit}}
-            <button class="ui button" {{ action "showModalEditProfile" }}> {{ gettext "Edit" }}</button>
-        {{/if}}
+        <center>
+            {{#if profile.online }}
+                <a class="ui green label">Online</a>
+            {{else}}
+                <a class="ui red label">Online</a>
+            {{/if}}
+            <span>{{ profile.lastSeen }}</span>
+
+            {{#if canEdit}}
+                <p><button class="ui button marginTop1" {{ action "showModalEditProfile" }}> {{ gettext "Edit" }}</button></p>
+            {{/if}}
+        </center>
     </div>
     <div class="twelve wide column">
         <div id="content-profile">

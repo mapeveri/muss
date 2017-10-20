@@ -190,6 +190,14 @@ class ProfileSerializer(serializers.ModelSerializer):
         validators=[valid_extension_image],
         max_length=None, allow_empty_file=True,
     )
+    last_seen = serializers.SerializerMethodField()
+    online = serializers.SerializerMethodField()
+
+    def get_last_seen(self, obj):
+        return obj.last_seen
+
+    def get_online(self, obj):
+        return obj.online
 
     class Meta:
         model = models.Profile
