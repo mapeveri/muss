@@ -117,12 +117,13 @@ class TopicSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
     html_description = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
+    users_topic_comment = serializers.SerializerMethodField()
 
     def get_total_comments(self, obj):
         """
         Get total comments of topic
         """
-        return models.Comment.objects.filter(topic__pk=obj.pk).count()
+        return obj.topics.count()
 
     def get_views(self, obj):
         """
@@ -146,6 +147,37 @@ class TopicSerializer(serializers.ModelSerializer):
         except models.LikeTopic.DoesNotExist:
             likes = []
         return likes
+
+    def get_users_topic_comment(self, obj):
+        # I get the users who participated in the topic
+        users = []
+        list_users = []
+        username_topic = obj.user.username
+
+        for comment in obj.topics.all():
+            username = comment.user.username
+            if not (username in list_users):
+                photo = utils.get_photo_profile(comment.user.id)
+                record = {
+                    "username": username,
+                    "photo": photo
+                }
+                # If is creator topic, add top
+                if username == username_topic:
+                    users.insert(0, record)
+                else:
+                    users.append(record)
+                list_users.append(username)
+
+        # If creator topic not exists, add
+        if not (username_topic in list_users) and obj.topics.count() > 0:
+            photo = utils.get_photo_profile(obj.user.id)
+            users.insert(0, {
+                "username": username_topic,
+                "photo": photo
+            })
+
+        return users
 
     class Meta:
         model = models.Topic

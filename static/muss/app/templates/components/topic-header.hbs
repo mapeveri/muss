@@ -86,6 +86,12 @@
 
                     <p><b>{{gettext "Created" }}</b>: {{ topic.date }}</p>
                     <p><b>{{gettext "Last activity" }}</b>: {{ topic.lastActivity }}</p>
+
+                    {{#each topic.usersTopicComment as |user|}}
+                        {{#link-to "profile" user.username}}
+                            <img class="ui avatar image" src="{{ user.photo }}" title="{{ user.username }}">
+                        {{/link-to}}
+                    {{/each}}
                 </div>
                 <div class="eight wide column">
                     <p>
