@@ -62,6 +62,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class ForumSerializer(serializers.ModelSerializer):
     childs_forums = serializers.SerializerMethodField()
     parents_forums = serializers.SerializerMethodField()
+    pending_moderations = serializers.SerializerMethodField()
 
     def get_childs_forums(self, obj):
         """
@@ -103,6 +104,16 @@ class ForumSerializer(serializers.ModelSerializer):
                         'name': forum.name
                     })
         return forums
+
+    def get_pending_moderations(self, obj):
+        """
+        Check if the forum has topic pending moderations
+        """
+        if obj.is_moderate:
+            total = obj.forums.filter(is_moderate=False).count()
+            if total > 0:
+                return True
+        return False
 
     class Meta:
         model = models.Forum

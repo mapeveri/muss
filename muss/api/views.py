@@ -113,10 +113,14 @@ class TopicViewSet(viewsets.ModelViewSet):
 
         if type_filter == 'only_topic' and pk and slug:
             # Get only topic
-            self.queryset = self.queryset.filter(pk=pk, slug=slug)
+            self.queryset = self.queryset.filter(
+                pk=pk, slug=slug, is_moderate=True
+            )
         elif type_filter == 'by_forum' and slug:
             # Filter topics by forum
-            self.queryset = self.queryset.filter(forum__slug=slug)
+            self.queryset = self.queryset.filter(
+                forum__slug=slug, is_moderate=True
+            )
         elif type_filter == 'search' and search_title:
             # Search topics
             self.queryset = self.queryset.filter(
@@ -124,17 +128,21 @@ class TopicViewSet(viewsets.ModelViewSet):
             )
         elif type_filter == "by_user" and username:
             # Filter by user topic
-            self.queryset = self.queryset.filter(user__username=username)
+            self.queryset = self.queryset.filter(
+                user__username=username, is_moderate=True
+            )
         elif type_filter == 'suggests' and suggest:
             # Filter suggest topic
-            topic = get_object_or_404(models.Topic, pk=suggest)
+            topic = get_object_or_404(
+                models.Topic, pk=suggest, is_moderate=True
+            )
             words = topic.title.split(" ")
             condition = Q()
             for word in words:
                 condition |= Q(title__icontains=word)
 
             self.queryset = models.Topic.objects.filter(
-                condition, Q(forum__pk=topic.forum_id)
+                condition, Q(forum__pk=topic.forum_id, is_moderate=True)
             ).exclude(
                 pk=topic.pk
             )[:10]
@@ -163,12 +171,18 @@ class TopicViewSet(viewsets.ModelViewSet):
             if utils.user_can_create_topic(category, forum, request.user):
                 # Save the record topic
                 if serializer.is_valid():
+                    # Check if moderation topic
+                    is_moderate = utils.check_topic_moderate(
+                        request.user, forum
+                    )
                     # If the forum is moderate send email
                     serializer = utils.check_moderate_topic_email(
                         request, forum, serializer
                     )
                     # Save record
-                    topic = serializer.save(forum=forum, user=user)
+                    topic = serializer.save(
+                        forum=forum, user=user, is_moderate=is_moderate
+                    )
                 else:
                     return Response(
                         serializer.errors,
@@ -508,7 +522,7 @@ class CheckPermissionsForumUserView(APIView):
 
             # Check if user logged is moderator in the forum
             total_moderator = models.Forum.objects.filter(
-                moderators__in=[user_id]
+                pk=forum_id, moderators__in=[user_id]
             ).count()
 
             if total_moderator > 0:

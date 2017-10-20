@@ -4,6 +4,16 @@
     <h1><a href="{{ currentUrl }}">{{ model.forum.name }}</a></h1>
     <p>{{ model.forum.description }}</p>
 
+    {{#if model.forum.pendingModerations}}
+        <div class="ui info message transition">
+            <i class="close icon"></i>
+            <div class="header">
+                {{gettext "Informative Message"}}
+            </div>
+            <p>{{gettext "There are pending topics of moderation" }}</p>
+        </div>
+    {{/if}}
+
     {{#each model.messages as |message|}}
         <div class="ui info message transition">
             <i class="close icon"></i>

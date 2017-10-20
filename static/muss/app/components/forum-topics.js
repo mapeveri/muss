@@ -208,7 +208,14 @@ export default Component.extend({
 
                 addTopic.save().then((topic) => {
                     let router = this.get('router');
-                    router.router.transitionTo('topic', topic.id, topic.get('slug'));
+
+                    //If is pendign moderation, add message information
+                    if(this.get('model.forum.isModerate') && !this.isAdminOrModerator) {
+                        router.router.transitionTo('index');
+                        window.toastr.success(gettextHelper("The topic is pending of moderation"));
+                    } else {
+                        router.router.transitionTo('topic', topic.id, topic.get('slug'));
+                    }
                 });
             });
         }

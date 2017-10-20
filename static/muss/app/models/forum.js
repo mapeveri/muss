@@ -14,6 +14,7 @@ export default DS.Model.extend({
     moderators: DS.hasMany('user'),
     isModerate: DS.attr('boolean'),
     publicForum: DS.attr('boolean'),
+    pendingModerations: DS.attr('boolean'),
     messagesForums: DS.hasMany('message-forum'),
     topics: DS.hasMany('topic'),
     registers: DS.hasMany('register'),

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-19 10:19-0300\n"
+"POT-Creation-Date: 2017-10-20 11:09-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,30 +29,30 @@ msgstr ""
 msgid "Italian"
 msgstr ""
 
-#: muss/admin.py:79 muss/admin.py:161
+#: muss/admin.py:80 muss/admin.py:162
 #, python-format
 msgid "Successfully deleted %(count)d record/s."
 msgstr ""
 
-#: muss/admin.py:115 muss/admin.py:197
+#: muss/admin.py:116 muss/admin.py:198
 #, python-format
 msgid "Delete selected %(verbose_name_plural)s"
 msgstr ""
 
-#: muss/admin.py:131 muss/models.py:75
+#: muss/admin.py:132 muss/models.py:76
 msgid "Moderators"
 msgstr ""
 
-#: muss/admin.py:211 muss/models.py:101 muss/models.py:182 muss/models.py:236
-#: muss/models.py:443
+#: muss/admin.py:212 muss/models.py:102 muss/models.py:183 muss/models.py:237
+#: muss/models.py:444
 msgid "Forum"
 msgstr ""
 
-#: muss/admin.py:236
+#: muss/admin.py:237
 msgid "Profile"
 msgstr ""
 
-#: muss/api/serializers.py:29
+#: muss/api/serializers.py:34
 msgid "The email already exists."
 msgstr ""
 
@@ -64,11 +64,11 @@ msgstr ""
 msgid "There are no forums created for the category"
 msgstr ""
 
-#: muss/i18n.py:6 muss/models.py:81
+#: muss/i18n.py:6 muss/models.py:82
 msgid "Total topics"
 msgstr "Total topics"
 
-#: muss/i18n.py:7 muss/models.py:102
+#: muss/i18n.py:7 muss/models.py:103
 msgid "Forums"
 msgstr ""
 
@@ -78,7 +78,7 @@ msgstr ""
 msgid "Add topic"
 msgstr "No loaded topics"
 
-#: muss/i18n.py:9 muss/models.py:456
+#: muss/i18n.py:9 muss/models.py:457
 msgid "Register"
 msgstr ""
 
@@ -86,7 +86,7 @@ msgstr ""
 msgid "Unregister"
 msgstr ""
 
-#: muss/i18n.py:11 muss/models.py:273 muss/models.py:348
+#: muss/i18n.py:11 muss/models.py:274 muss/models.py:349
 msgid "Topic"
 msgstr ""
 
@@ -264,7 +264,7 @@ msgstr ""
 msgid "Like"
 msgstr ""
 
-#: muss/i18n.py:52 muss/models.py:363
+#: muss/i18n.py:52 muss/models.py:364
 msgid "Comment"
 msgstr ""
 
@@ -320,7 +320,7 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: muss/i18n.py:65 muss/models.py:492
+#: muss/i18n.py:65 muss/models.py:494
 msgid "Location"
 msgstr ""
 
@@ -370,200 +370,208 @@ msgstr ""
 msgid "Informative Message"
 msgstr ""
 
-#: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:251
-#: muss/models.py:358 muss/models.py:570
+#: muss/i18n.py:77
+msgid "There are pending topics of moderation"
+msgstr ""
+
+#: muss/i18n.py:78
+msgid "The topic is pending of moderation"
+msgstr ""
+
+#: muss/models.py:32 muss/models.py:72 muss/models.py:169 muss/models.py:252
+#: muss/models.py:359 muss/models.py:585
 msgid "Description"
 msgstr ""
 
-#: muss/models.py:34
+#: muss/models.py:35
 msgid "If checked, this category will be visible only for staff"
 msgstr ""
 
-#: muss/models.py:39 muss/models.py:64
+#: muss/models.py:40 muss/models.py:65
 msgid "Category"
 msgstr ""
 
-#: muss/models.py:40
+#: muss/models.py:41
 msgid "Categories"
 msgstr ""
 
-#: muss/models.py:67
+#: muss/models.py:68
 msgid "Parent forum"
 msgstr ""
 
-#: muss/models.py:70
+#: muss/models.py:71
 msgid "Name"
 msgstr ""
 
-#: muss/models.py:78 muss/models.py:246 muss/models.py:356 muss/models.py:451
+#: muss/models.py:79 muss/models.py:247 muss/models.py:357 muss/models.py:452
 msgid "Date"
 msgstr ""
 
-#: muss/models.py:84
+#: muss/models.py:85
 msgid "Hidden"
 msgstr ""
 
-#: muss/models.py:85
+#: muss/models.py:86
 msgid "If hide the forum in the index page"
 msgstr ""
 
-#: muss/models.py:88
+#: muss/models.py:89
 msgid "Check topics"
 msgstr ""
 
-#: muss/models.py:89
+#: muss/models.py:90
 msgid "If the forum is moderated"
 msgstr ""
 
-#: muss/models.py:92
+#: muss/models.py:93
 msgid "Public"
 msgstr ""
 
-#: muss/models.py:94
+#: muss/models.py:95
 msgid "If the forum is public and don't to register to the forum"
 msgstr ""
 
-#: muss/models.py:186
+#: muss/models.py:187
 msgid "Message to inform"
 msgstr ""
 
-#: muss/models.py:187
+#: muss/models.py:188
 msgid "If you want to report a message to a forum"
 msgstr ""
 
-#: muss/models.py:190
+#: muss/models.py:191
 msgid "Message expires from"
 msgstr ""
 
-#: muss/models.py:191
+#: muss/models.py:192
 msgid "Date from message expired"
 msgstr ""
 
-#: muss/models.py:194
+#: muss/models.py:195
 msgid "Message expires to"
 msgstr ""
 
-#: muss/models.py:195
+#: muss/models.py:196
 msgid "Date to message expired"
 msgstr ""
 
-#: muss/models.py:199
+#: muss/models.py:200
 msgid "Message for forums"
 msgstr ""
 
-#: muss/models.py:200
+#: muss/models.py:201
 msgid "Messages for forums"
 msgstr ""
 
-#: muss/models.py:240 muss/models.py:353 muss/models.py:448
+#: muss/models.py:241 muss/models.py:354 muss/models.py:449
 msgid "User"
 msgstr ""
 
-#: muss/models.py:244
+#: muss/models.py:245
 msgid "Title"
 msgstr ""
 
-#: muss/models.py:249
+#: muss/models.py:250
 msgid "Last activity"
 msgstr ""
 
-#: muss/models.py:254
+#: muss/models.py:255
 msgid "File"
 msgstr ""
 
-#: muss/models.py:258
+#: muss/models.py:259
 msgid "Closed topic"
 msgstr "No loaded topics"
 
-#: muss/models.py:259
+#: muss/models.py:260
 msgid "If the topic is closed"
 msgstr "No loaded topics"
 
-#: muss/models.py:262
+#: muss/models.py:263
 msgid "Moderate"
 msgstr ""
 
-#: muss/models.py:263
+#: muss/models.py:264
 msgid "If the topic is moderated"
 msgstr ""
 
-#: muss/models.py:266
+#: muss/models.py:267
 msgid "Top"
 msgstr ""
 
-#: muss/models.py:267
+#: muss/models.py:268
 msgid "If the topic is important and it will go top"
 msgstr ""
 
-#: muss/models.py:274
+#: muss/models.py:275
 msgid "Topics"
 msgstr ""
 
-#: muss/models.py:364
+#: muss/models.py:365
 msgid "Comments"
 msgstr ""
 
-#: muss/models.py:457
+#: muss/models.py:458
 msgid "Registers"
 msgstr ""
 
-#: muss/models.py:488
+#: muss/models.py:490
 msgid "Photo"
 msgstr ""
 
-#: muss/models.py:490
+#: muss/models.py:492
 msgid "About me"
 msgstr ""
 
-#: muss/models.py:497
+#: muss/models.py:499
 msgid "Is troll"
 msgstr ""
 
-#: muss/models.py:498
+#: muss/models.py:500
 msgid "If the user is troll"
 msgstr ""
 
-#: muss/models.py:501
+#: muss/models.py:503
 msgid "Receive Emails"
 msgstr ""
 
-#: muss/models.py:502
+#: muss/models.py:504
 msgid "If receive Emails"
 msgstr ""
 
-#: muss/models.py:559
+#: muss/models.py:574
 msgid "Logo width"
 msgstr ""
 
-#: muss/models.py:560 muss/models.py:564
+#: muss/models.py:575 muss/models.py:579
 msgid "In pixels"
 msgstr ""
 
-#: muss/models.py:563
+#: muss/models.py:578
 msgid "Logo height"
 msgstr ""
 
-#: muss/models.py:567
+#: muss/models.py:582
 msgid "Custom design"
 msgstr ""
 
-#: muss/models.py:571
+#: muss/models.py:586
 msgid "Description site."
 msgstr ""
 
-#: muss/models.py:574
+#: muss/models.py:589
 msgid "Keywords"
 msgstr ""
 
-#: muss/models.py:575
+#: muss/models.py:590
 msgid "Keywords for the SEO."
 msgstr ""
 
-#: muss/models.py:579
+#: muss/models.py:594
 msgid "Configuration"
 msgstr ""
 
-#: muss/models.py:580
+#: muss/models.py:595
 msgid "Configurations"
 msgstr ""
 
@@ -588,12 +596,12 @@ msgstr ""
 msgid "You have one new comment in the topic: %(site)s"
 msgstr ""
 
-#: muss/notifications_email.py:102
+#: muss/notifications_email.py:103
 #, python-format
 msgid "New topic in %(site)s "
 msgstr ""
 
-#: muss/notifications_email.py:103
+#: muss/notifications_email.py:104
 #, python-format
 msgid "Added a new topic %(url_topic)s to the forum: %(site)s"
 msgstr ""
