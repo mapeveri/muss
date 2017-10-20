@@ -4,6 +4,9 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 
 from rest_framework_json_api import serializers
+from rest_framework_json_api.relations import (
+    SerializerMethodResourceRelatedField
+)
 
 from muss import models, utils
 from muss.api.fields import CustomFileField
@@ -12,6 +15,8 @@ from muss.validators import valid_extension_image
 
 # Serializers Users
 class UserSerializer(serializers.ModelSerializer):
+    # For profile relation
+    user = SerializerMethodResourceRelatedField(many=False, read_only=True)
     user_photo = serializers.SerializerMethodField()
 
     def get_user_photo(self, obj):

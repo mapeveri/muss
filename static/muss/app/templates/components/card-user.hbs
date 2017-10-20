@@ -1,8 +1,10 @@
 {{yield}}
 
 <div class="card">
-    <div class="image">
-        {{#link-to "profile" user.username}}<img src="{{ user.userPhoto}}">{{/link-to}}
+    <div class="image contentInside">
+        <center>
+            {{#link-to "profile" user.username}}<img src="{{ user.userPhoto}}" width="150" height="150">{{/link-to}}
+        </center>
     </div>
     <div class="content">
         <div class="header">{{ user.firstName }} {{ user.lastName }}</div>
@@ -11,7 +13,8 @@
         </div>
     </div>
     <div class="extra content">
-        <span class="right floated">
+        <span class="left floated">
+            {{utils/online-profile profile=user.user}}
             {{ user.email }}
         </span>
     </div>

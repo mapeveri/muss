@@ -3,7 +3,7 @@
 <div class="ui divider"></div>
 
 <h5>{{gettext "Moderators"}}</h5>
-<div class="ui link cards">
+<div class="ui six doubling cards">
     {{#each model.forum.moderators as |member|}}
         {{card-user user=member}}
     {{/each}}
@@ -11,7 +11,7 @@
 
 <div class="ui divider"></div>
 
-<div class="ui link cards">
+<div class="ui six doubling cards">
     {{#each model.users as |member|}}
         {{card-user user=member.user}}
     {{/each}}

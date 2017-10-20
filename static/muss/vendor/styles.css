@@ -203,3 +203,8 @@ pre code {
     background: #E0FFFF !important;
     border-radius: 1em !important;
 }
+
+/* For example for image can't outside div*/
+.contentInside {
+    overflow: hidden !important;
+}

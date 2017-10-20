@@ -8,19 +8,13 @@
                 <center>
                     <a class="header">{{ profile.user.firstName }} {{ profile.user.lastName }}</a>
                     <p>@{{ profile.user.username }}</p>
+                    {{utils/online-profile profile=profile}}
                 </center>
             </div>
         </div>
         <center>
-            {{#if profile.online }}
-                <a class="ui green label">Online</a>
-            {{else}}
-                <a class="ui red label">Online</a>
-            {{/if}}
-            <span>{{ profile.lastSeen }}</span>
-
             {{#if canEdit}}
-                <p><button class="ui button marginTop1" {{ action "showModalEditProfile" }}> {{ gettext "Edit" }}</button></p>
+                <p><button class="ui button mini marginTop1" {{ action "showModalEditProfile" }}> {{ gettext "Edit" }}</button></p>
             {{/if}}
         </center>
     </div>
@@ -85,7 +79,8 @@
                         {{input type="checkbox" checked=profile.receiveEmails name="receiveEmails" id="id_receiveEmails"}}
                     </div>
 
-                    <input type="button" {{action "editProfile"}} class="ui button" value={{gettext "Save"}} />
+                    <input type="button" {{action "editProfile"}} class="ui button mini" value={{gettext "Save"}} />
+                    <input type="button" {{action "hideEditProfile"}} class="ui button mini" value={{gettext "Cancel"}} />
                 </form>
             {{/if}}
         </div>

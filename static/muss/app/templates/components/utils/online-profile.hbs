@@ -1,0 +1,8 @@
+{{yield}}
+
+{{#if profile.online }}
+    <a class="ui green mini label">Online</a>
+{{else}}
+    <a class="ui red mini label">Online</a>
+{{/if}}
+<span>{{ profile.lastSeen }}</span>

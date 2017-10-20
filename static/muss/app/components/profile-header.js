@@ -28,12 +28,21 @@ export default Component.extend({
     actions: {
         /**
         * @method showModalEditProfile
-        * @description: Display form modal edit profile
+        * @description: Display form edit profile
         */
         showModalEditProfile() {
             $('#content-profile').hide('slow');
             $('#content-profile-edit').removeClass('hide');
             $('#content-profile-edit').show('slow');
+        },
+        /**
+        * @method hideEditProfile
+        * @description: Hide edit form
+        */
+        hideEditProfile() {
+            $('#content-profile-edit').hide('slow');
+            $('#content-profile-edit').addClass('hide');
+            $('#content-profile').show('slow');
         },
         /**
         * @method setPhoto
@@ -72,17 +81,16 @@ export default Component.extend({
                 this.profile.set('photo', null);
             }
 
+            let self = this;
             this.profile.save().then(() => {
                 if(clear) {
                     window.location.reload();
                 } else {
-                    $('#content-profile-edit').hide('slow');
-                    $('#content-profile-edit').addClass('hide');
-                    $('#content-profile').show('slow');
+                    self.actions.hideEditProfile();
                 }
             }).catch((err) => {
                 this.set('errorMessage', err.errors)
             });
-        }
+        },
     }
 });
