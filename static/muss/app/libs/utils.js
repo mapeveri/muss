@@ -49,3 +49,12 @@ export function getUrlConnectionWs() {
     let url = protocol + "//" + window.location.hostname + ":8000/ws/";
     return url;
 }
+
+/**
+* @method setTitlePage
+* @description: Update title page
+* @param {*} title
+*/
+export function setTitlePage(title) {
+    $(document).attr("title", title);
+}

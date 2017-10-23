@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { inject as service} from '@ember/service';
 import $ from 'jquery';
-import { getValidTypesImage } from '../libs/utils';
+import { getValidTypesImage, setTitlePage } from '../libs/utils';
 import { gettextHelper } from '../helpers/gettext';
 
 export default Component.extend({
@@ -10,9 +10,15 @@ export default Component.extend({
     currentUser: service('current-user'),
     idFormEdit: 'form-edit-profile',
     canEdit: false,
+    setTitleHtml: function() {
+        this.updateTitleHtml();
+    }.observes('profile.user.username'),
 
     didInsertElement() {
         this._super();
+
+        //Change title html
+        this.updateTitleHtml();
 
         if (this.get('session.isAuthenticated')) {
             let user_login = parseInt(this.get('currentUser').user.id);
@@ -24,6 +30,13 @@ export default Component.extend({
                 this.set('canEdit', true);
             }
         }
+    },
+    /**
+    * @method updateTitleHtml
+    * @description: Change title html
+    */
+    updateTitleHtml() {
+        setTitlePage(gettextHelper("Profile") + " - " + this.get('profile.user.username'));
     },
     actions: {
         /**

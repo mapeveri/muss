@@ -4,7 +4,7 @@ import { isPresent } from "@ember/utils";
 import $ from 'jquery';
 import config from './../config/environment';
 import { gettextHelper } from '../helpers/gettext';
-import { getUrlConnectionWs } from '../libs/utils';
+import { getUrlConnectionWs, setTitlePage } from '../libs/utils';
 
 export default Component.extend({
     store: service('store'),
@@ -27,6 +27,9 @@ export default Component.extend({
 
     didInsertElement() {
         this._super();
+
+        //Update title page html
+        setTitlePage(this.get('model.forum.name'));
 
         if (this.get('session.isAuthenticated')) {
             let user_login = parseInt(this.get('currentUser').user.id);

@@ -1,7 +1,8 @@
 import Component from '@ember/component';
 import { inject as service} from '@ember/service';
 import $ from 'jquery';
-import { getUrlConnectionWs } from '../libs/utils';
+import { getUrlConnectionWs, setTitlePage } from '../libs/utils';
+import { gettextHelper } from '../helpers/gettext';
 
 export default Component.extend({
     session: service('session'),
@@ -12,6 +13,9 @@ export default Component.extend({
 
     didInsertElement() {
         this._super();
+
+        //Update title page html
+        setTitlePage(gettextHelper("Notifications"));
 
         //If is authenticate, set connection ws for notifications
         if (this.get('session.isAuthenticated')) {

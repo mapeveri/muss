@@ -3,7 +3,7 @@ import { inject as service} from '@ember/service';
 import { isPresent } from "@ember/utils";
 import $ from 'jquery';
 import ENV from './../config/environment';
-import { closeAllEditor, getUrlConnectionWs, showModalLogin } from '../libs/utils';
+import { closeAllEditor, getUrlConnectionWs, setTitlePage, showModalLogin } from '../libs/utils';
 
 export default Component.extend({
     ajax: service('ajax'),
@@ -31,6 +31,9 @@ export default Component.extend({
 
     didInsertElement() {
         this._super();
+
+        //Update title page html
+        setTitlePage(this.get('topic.title'));
 
         if (this.get('session.isAuthenticated')) {
             //Check if user logged is the creator of topic
