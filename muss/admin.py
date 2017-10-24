@@ -9,7 +9,10 @@ from django.template.response import TemplateResponse
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
-from muss import forms, models, utils
+from muss import (
+    forms, models, utils, notifications_email as nt_email,
+    realtime, utils, notifications as nt
+)
 
 
 class TopicAdmin(admin.ModelAdmin):
@@ -39,7 +42,7 @@ class TopicAdmin(admin.ModelAdmin):
         )
         lista = []
         for f in forums:
-            lista.append(f.idforum)
+            lista.append(f.pk)
 
         return qs.filter(forum_id__in=lista)
 
@@ -51,11 +54,41 @@ class TopicAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         instance = form.save(commit=False)
+        is_moderate = False
+        forum = obj.forum
+        forum_id = obj.forum_id
+
         if not change:
-            instance.is_moderate = utils.check_topic_moderate(
-                request.user, obj.forum
+            is_moderate = utils.check_topic_moderate(
+                request.user, forum
             )
+            instance.is_moderate = is_moderate
+
         instance.save()
+
+        # Check if is create and is_moderate topic
+        if not change and is_moderate:
+            domain = utils.get_domain(request)
+            # Send email to moderators
+            nt_email.send_notification_topic_to_moderators(
+                forum, obj, domain
+            )
+
+            # Get moderators forum and send notification
+            list_us = nt.get_moderators_and_send_notification_topic(
+                request, forum, obj
+            )
+
+            # Data necessary for realtime
+            data = realtime.data_base_realtime(
+                obj, forum, True
+            )
+
+            # Send new notification realtime
+            realtime.new_notification(data, list_us)
+
+            # Send new topic in forum
+            realtime.new_topic_forum(forum_id, data)
 
     def delete_topic(self, request, queryset):
         """
@@ -67,13 +100,11 @@ class TopicAdmin(admin.ModelAdmin):
 
         if request.POST.get("post"):
             for obj in queryset:
-                idtopic = obj.idtopic
+                topic_id = obj.pk
                 # Remove folder attachment
-                utils.remove_folder_attachment(idtopic)
+                utils.remove_folder_attachment(topic_id)
                 # Delete record
-                models.Topic.objects.filter(
-                    idtopic=idtopic
-                ).delete()
+                models.Topic.objects.filter(pk=topic_id).delete()
 
             n = queryset.count()
             self.message_user(
@@ -100,7 +131,7 @@ class TopicAdmin(admin.ModelAdmin):
             context = {
                 'title': "",
                 'delete_topic': [queryset],
-                'ids': queryset.values_list("idtopic"),
+                'ids': queryset.values_list("pk"),
                 'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
                 'opts': opts,
                 'objects_name': objects_name,
@@ -148,14 +179,12 @@ class ForumAdmin(admin.ModelAdmin):
 
         if request.POST.get("post"):
             for obj in queryset:
-                idforum = obj.idforum
+                forum_id = obj.pk
                 # Remove permissions to moderators
                 obj.remove_user_permissions_moderator()
 
                 # Delete record
-                models.Forum.objects.filter(
-                    idforum=idforum
-                ).delete()
+                models.Forum.objects.filter(pk=forum_id).delete()
 
             n = queryset.count()
             self.message_user(
@@ -182,7 +211,7 @@ class ForumAdmin(admin.ModelAdmin):
             context = {
                 'title': "",
                 'delete_topic': [queryset],
-                'ids': queryset.values_list("idforum"),
+                'ids': queryset.values_list("pk"),
                 'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
                 'opts': opts,
                 'objects_name': objects_name,
@@ -201,13 +230,44 @@ class ForumAdmin(admin.ModelAdmin):
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = (
-        'topic', 'forum', 'user',
+        'topic', 'forum', 'date', 'user',
     )
     list_filter = ['topic', 'user']
     search_fields = ['topic', 'user']
 
     def forum(self, obj):
         return obj.topic.forum
+
+    def save_model(self, request, obj, form, change):
+        obj.save()
+        topic = obj.topic
+
+        # If is create
+        if not change:
+            # Send notifications comment
+            params = nt.get_users_and_send_notification_comment(
+                request, topic, obj
+            )
+            list_us = params['list_us']
+            list_email = params['list_email']
+
+            # Get url topic for email
+            url = utils.get_url_topic(request, topic)
+
+            # Send email
+            nt_email.send_mail_comment(str(url), list_email)
+
+            # Data necessary for realtime
+            data = realtime.data_base_realtime(
+                obj, topic.forum, False
+            )
+
+            # Send new notification realtime
+            realtime.new_notification(data, list_us)
+
+            # Send new comment in realtime
+            comment_description = obj.description
+            realtime.new_comment(data, comment_description)
 
     forum.short_description = _("Forum")
     forum.admin_order_field = 'topic__forum'

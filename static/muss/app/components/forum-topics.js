@@ -54,38 +54,36 @@ export default Component.extend({
     * @description: Connect to ws for get topics in realtime
     */
     connectionToWs() {
-        //If is moderate forum, not receive the topics
-        if(!this.get('model.forum.isModerate')) {
-            let urlWs = getUrlConnectionWs();
-            let url = urlWs + "forum?forum=" + this.get('model.forum.id');
-            let ws = new WebSocket(url);
-            ws.onmessage = (evt) => {
-                let json = evt.data;
-                let obj = JSON.parse(json);
+        let urlWs = getUrlConnectionWs();
+        let url = urlWs + "forum?forum=" + this.get('model.forum.id');
+        let ws = new WebSocket(url);
+        ws.onmessage = (evt) => {
+            let json = evt.data;
+            let obj = JSON.parse(json);
 
-                this.get('store').find('user', obj.topic.userid).then((user) => {
-                    //Add record
-                    let record = this.get('store').createRecord('topic', {
-                        forum: this.get('model.forum'),
-                        user: user,
-                        id: obj.topic.topicid,
-                        title: obj.topic.title,
-                        slug: obj.topic.slug,
-                        isModerate: true,
-                        totalComments: 0,
-                        views: 0,
-                        likes: 0,
-                        isClose: false,
-                        isTop: obj.topic.isTop,
-                        date: new Date().toLocaleString(),
-                        lastActivity: new Date().toLocaleString(),
-                        isRealTime: true,
-                    });
-
-                    this.get('model.topics').unshiftObject(record._internalModel);
+            this.get('store').find('user', obj.topic.userid).then((user) => {
+                //Add record
+                let record = this.get('store').createRecord('topic', {
+                    forum: this.get('model.forum'),
+                    user: user,
+                    id: obj.topic.topicid,
+                    title: obj.topic.title,
+                    slug: obj.topic.slug,
+                    isModerate: true,
+                    totalComments: 0,
+                    views: 0,
+                    likes: 0,
+                    isClose: false,
+                    isTop: obj.topic.isTop,
+                    date: new Date().toLocaleString(),
+                    lastActivity: new Date().toLocaleString(),
+                    isRealTime: true,
                 });
-            };
-        }
+
+                this.get('model.topics').unshiftObject(record._internalModel);
+            });
+        };
+
     },
     /**
     * @method FinishedLoading

@@ -66,6 +66,25 @@ def remove_file(route_file):
             os.remove(route_file)
 
 
+def get_folder_attachment(topic):
+    """
+    This method return the path of one folder attachment for app forum.
+    Args:
+        topic (obj): Topic object.
+    Returns:
+        str: Path attachment.
+    """
+    folder = ""
+    folder = "forum_" + str(topic.forum_id)
+    folder = folder + "_user_" + str(topic.user.username)
+    folder = folder + "_topic_" + str(topic.id_attachment)
+    path_folder = os.path.join("forum", folder)
+    media_path = settings.MEDIA_ROOT
+    path = media_path + "/" + path_folder
+
+    return path
+
+
 def remove_folder_attachment(pk):
     """
     This method remove folder attachment and subtract one topic.
@@ -303,3 +322,13 @@ def get_domain(request):
     protocol = 'https' if request.is_secure() else 'http'
     host = request.META['HTTP_HOST']
     return protocol + "://" + host
+
+
+def get_url_topic(request, topic):
+    """
+    Get url topic
+    """
+    url = ""
+    url += get_domain(request)
+    url += "/topic/" + str(topic.pk) + "/" + topic.slug + "/"
+    return url

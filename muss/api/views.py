@@ -189,31 +189,29 @@ class TopicViewSet(viewsets.ModelViewSet):
                         status=status.HTTP_400_BAD_REQUEST
                     )
 
-                domain = utils.get_domain(request)
-                # Send email to moderators
-                nt_email.send_notification_topic_to_moderators(
-                    forum, topic, domain
-                )
+                # If is moderate send notifications
+                if is_moderate:
+                    domain = utils.get_domain(request)
+                    # Send email to moderators
+                    nt_email.send_notification_topic_to_moderators(
+                        forum, topic, domain
+                    )
 
-                # Parameters for realtime
-                username = request.user.username
-                forum_name = forum.name
+                    # Get moderators forum and send notification
+                    list_us = nt.get_moderators_and_send_notification_topic(
+                        request, forum, topic
+                    )
 
-                # Get moderators forum and send notification
-                list_us = nt.get_moderators_and_send_notification_topic(
-                    request, forum, topic
-                )
+                    # Data necessary for realtime
+                    data = realtime.data_base_realtime(
+                        topic, forum, True
+                    )
 
-                # Data necessary for realtime
-                data = realtime.data_base_realtime(
-                    topic, forum, True
-                )
+                    # Send new notification realtime
+                    realtime.new_notification(data, list_us)
 
-                # Send new notification realtime
-                realtime.new_notification(data, list_us)
-
-                # Send new topic in forum
-                realtime.new_topic_forum(forum_id, data)
+                    # Send new topic in forum
+                    realtime.new_topic_forum(forum_id, data)
 
                 return Response(
                     serializer.data, status=status.HTTP_201_CREATED
@@ -366,9 +364,7 @@ class CommentViewSet(viewsets.ModelViewSet):
             list_email = params['list_email']
 
             # Get url for email
-            url = ""
-            url += utils.get_domain(request)
-            url += "/topic/" + str(topic.pk) + "/" + topic.slug + "/"
+            url = url = utils.get_url_topic(request, topic)
 
             # Send email
             nt_email.send_mail_comment(str(url), list_email)
