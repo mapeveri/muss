@@ -24,6 +24,7 @@ export default Component.extend({
     enableAddTopic: function() {
         return !isPresent(this.addTopicField) || !isPresent(this.addTopicTitle);
     }.property('addTopicField', 'addTopicTitle'),
+    isTrollUser: false,
 
     didInsertElement() {
         this._super();
@@ -128,6 +129,10 @@ export default Component.extend({
                 let isModerator = response.data.is_moderator;
                 let isTroll = response.data.is_troll;
 
+                //Set if is a troll user
+                this.set('isTrollUser', isTroll);
+
+                //Set if user is admin or moderator
                 this.set('isAdminOrModerator', isSuperUser || isModerator);
 
                 //Check if is a troll

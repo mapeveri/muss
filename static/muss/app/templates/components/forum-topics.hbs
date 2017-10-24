@@ -109,17 +109,19 @@
 {{/if}}
 
 
-{{#if session.isAuthenticated}}
-    {{#utils/modal-simple-mde-editor contentId="content-forum" contentClass="paddingEditorMdeCreate" field=addTopicField textareaId="textarea_topic" modalId="mdeAddTopicModal" as |section|}}
-        {{#if section.isSectionContent}}
-            <div class="marginBottom1">
-                {{input type="text" value=addTopicTitle placeholder=(gettext "Title")}}
-            </div>
-        {{/if}}
-        {{#if section.isSectionActions}}
-            <div class="ui mini blue labeled submit icon button {{if enableAddTopic 'disabled'}}" disabled={{enableAddTopic}} {{action "createTopic"}}>
-                <i class="icon edit"></i> {{gettext "Add topic"}}
-            </div>
-        {{/if}}
-    {{/utils/modal-simple-mde-editor}}
-{{/if}}
+{{#unless isTrollUser}}
+    {{#if session.isAuthenticated}}
+        {{#utils/modal-simple-mde-editor contentId="content-forum" contentClass="paddingEditorMdeCreate" field=addTopicField textareaId="textarea_topic" modalId="mdeAddTopicModal" as |section|}}
+            {{#if section.isSectionContent}}
+                <div class="marginBottom1">
+                    {{input type="text" value=addTopicTitle placeholder=(gettext "Title")}}
+                </div>
+            {{/if}}
+            {{#if section.isSectionActions}}
+                <div class="ui mini blue labeled submit icon button {{if enableAddTopic 'disabled'}}" disabled={{enableAddTopic}} {{action "createTopic"}}>
+                    <i class="icon edit"></i> {{gettext "Add topic"}}
+                </div>
+            {{/if}}
+        {{/utils/modal-simple-mde-editor}}
+    {{/if}}
+{{/unless}}

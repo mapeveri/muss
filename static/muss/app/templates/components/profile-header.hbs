@@ -9,6 +9,9 @@
                     <a class="header">{{ profile.user.firstName }} {{ profile.user.lastName }}</a>
                     <p>@{{ profile.user.username }}</p>
                     {{utils/online-profile profile=profile}}
+                    {{#if profile.isTroll}}
+                        <p class="red-color"><b>{{gettext "Is troll"}}</b></p>
+                    {{/if}}
                 </center>
             </div>
         </div>

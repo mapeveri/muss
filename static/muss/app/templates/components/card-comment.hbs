@@ -5,11 +5,18 @@
         <img src="{{ comment.user.userPhoto }}">
     {{/link-to}}
     <div class="content">
-        {{#if isCreatorComment}}
-            <div class="pull-right pointer" {{action "confirmRemoveComment" comment.id}}>x</div>
-        {{/if}}
+        {{#unless isTrollUser}}
+            {{#if isCreatorComment}}
+                <div class="pull-right pointer" {{action "confirmRemoveComment" comment.id}}>x</div>
+            {{/if}}
+        {{/unless}}
 
-        {{#link-to "profile" comment.user.username class="author"}} {{ comment.user.username }} {{/link-to}}
+        {{#link-to "profile" comment.user.username class="author"}}
+            {{ comment.user.username }}
+            {{#if comment.user.user.isTroll}}
+                <span class="red-color"><b>{{gettext "Is troll"}}</b></span>
+            {{/if}}
+        {{/link-to}}
         <div class="metadata">
             <span class="date">{{ comment.date }}</span>
         </div>
@@ -17,11 +24,16 @@
             {{{ comment.htmlDescription }}}
         </div>
         <div class="actions">
+            {{#unless isTrollUser}}
             <a class="reply" {{ action "replyComment" }}>{{gettext "Reply"}}</a>
+            {{/unless}}
 
-            {{#if isCreatorComment}}
-                 <a class="reply" {{ action "showEditComment" }}> <i class="edit icon"></i>{{gettext "Edit"}}</a>
-            {{/if}}
+            {{#unless isTrollUser}}
+                {{#if isCreatorComment}}
+                    <a class="reply" {{ action "showEditComment" }}> <i class="edit icon"></i>{{gettext "Edit"}}</a>
+                {{/if}}
+            {{/unless}}
+
             {{#if showLike }}
             <a {{action "likeComment" }}> <i class="thumbs outline up icon"></i></a>
             {{else}}
@@ -33,22 +45,24 @@
 
 <div class="ui divider"></div>
 
-{{#utils/form-modal title_modal="Remove comment" id=(concat "comment_" comment.id) hasUiForShowModal=false customActions=true as |section|}}
-    {{#if section.isSectionActions}}
-        <!-- Section actions -->
-        <button class="ui red button" {{ action "removeComment"}}>{{gettext "Remove"}}</button>
-    {{/if}}
+{{#unless isTrollUser}}
+    {{#utils/form-modal title_modal="Remove comment" id=(concat "comment_" comment.id) hasUiForShowModal=false customActions=true as |section|}}
+        {{#if section.isSectionActions}}
+            <!-- Section actions -->
+            <button class="ui red button" {{ action "removeComment"}}>{{gettext "Remove"}}</button>
+        {{/if}}
 
-    {{#if section.isSectionContent}}
-        <!-- Section default content -->
-        {{gettext "Do you want remove this comment?"}}
-    {{/if}}
-{{/utils/form-modal}}
+        {{#if section.isSectionContent}}
+            <!-- Section default content -->
+            {{gettext "Do you want remove this comment?"}}
+        {{/if}}
+    {{/utils/form-modal}}
 
-{{#utils/modal-simple-mde-editor contentId="content-topic" field=contentEdit textareaId=(concat "edit_comment_" comment.id) modalId=(concat "mdeEditModal_" comment.id) as |section|}}
-    {{#if section.isSectionActions}}
-        <div class="ui mini blue labeled submit icon button {{if enableContentEdit 'disabled'}}" disabled={{enableContentEdit}} {{ action "editComment" }}>
-            <i class="icon edit"></i> {{gettext "Edit"}}
-        </div>
-    {{/if}}
-{{/utils/modal-simple-mde-editor}}
+    {{#utils/modal-simple-mde-editor contentId="content-topic" field=contentEdit textareaId=(concat "edit_comment_" comment.id) modalId=(concat "mdeEditModal_" comment.id) as |section|}}
+        {{#if section.isSectionActions}}
+            <div class="ui mini blue labeled submit icon button {{if enableContentEdit 'disabled'}}" disabled={{enableContentEdit}} {{ action "editComment" }}>
+                <i class="icon edit"></i> {{gettext "Edit"}}
+            </div>
+        {{/if}}
+    {{/utils/modal-simple-mde-editor}}
+{{/unless}}

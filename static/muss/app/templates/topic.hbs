@@ -7,10 +7,10 @@
     <div class="active section">{{ model.topic.title }}</div>
     </div>
 
-    {{topic-header topic=model.topic comments=model.comments redirectForum='redirectoToForum'}}
+    {{topic-header topic=model.topic comments=model.comments profile=model.profile redirectForum='redirectoToForum'}}
 
     <div class="marginTop4">
-        {{list-comments comments=model.comments topic=model.topic}}
+        {{list-comments comments=model.comments topic=model.topic profile=model.profile}}
     </div>
 
     {{#if model.comments}}

@@ -11,6 +11,10 @@
                 {{#link-to "profile" topic.user.username}}
                     <img class="ui avatar image" src="{{ topic.user.userPhoto }}">
                     <span> {{ topic.user.username }} </span>
+
+                    {{#if topic.user.user.isTroll}}
+                        <span class="red-color"><b>{{gettext "Is troll"}}</b></span>
+                    {{/if}}
                 {{/link-to}}
                 <div class="marginTop1 text-content">
                     <span>{{{ topic.htmlDescription }}}</span>
@@ -97,16 +101,19 @@
                     <p>
                         <div class="ui grid pull-right">
                             <div class="sixteen wide column">
-                                {{#if (and session.isAuthenticated isCreatorTopic)}}
-                                    {{#if topic.isClose}}
-                                        <button class="circular ui icon button" {{ action "openTopic" }} title="{{gettext "Open topic" }}"><i class="fa fa-key"></i></button>
-                                    {{else}}
-                                        <button class="circular ui icon button" {{ action "closeTopic" }} title="{{gettext "Close topic" }}"><i class="window close outline icon"></i></button>
+                                {{#unless isTrollUser}}
+                                    {{#if (and session.isAuthenticated isCreatorTopic)}}
+                                        {{#if topic.isClose}}
+                                            <button class="circular ui icon button" {{ action "openTopic" }} title="{{gettext "Open topic" }}"><i class="fa fa-key"></i></button>
+                                        {{else}}
+                                            <button class="circular ui icon button" {{ action "closeTopic" }} title="{{gettext "Close topic" }}"><i class="window close outline icon"></i></button>
+                                        {{/if}}
+                                        <button class="circular ui icon button" {{ action 'showEditTopic' }} title="{{ gettext "Edit" }}"><i class="edit icon"></i></button>
+                                        <button class="circular ui icon button red" {{action "confirmRemoveTopic" topic.id}} title="{{ gettext "Delete" }}"><i class="trash outline icon"></i></button>
                                     {{/if}}
-                                    <button class="circular ui icon button" {{ action 'showEditTopic' }} title="{{ gettext "Edit" }}"><i class="edit icon"></i></button>
-                                    <button class="circular ui icon button red" {{action "confirmRemoveTopic" topic.id}} title="{{ gettext "Delete" }}"><i class="trash outline icon"></i></button>
-                                {{/if}}
-                                <button class="circular ui icon button" {{ action "replyComment" }} title="{{ gettext "Reply" }}"><i class="reply icon"></i></button>
+
+                                    <button class="circular ui icon button" {{ action "replyTopic" }} title="{{ gettext "Reply" }}"><i class="reply icon"></i></button>
+                                {{/unless}}
                             </div>
                         </div>
                         <br />
@@ -133,34 +140,35 @@
         </div>
     </div>
 
-    {{#if session.isAuthenticated}}
-        {{#utils/form-modal title_modal="Remove topic" id=(concat "topic_" topic.id) hasUiForShowModal=false customActions=true as |section|}}
-            {{#if section.isSectionActions}}
-                <!-- Section actions -->
-                <button class="ui red button" {{ action "removeTopic"}}>{{gettext "Remove"}}</button>
-            {{/if}}
+    {{#unless isTrollUser}}
+        {{#if session.isAuthenticated}}
+            {{#utils/form-modal title_modal="Remove topic" id=(concat "topic_" topic.id) hasUiForShowModal=false customActions=true as |section|}}
+                {{#if section.isSectionActions}}
+                    <!-- Section actions -->
+                    <button class="ui red button" {{ action "removeTopic"}}>{{gettext "Remove"}}</button>
+                {{/if}}
 
-            {{#if section.isSectionContent}}
-                <!-- Section default content -->
-                {{gettext "Do you want remove this topic?"}}
-            {{/if}}
-        {{/utils/form-modal}}
+                {{#if section.isSectionContent}}
+                    <!-- Section default content -->
+                    {{gettext "Do you want remove this topic?"}}
+                {{/if}}
+            {{/utils/form-modal}}
 
 
-        {{#utils/modal-simple-mde-editor contentId="content-topic" contentClass="paddingEditorMdeCreate" field=editTopicField textareaId="edit_topic" modalId="mdeEditTopicModal" as |section|}}
-            {{#if section.isSectionContent}}
-                <div class="marginBottom1">
-                    {{input type="text" value=editTopicTitle placeholder=(gettext "Title")}}
-                </div>
-            {{/if}}
-            {{#if section.isSectionActions}}
-                <div class="ui mini blue labeled submit icon button {{if enableEditTopic 'disabled'}}" disabled={{enableEditTopic}} {{action "editTopic"}}>
-                    <i class="icon edit"></i> {{gettext "Edit"}}
-                </div>
-            {{/if}}
-        {{/utils/modal-simple-mde-editor}}
-    {{/if}}
-
+            {{#utils/modal-simple-mde-editor contentId="content-topic" contentClass="paddingEditorMdeCreate" field=editTopicField textareaId="edit_topic" modalId="mdeEditTopicModal" as |section|}}
+                {{#if section.isSectionContent}}
+                    <div class="marginBottom1">
+                        {{input type="text" value=editTopicTitle placeholder=(gettext "Title")}}
+                    </div>
+                {{/if}}
+                {{#if section.isSectionActions}}
+                    <div class="ui mini blue labeled submit icon button {{if enableEditTopic 'disabled'}}" disabled={{enableEditTopic}} {{action "editTopic"}}>
+                        <i class="icon edit"></i> {{gettext "Edit"}}
+                    </div>
+                {{/if}}
+            {{/utils/modal-simple-mde-editor}}
+        {{/if}}
+    {{/unless}}
     {{yield}}
 {{else}}
     {{utils/loading-spinner}}

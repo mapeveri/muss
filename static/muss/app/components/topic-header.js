@@ -28,6 +28,7 @@ export default Component.extend({
     enableEditTopic: function() {
         return !isPresent(this.editTopicField) || !isPresent(this.editTopicTitle);
     }.property('editTopicField', 'editTopicTitle'),
+    isTrollUser: false,
 
     didInsertElement() {
         this._super();
@@ -44,6 +45,9 @@ export default Component.extend({
                 this.set('isCreatorTopic', true);
             }
 
+            //Set is the user logged is a troll
+            this.set('isTrollUser', this.get('profile.isTroll'));
+            //Set topic id
             this.set('topicId', this.get('topic.id'));
 
             //Check user like in topic
@@ -196,10 +200,10 @@ export default Component.extend({
             this.topic.save();
         },
         /**
-        * @method replyComment
+        * @method replyTopic
         * @description: Go to reply form
         */
-        replyComment() {
+        replyTopic() {
             if(this.get('session.isAuthenticated')) {
                 //If exists other editor mde opened, when close all
                 closeAllEditor();

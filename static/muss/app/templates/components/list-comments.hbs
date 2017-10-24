@@ -2,10 +2,12 @@
   <h3 class="ui dividing header">{{gettext "Comments" }}</h3>
 
     {{#each comments as |comment|}}
-        {{card-comment comment=comment comments=comments}}
+        {{card-comment comment=comment comments=comments isTrollUser=isTrollUser}}
     {{/each}}
 
-    {{reply-comment topic=topic comments=comments}}
+    {{#unless isTrollUser}}
+        {{reply-comment topic=topic comments=comments}}
+    {{/unless}}
 </div>
 <br />
 {{yield}}

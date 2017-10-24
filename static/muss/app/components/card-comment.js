@@ -31,6 +31,7 @@ export default Component.extend({
                 this.set('isCreatorComment', true);
             }
 
+            //Set comment id
             this.set('commentId', this.get('comment.id'));
 
             //Check if exists like user logged
@@ -108,10 +109,14 @@ export default Component.extend({
         * @description: Show modal reply form
         */
         replyComment() {
-            //If exists other editor mde opened, when close all
-            closeAllEditor();
-            //Show modal editor
-            $("#mdeReplyModal").addClass('mde-modal-content-open').height(300).trigger("open");
+            if(this.get('session.isAuthenticated')) {
+                //If exists other editor mde opened, when close all
+                closeAllEditor();
+                //Show modal editor
+                $("#mdeReplyModal").addClass('mde-modal-content-open').height(300).trigger("open");
+            } else {
+                showModalLogin();
+            }
         },
         /**
         * @method showEditComment
