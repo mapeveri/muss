@@ -1,5 +1,6 @@
 psycopg2
 Django==1.11.4
+django-admin-interface==0.5.8
 channels==1.1.6
 asgi-redis==1.4.2
 djangorestframework==3.6.4
