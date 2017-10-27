@@ -167,8 +167,6 @@ class Migration(migrations.Migration):
                 ('date', models.DateTimeField(auto_now=True, verbose_name='Date')),
                 ('last_activity', models.DateTimeField(auto_now=True, verbose_name='Last activity')),
                 ('description', models.TextField(verbose_name='Description')),
-                ('id_attachment', models.CharField(blank=True, max_length=200, null=True)),
-                ('attachment', models.FileField(blank=True, null=True, upload_to=muss.models.Topic.generate_path, validators=[muss.validators.valid_extension_image], verbose_name='File')),
                 ('is_close', models.BooleanField(default=False, help_text='If the topic is closed', verbose_name='Closed topic')),
                 ('is_moderate', models.BooleanField(default=False, help_text='If the topic is moderated', verbose_name='Moderate')),
                 ('is_top', models.BooleanField(default=False, help_text='If the topic is important and it will go top', verbose_name='Top')),

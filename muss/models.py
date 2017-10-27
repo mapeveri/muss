@@ -12,8 +12,8 @@ from django.db import models
 from django.shortcuts import get_object_or_404
 from django.template import defaultfilters
 from django.utils import timezone
-from django.utils.timesince import timesince
 from django.utils.crypto import get_random_string
+from django.utils.timesince import timesince
 from django.utils.translation import ugettext_lazy as _
 
 from .validators import valid_extension_image
@@ -223,16 +223,6 @@ class Topic(models.Model):
         :param is_top: If the topic go to top in the forum.
         :param: total_likes: Total likes of the topic.
     """
-    def generate_path(instance, filename):
-        """
-        Generate path to field Attchment
-        """
-        folder = ""
-        folder = "forum_" + str(instance.forum_id)
-        folder = folder + "_user_" + str(instance.user)
-        folder = folder + "_topic_" + str(instance.id_attachment)
-        return os.path.join("forum", folder, filename)
-
     forum = models.ForeignKey(
         Forum, related_name='forums', verbose_name=_('Forum'),
         on_delete=models.CASCADE
@@ -250,11 +240,6 @@ class Topic(models.Model):
         _('Last activity'), blank=False, auto_now=True, db_index=False
     )
     description = models.TextField(_('Description'), blank=False, null=False)
-    id_attachment = models.CharField(max_length=200, null=True, blank=True)
-    attachment = models.FileField(
-        _('File'), blank=True, null=True, upload_to=generate_path,
-        validators=[valid_extension_image]
-    )
     is_close = models.BooleanField(
         _('Closed topic'), default=False,
         help_text=_('If the topic is closed')
@@ -278,25 +263,7 @@ class Topic(models.Model):
         return self.title
 
     def delete(self, *args, **kwargs):
-        pk = self.pk
-        forum = self.forum_id
-
-        topic = get_object_or_404(Topic, pk=pk)
-
-        folder = ""
-        folder = "forum_" + str(forum)
-        folder = folder + "_user_" + str(topic.user.username)
-        folder = folder + "_topic_" + str(topic.id_attachment)
-        path_folder = os.path.join("forum", folder)
-        media_path = settings.MEDIA_ROOT
-        path = media_path + "/" + path_folder
-
-        # Remove attachment if exists
-        from .utils import remove_folder, exists_folder
-        if exists_folder(path):
-            remove_folder(path)
-
-        Topic.objects.filter(pk=pk).delete()
+        Topic.objects.filter(pk=self.pk).delete()
         self.update_forum_topics(
             self.forum.category.name, self.forum, "subtraction"
         )
@@ -308,7 +275,6 @@ class Topic(models.Model):
                 self.forum.category.name, self.forum, "sum"
             )
 
-        self.generate_id_attachment(self.id_attachment)
         super(Topic, self).save(*args, **kwargs)
 
     def update_forum_topics(self, category, forum, action):
@@ -325,13 +291,6 @@ class Topic(models.Model):
             Forum.objects.filter(name=forum).update(
                 topics_count=F('topics_count') - 1
             )
-
-    def generate_id_attachment(self, value):
-        """
-        Generate id for attchments files
-        """
-        if not value:
-            self.id_attachment = get_random_string(length=32)
 
 
 class Comment(models.Model):
@@ -608,3 +567,23 @@ class HitcountTopic(models.Model):
     """
     topic = models.ForeignKey(Topic, related_name='topichitcount')
     data = JSONField()
+
+
+class Upload(models.Model):
+    def generate_path(instance, filename):
+        """
+        Generate path to field attachment
+        """
+        extension = os.path.splitext(filename)[1]
+        name_random = get_random_string(length=32)
+        filename = name_random + extension
+        return os.path.join("uploads", filename)
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name='users_uploads',
+        verbose_name=_('User'), on_delete=models.CASCADE
+    )
+    attachment = models.FileField(
+        _('File'), blank=False, null=False, upload_to=generate_path,
+        validators=[valid_extension_image]
+    )

@@ -717,3 +717,20 @@ class UpdateSeenNotifications(APIView):
                 raise Http404
         else:
             raise Http404
+
+
+class UploadsView(APIView):
+    """
+    Upload files in editor
+    """
+    def post(self, request, format=None):
+        urls = []
+        for file_name in self.request.FILES:
+            file = self.request.FILES[file_name]
+            r = models.Upload.objects.create(
+                user=request.user, attachment=file
+            )
+            domain = utils.get_domain(request)
+            url = domain + settings.MEDIA_URL + r.attachment.name
+            urls.append(url)
+        return Response({"success": True, "urls": urls})

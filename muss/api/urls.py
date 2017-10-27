@@ -41,4 +41,6 @@ urlpatterns = [
     # Update is_seen property in notification by user
     url(r'^update-seen-notifications-user/$',
         views.UpdateSeenNotifications.as_view()),
+    # Uploads files
+    url(r'^uploads/$', views.UploadsView.as_view()),
 ]

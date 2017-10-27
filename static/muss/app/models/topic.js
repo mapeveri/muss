@@ -9,8 +9,6 @@ export default DS.Model.extend({
     lastActivity: DS.attr(),
     description: DS.attr('string'),
     htmlDescription: DS.attr(),
-    attachment: DS.attr('string'),
-    idAttachment: DS.attr('string'),
     isClose: DS.attr('boolean'),
     isModerate: DS.attr('boolean'),
     isTop: DS.attr('boolean'),
