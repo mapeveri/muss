@@ -52,10 +52,9 @@ export default TextArea.extend({
                                 let urls = response.data.urls;
 
                                 urls.forEach((url) => {
-                                    cm.replaceSelection(cm, true, options.insertTexts.image, url);
-                                })
-                            }).catch(() => {
-                                window.toastr.error('Fail upload file.');
+                                    let imageMarkdownTag = options.insertTexts.image;
+                                    cm.replaceSelection(imageMarkdownTag[0] + imageMarkdownTag[1].replace("#url#", url));
+                                });
                             });
                         }
                     }
@@ -64,7 +63,7 @@ export default TextArea.extend({
                 title: 'Insert Image',
             },
             "horizontal-rule", "|", "preview",
-            "side-by-side", "fullscreen", "guide"
+            /*"side-by-side", "fullscreen", "guide"*/
         ]);
     },
     didInsertElement() {
