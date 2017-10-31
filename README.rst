@@ -1,6 +1,12 @@
 Muss
 ====
 
+.. image:: https://coveralls.io/repos/github/mapeveri/muss/badge.svg?branch=master
+    :target: https://coveralls.io/github/mapeveri/muss?branch=master
+
+.. image:: https://travis-ci.org/mapeveri/muss.svg?branch=master
+    :target: https://travis-ci.org/mapeveri/muss
+
 Muss is a 100% open source forum developed with Django and Ember.js.
 
 
