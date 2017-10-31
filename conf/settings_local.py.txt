@@ -6,7 +6,7 @@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Site data
 SITE_ID = 1
@@ -35,5 +35,5 @@ DATABASES = {
         }
 }
 
-DATE_INPUT_FORMATS = ('%d/%m/%Y', '%Y-%m-%d')
-DATETIME_INPUT_FORMATS = ('%d/%m/%Y %H:%M:%S', '%Y-%m-%d %H:%M:%S')
+DATE_INPUT_FORMATS = ('%d/%m/%Y',)
+DATETIME_INPUT_FORMATS = ('%d/%m/%Y %H:%M:%S',)

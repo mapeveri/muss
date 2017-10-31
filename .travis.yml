@@ -13,7 +13,13 @@ branches:
   only:
     - master
 
+addons:
+  postgresql: "9.4"
+
 install:
+  - cd conf
+  - mv settings_local.py.txt settings_local.py
+  - cd ..
   - pip install -r requirements.txt
   - pip install -r requirements-dev.txt
 
