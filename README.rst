@@ -59,13 +59,14 @@ Configuration and installation
 
 3. In main folder execute:
 
-    python manage.py migrate
+    python manage.py migrate admin_interface
+    python manage.py migrate muss
 
     python manage.py createsuperuser
 
-3. Again go to the folder /conf/ and execute:
+3. Execute:
 
-    python manage.py loaddata theme.json
+    python manage.py loaddata conf/theme.json
 
 4. Go to the folder /static/muss and execute:
 
