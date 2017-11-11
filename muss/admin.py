@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from muss import (
     forms, models, utils, notifications_email as nt_email,
-    realtime, utils, notifications as nt
+    realtime, notifications as nt
 )
 
 

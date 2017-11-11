@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.dispatch import receiver
 
-from muss import models, notifications_email as nt_email, utils
+from muss import models, notifications_email as nt_email
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

@@ -1,9 +1,6 @@
-from itertools import chain
-
 from django.db.models import F, Q
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse_lazy
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
@@ -262,9 +259,6 @@ class RegisterViewSet(viewsets.ModelViewSet):
             self.queryset = forum.register_forums.filter(
                 ~Q(user__in=moderators)
             )
-
-            # Add moderator to members
-            # users = list(chain(registers, moderators))
         return self.queryset
 
     def create(self, request, **kwargs):

@@ -44,7 +44,7 @@ Built With
 1. Python/Django
 2. Ember.js
 3. Semantic UI
-4. PostgreSQL or MySQL
+4. PostgreSQL or MySQL (Preferably PostgreSQL)
 5. Redis
 
 
@@ -60,6 +60,7 @@ Configuration and installation
 3. In main folder execute:
 
     python manage.py migrate admin_interface
+
     python manage.py migrate muss
 
     python manage.py createsuperuser

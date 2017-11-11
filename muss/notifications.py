@@ -83,8 +83,6 @@ def get_users_and_send_notification_comment(request, topic, comment):
     Returns:
         dict: List users and list_emails.
     """
-    now = timezone.now()
-
     myuser = request.user
     # Send notifications
     list_us, list_emails = get_users_topic(topic, myuser.id)

@@ -12,13 +12,47 @@ from muss.models import (
 from muss.tests import utils
 
 
+class CategoryTestCase(TestCase):
+    """
+    Test create/update/delete category
+    """
+    def test_create_update_delete_category(self):
+        utils.create_category()
+
+        Category.objects.filter(
+            name="Backend"
+        ).update(
+            description="Backend category test"
+        )
+
+        Category.objects.filter(
+            name="Backend"
+        ).delete()
+
+
+class ForumTestCase(TestCase):
+    """
+    Test create/update/delete forum
+    """
+    def setUp(self):
+        utils.create_user()
+        utils.create_category()
+
+    def test_create_update_delete_forum(self):
+        utils.create_forum()
+        f = Forum.objects.filter(name="Django")
+        f.update(
+            description="Forum django framework"
+        )
+        f.delete()
+
+
 class CreateTopicTestCase(TestCase):
     """
     Test create topic
     """
     def test_create_topic(self):
         user = utils.create_user()
-        date = timezone.now()
         utils.create_topic(user)
 
 
@@ -132,7 +166,7 @@ class AddRegisterTestCase(TestCase):
     Test add register to forum
     """
     def setUp(self):
-        user = utils.create_user()
+        utils.create_user()
         utils.create_forum()
 
     def test_add_register_forum(self):
@@ -148,7 +182,7 @@ class UnRegisterTopicTestCase(TestCase):
     Test Unregister to forum
     """
     def setUp(self):
-        user = utils.create_user()
+        utils.create_user()
         utils.create_forum()
 
     def test_unregister_forum(self):
@@ -205,7 +239,6 @@ class EditProfileTestCase(TestCase):
         utils.create_user()
 
     def test_edit_profile(self):
-        User = get_user_model()
         Profile.objects.filter(user_id=1).update(
             photo="", about="Example about", location="this.location",
             activation_key="", key_expires=timezone.now(),
