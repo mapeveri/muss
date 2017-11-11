@@ -172,8 +172,9 @@ class AddRegisterTestCase(TestCase):
     def test_add_register_forum(self):
         User = get_user_model()
         user = User.objects.get(username="admin")
+        forum = Forum.objects.get(name="Django")
         Register.objects.create(
-            user=user, date=timezone.now(), forum_id=1
+            user=user, date=timezone.now(), forum=forum
         )
 
 
@@ -186,8 +187,11 @@ class UnRegisterTopicTestCase(TestCase):
         utils.create_forum()
 
     def test_unregister_forum(self):
+        User = get_user_model()
+        user = User.objects.get(username="admin")
+        forum = Forum.objects.get(name="Django")
         Register.objects.filter(
-            user_id=1, forum_id=1,
+            user=user, forum=forum
         ).delete()
 
 

@@ -31,6 +31,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
     resource_name = 'users'
+    http_method_names = ['get', 'post']
 
 
 # ViewSets for category
@@ -346,10 +347,6 @@ class CommentViewSet(viewsets.ModelViewSet):
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
-            # Parameters for notification comments
-            username = request.user.username
-            forum = topic.forum.name
-
             # Send notifications comment
             params = nt.get_users_and_send_notification_comment(
                 request, topic, comment
@@ -410,7 +407,9 @@ class ProfileViewSet(viewsets.ModelViewSet):
             receive_emails = True if r_emails == 'true' else False
             instance.receive_emails = receive_emails
 
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer = self.get_serializer(
+            instance, data=request.data, partial=partial
+        )
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
 
@@ -719,12 +718,13 @@ class UploadsView(APIView):
     """
     def post(self, request, format=None):
         urls = []
-        for file_name in self.request.FILES:
-            file = self.request.FILES[file_name]
-            r = models.Upload.objects.create(
-                user=request.user, attachment=file
-            )
-            domain = utils.get_domain(request)
-            url = domain + settings.MEDIA_URL + r.attachment.name
-            urls.append(url)
+        if request.user.is_authenticated():
+            for file_name in self.request.FILES:
+                file = self.request.FILES[file_name]
+                r = models.Upload.objects.create(
+                    user=request.user, attachment=file
+                )
+                domain = utils.get_domain(request)
+                url = domain + settings.MEDIA_URL + r.attachment.name
+                urls.append(url)
         return Response({"success": True, "urls": urls})
