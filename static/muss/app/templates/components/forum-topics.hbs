@@ -25,7 +25,7 @@
     {{/each}}
 
     <div class="ui grid marginBottom1">
-        <div class="fourteen wide column">
+        <div class="thirteen wide column">
             {{#unless model.forum.publicForum}}
                 {{#if session.isAuthenticated}}
                     {{#unless isAdminOrModerator}}
@@ -48,12 +48,12 @@
                 </div>
             {{/if}}
         </div>
-        <div class="two wide column">
+        <div class="three wide column">
             <div class="ui right floated mini icon button">
                 <a href="{{ rssUrl }}{{ model.forum.id }}/{{ model.forum.slug }}/" target="_blank"><div class="column"><i class="rss icon"></i>Rss</div></a>
             </div>
-            <div class="ui right">
-                {{#link-to "members-forum" model.forum.id model.forum.slug}} {{gettext "Members"}} {{/link-to}}
+            <div class="ui right floated mini icon button">
+                {{#link-to "members-forum" model.forum.id model.forum.slug}}<i class="users icon"></i> {{gettext "Members"}} {{/link-to}}
             </div>
         </div>
     </div>
@@ -73,7 +73,7 @@
             <tr class="{{if topic.isRealTime 'hightTopic'}}">
                 <td>
                    {{#link-to "profile" topic.user.username class="ui image header fontSizeTitle"}}
-                        <img src="{{ topic.user.userPhoto }}" class="ui mini rounded image">
+                        <img src="{{ topic.user.userPhoto }}" class="ui avantar image">
                         <div class="content">
                             {{#if topic.isClose}}
                                 <p class="red-color marginBottom01"><strong>{{gettext "This topic is closed"}}</strong></p>
@@ -83,15 +83,15 @@
                         </div>
                     {{/link-to}}
                 </td>
-                <td>{{#link-to "profile" topic.user.username}} {{ topic.user.username }} {{/link-to}}</td>
+                <td><i class="user icon"></i> {{#link-to "profile" topic.user.username}} {{ topic.user.username }} {{/link-to}}</td>
                 <td>
-                    <b>{{ topic.totalComments }}</b>
+                    <i class="users icon"></i> {{ topic.totalComments }}
                 </td>
                 <td>
-                    {{ topic.views }}
+                    <i class="unhide icon"></i> {{ topic.views }}
                 </td>
                 <td>
-                    {{ topic.lastActivity}}
+                    <i class="calendar icon"></i> {{ topic.lastActivity}}
                 </td>
             </tr>
             {{/each}}

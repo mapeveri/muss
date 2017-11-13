@@ -18,10 +18,10 @@
                  {{/link-to}}
             </td>
             <td>
-                {{#link-to "profile" topic.user.username}} {{ topic.user.username }} {{/link-to}}
+                <i class="user icon"></i> {{#link-to "profile" topic.user.username}} {{ topic.user.username }} {{/link-to}}
             </td>
             <td>
-                {{ topic.date }}
+                <i class="calendar icon"></i> {{ topic.date }}
             </td>
         </tr>
         {{/each}}

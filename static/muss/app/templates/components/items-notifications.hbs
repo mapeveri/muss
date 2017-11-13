@@ -8,7 +8,7 @@
                 {{/link-to}}
                 {{gettext "By"}} {{ notification.topic.username }}
                 {{#unless inDropdown}}
-                <div class="description marginTop1">{{ notification.date  }}</div>
+                <div class="description marginTop1"> <i class="calendar icon"></i> {{ notification.date  }}</div>
                 {{/unless}}
             </div>
         {{else}}
@@ -18,7 +18,7 @@
                     {{ notification.comment.title }}
                 {{/link-to}}
                 {{#unless inDropdown}}
-                <div class="description marginTop1">{{ notification.date  }}</div>
+                <div class="description marginTop1"> <i class="calendar icon"></i> {{ notification.date  }}</div>
                 {{/unless}}
             </div>
         {{/if}}

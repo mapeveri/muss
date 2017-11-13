@@ -72,6 +72,7 @@ Configuration and installation
 4. Go to the folder /static/muss and execute:
 
     npm install
+
     bower install
 
 
