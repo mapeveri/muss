@@ -44,7 +44,7 @@ Built With
 1. Python/Django
 2. Ember.js
 3. Semantic UI
-4. PostgreSQL or MySQL (Preferably PostgreSQL)
+4. PostgreSQL
 5. Redis
 
 
@@ -75,6 +75,8 @@ Configuration and installation
 
     bower install
 
+5. Make sure you have a redis installer.
+
 
 Development
 -----------
@@ -85,6 +87,8 @@ Execute Backend:
 
 Execute Fronted:
 
+    npm install -g ember-cli
+    
     ember s
 
 Translates:
