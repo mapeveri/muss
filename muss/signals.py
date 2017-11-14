@@ -13,8 +13,7 @@ def post_save_user(sender, instance, **kwargs):
     This signal is event of model user for create new profile.
     """
     if kwargs['created']:
-        User = get_user_model()
-        user = User.objects.get(id=instance.id)
+        user = instance
 
         # For confirm email
         data = nt_email.get_data_confirm_email(user.email)
@@ -27,10 +26,11 @@ def post_save_user(sender, instance, **kwargs):
         )
         profile.save()
 
-        # Send email for confirm user
-        nt_email.send_welcome_email(
-            user.email, user.username, data['activation_key']
-        )
+        if not user.is_superuser:
+            # Send email for confirm user
+            nt_email.send_welcome_email(
+                user.email, user.username, data['activation_key']
+            )
 
 
 @receiver(m2m_changed, sender=models.Forum.moderators.through)
