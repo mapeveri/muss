@@ -1,4 +1,6 @@
 import threading
+
+from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 
 
@@ -17,12 +19,15 @@ class EmailThread(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self):
-        msg = EmailMultiAlternatives(
-            self.subject, self.body, self.from_email, self.recipient_list
-        )
-        if self.html:
-            msg.attach_alternative(self.html, "text/html")
-        msg.send(self.fail_silently)
+        # Check if the email smtp is configurated
+        if (settings.EMAIL_MUSS and settings.EMAIL_HOST
+                and settings.EMAIL_HOST_PASSWORD):
+            msg = EmailMultiAlternatives(
+                self.subject, self.body, self.from_email, self.recipient_list
+            )
+            if self.html:
+                msg.attach_alternative(self.html, "text/html")
+            msg.send(self.fail_silently)
 
 
 def send_mail(subject, body, from_email, recipient_list, fail_silently=False,

@@ -59,6 +59,8 @@ Configuration and installation
 
 3. In main folder execute:
 
+    python manage.py migrate
+
     python manage.py migrate admin_interface
 
     python manage.py migrate muss
