@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-12 23:17-0300\n"
+"POT-Creation-Date: 2017-11-15 09:47-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -374,6 +374,10 @@ msgstr "El tema esta pendiente de moderación"
 #: muss/i18n.py:79
 msgid "Registered users"
 msgstr "Usuarios registrados"
+
+#: muss/i18n.py:80
+msgid "This topic is closed"
+msgstr "El tema está cerrado"
 
 #: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:241
 #: muss/models.py:317 muss/models.py:543
@@ -801,9 +805,6 @@ msgstr ""
 
 #~ msgid "Attachment"
 #~ msgstr "Adjunto"
-
-#~ msgid "This topic is closed"
-#~ msgstr "El tema está cerrado"
 
 #~ msgid "The forum "
 #~ msgstr "El foro"

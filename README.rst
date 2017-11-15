@@ -61,24 +61,23 @@ Configuration and installation
 
     python manage.py migrate
 
-    python manage.py migrate admin_interface
-
-    python manage.py migrate muss
-
     python manage.py createsuperuser
 
 3. Execute:
 
     python manage.py loaddata conf/theme.json
 
-4. Go to the folder /static/muss and execute:
+4. Compile translations:
+
+    python manage.py compilemessages
+
+5. Go to the folder /static/muss and execute:
 
     npm install
 
     bower install
 
-5. Make sure you have a redis installer.
-
+6. Make sure you have a redis installer.
 
 Development
 -----------
