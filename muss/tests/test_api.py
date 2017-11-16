@@ -283,3 +283,155 @@ class HitcountTopicViewSetTests(APITestCase):
         topic = utils.create_topic(user)
         response = self.client.post(url, {"topic": topic.pk})
         self.assertEqual(response.status_code == 200, True)
+
+
+class LikeTopicViewSetTests(APITestCase):
+
+    @property
+    def get_url_endpoint(self):
+        """
+        Get main url endpoint
+        """
+        return API_PREFIX + "liketopics/"
+
+    def test_get_likes_topic(self):
+        """
+        Ensure we can get likes topic
+        """
+        url = self.get_url_endpoint
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_create_like_topic(self):
+        """
+        Ensure we can create like topic
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        topic = utils.create_topic(user)
+        view = views.LikeTopicViewSet.as_view({
+            'post': 'create'
+        })
+
+        url = self.get_url_endpoint
+        request = factory.post(
+            url, {
+                'users': str(user.pk),
+                'topic': str(topic.pk)
+            }
+        )
+        force_authenticate(request, user=user)
+        response = view(request)
+
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_destroy_like_topic(self):
+        """
+        Ensure we can destroy like topic
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        topic = utils.create_topic(user)
+        view = views.LikeTopicViewSet.as_view({
+            'post': 'create',
+            'delete': 'destroy'
+        })
+
+        # Create
+        url = self.get_url_endpoint
+        request = factory.post(
+            url, {
+                'users': str(user.pk),
+                'topic': str(topic.pk)
+            }
+        )
+        force_authenticate(request, user=user)
+        response = view(request)
+
+        # Delete
+        url = self.get_url_endpoint + str(topic.pk) + "/"
+        request = factory.delete(
+            url, {
+                'users': str(user.pk)
+            }
+        )
+        force_authenticate(request, user=user)
+        response = view(request, pk=topic.pk)
+
+        self.assertEqual(response.status_code == 200, True)
+
+
+class LikeCommentViewSetTests(APITestCase):
+
+    @property
+    def get_url_endpoint(self):
+        """
+        Get main url endpoint
+        """
+        return API_PREFIX + "likecomments/"
+
+    def test_get_likes_comment(self):
+        """
+        Ensure we can get likes comment
+        """
+        url = self.get_url_endpoint
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_create_like_comment(self):
+        """
+        Ensure we can create like comment
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        comment = utils.create_comment(user)
+        view = views.LikeCommentViewSet.as_view({
+            'post': 'create'
+        })
+
+        url = self.get_url_endpoint
+        request = factory.post(
+            url, {
+                'users': str(user.pk),
+                'comment': comment.pk
+            }
+        )
+        force_authenticate(request, user=user)
+        response = view(request)
+
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_destroy_like_comment(self):
+        """
+        Ensure we can destroy like comment
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        comment = utils.create_comment(user)
+        view = views.LikeCommentViewSet.as_view({
+            'post': 'create',
+            'delete': 'destroy'
+        })
+
+        # Create
+        url = self.get_url_endpoint
+        request = factory.post(
+            url, {
+                'users': str(user.pk),
+                'comment': comment.pk
+            }
+        )
+        force_authenticate(request, user=user)
+        response = view(request)
+
+        # Delete
+        url = self.get_url_endpoint + str(comment.pk) + "/"
+        request = factory.delete(
+            url, {
+                'users': str(user.pk)
+            }
+        )
+        force_authenticate(request, user=user)
+        response = view(request, pk=comment.pk)
+
+        self.assertEqual(response.status_code == 200, True)

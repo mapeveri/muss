@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 
 from muss.models import (
-    Category, Forum, Topic
+    Category, Comment, Forum, Topic
 )
 
 
@@ -47,3 +47,15 @@ def create_topic(user):
         is_moderate=True, total_likes=0
     )
     return topic
+
+
+def create_comment(user):
+    """
+    Create comment example
+    """
+    topic = create_topic(user)
+    comment = Comment.objects.create(
+        topic=topic, user=user, total_likes=0,
+        date=timezone.now(), description="Test comment create"
+    )
+    return comment
