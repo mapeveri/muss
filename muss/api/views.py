@@ -28,7 +28,7 @@ from muss.api.renderers import JSONRendererApiJson
 # ViewSets for user
 class UserViewSet(viewsets.ModelViewSet):
     User = get_user_model()
-    queryset = User.objects.all()
+    queryset = User.objects.all().order_by("pk")
     serializer_class = serializers.UserSerializer
     resource_name = 'users'
     http_method_names = ['get', 'post']
@@ -423,7 +423,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
 # ViewSets for MessageForum
 class MessageForumViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = models.MessageForum.objects.all()
+    queryset = models.MessageForum.objects.all().order_by("pk")
     serializer_class = serializers.MessageForumSerializer
     http_method_names = ['get']
 
@@ -444,7 +444,7 @@ class MessageForumViewSet(viewsets.ReadOnlyModelViewSet):
 
 # ViewSets for HitcountTopic
 class HitcountTopicViewSet(viewsets.ModelViewSet):
-    queryset = models.HitcountTopic.objects.all()
+    queryset = models.HitcountTopic.objects.all().order_by("pk")
     serializer_class = serializers.HitcountTopicSerializer
     http_method_names = ['get', 'post']
 
@@ -527,7 +527,7 @@ class CheckPermissionsForumUserView(APIView):
 
 # Viewset for LikeTopic
 class LikeTopicViewSet(viewsets.ModelViewSet):
-    queryset = models.LikeTopic.objects.all()
+    queryset = models.LikeTopic.objects.all().order_by("pk")
     serializer_class = serializers.LikeTopicSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
     http_method_names = ['get', 'post', 'delete']
@@ -588,7 +588,7 @@ class LikeTopicViewSet(viewsets.ModelViewSet):
 
 # Viewset for LikeComment
 class LikeCommentViewSet(viewsets.ModelViewSet):
-    queryset = models.LikeComment.objects.all()
+    queryset = models.LikeComment.objects.all().order_by("pk")
     serializer_class = serializers.LikeCommentSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
     http_method_names = ['get', 'post', 'delete']
