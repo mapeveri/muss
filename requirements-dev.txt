@@ -2,3 +2,4 @@ flake8
 nose
 coverage
 coveralls
+service_identity
