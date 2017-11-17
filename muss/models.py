@@ -280,8 +280,6 @@ class Topic(models.Model):
         """
         Update topic count
         """
-        f = Forum.objects.get(category__name=category, name=forum)
-        tot_topics = f.topics_count
         if action == "sum":
             Forum.objects.filter(name=forum).update(
                 topics_count=F('topics_count') + 1

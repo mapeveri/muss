@@ -1,11 +1,15 @@
 import io
+import json
 from PIL import Image
 
+from django.conf import settings
 from rest_framework.test import (
     APIRequestFactory, APITestCase, force_authenticate
 )
 
+from muss import utils as utils_muss
 from muss.api import views
+from muss.models import Upload
 from muss.tests import utils
 
 API_PREFIX = "/api/"
@@ -254,6 +258,9 @@ class UploadsViewTests(APITestCase):
         force_authenticate(request, user=user)
         response = view(request)
 
+        up = Upload.objects.all().first()
+        name_file = settings.MEDIA_ROOT + "/" + up.attachment.name
+        utils_muss.remove_file(name_file)
         self.assertEqual(response.status_code == 200, True)
 
 
@@ -434,4 +441,155 @@ class LikeCommentViewSetTests(APITestCase):
         force_authenticate(request, user=user)
         response = view(request, pk=comment.pk)
 
+        self.assertEqual(response.status_code == 200, True)
+
+
+class CommentViewSetTests(APITestCase):
+
+    @property
+    def get_url_endpoint(self):
+        """
+        Get main url endpoint
+        """
+        return API_PREFIX + "comments/"
+
+    def test_get_comments(self):
+        """
+        Ensure we can get comments
+        """
+        url = self.get_url_endpoint
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_get_comment(self):
+        """
+        Ensure we can get comment
+        """
+        user = utils.create_user()
+        comment = utils.create_comment(user)
+        url = self.get_url_endpoint + str(comment.pk) + "/"
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_get_comments_topic(self):
+        """
+        Ensure we can get comments topic
+        """
+        user = utils.create_user()
+        topic = utils.create_topic(user)
+        url = self.get_url_endpoint + "?=topic=" + str(topic.pk)
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_create_comment(self):
+        """
+        Ensure we can create comment
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        topic = utils.create_topic(user)
+
+        view = views.CommentViewSet.as_view({
+            'post': 'create'
+        })
+
+        url = self.get_url_endpoint
+        self.data = {
+            "data": {
+                "attributes": {
+                    "total_likes": None,
+                    "date": None,
+                    "description": "<p>Test create comment</p>",
+                },
+                "relationships": {
+                    "user": {
+                        "data": {
+                            'id': str(user.pk),
+                            'type': 'users'
+                        }
+                    },
+                    "topic": {
+                        "data": {
+                            'id': str(topic.pk),
+                            'type': 'topics'
+                        }
+                    }
+                },
+                "type": "comments"
+            },
+        }
+        request = factory.post(
+            url, json.dumps(self.data),
+            HTTP_HOST='example.com', content_type="application/vnd.api+json"
+        )
+        force_authenticate(request, user=user)
+        response = view(request)
+
+        self.assertEqual(response.status_code == 201, True)
+
+    def test_destroy_comment(self):
+        """
+        Ensure we can destroy comment
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        comment = utils.create_comment(user)
+        view = views.CommentViewSet.as_view({
+            'delete': 'destroy'
+        })
+
+        # Delete
+        url = self.get_url_endpoint + str(comment.pk) + "/"
+        request = factory.delete(url)
+        force_authenticate(request, user=user)
+        response = view(request, pk=comment.pk)
+
+        self.assertEqual(response.status_code == 204, True)
+
+    def test_update_comment(self):
+        """
+        Ensure we can update comment
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        comment = utils.create_comment(user)
+        view = views.CommentViewSet.as_view({
+            'patch': 'update'
+        })
+
+        # Update
+        url = self.get_url_endpoint + str(comment.pk) + "/"
+
+        self.data = {
+            "data": {
+                "attributes": {
+                    "total_likes": comment.total_likes,
+                    "date": None,
+                    "description": "<p>Test create comment edited</p>",
+                },
+                "id": comment.pk,
+                "relationships": {
+                    "user": {
+                        "data": {
+                            'id': str(user.pk),
+                            'type': 'users'
+                        }
+                    },
+                    "topic": {
+                        "data": {
+                            'id': str(comment.topic.pk),
+                            'type': 'topics'
+                        }
+                    }
+                },
+                "type": "comments"
+            },
+        }
+
+        request = factory.patch(
+            url, json.dumps(self.data),
+            HTTP_HOST='example.com', content_type="application/vnd.api+json"
+        )
+        force_authenticate(request, user=user)
+        response = view(request, pk=comment.pk)
         self.assertEqual(response.status_code == 200, True)
