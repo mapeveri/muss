@@ -312,7 +312,7 @@ class Comment(models.Model):
     date = models.DateTimeField(
         _('Date'), blank=True, auto_now=True, db_index=True
     )
-    description = models.TextField(_('Description'), blank=True)
+    description = models.TextField(_('Description'), blank=False, null=False)
     total_likes = models.PositiveIntegerField(default=0, editable=False)
 
     class Meta(object):
