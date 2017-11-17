@@ -593,3 +593,124 @@ class CommentViewSetTests(APITestCase):
         force_authenticate(request, user=user)
         response = view(request, pk=comment.pk)
         self.assertEqual(response.status_code == 200, True)
+
+
+class RegisterViewSetTests(APITestCase):
+
+    @property
+    def get_url_endpoint(self):
+        """
+        Get main url endpoint
+        """
+        return API_PREFIX + "registers/"
+
+    def go_to_endpoint(self, user, data):
+        """
+        Go to endpoint with method get
+        """
+        factory = APIRequestFactory()
+        view = views.RegisterViewSet.as_view({
+            'get': 'list'
+        })
+
+        url = self.get_url_endpoint
+        request = factory.get(url, data)
+        force_authenticate(request, user=user)
+        response = view(request)
+        return response
+
+    def test_filter_get_registers(self):
+        """
+        Ensure we can get registers
+        """
+        user = utils.create_user()
+        response = self.go_to_endpoint(user, {})
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_filter_get_register(self):
+        """
+        Ensure we can filter get_register
+        """
+        user = utils.create_user()
+        forum = utils.create_forum()
+        response = self.go_to_endpoint(user, {
+            'filter': 'get_register',
+            'user': user.pk,
+            'forum': forum.pk
+        })
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_filter_get_members(self):
+        """
+        Ensure we can filter members
+        """
+        user = utils.create_user()
+        forum = utils.create_forum()
+        response = self.go_to_endpoint(user, {
+            'filter': 'members',
+            'forum': forum.pk
+        })
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_destroy_register(self):
+        """
+        Ensure we can destroy register
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        register = utils.create_register(user)
+        view = views.RegisterViewSet.as_view({
+            'delete': 'destroy'
+        })
+
+        # Delete
+        url = self.get_url_endpoint + str(register.pk) + "/"
+        request = factory.delete(url)
+        force_authenticate(request, user=user)
+        response = view(request, pk=register.pk)
+
+        self.assertEqual(response.status_code == 204, True)
+
+    def test_create_register(self):
+        """
+        Ensure we can create register
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        forum = utils.create_forum()
+
+        view = views.RegisterViewSet.as_view({
+            'post': 'create'
+        })
+
+        url = self.get_url_endpoint
+        self.data = {
+            "data": {
+                "attributes": {
+                    "date": None,
+                },
+                "relationships": {
+                    "user": {
+                        "data": {
+                            'id': str(user.pk),
+                            'type': 'users'
+                        }
+                    },
+                    "forum": {
+                        "data": {
+                            'id': str(forum.pk),
+                            'type': 'forums'
+                        }
+                    }
+                },
+                "type": "registers"
+            },
+        }
+        request = factory.post(
+            url, json.dumps(self.data),
+            HTTP_HOST='example.com', content_type="application/vnd.api+json"
+        )
+        force_authenticate(request, user=user)
+        response = view(request)
+
+        self.assertEqual(response.status_code == 201, True)

@@ -230,6 +230,7 @@ class RegisterViewSet(viewsets.ModelViewSet):
     queryset = models.Register.objects.all()
     serializer_class = serializers.RegisterSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, RegisterPermissions)
+    http_method_names = ['get', 'post', 'delete']
 
     def get_permissions(self):
         # If is troll then only is read only

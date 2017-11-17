@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 
 from muss.models import (
-    Category, Comment, Forum, Topic
+    Category, Comment, Forum, Register, Topic
 )
 
 
@@ -59,3 +59,14 @@ def create_comment(user):
         date=timezone.now(), description="Test comment create"
     )
     return comment
+
+
+def create_register(user):
+    """
+    Create register example
+    """
+    forum = create_forum()
+    register = Register.objects.create(
+        forum=forum, user=user
+    )
+    return register
