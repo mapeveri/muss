@@ -1,8 +1,10 @@
 from django.db.models import F, Q
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+
 from django.utils import timezone
 
 from rest_framework import status, viewsets
@@ -121,9 +123,10 @@ class TopicViewSet(viewsets.ModelViewSet):
             )
         elif type_filter == 'search' and search_title:
             # Search topics
-            self.queryset = self.queryset.filter(
-                title__icontains=search_title, is_moderate=True
-            )
+            self.queryset = self.queryset.annotate(
+                search=SearchVector('title', 'description')
+            ).filter(search=SearchQuery(search_title), is_moderate=True)
+
         elif type_filter == "by_user" and username:
             # Filter by user topic
             self.queryset = self.queryset.filter(
