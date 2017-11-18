@@ -24,6 +24,11 @@ install:
   - cd ..
   - pip install -r requirements.txt
   - pip install -r requirements-dev.txt
+  - export MUSS_DB_HOST="127.0.0.1"
+  - export MUSS_DB_PORT="5432"
+  - export MUSS_DB_USER="postgres"
+  - export MUSS_DB_PASSWORD=""
+  - export MUSS_DB_NAME="muss"
 
 script:
   - coverage run --source=muss manage.py test
