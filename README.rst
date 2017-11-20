@@ -57,27 +57,32 @@ Configuration and installation
 
 2. Go to the folder /conf/ and rename file settings_local.py.txt to settings_local.py. Then configure thats variables.
 
-3. In main folder execute:
+3. Generate SECRET_KEY and export environment variable:
+
+    python script/django-secret-keygen.py
+    export SECRET_KEY_MUSS_APP=RESULT SCRIPT django-secret-keygen.py
+
+4. In main folder execute:
 
     python manage.py migrate
 
     python manage.py createsuperuser
 
-3. Execute:
+5. Execute:
 
     python manage.py loaddata conf/theme.json
 
-4. Compile translations:
+6. Compile translations:
 
     python manage.py compilemessages
 
-5. Go to the folder /static/muss and execute:
+7. Go to the folder /static/muss and execute:
 
     npm install
 
     bower install
 
-6. Make sure you have a redis installer.
+8. Make sure you have a redis installer.
 
 Development
 -----------
