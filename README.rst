@@ -51,6 +51,9 @@ Built With
 Configuration and installation
 ------------------------------
 
+Manually
+--------
+
 1. Clone this repository and execute:
 
     pip install -r requirements.txt
@@ -60,6 +63,7 @@ Configuration and installation
 3. Generate SECRET_KEY and export environment variable:
 
     python script/django-secret-keygen.py
+
     export SECRET_KEY_MUSS_APP=RESULT SCRIPT django-secret-keygen.py
 
 4. In main folder execute:
@@ -83,6 +87,14 @@ Configuration and installation
     bower install
 
 8. Make sure you have a redis installer.
+
+With ansible
+------------
+
+1. Execute in the folder ansible:
+
+    ansible-playbook playbook.yml
+
 
 Development
 -----------

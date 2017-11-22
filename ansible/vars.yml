@@ -1,0 +1,39 @@
+www_user: "root"
+project_name: "muss"
+install_root: /var/www
+virtualenv_path: "{{ install_root }}/{{ project_name }}"
+venv_path: "{{ install_root }}/{{ project_name }}/bin"
+wsgi_module: muss.wsgi
+pythonpath: "{{ venv_path }}/{{ project_name }}"
+django_settings: "{{ pythonpath }}/conf/settings.py"
+project_repo: https://github.com/mapeveri/muss.git
+static_root: "{{ pythonpath }}/static"
+server_name: localhost:8000 127.0.0.1:8000
+muss_app_js: "{{ pythonpath }}/static/muss"
+secret_key_django: "*b0ljo-q!%ufa$e^27nw5axk1y&3q-bgbhldtq!516jttf2ss5"
+
+db_host: "127.0.0.1"
+db_port: "5432"
+db_name: "muss_db"
+db_user: "postgres"
+db_password: "Polgara8"
+
+system_packages:
+  - git
+  - postgresql
+  - postgresql-server-dev-all
+  - python3-pip
+  - python3-dev
+  - python3-psycopg2
+  - python3-wheel
+
+MUSS_DB_HOST: "{{ db_host }}"
+MUSS_DB_PORT: "{{ db_port }}"
+MUSS_DB_USER: "{{ db_user }}"
+MUSS_DB_NAME: "{{ db_name }}"
+MUSS_DB_PASSWORD: "{{ db_password }}"
+SECRET_KEY_MUSS_APP: "{{ secret_key_django }}"
+
+admin_user: "admin"
+admin_email: "admin@admin.com"
+admin_pass: "admin123456"

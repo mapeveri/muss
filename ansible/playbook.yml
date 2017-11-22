@@ -1,0 +1,145 @@
+- hosts: localhost
+  remote_user: "{{ www_user }}"
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: Install system packages
+      apt: pkg={{ item }} update-cache=yes
+      with_items: "{{ system_packages }}"
+    
+    - name: install Redis server
+      apt: name=redis-server state=latest update_cache=yes
+
+    - name: check if Redis is running
+      service: name=redis-server state=started
+
+    - name: enable redis-server to survive reboot
+      service: name=redis-server enabled=yes    
+
+    - name: Manually create the initial venv
+      command: python3 -m venv {{ install_root }}/{{ project_name }} creates="{{ install_root }}/{{ project_name }}"
+
+    - name: Activate venv
+      sudo: no
+      shell: "source {{ venv_path }}/activate"
+      args:
+        executable: /bin/bash
+    
+    - name: Adding to environment variable MUSS_DB_HOST
+      lineinfile: dest=/etc/environment line='MUSS_DB_HOST={{ db_host }}' state=present
+
+    - name: Adding to environment variable MUSS_DB_PORT
+      lineinfile: dest=/etc/environment line='MUSS_DB_PORT={{ db_port }}' state=present
+
+    - name: Adding to environment variable MUSS_DB_USER
+      lineinfile: dest=/etc/environment line='MUSS_DB_USER={{ db_user }}' state=present
+
+    - name: Adding to environment variable MUSS_DB_NAME
+      lineinfile: dest=/etc/environment line='MUSS_DB_NAME={{ db_name }}' state=present
+
+    - name: Adding to environment variable MUSS_DB_PASSWORD
+      lineinfile: dest=/etc/environment line='MUSS_DB_PASSWORD={{ db_password }}' state=present
+
+    - name: Adding to environment variable SECRET_KEY_MUSS_APP
+      lineinfile: dest=/etc/environment line='SECRET_KEY_MUSS_APP={{ secret_key_django }}' state=present
+
+    - name: make sure postgresql server is running
+      service: name=postgresql state=started
+
+    - name: create database
+      become: true
+      become_user: "{{ db_user }}"
+      postgresql_db: name={{ db_name }} login_password={{ db_password }}
+    
+    - name: Clone project repo
+      git: repo={{ project_repo }} dest={{ pythonpath }}
+    
+    - name: install python packages
+      pip: requirements={{ pythonpath }}/requirements.txt virtualenv={{ virtualenv_path }}
+        
+    - name: Copy settings file
+      command: mv {{ pythonpath }}/conf/settings_local.py.txt {{ pythonpath }}/conf/settings_local.py 
+
+    - name: Permissions manage.py
+      command: chmod 0755 {{ pythonpath }}/manage.py
+
+    - name: django migrate
+      become: yes
+      environment:
+        MUSS_DB_HOST: "{{ db_host }}"
+        MUSS_DB_PORT: "{{ db_port }}"
+        MUSS_DB_USER: "{{ db_user }}"
+        MUSS_DB_NAME: "{{ db_name }}"
+        MUSS_DB_PASSWORD: "{{ db_password }}"
+        SECRET_KEY_MUSS_APP: "{{ secret_key_django }}"
+      become_user: "{{ www_user }}"
+      django_manage:
+        app_path: "{{ pythonpath }}"
+        command: migrate
+        virtualenv: "{{ virtualenv_path }}"
+
+    - name: django createsuperuser
+      become: yes
+      environment:
+        MUSS_DB_HOST: "{{ db_host }}"
+        MUSS_DB_PORT: "{{ db_port }}"
+        MUSS_DB_USER: "{{ db_user }}"
+        MUSS_DB_NAME: "{{ db_name }}"
+        MUSS_DB_PASSWORD: "{{ db_password }}"
+        SECRET_KEY_MUSS_APP: "{{ secret_key_django }}"
+      become_user: "{{ www_user }}"
+      shell: echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('{{ admin_user }}', '{{ admin_email }}', '{{ admin_pass }}') " | {{ virtualenv_path }}/bin/python ./manage.py shell
+      args:
+        chdir: "{{ pythonpath }}"
+        
+
+    - name: django loadtheme
+      become: yes
+      environment:
+        MUSS_DB_HOST: "{{ db_host }}"
+        MUSS_DB_PORT: "{{ db_port }}"
+        MUSS_DB_USER: "{{ db_user }}"
+        MUSS_DB_NAME: "{{ db_name }}"
+        MUSS_DB_PASSWORD: "{{ db_password }}"
+        SECRET_KEY_MUSS_APP: "{{ secret_key_django }}"
+      become_user: "{{ www_user }}"
+      django_manage:
+        app_path: "{{ pythonpath }}"
+        command: loaddata
+        fixtures: conf/theme.json
+        virtualenv: "{{ virtualenv_path }}"
+
+    - name: django compilemessages
+      become: yes
+      environment:
+        MUSS_DB_HOST: "{{ db_host }}"
+        MUSS_DB_PORT: "{{ db_port }}"
+        MUSS_DB_USER: "{{ db_user }}"
+        MUSS_DB_NAME: "{{ db_name }}"
+        MUSS_DB_PASSWORD: "{{ db_password }}"
+        SECRET_KEY_MUSS_APP: "{{ secret_key_django }}"
+      become_user: "{{ www_user }}"
+      django_manage:
+        app_path: "{{ pythonpath }}"
+        command: compilemessages
+        virtualenv: "{{ virtualenv_path }}"
+
+    - name: npm install
+      npm: 
+        path: "{{ muss_app_js }}"
+
+    - name: Install Bower package
+      npm: >
+        name=bower
+        state=present
+        global=yes
+      tags: bower    
+
+    - name: bower install
+      bower:
+        path: "{{ muss_app_js }}"
+
+    - name: Execute ember build
+      command: "npm run build"
+      args: 
+        chdir: "{{ muss_app_js }}" 
