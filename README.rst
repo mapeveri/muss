@@ -74,7 +74,7 @@ Manually
 
 5. Execute:
 
-    python manage.py loaddata conf/theme.json
+    python manage.py config_admin
 
 6. Compile translations:
 

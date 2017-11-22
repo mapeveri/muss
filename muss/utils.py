@@ -12,6 +12,16 @@ from muss.models import (
 )
 
 
+def create_folder(path):
+    """
+    This method create folder.
+
+    Args:
+        value (str): Path.
+    """
+    os.mkdir(path)
+
+
 def basename(value):
     """
     This method return basename of one path.

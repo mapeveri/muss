@@ -105,8 +105,7 @@
       become_user: "{{ www_user }}"
       django_manage:
         app_path: "{{ pythonpath }}"
-        command: loaddata
-        fixtures: conf/theme.json
+        command: config_admin
         virtualenv: "{{ virtualenv_path }}"
 
     - name: django compilemessages
