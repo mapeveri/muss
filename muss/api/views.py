@@ -659,7 +659,11 @@ class NotificationViewSet(viewsets.ModelViewSet):
     resource_name = 'notifications'
 
     def get_queryset(self, *args, **kwargs):
-        user_id = int(self.request.GET.get('user'))
+        try:
+            user_id = int(self.request.GET.get('user'))
+        except TypeError:
+            user_id = None
+
         limit = self.request.GET.get('limit')
         if user_id == self.request.user.id:
             User = get_user_model()
