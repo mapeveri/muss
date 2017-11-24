@@ -388,7 +388,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 # ViewSets for profile
 class ProfileViewSet(viewsets.ModelViewSet):
     resource_name = 'profiles'
-    queryset = models.Profile.objects.all()
+    queryset = models.Profile.objects.all().order_by("pk")
     serializer_class = serializers.ProfileSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
     http_method_names = ['get', 'patch']

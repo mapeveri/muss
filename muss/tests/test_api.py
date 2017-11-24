@@ -894,3 +894,80 @@ class TopicViewSetTests(APITestCase):
         force_authenticate(request, user=user)
         response = view(request, pk=topic.pk)
         self.assertEqual(response.status_code == 200, True)
+
+
+class ProfileViewSetTests(APITestCase):
+
+    @property
+    def get_url_endpoint(self):
+        """
+        Get main url endpoint
+        """
+        return API_PREFIX + "profiles/"
+
+    def test_filter_profiles(self):
+        """
+        Ensure we can get profiles
+        """
+        user = utils.create_user()
+        url = self.get_url_endpoint
+
+        # Get profiles
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code == 200, True)
+
+        # Get only profile
+        response = self.client.get(url + str(user.user.pk), format='json')
+        self.assertEqual(response.status_code == 200, True)
+
+        # get_profile_username
+        url += "?=filter='get_profile_username'&username=" + user.username
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_update_profile(self):
+        """
+        Ensure we can update profile
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        view = views.ProfileViewSet.as_view({
+            'patch': 'update'
+        })
+        profile = user.user
+
+        # Update
+        url = self.get_url_endpoint + str(profile.pk) + "/"
+        self.data = {
+            "data": {
+                "type": "profiles",
+                "id": str(profile.pk),
+                "attributes": {
+                    "photo": "example.png",
+                    "last-seen": "0 minutes",
+                    "online": True,
+                    "about": "Admin Test :)",
+                    "location": "Buenos Aires, CABA, Argentina",
+                    "activation-key": "86b58f8c2c832b8e135ee4afd4423aa",
+                    "key-expires": "2017-11-23 03:14:27",
+                    "is-troll": False,
+                    "receive-emails": True
+                },
+                "relationships": {
+                    "user": {
+                        "data": {
+                            "type": "User",
+                            "id": str(user.pk)
+                        }
+                    }
+                }
+            }
+        }
+
+        request = factory.patch(
+            url, json.dumps(self.data),
+            HTTP_HOST='example.com', content_type="application/vnd.api+json"
+        )
+        force_authenticate(request, user=user)
+        response = view(request, pk=profile.pk)
+        self.assertEqual(response.status_code == 200, True)
