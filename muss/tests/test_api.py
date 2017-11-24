@@ -9,13 +9,13 @@ from rest_framework.test import (
 
 from muss import utils as utils_muss
 from muss.api import views
-from muss.models import Upload
+from muss.models import Register, Upload
 from muss.tests import utils
 
 API_PREFIX = "/api/"
 
 
-class UsersViewSetTests(APITestCase):
+class UserViewSetTests(APITestCase):
 
     @property
     def get_url_users(self):
@@ -714,3 +714,183 @@ class RegisterViewSetTests(APITestCase):
         response = view(request)
 
         self.assertEqual(response.status_code == 201, True)
+
+
+class TopicViewSetTests(APITestCase):
+
+    @property
+    def get_url_endpoint(self):
+        """
+        Get main url endpoint
+        """
+        return API_PREFIX + "topics/"
+
+    def test_get_topics(self):
+        """
+        Ensure we can get topics
+        """
+        url = self.get_url_endpoint
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_get_topic(self):
+        """
+        Ensure we can get topic
+        """
+        user = utils.create_user()
+        topic = utils.create_topic(user)
+        url = self.get_url_endpoint + str(topic.pk) + "/"
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_get_topic_queryset(self):
+        """
+        Ensure we can get topic
+        """
+        user = utils.create_user()
+        topic = utils.create_topic(user)
+        forum = utils.create_forum()
+
+        # Only topic
+        url = self.get_url_endpoint
+        url += "?=filter='only_topic'&topic=" + str(topic.pk)
+        url += "&slug=" + topic.slug
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code == 200, True)
+
+        # By forum
+        url = self.get_url_endpoint
+        url += "?=filter='by_forum'&slug=" + forum.slug
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code == 200, True)
+
+        # Search
+        url = self.get_url_endpoint
+        url += "?=filter='search'&title='test'"
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code == 200, True)
+
+        # By user
+        url = self.get_url_endpoint
+        url += "?=filter='by_user'&username=" + user.username
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code == 200, True)
+
+        # Suggests
+        url = self.get_url_endpoint
+        url += "?=filter='suggests'&suggest='test'"
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_create_topic(self):
+        """
+        Ensure we can create topic
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        forum = utils.create_forum()
+        view = views.TopicViewSet.as_view({
+            'post': 'create'
+        })
+
+        # Create register
+        Register.objects.create(forum=forum, user=user)
+
+        url = self.get_url_endpoint
+        self.data = {
+            "data": {
+                "attributes": {
+                    "title": "Test title",
+                    "description": "<p>Example description</p>"
+                },
+                "relationships": {
+                    "user": {
+                        "data": {
+                            'id': str(user.pk),
+                            'type': 'users'
+                        }
+                    },
+                    "forum": {
+                        "data": {
+                            'id': str(forum.pk),
+                            'type': 'forums'
+                        }
+                    }
+                },
+                "type": "topics"
+            },
+        }
+        request = factory.post(
+            url, json.dumps(self.data),
+            HTTP_HOST='example.com', content_type="application/vnd.api+json"
+        )
+        force_authenticate(request, user=user)
+        response = view(request)
+
+        self.assertEqual(response.status_code == 201, True)
+
+    def test_destroy_topic(self):
+        """
+        Ensure we can destroy topic
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        topic = utils.create_topic(user)
+        view = views.TopicViewSet.as_view({
+            'delete': 'destroy'
+        })
+
+        # Delete
+        url = self.get_url_endpoint + str(topic.pk) + "/"
+        request = factory.delete(url)
+        force_authenticate(request, user=user)
+        response = view(request, pk=topic.pk)
+
+        self.assertEqual(response.status_code == 204, True)
+
+    def test_update_topic(self):
+        """
+        Ensure we can update topic
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        topic = utils.create_topic(user)
+        view = views.TopicViewSet.as_view({
+            'patch': 'update'
+        })
+
+        # Update
+        url = self.get_url_endpoint + str(topic.pk) + "/"
+
+        self.data = {
+            "data": {
+                "attributes": {
+                    "title": "Test topic",
+                    "description": "<p>Test create topic edited</p>",
+                },
+                "id": topic.pk,
+                "relationships": {
+                    "user": {
+                        "data": {
+                            'id': str(user.pk),
+                            'type': 'users'
+                        }
+                    },
+                    "forum": {
+                        "data": {
+                            'id': str(topic.forum.pk),
+                            'type': 'forums'
+                        }
+                    }
+                },
+                "type": "topics"
+            },
+        }
+
+        request = factory.patch(
+            url, json.dumps(self.data),
+            HTTP_HOST='example.com', content_type="application/vnd.api+json"
+        )
+        force_authenticate(request, user=user)
+        response = view(request, pk=topic.pk)
+        self.assertEqual(response.status_code == 200, True)
