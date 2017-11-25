@@ -2,7 +2,8 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 
 from muss.models import (
-    Category, Comment, Forum, Register, Topic
+    Category, Comment, Forum,
+    Notification, Register, Topic
 )
 
 
@@ -70,3 +71,15 @@ def create_register(user):
         forum=forum, user=user
     )
     return register
+
+
+def create_notification(user, topic):
+    """
+    Create notification example
+    """
+    notification = Notification.objects.create(
+        user=user, is_seen=False, date=timezone.now(),
+        content_object=topic
+    )
+
+    return notification

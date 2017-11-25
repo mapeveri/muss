@@ -971,3 +971,112 @@ class ProfileViewSetTests(APITestCase):
         force_authenticate(request, user=user)
         response = view(request, pk=profile.pk)
         self.assertEqual(response.status_code == 200, True)
+
+
+class NotificationViewSetTests(APITestCase):
+
+    @property
+    def get_url_endpoint(self):
+        """
+        Get main url endpoint
+        """
+        return API_PREFIX + "notifications/"
+
+    def test_get_notifications(self):
+        """
+        Ensure we can get notifications
+        """
+        factory = APIRequestFactory()
+        url = self.get_url_endpoint
+        user = utils.create_user()
+        view = views.NotificationViewSet.as_view({
+            'get': 'list'
+        })
+        url += "?user=" + str(user.pk)
+        request = factory.get(url, format='json')
+
+        force_authenticate(request, user=user)
+        response = view(request)
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_get_notification(self):
+        """
+        Ensure we can get notification
+        """
+        factory = APIRequestFactory()
+        url = self.get_url_endpoint
+        user = utils.create_user()
+        topic = utils.create_topic(user)
+        notification = utils.create_notification(user, topic)
+        view = views.NotificationViewSet.as_view({
+            'get': 'list'
+        })
+        url += str(notification.pk) + "/?user=" + str(user.pk)
+        request = factory.get(url, format='json')
+
+        force_authenticate(request, user=user)
+        response = view(request)
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_get_topic_queryset_limit(self):
+        """
+        Ensure we can get notifications limit
+        """
+        factory = APIRequestFactory()
+        url = self.get_url_endpoint
+        user = utils.create_user()
+        topic = utils.create_topic(user)
+        notification = utils.create_notification(user, topic)
+        view = views.NotificationViewSet.as_view({
+            'get': 'list'
+        })
+        url += str(notification.pk) + "/?user=" + str(user.pk) + "&limit=5"
+        request = factory.get(url, format='json')
+
+        force_authenticate(request, user=user)
+        response = view(request)
+        self.assertEqual(response.status_code == 200, True)
+
+    def test_create_notification(self):
+        """
+        Ensure we can create notification
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        topic = utils.create_topic(user)
+        view = views.NotificationViewSet.as_view({
+            'post': 'create'
+        })
+
+        url = self.get_url_endpoint
+        self.data = {
+            "data": {
+                "attributes": {
+                    "is-seen": False,
+                    "date": "2017-11-23 03:14:27"
+                },
+                "relationships": {
+                    "user": {
+                        "data": {
+                            'id': str(user.pk),
+                            'type': 'User'
+                        }
+                    },
+                    "content-type": {
+                        "data": {
+                            'id': str(topic.pk),
+                            'type': 'ContentType'
+                        }
+                    }
+                },
+                "type": "notifications"
+            },
+        }
+        request = factory.post(
+            url, json.dumps(self.data),
+            HTTP_HOST='example.com', content_type="application/vnd.api+json"
+        )
+        force_authenticate(request, user=user)
+        response = view(request)
+
+        self.assertEqual(response.status_code == 201, True)

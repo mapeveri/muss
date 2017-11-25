@@ -657,6 +657,7 @@ class NotificationViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.NotificationSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
     resource_name = 'notifications'
+    http_method_names = ['get', 'post']
 
     def get_queryset(self, *args, **kwargs):
         try:

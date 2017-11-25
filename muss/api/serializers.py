@@ -290,27 +290,34 @@ class NotificationSerializer(serializers.ModelSerializer):
     topic = serializers.SerializerMethodField()
 
     def get_comment(self, obj):
-        if str(obj.content_object._meta) == "muss.comment":
-            return {
-                'topicid': obj.content_object.topic.pk,
-                'slug': obj.content_object.topic.slug,
-                'title': obj.content_object.topic.title,
-                'username': obj.content_object.user.username,
-                'userid': obj.content_object.user.pk
-            }
-            return None
+        try:
+            if str(obj.content_object._meta) == "muss.comment":
+                return {
+                    'topicid': obj.content_object.topic.pk,
+                    'slug': obj.content_object.topic.slug,
+                    'title': obj.content_object.topic.title,
+                    'username': obj.content_object.user.username,
+                    'userid': obj.content_object.user.pk
+                }
+            else:
+                return {}
+        except AttributeError:
+            return {}
 
     def get_topic(self, obj):
-        if str(obj.content_object._meta) == "muss.topic":
-            return {
-                'topicid': obj.content_object.pk,
-                'slug': obj.content_object.slug,
-                'title': obj.content_object.title,
-                'username': obj.content_object.user.username,
-                'userid': obj.content_object.user.pk
-            }
-        else:
-            return None
+        try:
+            if str(obj.content_object._meta) == "muss.topic":
+                return {
+                    'topicid': obj.content_object.pk,
+                    'slug': obj.content_object.slug,
+                    'title': obj.content_object.title,
+                    'username': obj.content_object.user.username,
+                    'userid': obj.content_object.user.pk
+                }
+            else:
+                return {}
+        except AttributeError:
+            return {}
 
     class Meta:
         model = models.Notification
