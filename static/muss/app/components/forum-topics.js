@@ -46,7 +46,7 @@ export default Component.extend({
     didRender() {
         //For close messages information
         $('.close.icon').on('click', function() {
-            $(this).parent().transition('fade');
+            $(this).parent().hide('slow');
         });
     },
     /**
