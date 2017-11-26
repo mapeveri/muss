@@ -22,16 +22,6 @@ class TopicAdmin(admin.ModelAdmin):
     search_fields = ['title', 'date', 'is_moderate', 'is_close']
     actions = ['delete_topic']
 
-    def get_form(self, request, obj=None, **kwargs):
-        ModelForm = super(TopicAdmin, self).get_form(request, obj, **kwargs)
-
-        class ModelFormMetaClass(ModelForm):
-            def __new__(cls, *args, **kwargs):
-                kwargs['request'] = request
-                return ModelForm(*args, **kwargs)
-
-        return ModelFormMetaClass
-
     def get_queryset(self, request):
         qs = super(TopicAdmin, self).get_queryset(request)
         if request.user.is_superuser:

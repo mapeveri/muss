@@ -8,16 +8,6 @@ class FormAdminTopic(forms.ModelForm):
     """
     Form for topic cadmin.
     """
-    def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request', None)
-        super(FormAdminTopic, self).__init__(*args, **kwargs)
-
-        if not self.request.user.is_superuser:
-            queryset = models.Forum.objects.filter(
-                moderators=self.request.user
-            )
-            self.fields['forum'].queryset = queryset
-
     class Meta:
         model = models.Topic
         exclude = ('slug', 'id_attachment')
