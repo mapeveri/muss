@@ -13,10 +13,10 @@ Muss is a 100% open source forum developed with Django and Ember.js.
 Features
 --------
 
-1. Multiple forums and ordered by for category.
-2. Support to sub-forums.
-3. Count views for topics.
-4. Support to topics main in top in forum.
+1. Multiple forums and ordered by category.
+2. Support to subforums.
+3. Hit count by topics.
+4. Support to topics main in top in the forum.
 5. Support to rss to forums.
 6. Search topics in the all forums.
 7. Pre-moderation of topics with multiple moderators.
@@ -24,13 +24,13 @@ Features
 9. Infinite scroll for topics and comments.
 10. Notifications and email notifications.
 11. Notifications and comments in real time.
-12. Django-admin for moderation
+12. Django-admin for moderation.
 13. Support check user online.
-14. Support to English, Italian and Spanish languages.
+14. Support English, Italian and Spanish languages.
 15. API REST with django-rest-framework.
 16. Custom configuration css.
 17. Editor Markdown.
-18. Message for forums.
+18. Messages for forums.
 19. Suggested Topics in topic.
 20. Open and Close topic.
 21. Support to likes in topics and comments.
@@ -60,7 +60,7 @@ Manually
 
 2. Go to the folder /conf/ and rename file settings_local.py.txt to settings_local.py. Then configure thats variables.
 
-3. Generate SECRET_KEY and export environment variable:
+3. Generate **SECRET_KEY** and export environment variable:
 
     python script/django-secret-keygen.py
 
@@ -91,7 +91,7 @@ Manually
 With ansible
 ------------
 
-1. Execute in the folder ansible:
+1. Execute in the folder **ansible**:
 
     ansible-playbook playbook.yml
 
@@ -119,11 +119,11 @@ Translates:
 Contribute
 ----------
 
-1. Fork this repo and install it
-2. Follow PEP8, Style Guide for Python Code
-3. Write code
-4. Write unit test
-5. Send pull request
+1. Fork this repo and install it.
+2. Follow PEP8, Style Guide for Python Code.
+3. Write code.
+4. Write unit test.
+5. Send pull request.
 
 
 Status
