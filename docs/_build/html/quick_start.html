@@ -87,6 +87,44 @@ You can the generate the SECRET_KEY and export environment variable of this way:
 $ python manage.py createsuperuser
 </pre></div>
 </div>
+<div class="section" id="setup-the-admin">
+<h3>Setup the admin<a class="headerlink" href="#setup-the-admin" title="Permalink to this headline">¶</a></h3>
+<p>Execute:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python manage.py config_admin
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="internationalization-and-localization">
+<h2>Internationalization and Localization<a class="headerlink" href="#internationalization-and-localization" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="settings">
+<h3>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h3>
+<p>The default language for this Project is <strong>English</strong>, and the internationalization is used to translate the text to
+Spanish and Italian languages.</p>
+<p>If you want to change the translation language, or include a new one, you just need to modify the <strong>LANGUAGES</strong> variable
+in the file <em>settings/base.py</em>. The language codes that define each language can be found <a href="http://msdn.microsoft.com/en-us/library/ms533052(v=vs.85).aspx" target="_blank">here</a>.</p>
+<p>For example, if you want to use German you should include:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">LANGUAGES</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="o">...</span>
+        <span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;German&quot;</span><span class="p">),</span>
+        <span class="o">...</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="translation">
+<h3>Translation<a class="headerlink" href="#translation" title="Permalink to this headline">¶</a></h3>
+<p>Go to the terminal, inside the muss folder and create the files to translate with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python manage.py compilemessages
+</pre></div>
+</div>
+<p>Now, Go to the folder <em>/static/muss</em> and execute:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ npm install
+$ bower install
+</pre></div>
+</div>
+<p>Make sure you have a <a href="https://redis.io/topics/quickstart" target="_blank">redis installer.</a>.</p>
+</div>
 </div>
 </div>
 
@@ -114,6 +152,7 @@ $ python manage.py createsuperuser
 <li class="toctree-l2"><a class="reference internal" href="#install-the-requirements">Install the requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#secret-django-key">Secret Django Key</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#migrating-and-create-super-user">Migrating and create super user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#internationalization-and-localization">Internationalization and Localization</a></li>
 </ul>
 </li>
 </ul>
