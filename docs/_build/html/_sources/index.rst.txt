@@ -46,6 +46,8 @@ Contents
 
    requirements
    quick_start
+   ansible
+   dev
 
 
 
