@@ -7,9 +7,12 @@ Download Muss forum Project
 
 First, you need to download Muss from GitHub.
 
-You can visit the repository webpage in `muss github`_ and dowload it as a zip file.
+You can visit the repository webpage in |muss_github| and download it as a zip file.
 
-.. _muss github: https://github.com/mapeveri/muss
+
+.. |muss_github| raw:: html
+
+    <a href="https://github.com/mapeveri/muss" target="_blank">Github</a>
 
 You can also do the same using your terminal with::
 
@@ -110,11 +113,11 @@ Now, Go to the folder */static/muss* and execute::
     $ npm install
     $ bower install
 
-Make sure you have a |redis_installer_link|.
+Make sure you have a |redis_installer_link|
 
 .. |redis_installer_link| raw:: html
 
     <a href="https://redis.io/topics/quickstart" target="_blank">redis installer.</a>
 
-
+Continue to the :doc:`dev`!
 
