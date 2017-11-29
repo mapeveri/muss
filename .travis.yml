@@ -21,15 +21,10 @@ addons:
 install:
   - cd conf
   - mv settings_local.py.txt settings_local.py
+  - mv .env.example .env
   - cd ..
   - pip install -r requirements.txt
   - pip install -r requirements-dev.txt
-  - export MUSS_DB_HOST="127.0.0.1"
-  - export MUSS_DB_PORT="5432"
-  - export MUSS_DB_USER="postgres"
-  - export MUSS_DB_PASSWORD=""
-  - export MUSS_DB_NAME="muss"
-  - export SECRET_KEY_MUSS_APP="*b0ljo-q!%ufa$e^27nw5axk1y&3q-bgbhldtq!516jttf2ss5"
 
 script:
   - coverage run --source=muss manage.py test

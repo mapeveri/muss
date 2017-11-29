@@ -58,13 +58,11 @@ Manually
 
     pip install -r requirements.txt
 
-2. Go to the folder /conf/ and rename file settings_local.py.txt to settings_local.py. Then configure thats variables.
+2. Go to the folder /conf/ and rename file settings_local.py.txt to settings_local.py and .env.example to .env. Then configure thats variables.
 
-3. Generate **SECRET_KEY** and export environment variable:
+3. Generate **SECRET_KEY** and set in .env file:
 
     python script/django-secret-keygen.py
-
-    export SECRET_KEY_MUSS_APP=RESULT SCRIPT django-secret-keygen.py
 
 4. In main folder execute:
 

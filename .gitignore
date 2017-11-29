@@ -1,4 +1,5 @@
 settings_local.py
+/conf/.env
 *.sqlite3
 *.mo
 /staticfiles/
