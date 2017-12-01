@@ -140,8 +140,10 @@ def send_notification_topic_to_moderators(forum, topic, domain):
         topic (obj): Topic object.
         domain (str): Domain url.
     """
-    # Get moderators forum
-    for moderator in forum.moderators.all():
-        if moderator.user.receive_emails:
-            # Send email
-            send_mail_topic(moderator.email, forum, topic, domain)
+    # If the user who created the topic is not a moderator
+    if not (topic.user in forum.moderators.all()):
+        # Get moderators forum
+        for moderator in forum.moderators.all():
+            if moderator.user.receive_emails:
+                # Send email
+                send_mail_topic(moderator.email, forum, topic, domain)
