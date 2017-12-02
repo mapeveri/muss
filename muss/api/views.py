@@ -223,7 +223,7 @@ class TopicViewSet(viewsets.ModelViewSet):
                 })
         else:
             raise PermissionDenied({
-                    "message": "Not your user"
+                    "message": "The user is invalid"
                 })
 
 
@@ -285,7 +285,7 @@ class RegisterViewSet(viewsets.ModelViewSet):
                 })
         else:
             raise PermissionDenied({
-                    "message": "Not your user"
+                    "message": "The user is invalid"
                 })
 
     def perform_create(self, serializer):
