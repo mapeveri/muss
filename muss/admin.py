@@ -36,6 +36,21 @@ class TopicAdmin(admin.ModelAdmin):
 
         return qs.filter(forum_id__in=lista)
 
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if not request.user.is_superuser:
+            if db_field.name == "forum":
+                kwargs["queryset"] = models.Forum.objects.filter(
+                    moderators=request.user.id
+                )
+            if db_field.name == "user":
+                User = get_user_model()
+                kwargs["queryset"] = User.objects.filter(
+                    pk=request.user.id
+                )
+        return super(TopicAdmin, self).formfield_for_foreignkey(
+            db_field, request, **kwargs
+        )
+
     def get_actions(self, request):
         actions = super(TopicAdmin, self).get_actions(request)
         if 'delete_selected' in actions:

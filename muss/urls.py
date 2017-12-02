@@ -25,7 +25,7 @@ urlpatterns = [
         name='password_reset_confirm'
     ),
     # Url's muss
-    url(r'^feed/(?P<pk>\d+)/(?P<forum>.+)/$', TopicFeed(), name='rss'),
+    url(r'^feed/:pk/:forum/$', TopicFeed(), name='rss'),
     # For ember-app
     url(r'^(?:.*)/?$', views.IndexView.as_view(), name='index'),
 ]
