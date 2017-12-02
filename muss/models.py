@@ -335,13 +335,13 @@ class Notification(models.Model):
         :param date: Date notification.
     """
     content_type = models.ForeignKey(
-        ContentType, null=True, blank=True,
+        ContentType, null=True, blank=True, on_delete=models.CASCADE
     )
     id_object = models.PositiveIntegerField(null=True)
     content_object = GenericForeignKey('content_type', 'id_object')
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name='notifications_user',
-        null=False, blank=False,
+        null=False, blank=False, on_delete=models.CASCADE
     )
     is_seen = models.BooleanField(default=0)
     date = models.DateTimeField(blank=True, db_index=True)
@@ -519,7 +519,7 @@ class Configuration(models.Model):
             "configuration", filename
         )
 
-    site = models.OneToOneField(Site)
+    site = models.OneToOneField(Site, on_delete=models.CASCADE)
     logo = models.FileField(
         upload_to=generate_path_configuration, null=True, blank=True,
     )
@@ -562,7 +562,9 @@ class HitcountTopic(models.Model):
         :param topic: Topic relation.
         :param data: Data sessions
     """
-    topic = models.ForeignKey(Topic, related_name='topichitcount')
+    topic = models.ForeignKey(
+        Topic, related_name='topichitcount', on_delete=models.CASCADE
+    )
     data = JSONField()
 
 

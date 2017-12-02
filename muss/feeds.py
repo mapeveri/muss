@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib.syndication.views import Feed
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.shortcuts import get_object_or_404
 
 from .models import Forum, Topic

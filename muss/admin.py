@@ -92,7 +92,7 @@ class TopicAdmin(admin.ModelAdmin):
             for obj in queryset:
                 topic_id = obj.pk
                 # Remove folder attachment
-                utils.remove_folder_attachment(topic_id)
+                # utils.remove_folder_attachment(topic_id)
                 # Delete record
                 models.Topic.objects.filter(pk=topic_id).delete()
 

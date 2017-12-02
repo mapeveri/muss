@@ -34,7 +34,7 @@ class ConfirmEmailView(View):
         raise Http404
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             raise Http404
 
         username = request.POST.get('username')
@@ -84,7 +84,7 @@ class NewKeyActivationView(View):
         raise Http404
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             raise Http404
 
         username = request.POST.get('username')
@@ -121,7 +121,7 @@ class ResetPasswordView(View):
         raise Http404
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             raise Http404
 
         email = request.POST.get('email')
@@ -161,7 +161,7 @@ class PasswordResetConfirmView(View):
         raise Http404
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             raise Http404
 
         uidb64 = request.POST.get('uidb64')

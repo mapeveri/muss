@@ -152,7 +152,7 @@ class TopicViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         # If is troll then only is read only
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             if self.request.user.user.is_troll:
                 self.permission_classes = [IsReadOnly, ]
         return super(TopicViewSet, self).get_permissions()
@@ -237,7 +237,7 @@ class RegisterViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         # If is troll then only is read only
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             if self.request.user.user.is_troll:
                 self.permission_classes = [IsReadOnly, ]
         return super(RegisterViewSet, self).get_permissions()
@@ -317,7 +317,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         # If is troll then only is read only
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             if self.request.user.user.is_troll:
                 self.permission_classes = [IsReadOnly, ]
         return super(CommentViewSet, self).get_permissions()
@@ -727,7 +727,7 @@ class UploadsView(APIView):
     """
     def post(self, request, format=None):
         urls = []
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             for file_name in self.request.FILES:
                 file = self.request.FILES[file_name]
                 r = models.Upload.objects.create(

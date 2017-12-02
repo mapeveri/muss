@@ -1,6 +1,6 @@
 from django.test import Client, TestCase
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.utils import timezone
 
 from muss.tests import utils

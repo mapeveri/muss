@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.contrib.auth.middleware import get_user
 from django.core.cache import cache
-from django.core.urlresolvers import reverse
 from django.http import Http404
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.functional import SimpleLazyObject
@@ -16,7 +16,7 @@ class ActiveUserMiddleware(MiddlewareMixin):
     """
     def process_request(self, request):
         current_user = request.user
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             now = timezone.now()
             cache.set(
                 'seen_%s' % (current_user.username), now,
@@ -30,7 +30,7 @@ class RestrictStaffToAdminMiddleware(MiddlewareMixin):
     """
     def process_request(self, request):
         if request.path.startswith(reverse('admin:index')):
-            if request.user.is_authenticated():
+            if request.user.is_authenticated:
                 if not request.user.is_staff:
                     raise Http404
             else:
