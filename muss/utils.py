@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from muss.models import (
-    Forum, Topic, Comment, Register, Profile
+    Forum, Comment, Register, Profile
 )
 
 
@@ -74,54 +74,6 @@ def remove_file(route_file):
     if route_file != "" and route_file is not None:
         if os.path.exists(route_file):
             os.remove(route_file)
-
-
-def get_folder_attachment(topic):
-    """
-    This method return the path of one folder attachment for app forum.
-    Args:
-        topic (obj): Topic object.
-    Returns:
-        str: Path attachment.
-    """
-    folder = ""
-    folder = "forum_" + str(topic.forum_id)
-    folder = folder + "_user_" + str(topic.user.username)
-    folder = folder + "_topic_" + str(topic.id_attachment)
-    path_folder = os.path.join("forum", folder)
-    media_path = settings.MEDIA_ROOT
-    path = media_path + "/" + path_folder
-
-    return path
-
-
-def remove_folder_attachment(pk):
-    """
-    This method remove folder attachment and subtract one topic.
-
-    Args:
-        pk (int): Identification topic.
-    """
-    # Subtract one topic
-    topic = get_object_or_404(Topic, pk=pk)
-    forum = get_object_or_404(
-        Forum, category__name=topic.forum.category.name,
-        name=topic.forum, hidden=False
-    )
-    tot = forum.topics_count
-    tot = tot - 1
-    Forum.objects.filter(
-        category__name=topic.forum.category.name,
-        name=topic.forum, hidden=False
-    ).update(
-        topics_count=tot
-    )
-
-    path = get_folder_attachment(topic)
-
-    # Remove attachment if exists
-    if exists_folder(path):
-        remove_folder(path)
 
 
 def get_route_file(file_path, file_name):

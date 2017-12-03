@@ -48,7 +48,7 @@ class ConfirmEmailView(View):
             ).decode("ascii")
             # Parameters for template
             data = {
-                'username': username, 
+                'username': username,
                 'token': csrf_token,
                 'SITE_NAME': settings.SITE_NAME
             }
