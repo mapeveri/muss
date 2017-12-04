@@ -290,7 +290,7 @@ class MessageForumAdmin(admin.ModelAdmin):
 
 class RegisterAdmin(admin.ModelAdmin):
     list_display = (
-        'forum', 'user',
+        'forum', 'user', 'is_enabled',
     )
 
 

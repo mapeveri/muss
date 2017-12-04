@@ -49,8 +49,9 @@ export default Component.extend({
 
                 //Add record
                 let record = this.get('store').createRecord('notification', {
-                    topic: obj.topic,
-                    comment: obj.comment,
+                    topic: obj.topic == null ? {} : obj.topic,
+                    comment: obj.comment == null ? {} : obj.comment,
+                    register: obj.register == null ? {} : obj.register,
                     isSeen: false,
                     date: new Date().toLocaleString(),
                 });

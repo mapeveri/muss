@@ -19,6 +19,7 @@ export default Component.extend({
     canCreateTopic: false,
     canRegister: false,
     isAdminOrModerator: false,
+    isPendingModerate: false,
     addTopicField: '',
     addTopicTitle: '',
     enableAddTopic: function() {
@@ -126,12 +127,16 @@ export default Component.extend({
                 let isRegistered = response.data.register;
                 let isModerator = response.data.is_moderator;
                 let isTroll = response.data.is_troll;
+                let isPendingModerate = response.data.is_pending_moderate;
 
                 //Set if is a troll user
                 this.set('isTrollUser', isTroll);
 
                 //Set if user is admin or moderator
                 this.set('isAdminOrModerator', isSuperUser || isModerator);
+
+                //Set if user is pending of moderate by the moderators
+                this.set('isPendingModerate', isPendingModerate);
 
                 //Check if is a troll
                 if(!isTroll) {
@@ -169,12 +174,23 @@ export default Component.extend({
                 });
 
                 register.save().then(() => {
-                    this.set('canRegister', false);
-                    this.set('canCreateTopic', true);
+                    window.toastr.success(gettextHelper("Please wait for a moderator to accept your registration to the forum"));
+                    this.set('isPendingModerate', true);
                 }).catch(() => {
                     window.toastr.error(gettextHelper("Failed to register"))
                 });
             });
+        },
+        /**
+        * @method confirmUnregisterUser
+        * @description: Confirm unregister
+        */
+        confirmUnregisterUser() {
+            $('.tiny.confirm-unregister.modal').modal({
+                onApprove: () => {
+                  return false;
+                }
+            }).modal('show');
         },
         /**
         * @method unRegisterUser
@@ -186,8 +202,10 @@ export default Component.extend({
                 register.destroyRecord().then(() => {
                     this.set('canRegister', true);
                     this.set('canCreateTopic', false);
+                    $('.tiny.confirm-unregister.modal').modal('hide');
                 });
             }).catch(() => {
+                $('.tiny.confirm-unregister.modal').modal('hide');
                 window.toastr.error(gettextHelper("Failed to unregister"))
             })
         },

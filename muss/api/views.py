@@ -262,7 +262,7 @@ class RegisterViewSet(viewsets.ModelViewSet):
             moderators = forum.moderators.all()
             # Get registers, exclude moderators
             self.queryset = forum.register_forums.filter(
-                ~Q(user__in=moderators)
+                ~Q(user__in=moderators), is_enabled=True
             )
         return self.queryset
 
@@ -272,17 +272,30 @@ class RegisterViewSet(viewsets.ModelViewSet):
         # If is my user or is superuser can create
         if is_my_user or request.user.is_superuser:
             forum_id = int(request.data['forum']['id'])
-            exists_register = models.Register.objects.filter(
-                forum_id=forum_id, user=request.user
-            )
 
-            # If the register not exists
-            if exists_register.count() == 0:
-                return super(RegisterViewSet, self).create(request, **kwargs)
+            # Check if the forum is public or not
+            forum = get_object_or_404(models.Forum, pk=forum_id)
+            if forum.public_forum:
+                request.data['is_enable'] = True
             else:
-                raise PermissionDenied({
-                    "message": "You are already Registered"
-                })
+                request.data['is_enable'] = False
+
+            if not forum.public_forum:
+                exists_register = models.Register.objects.filter(
+                    forum_id=forum_id, user=request.user
+                )
+
+                # If the register not exists
+                if exists_register.count() == 0:
+                    nt_email.send_email_new_register_to_moderators(
+                        forum, request.user
+                    )
+                else:
+                    raise PermissionDenied({
+                        "message": "You are already Registered"
+                    })
+
+            return super(RegisterViewSet, self).create(request, **kwargs)
         else:
             raise PermissionDenied({
                     "message": "The user is invalid"
@@ -491,13 +504,14 @@ class HitcountTopicViewSet(viewsets.ModelViewSet):
 
 class CheckPermissionsForumUserView(APIView):
     """
-    Check the permissions that a user has in a forum
+    Check the permissions that a user has in a forum private
     """
     def get(self, request, format=None):
         response = {
             'register': False,
             'is_moderator': False,
             'is_troll': False,
+            'is_pending_moderate': False,
         }
 
         # Parameters
@@ -506,12 +520,15 @@ class CheckPermissionsForumUserView(APIView):
 
         if user_id and forum_id:
             # Check if user is registered in the forum
-            total_register = models.Register.objects.filter(
+            register = models.Register.objects.filter(
                 user__pk=user_id, forum__pk=forum_id
-            ).count()
+            )
 
-            if total_register > 0:
-                response['register'] = True
+            if register.count() > 0:
+                if register.first().is_enabled:
+                    response['register'] = True
+                else:
+                    response['is_pending_moderate'] = True
 
             # Check if user logged is moderator in the forum
             total_moderator = models.Forum.objects.filter(

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-15 09:47-0300\n"
+"POT-Creation-Date: 2017-12-03 21:43-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,26 +30,26 @@ msgstr "Español"
 msgid "Italian"
 msgstr "Italiano"
 
-#: muss/admin.py:111 muss/admin.py:191
+#: muss/admin.py:114 muss/admin.py:194
 #, python-format
 msgid "Successfully deleted %(count)d record/s."
 msgstr ""
 
-#: muss/admin.py:147 muss/admin.py:227
+#: muss/admin.py:150 muss/admin.py:230
 #, python-format
 msgid "Delete selected %(verbose_name_plural)s"
 msgstr ""
 
-#: muss/admin.py:163 muss/models.py:75
+#: muss/admin.py:166 muss/models.py:75
 msgid "Moderators"
 msgstr "Moderadores"
 
-#: muss/admin.py:272 muss/models.py:101 muss/models.py:182 muss/models.py:226
-#: muss/models.py:402
+#: muss/admin.py:275 muss/models.py:101 muss/models.py:182 muss/models.py:226
+#: muss/models.py:400
 msgid "Forum"
 msgstr "Foro"
 
-#: muss/admin.py:297
+#: muss/admin.py:300
 msgid "Profile"
 msgstr "Perfil"
 
@@ -77,7 +77,7 @@ msgstr "Foros"
 msgid "Add topic"
 msgstr "Agregar tema"
 
-#: muss/i18n.py:9 muss/models.py:415
+#: muss/i18n.py:9 muss/models.py:417
 msgid "Register"
 msgstr "Registrarse"
 
@@ -85,7 +85,7 @@ msgstr "Registrarse"
 msgid "Unregister"
 msgstr "Anular registro"
 
-#: muss/i18n.py:11 muss/models.py:258 muss/models.py:307
+#: muss/i18n.py:11 muss/models.py:258 muss/models.py:305
 msgid "Topic"
 msgstr "Tema"
 
@@ -263,7 +263,7 @@ msgstr ""
 msgid "Like"
 msgstr ""
 
-#: muss/i18n.py:52 muss/models.py:322
+#: muss/i18n.py:52 muss/models.py:320
 msgid "Comment"
 msgstr "Comentario"
 
@@ -315,7 +315,7 @@ msgstr "de"
 msgid "About"
 msgstr "Acerca de"
 
-#: muss/i18n.py:65 muss/models.py:452
+#: muss/i18n.py:65 muss/models.py:454
 msgid "Location"
 msgstr "Ubicación"
 
@@ -369,7 +369,7 @@ msgstr "Hay temas pendientes de moderación"
 
 #: muss/i18n.py:78
 msgid "The topic is pending of moderation"
-msgstr "El tema esta pendiente de moderación"
+msgstr "El tema está pendiente de moderación"
 
 #: muss/i18n.py:79
 msgid "Registered users"
@@ -379,8 +379,28 @@ msgstr "Usuarios registrados"
 msgid "This topic is closed"
 msgstr "El tema está cerrado"
 
+#: muss/i18n.py:81
+msgid "Please wait for a moderator to accept your registration to the forum"
+msgstr "Espere por favor a que un moderador acepte su registro en el foro"
+
+#: muss/i18n.py:82
+msgid "You are awaiting moderation"
+msgstr "Usted está pendiente de moderación"
+
+#: muss/i18n.py:83 muss/i18n.py:85
+msgid "Confirm of the register cancellation"
+msgstr "Confirmar la cancelación del registro"
+
+#: muss/i18n.py:84
+msgid "Do you confirm the cancellation of the register?"
+msgstr "¿Confirma la cancelación del registro?"
+
+#: muss/i18n.py:86
+msgid "A moderator accepted your request for registration in "
+msgstr "Un moderador aceptó su petición de registro en "
+
 #: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:241
-#: muss/models.py:317 muss/models.py:543
+#: muss/models.py:315 muss/models.py:545
 msgid "Description"
 msgstr "Descripción"
 
@@ -404,7 +424,7 @@ msgstr "Foro padre"
 msgid "Name"
 msgstr "Nombre"
 
-#: muss/models.py:78 muss/models.py:236 muss/models.py:315 muss/models.py:410
+#: muss/models.py:78 muss/models.py:236 muss/models.py:313 muss/models.py:412
 msgid "Date"
 msgstr "Fecha"
 
@@ -464,7 +484,7 @@ msgstr "Mensaje para foros"
 msgid "Messages for forums"
 msgstr "Mensajes para foros"
 
-#: muss/models.py:230 muss/models.py:312 muss/models.py:407 muss/models.py:583
+#: muss/models.py:230 muss/models.py:310 muss/models.py:405 muss/models.py:587
 msgid "User"
 msgstr "Usuario"
 
@@ -504,75 +524,83 @@ msgstr "Si el tema es importante y va a ir arriba"
 msgid "Topics"
 msgstr "Temas"
 
-#: muss/models.py:323
+#: muss/models.py:321
 msgid "Comments"
 msgstr "Comentarios"
 
-#: muss/models.py:416
+#: muss/models.py:408
+msgid "Enable register"
+msgstr "Habilitar registro"
+
+#: muss/models.py:409
+msgid "If the user is enabled in the forum"
+msgstr "Si el usuario es está habilitado en el foro"
+
+#: muss/models.py:418
 msgid "Registers"
 msgstr "Registros"
 
-#: muss/models.py:448
+#: muss/models.py:450
 msgid "Photo"
 msgstr "Foto"
 
-#: muss/models.py:450
+#: muss/models.py:452
 msgid "About me"
 msgstr "Acerca de"
 
-#: muss/models.py:457
+#: muss/models.py:459
 msgid "Is troll"
 msgstr "Es troll"
 
-#: muss/models.py:458
+#: muss/models.py:460
 msgid "If the user is troll"
 msgstr "Si el usuario es troll"
 
-#: muss/models.py:461
+#: muss/models.py:463
 msgid "Receive Emails"
 msgstr "Recibe Emails"
 
-#: muss/models.py:462
+#: muss/models.py:464
 msgid "If receive Emails"
 msgstr "Si recibe Emails"
 
-#: muss/models.py:532
+#: muss/models.py:534
 msgid "Logo width"
 msgstr "Ancho del logo"
 
-#: muss/models.py:533 muss/models.py:537
+#: muss/models.py:535 muss/models.py:539
 msgid "In pixels"
 msgstr "En pixels"
 
-#: muss/models.py:536
+#: muss/models.py:538
 msgid "Logo height"
 msgstr "Altura del logo"
 
-#: muss/models.py:540
+#: muss/models.py:542
 msgid "Custom design"
 msgstr "Diseño customizado"
 
-#: muss/models.py:544
+#: muss/models.py:546
 msgid "Description site."
 msgstr "Descripción del sitio"
 
-#: muss/models.py:547
+#: muss/models.py:549
 msgid "Keywords"
 msgstr "Palabras claves"
 
-#: muss/models.py:548
+#: muss/models.py:550
 msgid "Keywords for the SEO."
 msgstr "Palabras claves para el SEO."
 
-#: muss/models.py:552
+#: muss/models.py:554
 msgid "Configuration"
 msgstr "Configuración"
 
-#: muss/models.py:553
+#: muss/models.py:555
 msgid "Configurations"
 msgstr "Configuraciones"
 
-#: muss/models.py:586
+#: muss/models.py:590
 msgid "File"
 msgstr "Archivo"
 
@@ -589,22 +617,32 @@ msgstr ""
 msgid "Welcome to "
 msgstr "Bienvenido a "
 
-#: muss/notifications_email.py:68
+#: muss/notifications_email.py:69
+#, python-format
+msgid "New register in %(forum)s "
+msgstr "Nuevo registro en %(forum)s "
+
+#: muss/notifications_email.py:70
+#, python-format
+msgid "New registered user %(user)s to the forum: %(forum)s"
+msgstr "Nuevo usuario registrado %(user)s en el foro: %(forum)s"
+
+#: muss/notifications_email.py:91
 #, python-format
 msgid "New comment in %(site)s"
 msgstr "Nuevo comentario en %(site)s"
 
-#: muss/notifications_email.py:72
+#: muss/notifications_email.py:95
 #, python-format
 msgid "You have one new comment in the topic: %(site)s"
 msgstr "Usted tiene un nuevo comentario en el tema: %(site)s"
 
-#: muss/notifications_email.py:103
+#: muss/notifications_email.py:126
 #, python-format
 msgid "New topic in %(site)s "
 msgstr "Nuevo tema en %(site)s"
 
-#: muss/notifications_email.py:104
+#: muss/notifications_email.py:127
 #, python-format
 msgid "Added a new topic %(url_topic)s to the forum: %(site)s"
 msgstr "Se agregó un nuevo tema %(url_topic)s al foro: %(site)s"
@@ -714,11 +752,11 @@ msgstr ""
 "Restablecimiento de contraseña para correo electrónico %(email)s. Por favor "
 "siga el siguiente link : %(protocol)s://%(domain)s"
 
-#: muss/utils.py:184 muss/utils.py:186 muss/utils.py:190
+#: muss/utils.py:146 muss/utils.py:148 muss/utils.py:152
 msgid "ago"
 msgstr "hace"
 
-#: muss/utils.py:190
+#: muss/utils.py:152
 msgid "days ago"
 msgstr "días"
 

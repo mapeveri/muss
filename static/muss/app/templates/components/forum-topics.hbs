@@ -29,15 +29,19 @@
             {{#unless model.forum.publicForum}}
                 {{#if session.isAuthenticated}}
                     {{#unless isAdminOrModerator}}
-                        {{#if canRegister}}
-                            <div class="ui mini button" {{ action "registerUser" }}>
-                                {{gettext "Register"}}
-                            </div>
+                        {{#unless isPendingModerate}}
+                            {{#if canRegister}}
+                                <div class="ui mini button" {{ action "registerUser" }}>
+                                    {{gettext "Register"}}
+                                </div>
+                            {{else}}
+                                <div class="ui mini button" {{ action "confirmUnregisterUser" }}>
+                                    {{gettext "Unregister"}}
+                                </div>
+                            {{/if}}
                         {{else}}
-                            <div class="ui mini button" {{ action "unRegisterUser" }}>
-                                {{gettext "Unregister"}}
-                            </div>
-                        {{/if}}
+                            <div class="ui green horizontal label">{{gettext "You are awaiting moderation"}}</div>
+                        {{/unless}}
                     {{/unless}}
                 {{/if}}
             {{/unless}}
@@ -124,4 +128,18 @@
             {{/if}}
         {{/utils/modal-simple-mde-editor}}
     {{/if}}
+{{/unless}}
+
+{{#unless canRegister}}
+    {{#utils/form-modal title_modal="Confirm of the register cancellation" id="confirm-unregister" hasUiForShowModal=false customActions=true as |section|}}
+        {{#if section.isSectionActions}}
+            <!-- Section actions -->
+            <button class="ui red button" {{ action "unRegisterUser"}}>{{gettext "Unregister"}}</button>
+        {{/if}}
+
+        {{#if section.isSectionContent}}
+            <!-- Section default content -->
+            {{gettext "Do you confirm the cancellation of the register?"}}
+        {{/if}}
+    {{/utils/form-modal}}
 {{/unless}}

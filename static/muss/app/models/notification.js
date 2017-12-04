@@ -7,4 +7,5 @@ export default DS.Model.extend({
     date: DS.attr('string'),
     comment: DS.attr(),
     topic: DS.attr(),
+    register: DS.attr(),
 });

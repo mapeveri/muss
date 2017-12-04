@@ -210,9 +210,18 @@ def user_can_create_topic(category, forum, user):
         bool: If the user can create topic.
     """
     is_moderator = is_user_moderator_forum(category, forum, user)
-    is_register = Register.objects.filter(forum=forum, user=user).count()
+    register_count = Register.objects.filter(forum=forum, user=user).count()
+
+    if forum.public_forum:
+        is_register = True
+    else:
+        if register_count > 0:
+            is_register = True
+        else:
+            is_register = False
+
     # If is superuser or moderator or is register in the forum
-    if user.is_superuser or is_moderator or is_register > 0:
+    if user.is_superuser or is_moderator or is_register:
         return True
     else:
         return False

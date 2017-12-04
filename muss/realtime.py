@@ -93,3 +93,19 @@ def new_comment(data_comment, comment_description):
     Group("topiccomment-%s" % topic).send({
         'text': json_data_comment
     })
+
+
+def new_notification_register(register):
+    """
+    Send notification to user that now can create topic
+    """
+    data = {}
+    data['register'] = {
+        'forumid': register.forum.pk,
+        'slug': register.forum.slug,
+        'forum': register.forum.name,
+    }
+
+    Group("notification-%s" % register.user.id).send({
+        'text': json.dumps(data)
+    })

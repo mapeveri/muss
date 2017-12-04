@@ -343,8 +343,8 @@ class Notification(models.Model):
         settings.AUTH_USER_MODEL, related_name='notifications_user',
         null=False, blank=False, on_delete=models.CASCADE
     )
-    is_seen = models.BooleanField(default=0)
-    date = models.DateTimeField(blank=True, db_index=True)
+    is_seen = models.BooleanField(default=False)
+    date = models.DateTimeField(blank=True, db_index=True, auto_now=True)
 
     class Meta(object):
         ordering = ['date']
@@ -403,6 +403,10 @@ class Register(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name='register_users',
         verbose_name=_('User'), on_delete=models.CASCADE
+    )
+    is_enabled = models.BooleanField(
+        _('Enable register'), default=False,
+        help_text=_('If the user is enabled in the forum')
     )
     date = models.DateTimeField(
         _('Date'), blank=True, auto_now=True, db_index=True

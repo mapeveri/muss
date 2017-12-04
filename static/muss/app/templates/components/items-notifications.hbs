@@ -1,27 +1,6 @@
 {{#each notifications as |notification|}}
     <div class="item">
-        {{#if notification.topic }}
-            <div class="content">
-                <i class="alarm outline icon"></i> {{gettext "New topic"}}
-                {{#link-to "topic" notification.topic.topicid notification.topic.slug}}
-                    {{ notification.topic.title }}
-                {{/link-to}}
-                {{gettext "By"}} {{ notification.topic.username }}
-                {{#unless inDropdown}}
-                <div class="description marginTop1"> <i class="calendar icon"></i> {{ notification.date  }}</div>
-                {{/unless}}
-            </div>
-        {{else}}
-            <div class="content">
-                <i class="reply icon"></i> {{ notification.comment.username}}
-                {{#link-to "topic" notification.comment.topicid notification.comment.slug}}
-                    {{ notification.comment.title }}
-                {{/link-to}}
-                {{#unless inDropdown}}
-                <div class="description marginTop1"> <i class="calendar icon"></i> {{ notification.date  }}</div>
-                {{/unless}}
-            </div>
-        {{/if}}
+        {{item-notification notification=notification inDropdown=inDropdown}}
     </div>
 
     {{#if inDropdown}}

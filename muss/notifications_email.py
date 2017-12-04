@@ -57,6 +57,29 @@ def get_data_confirm_email(email):
     }
 
 
+def send_mail_new_register(email_moderator, forum, user):
+    """
+    Send email new register.
+
+    Args:
+        email_moderator (str): Email moderator.
+        forum (obj): Forum object.
+        user (obj): User object.
+    """
+    title_email = _("New register in %(forum)s ") % {'forum': forum.name}
+    message = _("New registered user %(user)s to the forum: %(forum)s") % {
+        'forum': forum.name,
+        'user': user.username,
+    }
+    email_from = settings.EMAIL_MUSS
+
+    if email_from:
+        send_mail(
+            title_email, message, email_from,
+            [email_moderator], fail_silently=False
+        )
+
+
 def send_mail_comment(url, list_email):
     """
     Send email comment.
@@ -147,3 +170,19 @@ def send_notification_topic_to_moderators(forum, topic, domain):
             if moderator.user.receive_emails:
                 # Send email
                 send_mail_topic(moderator.email, forum, topic, domain)
+
+
+def send_email_new_register_to_moderators(forum, user):
+    """
+    Send email new register to moderators.
+
+    Args:
+        forum (obj): Forum object.
+        user (user): User object.
+    """
+    # If the user who created the topic is not a moderator
+    if not (user in forum.moderators.all()):
+        # Get moderators forum
+        for moderator in forum.moderators.all():
+            # Send email
+            send_mail_new_register(moderator.email, forum, user)

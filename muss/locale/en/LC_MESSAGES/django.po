@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-15 09:47-0300\n"
+"POT-Creation-Date: 2017-12-03 21:43-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,26 +29,26 @@ msgstr ""
 msgid "Italian"
 msgstr ""
 
-#: muss/admin.py:111 muss/admin.py:191
+#: muss/admin.py:114 muss/admin.py:194
 #, python-format
 msgid "Successfully deleted %(count)d record/s."
 msgstr ""
 
-#: muss/admin.py:147 muss/admin.py:227
+#: muss/admin.py:150 muss/admin.py:230
 #, python-format
 msgid "Delete selected %(verbose_name_plural)s"
 msgstr ""
 
-#: muss/admin.py:163 muss/models.py:75
+#: muss/admin.py:166 muss/models.py:75
 msgid "Moderators"
 msgstr ""
 
-#: muss/admin.py:272 muss/models.py:101 muss/models.py:182 muss/models.py:226
-#: muss/models.py:402
+#: muss/admin.py:275 muss/models.py:101 muss/models.py:182 muss/models.py:226
+#: muss/models.py:400
 msgid "Forum"
 msgstr ""
 
-#: muss/admin.py:297
+#: muss/admin.py:300
 msgid "Profile"
 msgstr ""
 
@@ -78,7 +78,7 @@ msgstr ""
 msgid "Add topic"
 msgstr "No loaded topics"
 
-#: muss/i18n.py:9 muss/models.py:415
+#: muss/i18n.py:9 muss/models.py:417
 msgid "Register"
 msgstr ""
 
@@ -86,7 +86,7 @@ msgstr ""
 msgid "Unregister"
 msgstr ""
 
-#: muss/i18n.py:11 muss/models.py:258 muss/models.py:307
+#: muss/i18n.py:11 muss/models.py:258 muss/models.py:305
 msgid "Topic"
 msgstr ""
 
@@ -264,7 +264,7 @@ msgstr ""
 msgid "Like"
 msgstr ""
 
-#: muss/i18n.py:52 muss/models.py:322
+#: muss/i18n.py:52 muss/models.py:320
 msgid "Comment"
 msgstr ""
 
@@ -320,7 +320,7 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: muss/i18n.py:65 muss/models.py:452
+#: muss/i18n.py:65 muss/models.py:454
 msgid "Location"
 msgstr ""
 
@@ -386,8 +386,28 @@ msgstr ""
 msgid "This topic is closed"
 msgstr "No loaded topics"
 
+#: muss/i18n.py:81
+msgid "Please wait for a moderator to accept your registration to the forum"
+msgstr ""
+
+#: muss/i18n.py:82
+msgid "You are awaiting moderation"
+msgstr ""
+
+#: muss/i18n.py:83 muss/i18n.py:85
+msgid "Confirm of the register cancellation"
+msgstr ""
+
+#: muss/i18n.py:84
+msgid "Do you confirm the cancellation of the register?"
+msgstr ""
+
+#: muss/i18n.py:86
+msgid "A moderator accepted your request for registration in "
+msgstr ""
+
 #: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:241
-#: muss/models.py:317 muss/models.py:543
+#: muss/models.py:315 muss/models.py:545
 msgid "Description"
 msgstr ""
 
@@ -411,7 +431,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: muss/models.py:78 muss/models.py:236 muss/models.py:315 muss/models.py:410
+#: muss/models.py:78 muss/models.py:236 muss/models.py:313 muss/models.py:412
 msgid "Date"
 msgstr ""
 
@@ -471,7 +491,7 @@ msgstr ""
 msgid "Messages for forums"
 msgstr ""
 
-#: muss/models.py:230 muss/models.py:312 muss/models.py:407 muss/models.py:583
+#: muss/models.py:230 muss/models.py:310 muss/models.py:405 muss/models.py:587
 msgid "User"
 msgstr ""
 
@@ -511,75 +531,83 @@ msgstr ""
 msgid "Topics"
 msgstr ""
 
-#: muss/models.py:323
+#: muss/models.py:321
 msgid "Comments"
 msgstr ""
 
-#: muss/models.py:416
+#: muss/models.py:408
+msgid "Enable register"
+msgstr ""
+
+#: muss/models.py:409
+msgid "If the user is enabled in the forum"
+msgstr ""
+
+#: muss/models.py:418
 msgid "Registers"
 msgstr ""
 
-#: muss/models.py:448
+#: muss/models.py:450
 msgid "Photo"
 msgstr ""
 
-#: muss/models.py:450
+#: muss/models.py:452
 msgid "About me"
 msgstr ""
 
-#: muss/models.py:457
+#: muss/models.py:459
 msgid "Is troll"
 msgstr ""
 
-#: muss/models.py:458
+#: muss/models.py:460
 msgid "If the user is troll"
 msgstr ""
 
-#: muss/models.py:461
+#: muss/models.py:463
 msgid "Receive Emails"
 msgstr ""
 
-#: muss/models.py:462
+#: muss/models.py:464
 msgid "If receive Emails"
 msgstr ""
 
-#: muss/models.py:532
+#: muss/models.py:534
 msgid "Logo width"
 msgstr ""
 
-#: muss/models.py:533 muss/models.py:537
+#: muss/models.py:535 muss/models.py:539
 msgid "In pixels"
 msgstr ""
 
-#: muss/models.py:536
+#: muss/models.py:538
 msgid "Logo height"
 msgstr ""
 
-#: muss/models.py:540
+#: muss/models.py:542
 msgid "Custom design"
 msgstr ""
 
-#: muss/models.py:544
+#: muss/models.py:546
 msgid "Description site."
 msgstr ""
 
-#: muss/models.py:547
+#: muss/models.py:549
 msgid "Keywords"
 msgstr ""
 
-#: muss/models.py:548
+#: muss/models.py:550
 msgid "Keywords for the SEO."
 msgstr ""
 
-#: muss/models.py:552
+#: muss/models.py:554
 msgid "Configuration"
 msgstr ""
 
-#: muss/models.py:553
+#: muss/models.py:555
 msgid "Configurations"
 msgstr ""
 
-#: muss/models.py:586
+#: muss/models.py:590
 msgid "File"
 msgstr ""
 
@@ -594,22 +622,32 @@ msgstr ""
 msgid "Welcome to "
 msgstr ""
 
-#: muss/notifications_email.py:68
+#: muss/notifications_email.py:69
+#, python-format
+msgid "New register in %(forum)s "
+msgstr ""
+
+#: muss/notifications_email.py:70
+#, python-format
+msgid "New registered user %(user)s to the forum: %(forum)s"
+msgstr ""
+
+#: muss/notifications_email.py:91
 #, python-format
 msgid "New comment in %(site)s"
 msgstr ""
 
-#: muss/notifications_email.py:72
+#: muss/notifications_email.py:95
 #, python-format
 msgid "You have one new comment in the topic: %(site)s"
 msgstr ""
 
-#: muss/notifications_email.py:103
+#: muss/notifications_email.py:126
 #, python-format
 msgid "New topic in %(site)s "
 msgstr ""
 
-#: muss/notifications_email.py:104
+#: muss/notifications_email.py:127
 #, python-format
 msgid "Added a new topic %(url_topic)s to the forum: %(site)s"
 msgstr ""
@@ -713,11 +751,11 @@ msgid ""
 "%(domain)s"
 msgstr ""
 
-#: muss/utils.py:184 muss/utils.py:186 muss/utils.py:190
+#: muss/utils.py:146 muss/utils.py:148 muss/utils.py:152
 msgid "ago"
 msgstr ""
 
-#: muss/utils.py:190
+#: muss/utils.py:152
 msgid "days ago"
 msgstr ""
 

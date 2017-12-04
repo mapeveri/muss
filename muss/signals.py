@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.dispatch import receiver
 
-from muss import models, notifications_email as nt_email
+from muss import models, notifications_email as nt_email, realtime
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
@@ -68,3 +68,19 @@ def pre_delete_receiver_notification(sender, instance, **kwargs):
     models.Notification.objects.filter(
         content_type=ctype, id_object=instance.pk
     ).delete()
+
+
+@receiver(post_save, sender=models.Register)
+def post_edited_register(sender, instance, **kwargs):
+    """
+    This signal is event of model register is update to enable.
+    """
+    if not kwargs['created']:
+        if not instance.forum.public_forum and instance.is_enabled:
+            # Create notification
+            models.Notification.objects.create(
+               content_object=instance, user=instance.user
+            )
+
+            # Send notification that now can create topc
+            realtime.new_notification_register(instance)

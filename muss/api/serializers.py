@@ -288,6 +288,7 @@ class LikeCommentSerializer(serializers.ModelSerializer):
 class NotificationSerializer(serializers.ModelSerializer):
     comment = serializers.SerializerMethodField()
     topic = serializers.SerializerMethodField()
+    register = serializers.SerializerMethodField()
 
     def get_comment(self, obj):
         try:
@@ -313,6 +314,19 @@ class NotificationSerializer(serializers.ModelSerializer):
                     'title': obj.content_object.title,
                     'username': obj.content_object.user.username,
                     'userid': obj.content_object.user.pk
+                }
+            else:
+                return {}
+        except AttributeError:
+            return {}
+
+    def get_register(self, obj):
+        try:
+            if str(obj.content_object._meta) == "muss.register":
+                return {
+                    'forumid': obj.content_object.forum.pk,
+                    'slug': obj.content_object.forum.slug,
+                    'forum': obj.content_object.forum.name,
                 }
             else:
                 return {}
