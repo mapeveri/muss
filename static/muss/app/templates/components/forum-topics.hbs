@@ -57,7 +57,13 @@
                 <a href="{{ rssUrl }}{{ model.forum.id }}/{{ model.forum.slug }}/" target="_blank"><div class="column"><i class="rss icon"></i>Rss</div></a>
             </div>
             <div class="ui right floated mini icon button">
-                {{#link-to "members-forum" model.forum.id model.forum.slug}}<i class="users icon"></i> {{gettext "Members"}} {{/link-to}}
+                {{#link-to "members-forum" model.forum.id model.forum.slug}}<i class="users icon"></i>
+                    {{#unless model.forum.publicForum }}
+                        {{gettext "Members"}}
+                    {{else}}
+                        {{gettext "Moderators"}}
+                    {{/unless}}
+                {{/link-to}}
             </div>
         </div>
     </div>

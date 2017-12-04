@@ -797,29 +797,51 @@ class TopicViewSetTests(APITestCase):
         Register.objects.create(forum=forum, user=user)
 
         url = self.get_url_endpoint
-        self.data = {
-            "data": {
-                "attributes": {
-                    "title": "Test title",
-                    "description": "<p>Example description</p>"
-                },
-                "relationships": {
-                    "user": {
-                        "data": {
-                            'id': str(user.pk),
-                            'type': 'users'
-                        }
-                    },
-                    "forum": {
-                        "data": {
-                            'id': str(forum.pk),
-                            'type': 'forums'
-                        }
-                    }
-                },
-                "type": "topics"
-            },
-        }
+        self.data = utils.create_topic_data_api(user, forum)
+        request = factory.post(
+            url, json.dumps(self.data),
+            HTTP_HOST='example.com', content_type="application/vnd.api+json"
+        )
+        force_authenticate(request, user=user)
+        response = view(request)
+
+        self.assertEqual(response.status_code == 201, True)
+
+    def test_create_topic_not_register(self):
+        """
+        Ensure we can create topic not register in private forum
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        forum = utils.create_forum()
+        view = views.TopicViewSet.as_view({
+            'post': 'create'
+        })
+
+        url = self.get_url_endpoint
+        self.data = utils.create_topic_data_api(user, forum)
+        request = factory.post(
+            url, json.dumps(self.data),
+            HTTP_HOST='example.com', content_type="application/vnd.api+json"
+        )
+        force_authenticate(request, user=user)
+        response = view(request)
+
+        self.assertEqual(response.status_code == 403, True)
+
+    def test_create_topic_public_forum(self):
+        """
+        Ensure we can create topic in public_forum
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        forum = utils.create_forum_public()
+        view = views.TopicViewSet.as_view({
+            'post': 'create'
+        })
+
+        url = self.get_url_endpoint
+        self.data = utils.create_topic_data_api(user, forum)
         request = factory.post(
             url, json.dumps(self.data),
             HTTP_HOST='example.com', content_type="application/vnd.api+json"

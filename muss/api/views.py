@@ -278,22 +278,24 @@ class RegisterViewSet(viewsets.ModelViewSet):
             if forum.public_forum:
                 request.data['is_enable'] = True
             else:
-                request.data['is_enable'] = False
-
-            if not forum.public_forum:
-                exists_register = models.Register.objects.filter(
-                    forum_id=forum_id, user=request.user
-                )
-
-                # If the register not exists
-                if exists_register.count() == 0:
-                    nt_email.send_email_new_register_to_moderators(
-                        forum, request.user
-                    )
+                if request.user.is_superuser:
+                    request.data['is_enable'] = True
                 else:
-                    raise PermissionDenied({
-                        "message": "You are already Registered"
-                    })
+                    request.data['is_enable'] = False
+
+                    exists_register = models.Register.objects.filter(
+                        forum_id=forum_id, user=request.user
+                    )
+
+                    # If the register not exists
+                    if exists_register.count() == 0:
+                        nt_email.send_email_new_register_to_moderators(
+                            forum, request.user
+                        )
+                    else:
+                        raise PermissionDenied({
+                            "message": "You are already Registered"
+                        })
 
             return super(RegisterViewSet, self).create(request, **kwargs)
         else:

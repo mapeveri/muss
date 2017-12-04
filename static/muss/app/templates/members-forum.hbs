@@ -1,4 +1,12 @@
-<h3>{{gettext "Members" }} {{gettext "of"}} {{ model.forum.name }}</h3>
+<h3>
+    {{#unless model.forum.publicForum }}
+        {{gettext "Members" }}
+    {{else}}
+        {{gettext "Moderators" }}
+    {{/unless}}
+
+    {{gettext "of"}} {{ model.forum.name }}
+</h3>
 <p> {{ model.forum.description }} </p>
 <div class="ui divider"></div>
 
@@ -9,17 +17,21 @@
     {{/each}}
 </div>
 
-<div class="ui divider"></div>
+{{#unless model.forum.publicForum }}
 
-<h5>{{gettext "Registered users"}}</h5>
-<div class="ui five doubling cards">
-    {{#each model.users as |member|}}
-        {{card-user user=member.user}}
-    {{/each}}
-</div>
+    <div class="ui divider"></div>
 
-{{#if model.users}}
-    {{utils/infinite-scroll model=model submodel="users" api="register"}}
-{{/if}}
+    <h5>{{gettext "Registered users"}}</h5>
+    <div class="ui five doubling cards">
+        {{#each model.users as |member|}}
+            {{card-user user=member.user}}
+        {{/each}}
+    </div>
+
+    {{#if model.users}}
+        {{utils/infinite-scroll model=model submodel="users" api="register"}}
+    {{/if}}
+
+{{/unless}}
 
 {{outlet}}

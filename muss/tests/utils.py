@@ -37,6 +37,15 @@ def create_forum():
     return forum
 
 
+def create_forum_public():
+    category = create_category()
+    forum = Forum.objects.create(
+        category=category, name="Django_public",
+        description="Forum django", public_forum=True
+    )
+    return forum
+
+
 def create_topic(user):
     """
     Create topic example
@@ -83,3 +92,33 @@ def create_notification(user, topic):
     )
 
     return notification
+
+
+def create_topic_data_api(user, forum):
+    """
+    Data api for create topic via api rest
+    """
+    data = {
+        "data": {
+            "attributes": {
+                "title": "Test title",
+                "description": "<p>Example description</p>"
+            },
+            "relationships": {
+                "user": {
+                    "data": {
+                        'id': str(user.pk),
+                        'type': 'users'
+                    }
+                },
+                "forum": {
+                    "data": {
+                        'id': str(forum.pk),
+                        'type': 'forums'
+                    }
+                }
+            },
+            "type": "topics"
+        },
+    }
+    return data
