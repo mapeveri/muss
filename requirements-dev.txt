@@ -3,3 +3,4 @@ nose
 coverage
 coveralls
 service_identity
+sphinx

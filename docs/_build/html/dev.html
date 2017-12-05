@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Running Muss &#8212; Muss 0.1.0 documentation</title>
+    <title>Running Muss in Development &#8212; Muss 0.1.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -40,13 +40,13 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="running-muss">
-<h1>Running Muss<a class="headerlink" href="#running-muss" title="Permalink to this headline">¶</a></h1>
-<p>Initially, is necessary execute the Django backend:</p>
+  <div class="section" id="running-muss-in-development">
+<h1>Running Muss in Development<a class="headerlink" href="#running-muss-in-development" title="Permalink to this headline">¶</a></h1>
+<p>Execute the Django backend:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ python manage.py runserver
 </pre></div>
 </div>
-<p>Next, in other console tab instance execute the frontend:</p>
+<p>Execute the frontend with ember:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ npm install -g ember-cli
 $ ember s
 </pre></div>
@@ -54,7 +54,10 @@ $ ember s
 <div class="section" id="translate">
 <h2>Translate<a class="headerlink" href="#translate" title="Permalink to this headline">¶</a></h2>
 <p>Located in the root directory project execute:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ python manage.py makemessages --ignore=static
+<div class="highlight-default"><div class="highlight"><pre><span></span># For make new messages run this command
+$ python manage.py makemessages --ignore=static
+
+# Compile the new message run this command
 $ python manage.py compilemessages
 </pre></div>
 </div>
@@ -82,7 +85,7 @@ $ python manage.py compilemessages
 <li class="toctree-l1"><a class="reference internal" href="requirements.html">Requirements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ansible.html">Automated Installing with Ansible</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Running Muss</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Running Muss in Development</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#translate">Translate</a></li>
 </ul>
 </li>

@@ -10,13 +10,3 @@ django-cors-headers==2.1.0
 djangorestframework-jwt==1.11.0
 mistune==0.7.4 # parser markdown
 Pillow==4.3.0
-
-# Added by sphinx. I am not sure of put them here
-# docutils==0.14
-# Jinja2==2.10
-# Pygments==2.2.0
-# MarkupSafe==1.0
-# alabaster==0.7.10
-# Babel==2.5.1
-# six==1.11.0
-# snowballstemmer==1.2.1

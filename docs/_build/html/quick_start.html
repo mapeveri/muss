@@ -51,6 +51,8 @@
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ git clone git@github.com:mapeveri/muss.git
 </pre></div>
 </div>
+<p><strong>Important</strong></p>
+<p>Make sure you have a <a href="https://redis.io/topics/quickstart" target="_blank">redis installer.</a></p>
 </div>
 <div class="section" id="install-the-requirements">
 <h2>Install the requirements<a class="headerlink" href="#install-the-requirements" title="Permalink to this headline">¶</a></h2>
@@ -58,7 +60,8 @@
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install -r requirements.txt
 </pre></div>
 </div>
-<p>Go to the conf/ folder and rename <strong>settings_local.py.txt</strong> file  to <strong>settings_local.py</strong> file.</p>
+<p>Go to the folder /conf/ and rename file settings_local.py.txt to settings_local.py and .env.example to .env. Then configure thats variables.
+These variables are to configure the database and secret key of Django.</p>
 </div>
 <div class="section" id="secret-django-key">
 <h2>Secret Django Key<a class="headerlink" href="#secret-django-key" title="Permalink to this headline">¶</a></h2>
@@ -74,11 +77,8 @@ You can the generate the SECRET_KEY and export environment variable of this way:
 </div>
 <div class="section" id="defining-the-secret-key-environment-variable">
 <h3>Defining the SECRET_KEY environment variable<a class="headerlink" href="#defining-the-secret-key-environment-variable" title="Permalink to this headline">¶</a></h3>
-<p>Copy this value and paste it instead of <strong>your_secret_django_key</strong> value:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ export SECRET_KEY=&quot;your_secret_django_key&quot;
-</pre></div>
-</div>
-<p>With this previous step will be include your new <strong>Django SECRET_KEY</strong> inside your project</p>
+<p>Copy this value and paste it instead of <strong>your_secret_django_key</strong> value to the file conf/.env.
+With this previous step will be include your new <strong>Django SECRET_KEY</strong> inside your project</p>
 </div>
 </div>
 <div class="section" id="migrating-and-create-super-user">
@@ -102,16 +102,7 @@ $ python manage.py createsuperuser
 <h3>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h3>
 <p>The default language for this Project is <strong>English</strong>, and the internationalization is used to translate the text to
 Spanish and Italian languages.</p>
-<p>If you want to change the translation language, or include a new one, you just need to modify the <strong>LANGUAGES</strong> variable
-in the file <em>settings/base.py</em>. The language codes that define each language can be found <a href="http://msdn.microsoft.com/en-us/library/ms533052(v=vs.85).aspx" target="_blank">here</a>.</p>
-<p>For example, if you want to use German you should include:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">LANGUAGES</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="o">...</span>
-        <span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;German&quot;</span><span class="p">),</span>
-        <span class="o">...</span>
-    <span class="p">)</span>
-</pre></div>
-</div>
+<p>If you want to change the translation language, you just need to modify the <strong>LANGUAGE_CODE</strong> variable in the file <em>conf/settings.py</em>.</p>
 </div>
 <div class="section" id="translation">
 <h3>Translation<a class="headerlink" href="#translation" title="Permalink to this headline">¶</a></h3>
@@ -119,13 +110,15 @@ in the file <em>settings/base.py</em>. The language codes that define each langu
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ python manage.py compilemessages
 </pre></div>
 </div>
+</div>
+<div class="section" id="frontend">
+<h3>Frontend<a class="headerlink" href="#frontend" title="Permalink to this headline">¶</a></h3>
 <p>Now, Go to the folder <em>/static/muss</em> and execute:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ npm install
 $ bower install
 </pre></div>
 </div>
-<p>Make sure you have a <a href="https://redis.io/topics/quickstart" target="_blank">redis installer.</a></p>
-<p>Continue to the <a class="reference internal" href="dev.html"><span class="doc">Running Muss</span></a>!</p>
+<p>Continue to the <a class="reference internal" href="dev.html"><span class="doc">Running Muss in Development</span></a>!</p>
 </div>
 </div>
 </div>
@@ -158,7 +151,7 @@ $ bower install
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ansible.html">Automated Installing with Ansible</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev.html">Running Muss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Running Muss in Development</a></li>
 </ul>
 
 <div class="relations">
