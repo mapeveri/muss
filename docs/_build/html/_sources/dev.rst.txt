@@ -1,4 +1,4 @@
-Deployment Muss
+Running Muss
 ===============
 
 Initially, is necessary execute the Django backend::
