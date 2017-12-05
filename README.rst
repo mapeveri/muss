@@ -48,70 +48,12 @@ Built With
 5. Redis
 
 
-Configuration and installation
-------------------------------
+Docuementation
+--------------
 
-Manually
---------
-
-1. Clone this repository and execute:
-
-    pip install -r requirements.txt
-
-2. Go to the folder /conf/ and rename file settings_local.py.txt to settings_local.py and .env.example to .env. Then configure thats variables.
-
-3. Generate **SECRET_KEY** and set in .env file:
-
-    python script/django-secret-keygen.py
-
-4. In main folder execute:
-
-    python manage.py migrate
-
-    python manage.py createsuperuser
-
-5. Execute:
-
-    python manage.py config_admin
-
-6. Compile translations:
-
-    python manage.py compilemessages
-
-7. Go to the folder /static/muss and execute:
-
-    npm install
-
-    bower install
-
-8. Make sure you have a redis installer.
-
-With ansible
-------------
-
-1. Execute in the folder **ansible**:
-
-    ansible-playbook playbook.yml
-
-
-Development
------------
-
-Execute Backend:
-
-    python manage.py runserver
-
-Execute Fronted:
-
-    npm install -g ember-cli
-    
-    ember s
-
-Translates:
-
-    python manage.py makemessages  --ignore=static
-
-    python manage.py compilemessages
+**Documentation** is `avaliable online
+<http://muss.readthedocs.io/en/latest/index.html>`_, or in the **docs**
+directory of the project.
 
 
 Contribute
