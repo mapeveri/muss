@@ -1,46 +1,79 @@
 {{yield}}
 
-<table class="ui very basic celled table">
-	<thead>
-		<tr>
-			<th><h4>{{gettext "Forums"}}</h4></th>
-			<th><h4>{{gettext "Total topics"}}</h4></th>
-		</tr>
-	</thead>
-	<tbody>
-		{{#each model as |record|}}
-			{{#if record.isHeader}}
-				<tr>
-					<td>
-						<h5>{{ record.name }}</h5>
-						{{ record.description }}
-					</td>
-					<td></td>
-				</tr>
-			{{else}}
-				<tr>
-					<td>
-						<h4 class="ui image header">
-							<i class="comments icon"></i>
-							<div class="content">
-								{{#link-to "forum" record.pk record.slug class="header"}}{{ record.name }}{{/link-to}}
-								<div class="sub header">
-									<p>{{ record.description }}</p>
-								</div>
-							</div>
-						</h4>
-					</td>
-					<td>
-						<i class="clone icon"></i> {{ record.topicsCount }}
-					</td>
-				</tr>
-			{{/if}}
-		{{else}}
-			<p>{{gettext "Please, you add forums and categories in the administrator." }}</p>
-		{{/each}}
-	</tbody>
-</table>
+<div class="ui two column grid">
+    <div class="column">
+        <table class="ui very basic table">
+            <thead>
+                <tr>
+                    <th><h4>{{gettext "Forums"}}</h4></th>
+                    <th><h4>{{gettext "Topics"}}</h4></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each model.forums as |record|}}
+                    {{#if record.isHeader}}
+                        <tr>
+                            <td>
+                                <h5>{{ record.name }}</h5>
+                                {{ record.description }}
+                            </td>
+                        </tr>
+                    {{else}}
+                        <tr>
+                            <td>
+                                <h4 class="ui image header">
+                                    <i class="comments icon"></i>
+                                    <div class="content">
+                                        {{#link-to "forum" record.pk record.slug class="header"}}{{ record.name }}{{/link-to}}
+                                        <div class="sub header">
+                                            <p>{{ record.description }}</p>
+                                        </div>
+                                    </div>
+                                </h4>
+                            </td>
+                            <td>
+                                <i class="clone icon"></i> {{ record.topicsCount }}
+                            </td>
+                        </tr>
+                    {{/if}}
+                {{else}}
+                    <p>{{gettext "Please, you add forums and categories in the administrator." }}</p>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div class="column">
+        <table class="ui very basic table">
+            <thead>
+                <tr>
+                    <th><h4>{{gettext "Latest" }}</h4></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each model.topics as |topic|}}
+                    <tr>
+                        <td>
+                            {{#link-to "profile" topic.user.username class="ui image header fontSizeTitle"}}
+                                <img src="{{ topic.user.userPhoto }}" class="ui mini rounded image">
+                                <div class="content">
+                                    {{#link-to 'topic' topic.id topic.slug }} {{ topic.title }} {{/link-to}}
+                                    {{#link-to "forum" topic.forum.id topic.forum.slug class="ui mini teal basic label"}}
+                                        {{ topic.forum.name }}
+                                    {{/link-to}}
+                                </div>
+                            {{/link-to}}
+                        </td>
+                        <td>
+                            <i class="calendar icon"></i> {{ topic.date }}
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
 
 {{#if model}}
-    {{utils/infinite-scroll model=model api="category"}}
+    {{utils/infinite-scroll model=model submodel="forums" api="category"}}
 {{/if}}

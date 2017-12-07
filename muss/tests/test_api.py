@@ -782,6 +782,12 @@ class TopicViewSetTests(APITestCase):
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code == 200, True)
 
+        # Latest
+        url = self.get_url_endpoint
+        url += "?=filter='latest'"
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code == 200, True)
+
     def test_create_topic(self):
         """
         Ensure we can create topic

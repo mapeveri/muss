@@ -132,6 +132,10 @@ class TopicViewSet(viewsets.ModelViewSet):
             self.queryset = self.queryset.filter(
                 user__username=username, is_moderate=True
             )
+        elif type_filter == "latest":
+            # Get the latest 10 topics
+            self.queryset = self.queryset.filter(
+                is_moderate=True).order_by("-date")[:10]
         elif type_filter == 'suggests' and suggest:
             # Filter suggest topic
             topic = get_object_or_404(

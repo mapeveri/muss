@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 21:43-0300\n"
+"POT-Creation-Date: 2017-12-07 19:01-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -399,6 +399,10 @@ msgstr "Confermi la cancellazione del registro?"
 msgid "A moderator accepted your request for registration in "
 msgstr "Un moderatore ha accettato la tua richiesta di registrazione in "
 
+#: muss/i18n.py:87
+msgid "Latest"
+msgstr "Più recente"
+
 #: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:241
 #: muss/models.py:315 muss/models.py:545
 msgid "Description"
@@ -604,7 +608,7 @@ msgstr "Configurazioni"
 msgid "File"
 msgstr "File"
 
-#: muss/notifications_email.py:24
+#: muss/notifications_email.py:25
 #, python-format
 msgid ""
 "Thank you for joining to %(site)s please enter to confirm your email to this "
@@ -613,36 +617,36 @@ msgstr ""
 "Grazie per essere al %(site)s inserite per confermare la tua email per "
 "questo indirizo:"
 
-#: muss/notifications_email.py:31
+#: muss/notifications_email.py:33
 msgid "Welcome to "
 msgstr "Benvenuto a "
 
-#: muss/notifications_email.py:69
+#: muss/notifications_email.py:71
 #, python-format
 msgid "New register in %(forum)s "
 msgstr "Nuovo registro in %(forum)s "
 
-#: muss/notifications_email.py:70
+#: muss/notifications_email.py:72
 #, python-format
 msgid "New registered user %(user)s to the forum: %(forum)s"
 msgstr "Nuovo utente registrato %(user)s al forum: %(forum)s"
 
-#: muss/notifications_email.py:91
+#: muss/notifications_email.py:93
 #, python-format
 msgid "New comment in %(site)s"
 msgstr "Nuovo commento in %(site)s"
 
-#: muss/notifications_email.py:95
+#: muss/notifications_email.py:97
 #, python-format
 msgid "You have one new comment in the topic: %(site)s"
 msgstr "Hai un nuovo commento nel argomento: %(site)s"
 
-#: muss/notifications_email.py:126
+#: muss/notifications_email.py:128
 #, python-format
 msgid "New topic in %(site)s "
 msgstr "Nuovo argomento nel %(site)s"
 
-#: muss/notifications_email.py:127
+#: muss/notifications_email.py:129
 #, python-format
 msgid "Added a new topic %(url_topic)s to the forum: %(site)s"
 msgstr "Un nuovo argomento %(url_topic)s è stato aggiunto al forum: %(site)s"

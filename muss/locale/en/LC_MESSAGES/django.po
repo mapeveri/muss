@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 21:43-0300\n"
+"POT-Creation-Date: 2017-12-07 19:01-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -406,6 +406,10 @@ msgstr ""
 msgid "A moderator accepted your request for registration in "
 msgstr ""
 
+#: muss/i18n.py:87
+msgid "Latest"
+msgstr ""
+
 #: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:241
 #: muss/models.py:315 muss/models.py:545
 msgid "Description"
@@ -611,43 +615,43 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: muss/notifications_email.py:24
+#: muss/notifications_email.py:25
 #, python-format
 msgid ""
 "Thank you for joining to %(site)s please enter to confirm your email to this "
 "address:"
 msgstr ""
 
-#: muss/notifications_email.py:31
+#: muss/notifications_email.py:33
 msgid "Welcome to "
 msgstr ""
 
-#: muss/notifications_email.py:69
+#: muss/notifications_email.py:71
 #, python-format
 msgid "New register in %(forum)s "
 msgstr ""
 
-#: muss/notifications_email.py:70
+#: muss/notifications_email.py:72
 #, python-format
 msgid "New registered user %(user)s to the forum: %(forum)s"
 msgstr ""
 
-#: muss/notifications_email.py:91
+#: muss/notifications_email.py:93
 #, python-format
 msgid "New comment in %(site)s"
 msgstr ""
 
-#: muss/notifications_email.py:95
+#: muss/notifications_email.py:97
 #, python-format
 msgid "You have one new comment in the topic: %(site)s"
 msgstr ""
 
-#: muss/notifications_email.py:126
+#: muss/notifications_email.py:128
 #, python-format
 msgid "New topic in %(site)s "
 msgstr ""
 
-#: muss/notifications_email.py:127
+#: muss/notifications_email.py:129
 #, python-format
 msgid "Added a new topic %(url_topic)s to the forum: %(site)s"
 msgstr ""
