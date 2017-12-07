@@ -163,14 +163,12 @@ CHANNEL_LAYERS = {
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
-APPEND_SLASH = True
-
 # Render for production
 RENDERER_DRF = ('rest_framework_json_api.renderers.JSONRenderer',)
 if DEBUG:
     # Render browseable por development
-    browsable = 'rest_framework.renderers.BrowsableAPIRenderer'
-    RENDERER_DRF = RENDERER_DRF + ('rest_framework.renderers.BrowsableAPIRenderer',)
+    BROWSEABLE = 'rest_framework.renderers.BrowsableAPIRenderer'
+    RENDERER_DRF = RENDERER_DRF + (BROWSEABLE,)
 
 # Rest framework configuration for json-api
 REST_FRAMEWORK = {
@@ -190,7 +188,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
     'DEFAULT_RENDERER_CLASSES': RENDERER_DRF,
-    'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata',
+    'DEFAULT_METADATA_CLASS':
+        'rest_framework_json_api.metadata.JSONAPIMetadata',
     'DATETIME_FORMAT': DATETIME_INPUT_FORMATS[0],
     'DATE_FORMAT': DATE_INPUT_FORMATS[0],
 }
@@ -202,6 +201,7 @@ JSON_API_FORMAT_KEYS = 'dasherize'
 JSON_API_PLURALIZE_RELATION_TYPE = True
 
 JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'muss.api.utils.jwt_response_payload_handler',
+    'JWT_RESPONSE_PAYLOAD_HANDLER':
+        'muss.api.utils.jwt_response_payload_handler',
     'JWT_VERIFY_EXPIRATION': False,
 }

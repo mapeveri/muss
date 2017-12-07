@@ -92,6 +92,10 @@ Spanish and Italian languages.
 
 If you want to change the translation language, you just need to modify the **LANGUAGE_CODE** variable in the file *conf/settings.py*.
 
+Set variable GOOGLE_MAPS_API_KEY with API_KEY value of `Google maps`_.
+
+.. _Google maps: https://developers.google.com/maps/faq?hl=es-419#new-key
+
 
 Translation
 ~~~~~~~~~~~
@@ -100,6 +104,11 @@ Go to the terminal, inside the muss folder and create the files to translate wit
 
     $ python manage.py compilemessages
 
+
+Admin
+~~~~~
+
+In django admin go to application site and create new record with the full url of the site (Example: http://www.myforum.com).
 
 Frontend
 ~~~~~~~~

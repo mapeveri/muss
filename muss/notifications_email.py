@@ -3,6 +3,7 @@ import hashlib
 import random
 
 from django.conf import settings
+from django.contrib.sites.models import Site
 from django.template import loader
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -27,9 +28,10 @@ def send_welcome_email(email, username, activation_key):
         'site': settings.SITE_NAME
     }
     urlContent = "/confirm-email/" + username + "/" + activation_key + "/"
+    current_site = Site.objects.get_current()
     send_mail(
         _("Welcome to " + settings.SITE_NAME),
-        _(content) + settings.SITE_URL + urlContent,
+        _(content) + current_site.domain + urlContent,
         settings.EMAIL_MUSS,
         [email],
         fail_silently=False
@@ -115,7 +117,7 @@ def send_mail_topic(email_moderator, forum, topic, domain):
         domain (str): Domain url.
     """
     # Send email to moderator
-    site = settings.SITE_URL + "/forum/" + str(forum.pk) + "/" + forum.slug
+    site = domain + "/forum/" + str(forum.pk) + "/" + forum.slug
 
     # Url topic
     url_topic = ""

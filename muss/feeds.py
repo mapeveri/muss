@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib.syndication.views import Feed
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
@@ -29,11 +28,10 @@ class TopicFeed(Feed):
         return Topic.objects.filter(forum=forum)
 
     def item_link(self, item):
-        print(item)
         pk = str(item.pk)
         slug = item.slug
         # For url topic frontend
-        return settings.SITE_URL + "/topic/" + pk + "/" + slug + "/"
+        return "/topic/" + pk + "/" + slug + "/"
 
     def link(self, forum):
         return reverse('rss', args=[

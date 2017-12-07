@@ -103,6 +103,7 @@ $ python manage.py createsuperuser
 <p>The default language for this Project is <strong>English</strong>, and the internationalization is used to translate the text to
 Spanish and Italian languages.</p>
 <p>If you want to change the translation language, you just need to modify the <strong>LANGUAGE_CODE</strong> variable in the file <em>conf/settings.py</em>.</p>
+<p>Set variable GOOGLE_MAPS_API_KEY with API_KEY value of <a class="reference external" href="https://developers.google.com/maps/faq?hl=es-419#new-key">Google maps</a>.</p>
 </div>
 <div class="section" id="translation">
 <h3>Translation<a class="headerlink" href="#translation" title="Permalink to this headline">¶</a></h3>
@@ -110,6 +111,10 @@ Spanish and Italian languages.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ python manage.py compilemessages
 </pre></div>
 </div>
+</div>
+<div class="section" id="admin">
+<h3>Admin<a class="headerlink" href="#admin" title="Permalink to this headline">¶</a></h3>
+<p>In django admin go to application site and create new record with the full url of the site (Example: <a class="reference external" href="http://www.myforum.com">http://www.myforum.com</a>).</p>
 </div>
 <div class="section" id="frontend">
 <h3>Frontend<a class="headerlink" href="#frontend" title="Permalink to this headline">¶</a></h3>

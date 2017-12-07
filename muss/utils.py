@@ -165,7 +165,6 @@ def get_photo_profile(user):
         str: Path photo profile.
     """
     default_photo = static("muss/public/assets/images/profile.png")
-    default_photo = settings.SITE_URL + default_photo
     profile = Profile.objects.filter(user=user)
     if profile.count() > 0:
         photo = profile[0].photo
