@@ -38,12 +38,12 @@ export default Route.extend({
     },
     actions: {
         /**
-        * @method redirectoToForum
+        * @method redirectToForum
         * @description: Redirect to route forum
         * @param {*} forum_id
         * @param {*} forum_slug
         */
-        redirectoToForum(forum_id, forum_slug) {
+        redirectToForum(forum_id, forum_slug) {
             this.transitionTo("forum", forum_id, forum_slug);
         }
     }

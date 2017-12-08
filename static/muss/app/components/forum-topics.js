@@ -63,28 +63,30 @@ export default Component.extend({
             let obj = JSON.parse(json);
 
             this.get('store').find('user', obj.topic.userid).then((user) => {
-                //Add record
-                let record = this.get('store').createRecord('topic', {
-                    forum: this.get('model.forum'),
-                    user: user,
-                    id: obj.topic.topicid,
-                    title: obj.topic.title,
-                    slug: obj.topic.slug,
-                    isModerate: true,
-                    totalComments: 0,
-                    views: 0,
-                    likes: 0,
-                    isClose: false,
-                    isTop: obj.topic.isTop,
-                    date: new Date().toLocaleString(),
-                    lastActivity: new Date().toLocaleString(),
-                    isRealTime: true,
-                });
+                //If the user logged not created the topic
+                if (this.get('userLogin') != obj.topic.userid) {
+                    //Add record
+                    let record = this.get('store').createRecord('topic', {
+                        forum: this.get('model.forum'),
+                        user: user,
+                        id: obj.topic.topicid,
+                        title: obj.topic.title,
+                        slug: obj.topic.slug,
+                        isModerate: true,
+                        totalComments: 0,
+                        views: 0,
+                        likes: 0,
+                        isClose: false,
+                        isTop: obj.topic.isTop,
+                        date: new Date().toLocaleString(),
+                        lastActivity: new Date().toLocaleString(),
+                        isRealTime: true,
+                    });
 
-                this.get('model.topics').unshiftObject(record._internalModel);
+                    this.get('model.topics').unshiftObject(record._internalModel);
+                }
             });
         };
-
     },
     /**
     * @method FinishedLoading
