@@ -9,6 +9,8 @@ Muss
 
 Muss is a 100% open source forum developed with Django and Ember.js.
 
+.. image:: https://raw.githubusercontent.com/mapeveri/muss/master/static/img/muss.png
+   :alt: preview
 
 Features
 --------

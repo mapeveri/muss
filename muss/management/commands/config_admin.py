@@ -32,9 +32,19 @@ class Command(BaseCommand):
         if not exists_folder(media_folder_admin_logo):
             create_folder(media_folder_admin_logo)
 
+        # Create logo folder if this not exists
+        media_folder_admin_favicon = media_folder_admin + "favicon/"
+        if not exists_folder(media_folder_admin_favicon):
+            create_folder(media_folder_admin_favicon)
+
         # Copy logo admin
         logo_name = "muss.png"
         src_file = settings.STATICFILES_DIRS[0] + "/img/" + logo_name
         copyfile(src_file, media_folder_admin_logo + logo_name)
+
+        # Copy favicon
+        favicon_name = "favicon.png"
+        src_file = settings.STATICFILES_DIRS[0] + "/img/" + favicon_name
+        copyfile(src_file, media_folder_admin_favicon + favicon_name)
 
         self.stdout.write("Finished work.")
