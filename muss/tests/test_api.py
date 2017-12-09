@@ -55,6 +55,18 @@ class UserViewSetTests(APITestCase):
         })
         self.assertEqual(response.status_code == 201, True)
 
+    def test_create_user_error(self):
+        """
+        Ensure we can create user with errors
+        """
+        url = self.get_url_users
+        # Error validator
+        response = self.client.post(url, {
+            'last_name': 'Smith',
+            'first_name': 'John',
+        })
+        self.assertEqual(response.status_code == 400, True)
+
 
 class CategoriesViewSetTests(APITestCase):
 
@@ -217,6 +229,14 @@ class CheckPermissionsForumUserViewTests(APITestCase):
         response = self.client.get(url, {'user_id': 1, 'forum_id': 1})
         self.assertEqual(response.status_code == 200, True)
 
+    def test_check_permissions_forum_user_without_params_view(self):
+        """
+        Ensure we can get permissions user in forum
+        """
+        url = self.get_url_endpoint
+        response = self.client.get(url)
+        self.assertEqual(response.status_code == 404, True)
+
 
 class UploadsViewTests(APITestCase):
 
@@ -291,6 +311,14 @@ class HitcountTopicViewSetTests(APITestCase):
         response = self.client.post(url, {"topic": topic.pk})
         self.assertEqual(response.status_code == 200, True)
 
+    def test_create_hitcount_without_topic(self):
+        """
+        Ensure we display error
+        """
+        url = self.get_url_hitcounts
+        response = self.client.post(url)
+        self.assertEqual(response.status_code == 404, True)
+
 
 class LikeTopicViewSetTests(APITestCase):
 
@@ -332,6 +360,23 @@ class LikeTopicViewSetTests(APITestCase):
 
         self.assertEqual(response.status_code == 200, True)
 
+    def test_create_like_topic_without_params(self):
+        """
+        Ensure we can create like topic without params
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        view = views.LikeTopicViewSet.as_view({
+            'post': 'create'
+        })
+
+        url = self.get_url_endpoint
+        request = factory.post(url)
+        force_authenticate(request, user=user)
+        response = view(request)
+
+        self.assertEqual(response.status_code == 404, True)
+
     def test_destroy_like_topic(self):
         """
         Ensure we can destroy like topic
@@ -366,6 +411,37 @@ class LikeTopicViewSetTests(APITestCase):
         response = view(request, pk=topic.pk)
 
         self.assertEqual(response.status_code == 200, True)
+
+    def test_destroy_like_topic_without_params(self):
+        """
+        Ensure we can destroy like topic without params
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        topic = utils.create_topic(user)
+        view = views.LikeTopicViewSet.as_view({
+            'post': 'create',
+            'delete': 'destroy'
+        })
+
+        # Create
+        url = self.get_url_endpoint
+        request = factory.post(
+            url, {
+                'users': str(user.pk),
+                'topic': str(topic.pk)
+            }
+        )
+        force_authenticate(request, user=user)
+        response = view(request)
+
+        # Delete
+        url = self.get_url_endpoint + str(topic.pk) + "/"
+        request = factory.delete(url)
+        force_authenticate(request, user=user)
+        response = view(request, pk=topic.pk)
+
+        self.assertEqual(response.status_code == 404, True)
 
 
 class LikeCommentViewSetTests(APITestCase):
@@ -408,6 +484,23 @@ class LikeCommentViewSetTests(APITestCase):
 
         self.assertEqual(response.status_code == 200, True)
 
+    def test_create_like_comment_without_params(self):
+        """
+        Ensure we can create like comment without params
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        view = views.LikeCommentViewSet.as_view({
+            'post': 'create'
+        })
+
+        url = self.get_url_endpoint
+        request = factory.post(url)
+        force_authenticate(request, user=user)
+        response = view(request)
+
+        self.assertEqual(response.status_code == 404, True)
+
     def test_destroy_like_comment(self):
         """
         Ensure we can destroy like comment
@@ -442,6 +535,37 @@ class LikeCommentViewSetTests(APITestCase):
         response = view(request, pk=comment.pk)
 
         self.assertEqual(response.status_code == 200, True)
+
+    def test_destroy_like_comment_without_params(self):
+        """
+        Ensure we can destroy like comment without params
+        """
+        factory = APIRequestFactory()
+        user = utils.create_user()
+        comment = utils.create_comment(user)
+        view = views.LikeCommentViewSet.as_view({
+            'post': 'create',
+            'delete': 'destroy'
+        })
+
+        # Create
+        url = self.get_url_endpoint
+        request = factory.post(
+            url, {
+                'users': str(user.pk),
+                'comment': comment.pk
+            }
+        )
+        force_authenticate(request, user=user)
+        response = view(request)
+
+        # Delete
+        url = self.get_url_endpoint + str(comment.pk) + "/"
+        request = factory.delete(url)
+        force_authenticate(request, user=user)
+        response = view(request, pk=comment.pk)
+
+        self.assertEqual(response.status_code == 404, True)
 
 
 class CommentViewSetTests(APITestCase):

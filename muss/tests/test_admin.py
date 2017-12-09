@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.contrib.sites.models import Site
+from django.urls import reverse
 
 from muss import forms
 from muss.tests import utils
@@ -108,3 +109,23 @@ class TopicAdminTests(TestCase):
             'is_top':  False,
         })
         self.assertFalse(form.is_valid())
+
+
+class CommentAdminTestCase(TestCase):
+    def test_save_model(self):
+        """
+        Test save model
+        """
+        user = utils.create_user()
+        topic = utils.create_topic(user)
+        obj = {
+            'topic': topic,
+            'user': user,
+            'description': 'Test comment',
+        }
+
+        self.client.login(username=user.username, password=user.password)
+        response = self.client.post(
+            reverse('admin:muss_comment_add'), obj, follow=True
+        )
+        self.assertEqual(response.status_code, 200)

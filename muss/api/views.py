@@ -475,7 +475,11 @@ class HitcountTopicViewSet(viewsets.ModelViewSet):
         if request.session.session_key is None:
             request.session.save()
 
-        topic_id = request.data['topic']
+        try:
+            topic_id = request.data['topic']
+        except KeyError:
+            raise Http404
+
         session = request.session.session_key
         ip = request.META['REMOTE_ADDR']
 
@@ -548,6 +552,8 @@ class CheckPermissionsForumUserView(APIView):
             profile = models.Profile.objects.filter(user__id=user_id)
             if profile.exists():
                 response['is_troll'] = profile.first().is_troll
+        else:
+            raise Http404
 
         return Response(response)
 
@@ -560,8 +566,12 @@ class LikeTopicViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'post', 'delete']
 
     def create(self, request):
-        topic_pk = request.data['topic']
-        user = int(request.data['users'])
+        try:
+            topic_pk = request.data['topic']
+            user = int(request.data['users'])
+        except KeyError:
+            raise Http404
+
         lt = models.LikeTopic.objects.filter(topic__pk=topic_pk)
         if lt.exists():
             s = lt.filter(users__contains=[{'user': user}])
@@ -593,7 +603,11 @@ class LikeTopicViewSet(viewsets.ModelViewSet):
         return Response({'success': 'ok'})
 
     def destroy(self, request, pk=None):
-        user_pk = int(request.data['users'])
+        try:
+            user_pk = int(request.data['users'])
+        except KeyError:
+            raise Http404
+
         lt = models.LikeTopic.objects.filter(topic__pk=pk).first()
         users = lt.users
 
@@ -621,8 +635,12 @@ class LikeCommentViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'post', 'delete']
 
     def create(self, request):
-        comment_pk = request.data['comment']
-        user = int(request.data['users'])
+        try:
+            comment_pk = request.data['comment']
+            user = int(request.data['users'])
+        except KeyError:
+            raise Http404
+
         lc = models.LikeComment.objects.filter(comment__pk=comment_pk)
         if lc.exists():
             s = lc.filter(users__contains=[{'user': user}])
@@ -654,7 +672,11 @@ class LikeCommentViewSet(viewsets.ModelViewSet):
         return Response({'success': 'ok'})
 
     def destroy(self, request, pk=None):
-        user_pk = int(request.data['users'])
+        try:
+            user_pk = int(request.data['users'])
+        except KeyError:
+            raise Http404
+
         lc = models.LikeComment.objects.filter(comment__pk=pk).first()
         users = lc.users
 
