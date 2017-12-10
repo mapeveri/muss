@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.dispatch import receiver
 
+from admin_interface.models import Theme
+
 from muss import models, notifications_email as nt_email, realtime
 
 
@@ -84,3 +86,26 @@ def post_edited_register(sender, instance, **kwargs):
 
             # Send notification that now can create topc
             realtime.new_notification_register(instance)
+
+
+@receiver(post_save, sender=models.Configuration)
+def post_edited_configuration(sender, instance, **kwargs):
+    """
+    This signal is event of model configuration is update favicon or logo.
+    """
+    if not kwargs['created']:
+        t = Theme.objects.all()
+        if t.count() > 0:
+            theme = t.first()
+            if instance.favicon:
+                theme.favicon = instance.favicon
+            else:
+                theme.favicon = "admin-interface/favicon/favicon.png"
+
+            if instance.logo:
+                theme.logo = instance.logo
+            else:
+                theme.logo = "admin-interface/logo/muss.png"
+
+            # Update theme
+            theme.save()

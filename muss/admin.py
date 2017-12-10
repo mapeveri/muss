@@ -9,6 +9,8 @@ from django.template.response import TemplateResponse
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
+from admin_interface.models import Theme
+
 from muss import (
     forms, models, utils, notifications_email as nt_email,
     realtime, notifications as nt
@@ -315,6 +317,7 @@ User = get_user_model()
 
 try:
     admin.site.unregister(User)
+    admin.site.unregister(Theme)
 except Exception:
     pass
 
