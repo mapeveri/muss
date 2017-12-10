@@ -3,11 +3,23 @@ from django.contrib.auth.middleware import get_user
 from django.core.cache import cache
 from django.http import Http404
 from django.urls import reverse
-from django.utils import timezone
+from django.utils import timezone, translation
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.functional import SimpleLazyObject
 
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+
+
+class ForceDefaultLanguageMiddleware(MiddlewareMixin):
+    """
+    Force lenguage
+    """
+    def process_request(self, request):
+        request.LANG = getattr(
+            settings, 'LANGUAGE_CODE', settings.LANGUAGE_CODE
+        )
+        translation.activate(request.LANG)
+        request.LANGUAGE_CODE = request.LANG
 
 
 class ActiveUserMiddleware(MiddlewareMixin):

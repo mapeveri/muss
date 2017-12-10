@@ -73,10 +73,8 @@ msgid "Forums"
 msgstr ""
 
 #: muss/i18n.py:8
-#, fuzzy
-#| msgid "Closed topic"
 msgid "Add topic"
-msgstr "No loaded topics"
+msgstr ""
 
 #: muss/i18n.py:9 muss/models.py:417
 msgid "Register"
@@ -107,14 +105,10 @@ msgid "The forum does not contain topics."
 msgstr ""
 
 #: muss/i18n.py:16
-#, fuzzy
-#| msgid "Total topics"
 msgid "Total likes"
 msgstr "Total topics"
 
 #: muss/i18n.py:17
-#, fuzzy
-#| msgid "Total topics"
 msgid "Total comments"
 msgstr "Total topics"
 
@@ -230,23 +224,19 @@ msgstr ""
 
 #: muss/i18n.py:44
 msgid "Open topic"
-msgstr "No loaded topics"
+msgstr ""
 
 #: muss/i18n.py:45
-#, fuzzy
-#| msgid "Closed topic"
 msgid "Close topic"
-msgstr "No loaded topics"
+msgstr ""
 
 #: muss/i18n.py:46
 msgid "Loading"
 msgstr ""
 
 #: muss/i18n.py:47
-#, fuzzy
-#| msgid "Closed topic"
 msgid "Find Topics"
-msgstr "No loaded topics"
+msgstr ""
 
 #: muss/i18n.py:48
 msgid "No results"
@@ -277,10 +267,8 @@ msgid "There was an error creating your comment."
 msgstr ""
 
 #: muss/i18n.py:55
-#, fuzzy
-#| msgid "Total topics"
 msgid "Remove comment"
-msgstr "Total topics"
+msgstr ""
 
 #: muss/i18n.py:56
 msgid "Cancel"
@@ -295,10 +283,8 @@ msgid "There was an error creating your topic."
 msgstr ""
 
 #: muss/i18n.py:59
-#, fuzzy
-#| msgid "Closed topic"
 msgid "Remove topic"
-msgstr "No loaded topics"
+msgstr ""
 
 #: muss/i18n.py:60
 msgid "Failed to register"
@@ -349,10 +335,8 @@ msgid "By"
 msgstr ""
 
 #: muss/i18n.py:72
-#, fuzzy
-#| msgid "Open topic"
 msgid "New topic"
-msgstr "No loaded topics"
+msgstr ""
 
 #: muss/i18n.py:73
 msgid "See everything"
@@ -384,7 +368,7 @@ msgstr ""
 
 #: muss/i18n.py:80
 msgid "This topic is closed"
-msgstr "No loaded topics"
+msgstr ""
 
 #: muss/i18n.py:81
 msgid "Please wait for a moderator to accept your registration to the forum"
@@ -509,11 +493,11 @@ msgstr ""
 
 #: muss/models.py:243
 msgid "Closed topic"
-msgstr "No loaded topics"
+msgstr ""
 
 #: muss/models.py:244
 msgid "If the topic is closed"
-msgstr "No loaded topics"
+msgstr ""
 
 #: muss/models.py:247
 msgid "Moderate"
@@ -778,4 +762,4 @@ msgid ""
 msgstr ""
 
 #~ msgid "Share topic"
-#~ msgstr "No loaded topics"
+#~ msgstr ""

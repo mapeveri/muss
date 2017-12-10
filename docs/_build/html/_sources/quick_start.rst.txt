@@ -104,6 +104,7 @@ Go to the terminal, inside the muss folder and create the files to translate wit
 
     $ python manage.py compilemessages
 
+For change the lenguage default set in settings.py the language to use in the variable LANGUAGE_CODE.
 
 Admin
 ~~~~~
