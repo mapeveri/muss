@@ -108,7 +108,13 @@ Go to the terminal, inside the muss folder and create the files to translate wit
 Admin
 ~~~~~
 
-In django admin go to application site and create new record with the full url of the site (Example: http://www.myforum.com).
+In django admin go to application site and edit record with the full url of the site (Example: http://www.myforum.com).
+
+Configuration forum
+~~~~~~~~~~~~~~~~~~~
+
+For custom forum go to application **Configuration**. In the application you can change design, upload logo and favicon, etc.
+
 
 Frontend
 ~~~~~~~~

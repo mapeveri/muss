@@ -1,9 +1,11 @@
 from shutil import copyfile
 
 from django.conf import settings
+from django.contrib.sites.models import Site
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
 
+from muss.models import Configuration
 from muss.utils import create_folder, exists_folder
 
 
@@ -46,5 +48,15 @@ class Command(BaseCommand):
         favicon_name = "favicon.png"
         src_file = settings.STATICFILES_DIRS[0] + "/img/" + favicon_name
         copyfile(src_file, media_folder_admin_favicon + favicon_name)
+
+        # Create domain
+        host = "http://localhost:8000"
+        site = Site.objects.all().first()
+        site.domain = host
+        site.name = host
+        site.save()
+
+        # Create configuration
+        Configuration.objects.create(site=site)
 
         self.stdout.write("Finished work.")

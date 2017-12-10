@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.admin import helpers
 from django.contrib.admin.utils import get_deleted_objects
+from django.contrib.sites.models import Site
 from django.core.exceptions import PermissionDenied
 from django.template.response import TemplateResponse
 from django.utils.encoding import force_text
@@ -282,6 +283,14 @@ class ConfigurationAdmin(admin.ModelAdmin):
     list_display = ('site', 'logo',)
     form = forms.FormAdminConfiguration
 
+    def has_delete_permission(self, request, obj=None):
+        # Not delete record
+        return False
+
+    def has_add_permission(self, request):
+        # Not add record
+        return False
+
 
 class MessageForumAdmin(admin.ModelAdmin):
     list_display = (
@@ -313,15 +322,26 @@ class CustomUserAdmin(UserAdmin):
         return super(CustomUserAdmin, self).get_inline_instances(request, obj)
 
 
-User = get_user_model()
+class SiteAdmin(admin.ModelAdmin):
+    list_display = ('domain', 'name',)
 
-try:
-    admin.site.unregister(User)
-    admin.site.unregister(Theme)
-except Exception:
-    pass
+    def has_delete_permission(self, request, obj=None):
+        # Not delete record
+        return False
 
-admin.site.register(User, CustomUserAdmin)
+    def has_add_permission(self, request):
+        # Not add record
+        return False
+
+
+# Unregisters
+admin.site.unregister(get_user_model())
+admin.site.unregister(Theme)
+admin.site.unregister(Site)
+
+# Registers
+admin.site.register(Site, SiteAdmin)
+admin.site.register(get_user_model(), CustomUserAdmin)
 admin.site.register(models.Category)
 admin.site.register(models.Register, RegisterAdmin)
 admin.site.register(models.Forum, ForumAdmin)
