@@ -1,3 +1,17 @@
+<div class="ui breadcrumb">
+    {{#link-to 'index' class="section"}}{{gettext "Forums" }}{{/link-to}}
+    <i class="right chevron icon divider"></i>
+    {{#link-to 'forum' model.forum.id model.forum.slug class="section"}}{{ model.forum.name }}{{/link-to}}
+    <i class="right arrow icon divider"></i>
+    <div class="active section">
+        {{#unless model.forum.publicForum }}
+            {{gettext "Members" }}
+        {{else}}
+            {{gettext "Moderators" }}
+        {{/unless}}
+    </div>
+</div>
+
 <h3>
     {{#unless model.forum.publicForum }}
         {{gettext "Members" }}
