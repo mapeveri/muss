@@ -58,6 +58,14 @@ Docuementation
 directory of the project.
 
 
+Screenshots
+-----------
+
+.. image:: https://github.com/mapeveri/muss/blob/master/docs/images/index.png
+.. image:: https://github.com/mapeveri/muss/blob/master/docs/images/forum.png
+.. image:: https://github.com/mapeveri/muss/blob/master/docs/images/topic.png
+.. image:: https://github.com/mapeveri/muss/blob/master/docs/images/profile.png
+
 Contribute
 ----------
 
