@@ -43,4 +43,6 @@ urlpatterns = [
         views.UpdateSeenNotifications.as_view()),
     # Uploads files
     url(r'^uploads/$', views.UploadsView.as_view()),
+    # Get forums by user
+    url(r'^forums-by-user/$', views.GetForumsByUser.as_view()),
 ]

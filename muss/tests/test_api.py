@@ -1232,3 +1232,28 @@ class NotificationViewSetTests(APITestCase):
         response = view(request)
 
         self.assertEqual(response.status_code == 201, True)
+
+
+class GetForumsByUserTest(APITestCase):
+
+    @property
+    def get_url_endpoint(self):
+        """
+        Get main url endpoint
+        """
+        return API_PREFIX + "forums-by-user/"
+
+    def test_get_forums(self):
+        """
+        Ensure we can get forums by user
+        """
+        factory = APIRequestFactory()
+        url = self.get_url_endpoint
+        user = utils.create_user()
+        view = views.GetForumsByUser.as_view()
+        url += "?username=" + user.username
+        request = factory.get(url, format='json')
+
+        force_authenticate(request, user=user)
+        response = view(request)
+        self.assertEqual(response.status_code == 200, True)

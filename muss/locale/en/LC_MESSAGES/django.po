@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-07 19:01-0300\n"
+"POT-Creation-Date: 2017-12-16 22:34-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,38 +17,38 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: conf/settings.py:123
+#: conf/settings.py:127
 msgid "English"
 msgstr ""
 
-#: conf/settings.py:124
+#: conf/settings.py:128
 msgid "Spanish"
 msgstr ""
 
-#: conf/settings.py:125
+#: conf/settings.py:129
 msgid "Italian"
 msgstr ""
 
-#: muss/admin.py:114 muss/admin.py:194
+#: muss/admin.py:117 muss/admin.py:197
 #, python-format
 msgid "Successfully deleted %(count)d record/s."
 msgstr ""
 
-#: muss/admin.py:150 muss/admin.py:230
+#: muss/admin.py:153 muss/admin.py:233
 #, python-format
 msgid "Delete selected %(verbose_name_plural)s"
 msgstr ""
 
-#: muss/admin.py:166 muss/models.py:75
+#: muss/admin.py:169 muss/models.py:75
 msgid "Moderators"
 msgstr ""
 
-#: muss/admin.py:275 muss/models.py:101 muss/models.py:182 muss/models.py:226
+#: muss/admin.py:278 muss/models.py:101 muss/models.py:182 muss/models.py:226
 #: muss/models.py:400
 msgid "Forum"
 msgstr ""
 
-#: muss/admin.py:300
+#: muss/admin.py:311
 msgid "Profile"
 msgstr ""
 
@@ -392,6 +392,10 @@ msgstr ""
 
 #: muss/i18n.py:87
 msgid "Latest"
+msgstr ""
+
+#: muss/i18n.py:88
+msgid "Moderator"
 msgstr ""
 
 #: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:241
@@ -760,6 +764,3 @@ msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used. Please request a new password reset."
 msgstr ""
-
-#~ msgid "Share topic"
-#~ msgstr ""

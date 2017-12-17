@@ -792,3 +792,39 @@ class UploadsView(APIView):
                 url = domain + settings.MEDIA_URL + r.attachment.name
                 urls.append(url)
         return Response({"success": True, "urls": urls})
+
+
+class GetForumsByUser(APIView):
+    """
+    Get forums member user
+    """
+    def get(self, request, format=None):
+        # Parameters
+        username = self.request.GET.get('username')
+        if username:
+            list_forums = []
+            registers = models.Register.objects.filter(
+                user__username=username
+            )
+            for register in registers:
+                forum = register.forum
+                list_forums.append({
+                    'name': forum.name,
+                    'slug': forum.slug,
+                    'id': register.forum_id,
+                    'moderator': False
+                })
+            forums = models.Forum.objects.filter(
+                moderators__username__in=[username]
+            )
+            for forum in forums:
+                list_forums.append({
+                    'name': forum.name,
+                    'slug': forum.slug,
+                    'id': forum.pk,
+                    'moderator': True
+                })
+
+            return Response({"forums": list_forums})
+        else:
+            raise Http404

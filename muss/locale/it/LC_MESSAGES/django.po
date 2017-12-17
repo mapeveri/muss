@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-07 19:01-0300\n"
+"POT-Creation-Date: 2017-12-16 22:34-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,38 +18,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: conf/settings.py:123
+#: conf/settings.py:127
 msgid "English"
 msgstr "Inglese"
 
-#: conf/settings.py:124
+#: conf/settings.py:128
 msgid "Spanish"
 msgstr "Spagnolo"
 
-#: conf/settings.py:125
+#: conf/settings.py:129
 msgid "Italian"
 msgstr "Italiano"
 
-#: muss/admin.py:114 muss/admin.py:194
+#: muss/admin.py:117 muss/admin.py:197
 #, python-format
 msgid "Successfully deleted %(count)d record/s."
 msgstr "Eliminato correttamente %(count)d record/s."
 
-#: muss/admin.py:150 muss/admin.py:230
+#: muss/admin.py:153 muss/admin.py:233
 #, python-format
 msgid "Delete selected %(verbose_name_plural)s"
 msgstr "Elimina selezionato %(verbose_name_plural)s"
 
-#: muss/admin.py:166 muss/models.py:75
+#: muss/admin.py:169 muss/models.py:75
 msgid "Moderators"
 msgstr "Moderatori"
 
-#: muss/admin.py:275 muss/models.py:101 muss/models.py:182 muss/models.py:226
+#: muss/admin.py:278 muss/models.py:101 muss/models.py:182 muss/models.py:226
 #: muss/models.py:400
 msgid "Forum"
 msgstr "Forum"
 
-#: muss/admin.py:300
+#: muss/admin.py:311
 msgid "Profile"
 msgstr "Profilo"
 
@@ -402,6 +402,10 @@ msgstr "Un moderatore ha accettato la tua richiesta di registrazione in "
 #: muss/i18n.py:87
 msgid "Latest"
 msgstr "Più recente"
+
+#: muss/i18n.py:88
+msgid "Moderator"
+msgstr "Moderato"
 
 #: muss/models.py:31 muss/models.py:71 muss/models.py:168 muss/models.py:241
 #: muss/models.py:315 muss/models.py:545
@@ -927,9 +931,6 @@ msgstr ""
 
 #~ msgid "Suggested Topics"
 #~ msgstr "Argomenti suggeriti"
-
-#~ msgid "Moderator"
-#~ msgstr "Moderato"
 
 #~ msgid "The topic '%(topic)s' was successfully created"
 #~ msgstr "Il argomento '%(topic)s' è stato creato con successo"
