@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 
 from muss.models import Profile
-from muss.utils import get_data_confirm_email
+from muss.notifications_email import get_data_confirm_email
 
 
 class Command(BaseCommand):
@@ -16,10 +16,10 @@ class Command(BaseCommand):
         # Create recrod profile
         if users.count() > 0:
             for user in users:
-                if not Profile.objects.filter(iduser=user).exists():
+                if not Profile.objects.filter(user=user).exists():
                     data = get_data_confirm_email(user.email)
                     Profile.objects.create(
-                        iduser=user, photo="", about="",
+                        user=user, photo="", about="",
                         activation_key=data['activation_key'],
                         key_expires=data['key_expires']
                     )

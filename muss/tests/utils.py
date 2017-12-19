@@ -22,6 +22,22 @@ def create_user():
     return user
 
 
+def create_superuser():
+    """
+    Create user in table
+    """
+    username = "admin"
+    email = "admin@admin.com"
+    password = "admin123456"
+    User = get_user_model()
+    user = User.objects.create(
+        username=username, email=email, is_superuser=True
+    )
+    user.set_password(password)
+    user.save()
+    return user
+
+
 def create_category():
     category = Category.objects.create(
         name="Backend", description="Backend category"
