@@ -21,5 +21,5 @@ test('it renders', function(assert) {
     {{/list-comments}}
   `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$().text().match(/template block text/), 'template block text');
 });

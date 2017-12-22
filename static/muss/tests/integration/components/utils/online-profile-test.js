@@ -11,7 +11,7 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{utils/online-profile}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  assert.equal(this.$().text().match(/Online/), 'Online');
 
   // Template block usage:
   this.render(hbs`
@@ -20,5 +20,5 @@ test('it renders', function(assert) {
     {{/utils/online-profile}}
   `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$().text().match(/template block text/), 'template block text');
 });
