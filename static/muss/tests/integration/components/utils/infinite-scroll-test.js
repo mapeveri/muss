@@ -10,15 +10,15 @@ test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
-  this.render(hbs`{{infinite-scroll}}`);
+  this.render(hbs`{{utils/infinite-scroll}}`);
 
   assert.equal(this.$().text().trim(), '');
 
   // Template block usage:
   this.render(hbs`
-    {{#infinite-scroll}}
+    {{#utils/infinite-scroll}}
       template block text
-    {{/infinite-scroll}}
+    {{/utils/infinite-scroll}}
   `);
 
   assert.equal(this.$().text().trim(), 'template block text');

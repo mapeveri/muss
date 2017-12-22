@@ -12,7 +12,7 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{auth/signup-form}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  assert.equal(this.$().text().match(/Sign up/), 'Sign up');
 
   // Template block usage:
   this.render(hbs`
@@ -21,5 +21,5 @@ test('it renders', function(assert) {
     {{/auth/signup-form}}
   `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$().text().match(/template block text/), 'template block text');
 });

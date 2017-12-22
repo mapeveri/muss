@@ -12,7 +12,7 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{card-comment}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  assert.equal(this.$().text().match(/Reply/), 'Reply');
 
   // Template block usage:
   this.render(hbs`
@@ -21,5 +21,5 @@ test('it renders', function(assert) {
     {{/card-comment}}
   `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$().text().match(/template block text/), 'template block text');
 });

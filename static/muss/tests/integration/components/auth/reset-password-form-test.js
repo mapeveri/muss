@@ -10,16 +10,16 @@ test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
-  this.render(hbs`{{reset-password-form}}`);
+  this.render(hbs`{{auth/reset-password-form}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  assert.equal(this.$().text().match(/Email/), 'Email');
 
   // Template block usage:
   this.render(hbs`
-    {{#reset-password-form}}
+    {{#auth/reset-password-form}}
       template block text
-    {{/reset-password-form}}
+    {{/auth/reset-password-form}}
   `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$().text().match(/template block text/), 'template block text');
 });

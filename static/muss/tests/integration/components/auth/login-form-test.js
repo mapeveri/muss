@@ -7,19 +7,19 @@ moduleForComponent('auth/login-form', 'Integration | Component | auth/login form
 
 test('it renders', function(assert) {
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
 
-  this.render(hbs`{{auth/login-form}}`);
+    this.render(hbs`{{auth/login-form}}`);
 
-  assert.equal(this.$().text().trim(), '');
+    assert.equal(this.$().text().match(/Log in/), 'Log in');
 
-  // Template block usage:
-  this.render(hbs`
-    {{#auth/login-form}}
-      template block text
-    {{/auth/login-form}}
-  `);
+    // Template block usage:
+    this.render(hbs`
+        {{#auth/login-form}}
+        template block text
+        {{/auth/login-form}}
+    `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+    assert.equal(this.$().text().match(/template block text/), 'template block text');
 });

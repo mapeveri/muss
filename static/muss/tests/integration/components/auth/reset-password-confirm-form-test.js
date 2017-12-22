@@ -7,19 +7,18 @@ moduleForComponent('reset-password-confirm-form', 'Integration | Component | res
 
 test('it renders', function(assert) {
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+    this.render(hbs`{{auth/reset-password-confirm-form}}`);
 
-  this.render(hbs`{{reset-password-confirm-form}}`);
+    assert.equal(this.$().text().trim(), '');
 
-  assert.equal(this.$().text().trim(), '');
+    // Template block usage:
+    this.render(hbs`
+        {{#auth/reset-password-confirm-form}}
+        template block text
+        {{/auth/reset-password-confirm-form}}
+    `);
 
-  // Template block usage:
-  this.render(hbs`
-    {{#reset-password-confirm-form}}
-      template block text
-    {{/reset-password-confirm-form}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+    assert.equal(this.$().text().trim(), 'template block text');
 });
