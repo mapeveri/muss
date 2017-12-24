@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^api/', include('muss.api.urls')),
     # Authentication route jwt
     url(r'^api/token-auth/', jwt_views.obtain_jwt_token, name="token_auth"),
+    url(r'^api/api-token-verify/', jwt_views.verify_jwt_token),
     # Authentication routes
     url(r'^confirm-email/$', views.ConfirmEmailView.as_view(),
         name='confirm_email'),

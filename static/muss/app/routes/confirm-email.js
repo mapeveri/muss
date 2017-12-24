@@ -1,16 +1,11 @@
 import Route from "@ember/routing/route";
 import { inject as service} from '@ember/service';
+import UnAuthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 import $ from 'jquery';
 
-export default Route.extend({
+export default Route.extend(UnAuthenticatedRouteMixin, {
     ajax: service('ajax'),
-    session: service('session'),
-    beforeModel() {
-        if(this.get('session').session.isAuthenticated) {
-            this.transitionTo('index');
-            return false;
-        }
-    },
+
     model(params) {
         let csrftoken = $("[name=csrfmiddlewaretoken]").first().val();
         return this.get('ajax').request('/confirm-email/', {

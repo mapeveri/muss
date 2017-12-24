@@ -26,7 +26,8 @@ module.exports = function(environment) {
 
     ENV['ember-simple-auth'] = {
         authorizer: 'authorizer:jwt',
-        routeAfterAuthentication: '/'
+        routeAfterAuthentication: 'index',
+        authenticationRoute: 'index'
     };
 
     if (environment === 'development') {

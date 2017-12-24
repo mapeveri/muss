@@ -1,14 +1,36 @@
 import Ember from 'ember';
 import Base from 'ember-simple-auth/authenticators/base';
+import ENV from '../config/environment';
 
 const { RSVP: { Promise } } = Ember;
 
 export default Base.extend({
-    tokenEndpoint: '/api/token-auth/',
+    tokenEndpoint: ENV.APP.API_HOST + '/' + ENV.APP.API_NAMESPACE + '/token-auth/',
+    verifyTokenEndpoint: ENV.APP.API_HOST + '/' + ENV.APP.API_NAMESPACE + '/api-token-verify/',
     restore(data) {
         return new Promise((resolve, reject) => {
             if (!Ember.isEmpty(data.token)) {
-                resolve(data);
+                const requestOptions = {
+                    url: this.verifyTokenEndpoint,
+                    type: 'POST',
+                    contentType: "application/x-www-form-urlencoded",
+                    data: {
+                        token: data.token,
+                    },
+                };
+                let promise = new Promise((resolve, reject) => {
+                    Ember.$.ajax(requestOptions).then(() => {
+                        resolve();
+                    }, () => {
+                        reject();
+                    });
+                });
+
+                return promise.then(() => {
+                    resolve(data);
+                }).catch(() => {
+                    reject();
+                })
             } else {
                 reject();
             }

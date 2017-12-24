@@ -1,5 +1,7 @@
 import Route from "@ember/routing/route";
 import { inject as service} from '@ember/service';
+import { computed } from '@ember/object';
+import Configuration from 'ember-simple-auth/configuration';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 import RSVP from "rsvp";
 import config from './../config/environment';
@@ -8,6 +10,11 @@ export default Route.extend(ApplicationRouteMixin, {
     ajax: service('ajax'),
     session: service('session'),
     currentUser: service('current-user'),
+
+    beforeModel(transition) {
+        Configuration.authenticationRoute = 'index';
+        Configuration.authenticationRoute = 'index';
+    },
 
     model() {
         if(this.get('currentUser').user != undefined) {

@@ -21,3 +21,4 @@ test('it renders', function(assert) {
   `);
 
   assert.equal(this.$().text().match(/template block text/), 'template block text');
+});

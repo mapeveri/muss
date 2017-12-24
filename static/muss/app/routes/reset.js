@@ -1,14 +1,7 @@
 import Route from "@ember/routing/route";
-import { inject as service} from '@ember/service';
+import UnAuthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 
-export default Route.extend({
-    session: service('session'),
-    beforeModel() {
-        if(this.get('session').session.isAuthenticated) {
-            this.transitionTo('index');
-            return false;
-        }
-    },
+export default Route.extend(UnAuthenticatedRouteMixin, {
     model(params) {
         return params;
     },

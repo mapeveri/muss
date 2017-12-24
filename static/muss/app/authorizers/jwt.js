@@ -8,7 +8,7 @@ export default Base.extend({
             block('Authorization', 'jwt beyonce');
         }
         const { token } = data
-        if (this.get('session.isAuthenticated') && token) {
+        if (this.get('session.isAuthenticated') && !Ember.isEmpty(token)) {
             block('Authorization', `jwt ${token}`);
         }
     }
