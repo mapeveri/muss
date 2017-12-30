@@ -5,6 +5,7 @@ import random
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.template import loader
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
@@ -27,7 +28,9 @@ def send_welcome_email(email, username, activation_key):
     ) % {
         'site': settings.SITE_NAME
     }
-    urlContent = "/confirm-email/" + username + "/" + activation_key + "/"
+
+    url = reverse('confirm_email')
+    urlContent = url + username + "/" + activation_key + "/"
     current_site = Site.objects.get_current()
     send_mail(
         _("Welcome to " + settings.SITE_NAME),
