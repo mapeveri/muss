@@ -91,17 +91,22 @@
 </div>
 
 <h4 class="ui header">{{ gettext "Forums" }}</h4>
-<div class="ui middle aligned divided list" class="width80">
+
+<div class="ui grid">
     {{#each forums.forums as |forum|}}
-        <div class="item">
-            <i class="comments icon"></i>
-            <div class="content">
-            {{#link-to "forum" forum.id forum.slug}}{{ forum.name }}{{/link-to}}
-            {{#if forum.moderator}}
-                <span>({{gettext "Moderator"}})</span>
-            {{/if}}
+    <div class="four wide column">
+        <div class="ui horizontal list">
+            <div class="item">
+                <img class="ui avatar image" src="{{ urlPhotoForum }}">
+                <div class="content">
+                <div class="header">{{#link-to "forum" forum.id forum.slug}}{{ forum.name }}{{/link-to}}</div>
+                {{#if forum.moderator}}
+                    <span>({{gettext "Moderator"}})</span>
+                {{/if}}
+                </div>
             </div>
         </div>
+    </div>
     {{/each}}
 </div>
 

@@ -10,6 +10,8 @@ export default Component.extend({
     currentUser: service('current-user'),
     idFormEdit: 'form-edit-profile',
     canEdit: false,
+    urlPhotoForum: window.muss.static_url + '/muss/public/assets/images/forums.png',
+
     setTitleHtml: function() {
         this.updateTitleHtml();
     }.observes('profile.user.username'),
