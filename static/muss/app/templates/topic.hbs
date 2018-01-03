@@ -7,7 +7,7 @@
     <div class="active section">{{ model.topic.title }}</div>
     </div>
 
-    {{topic-header topic=model.topic comments=model.comments profile=model.profile redirectForum='redirectToForum'}}
+    {{topic-header topic=model.topic comments=model.comments profile=model.profile}}
 
     <div class="marginTop4">
         {{list-comments comments=model.comments topic=model.topic profile=model.profile}}

@@ -9,7 +9,7 @@ export default Component.extend({
     store: service('store'),
     currentUser: service('current-user'),
     totalWsNotifications: 0,
-    notifications: [],
+    notifications: null,
 
     didInsertElement() {
         this._super();

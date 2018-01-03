@@ -9,7 +9,6 @@ export default Component.extend({
     uidb64: null,
     token: null,
     csrftoken: null,
-    self: this,
     isValidLink: false,
     isSuccess: false,
 

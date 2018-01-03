@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { get } from "@ember/object"
 import $ from 'jquery';
 
 export default Component.extend({
@@ -29,7 +30,7 @@ export default Component.extend({
                 }
             }).modal('show');
             //Reset form
-            this.attrs['initialize'](...arguments);
+            get(this, 'initialize')(...arguments);
         },
         /**
         * @method cancelModal
@@ -43,7 +44,7 @@ export default Component.extend({
         * @description: Call action param
         */
         action() {
-            this.attrs['action'](...arguments);
+            get(this, 'action')(...arguments);
         }
     }
 });

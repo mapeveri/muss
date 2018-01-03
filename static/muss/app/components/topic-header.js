@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { computed, observer } from '@ember/object';
 import { inject as service} from '@ember/service';
 import { isPresent } from "@ember/utils";
 import $ from 'jquery';
@@ -7,6 +8,7 @@ import { closeAllEditor, getUrlConnectionWs, setTitlePage, showModalLogin } from
 
 export default Component.extend({
     ajax: service('ajax'),
+    router: service('-routing'),
     store: service('store'),
     session: service('session'),
     currentUser: service('current-user'),
@@ -20,14 +22,16 @@ export default Component.extend({
     userLogin: null,
     topicId: null,
     showLike: true,
-    totalCommentsWatcher: function() {
+    totalCommentsWatcher: observer('comments.content.[]', function() {
         this.set('topic.totalComments', this.get('comments.content').length);
-    }.observes('comments.content.[]'),
+    }),
     editTopicField: '',
     editTopicTitle: '',
-    enableEditTopic: function() {
-        return !isPresent(this.editTopicField) || !isPresent(this.editTopicTitle);
-    }.property('editTopicField', 'editTopicTitle'),
+    enableEditTopic: computed('editTopicField', 'editTopicTitle', {
+        get() {
+            return !isPresent(this.editTopicField) || !isPresent(this.editTopicTitle);
+        }
+    }),
     isTrollUser: false,
 
     didInsertElement() {
@@ -180,7 +184,9 @@ export default Component.extend({
             $('.tiny.topic_'+id+'.modal').modal('hide');
 
             this.topic.destroyRecord().then(() => {
-                this.sendAction('redirectForum', forum_id, forum_slug);
+                //Redirect to forum
+                let router = this.get('router');
+                router.router.transitionTo('forum', forum_id, forum_slug);
             });
         },
         /**

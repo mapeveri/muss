@@ -1,15 +1,16 @@
-import Ember from 'ember';
+import { run } from '@ember/runloop';
+import { isEmpty } from '@ember/utils';
+import { Promise } from 'rsvp';
 import Base from 'ember-simple-auth/authenticators/base';
+import $ from 'jquery';
 import ENV from '../config/environment';
-
-const { RSVP: { Promise } } = Ember;
 
 export default Base.extend({
     tokenEndpoint: ENV.APP.API_HOST + '/' + ENV.APP.API_NAMESPACE + '/token-auth/',
     verifyTokenEndpoint: ENV.APP.API_HOST + '/' + ENV.APP.API_NAMESPACE + '/api-token-verify/',
     restore(data) {
         return new Promise((resolve, reject) => {
-            if (!Ember.isEmpty(data.token)) {
+            if (!isEmpty(data.token)) {
                 const requestOptions = {
                     url: this.verifyTokenEndpoint,
                     type: 'POST',
@@ -19,7 +20,7 @@ export default Base.extend({
                     },
                 };
                 let promise = new Promise((resolve, reject) => {
-                    Ember.$.ajax(requestOptions).then(() => {
+                    $.ajax(requestOptions).then(() => {
                         resolve();
                     }, () => {
                         reject();
@@ -47,17 +48,17 @@ export default Base.extend({
             },
         };
         return new Promise((resolve, reject) => {
-            Ember.$.ajax(requestOptions).then((response) => {
+            $.ajax(requestOptions).then((response) => {
                 let jwt = response.data.token;
                 let user = response.data.user;
-                Ember.run(() => {
+                run(() => {
                     resolve({
                         token: jwt,
                         user: user,
                     });
                 });
             }, (error) => {
-                Ember.run(() => {
+                run(() => {
                     reject(error);
                 });
             });

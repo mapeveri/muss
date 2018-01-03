@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { computed } from '@ember/object';
 import { inject as service} from '@ember/service';
 import { isPresent } from "@ember/utils";
 import $ from 'jquery';
@@ -15,9 +16,11 @@ export default Component.extend({
     commentId: null,
     showLike: true,
     contentEdit: '',
-    enableContentEdit: function() {
-        return !isPresent(this.contentEdit);
-    }.property('contentEdit'),
+    enableContentEdit: computed('contentEdit', {
+        get() {
+            return !isPresent(this.contentEdit);
+        }
+    }),
 
     didInsertElement() {
         this._super();

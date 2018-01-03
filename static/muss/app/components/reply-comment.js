@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { computed } from '@ember/object';
 import { inject as service} from '@ember/service';
 import { isPresent } from "@ember/utils";
 import $ from 'jquery';
@@ -9,9 +10,11 @@ export default Component.extend({
     store: service('store'),
     topic: null,
     reply: '',
-    enableReply: function() {
-        return !isPresent(this.reply);
-    }.property('reply'),
+    enableReply: computed('reply', {
+        get() {
+            return !isPresent(this.reply);
+        }
+    }),
 
     actions: {
         /**

@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { run } from "@ember/runloop";
 import $ from 'jquery';
 
 export default Component.extend({
@@ -11,12 +12,12 @@ export default Component.extend({
         let contentId = this.get('contentId');
         $("#" + this.modalId).on('open', () => {
             //Add content fixed scroll
-            $("#" + contentId).addClass(this.contentClass);
+            run.bind(this, $("#" + contentId).addClass(this.contentClass));
         });
 
         $("#" + this.modalId).on('close', () => {
             //Remove content fixed scroll
-            $("#" + contentId).removeClass(this.contentClass);
+            run.bind(this, $("#" + contentId).removeClass(this.contentClass));
         });
     },
     actions: {

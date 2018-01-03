@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { computed } from '@ember/object';
 import { inject as service} from '@ember/service';
 import { isPresent } from "@ember/utils";
 import $ from 'jquery';
@@ -22,9 +23,11 @@ export default Component.extend({
     isPendingModerate: false,
     addTopicField: '',
     addTopicTitle: '',
-    enableAddTopic: function() {
-        return !isPresent(this.addTopicField) || !isPresent(this.addTopicTitle);
-    }.property('addTopicField', 'addTopicTitle'),
+    enableAddTopic: computed('addTopicField', 'addTopicTitle', {
+        get() {
+            return !isPresent(this.addTopicField) || !isPresent(this.addTopicTitle);
+        }
+    }),
     isTrollUser: false,
 
     didInsertElement() {

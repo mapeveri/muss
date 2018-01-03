@@ -36,15 +36,4 @@ export default Route.extend({
             this.transitionTo('index');
         }
     },
-    actions: {
-        /**
-        * @method redirectToForum
-        * @description: Redirect to route forum
-        * @param {*} forum_id
-        * @param {*} forum_slug
-        */
-        redirectToForum(forum_id, forum_slug) {
-            this.transitionTo("forum", forum_id, forum_slug);
-        }
-    }
 });
