@@ -573,6 +573,12 @@ class HitcountTopic(models.Model):
 
 
 class Upload(models.Model):
+    """
+    Model for uploas file in topic.
+    - **parameters**:
+        :param user: User relation.
+        :param attachment: File upload.
+    """
     def generate_path(instance, filename):
         """
         Generate path to field attachment

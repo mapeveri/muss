@@ -27,8 +27,10 @@ from muss.api.permissions import (
 from muss.api.renderers import JSONRendererApiJson
 
 
-# ViewSets for user
 class UserViewSet(viewsets.ModelViewSet):
+    """
+    ViewSets for user
+    """
     User = get_user_model()
     queryset = User.objects.all().order_by("pk")
     serializer_class = serializers.UserSerializer
@@ -36,8 +38,10 @@ class UserViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'post']
 
 
-# ViewSets for category
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    ViewSets for category
+    """
     queryset = models.Category.objects.all()
     serializer_class = serializers.CategorySerializer
 
@@ -78,8 +82,10 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
             return response
 
 
-# ViewSets for forum
 class ForumViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    ViewSets for forum
+    """
     queryset = models.Forum.objects.all()
     serializer_class = serializers.ForumSerializer
 
@@ -94,8 +100,10 @@ class ForumViewSet(viewsets.ReadOnlyModelViewSet):
         return self.queryset
 
 
-# ViewSets for topic
 class TopicViewSet(viewsets.ModelViewSet):
+    """
+    ViewSets for topic
+    """
     resource_name = 'topics'
     queryset = models.Topic.objects.all()
     serializer_class = serializers.TopicSerializer
@@ -231,8 +239,10 @@ class TopicViewSet(viewsets.ModelViewSet):
                 })
 
 
-# ViewSets for register
 class RegisterViewSet(viewsets.ModelViewSet):
+    """
+    ViewSets for register
+    """
     resource_name = 'registers'
     queryset = models.Register.objects.all()
     serializer_class = serializers.RegisterSerializer
@@ -326,8 +336,10 @@ class RegisterViewSet(viewsets.ModelViewSet):
         )
 
 
-# ViewSets for comment
 class CommentViewSet(viewsets.ModelViewSet):
+    """
+    ViewSets for comment
+    """
     resource_name = 'comments'
     queryset = models.Comment.objects.all()
     serializer_class = serializers.CommentSerializer
@@ -404,8 +416,10 @@ class CommentViewSet(viewsets.ModelViewSet):
                 })
 
 
-# ViewSets for profile
 class ProfileViewSet(viewsets.ModelViewSet):
+    """
+    ViewSets for profile
+    """
     resource_name = 'profiles'
     queryset = models.Profile.objects.all().order_by("pk")
     serializer_class = serializers.ProfileSerializer
@@ -444,8 +458,10 @@ class ProfileViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-# ViewSets for MessageForum
 class MessageForumViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    ViewSets for MessageForum
+    """
     queryset = models.MessageForum.objects.all().order_by("pk")
     serializer_class = serializers.MessageForumSerializer
     http_method_names = ['get']
@@ -465,8 +481,10 @@ class MessageForumViewSet(viewsets.ReadOnlyModelViewSet):
         return self.queryset
 
 
-# ViewSets for HitcountTopic
 class HitcountTopicViewSet(viewsets.ModelViewSet):
+    """
+    ViewSets for HitcountTopic
+    """
     queryset = models.HitcountTopic.objects.all().order_by("pk")
     serializer_class = serializers.HitcountTopicSerializer
     http_method_names = ['get', 'post']
@@ -558,8 +576,10 @@ class CheckPermissionsForumUserView(APIView):
         return Response(response)
 
 
-# Viewset for LikeTopic
 class LikeTopicViewSet(viewsets.ModelViewSet):
+    """
+    Viewset for LikeTopic
+    """
     queryset = models.LikeTopic.objects.all().order_by("pk")
     serializer_class = serializers.LikeTopicSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
@@ -627,8 +647,10 @@ class LikeTopicViewSet(viewsets.ModelViewSet):
         return Response({'success': 'ok'})
 
 
-# Viewset for LikeComment
 class LikeCommentViewSet(viewsets.ModelViewSet):
+    """
+    Viewset for LikeComment
+    """
     queryset = models.LikeComment.objects.all().order_by("pk")
     serializer_class = serializers.LikeCommentSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
@@ -696,8 +718,10 @@ class LikeCommentViewSet(viewsets.ModelViewSet):
         return Response({'success': 'ok'})
 
 
-# ViewSets for user
 class NotificationViewSet(viewsets.ModelViewSet):
+    """
+    ViewSets for user
+    """
     queryset = models.Notification.objects.all()
     serializer_class = serializers.NotificationSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
