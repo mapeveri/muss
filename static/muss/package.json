@@ -48,5 +48,7 @@
     "node": "^4.5 || 6.* || >= 7.*"
   },
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "marked": "^0.3.9"
+  }
 }
