@@ -1108,7 +1108,7 @@ class ProfileViewSetTests(APITestCase):
                 "relationships": {
                     "user": {
                         "data": {
-                            "type": "User",
+                            "type": "users",
                             "id": str(user.pk)
                         }
                     }
@@ -1211,13 +1211,13 @@ class NotificationViewSetTests(APITestCase):
                     "user": {
                         "data": {
                             'id': str(user.pk),
-                            'type': 'User'
+                            'type': 'users'
                         }
                     },
                     "content-type": {
                         "data": {
                             'id': str(topic.pk),
-                            'type': 'ContentType'
+                            'type': 'contentTypes'
                         }
                     }
                 },

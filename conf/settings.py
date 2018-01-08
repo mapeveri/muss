@@ -200,10 +200,13 @@ REST_FRAMEWORK = {
 
 # Type keys api for ember-data models
 JSON_API_FORMAT_KEYS = 'dasherize'
+# Type keys for relations
+JSON_API_FORMAT_TYPES = 'camelize'
 
-# Pluralize relations in endpoints
-JSON_API_PLURALIZE_RELATION_TYPE = True
+# Pluralize types relations in endpoints
+JSON_API_PLURALIZE_TYPES = True
 
+# Jwt custom object
 JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER':
         'muss.api.utils.jwt_response_payload_handler',
