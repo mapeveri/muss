@@ -116,13 +116,12 @@ export default Component.extend({
                 return;
             }
 
-            let namespace = config.APP.API_NAMESPACE;
             let pk = this.get('session').session.content.authenticated.user.id;
 
             //Check if user logged is superuser
             let isSuperUser = this.get('session').session.content.authenticated.user.is_superuser;
 
-            return this.get('ajax').request('/' + namespace + '/check-permissions-forum-user/', {
+            return this.get('ajax').request('/check-permissions-forum-user/', {
                 method: 'GET',
                 data: {'user_id': pk, 'forum_id': this.model.forum.id}
             }).then(response => {

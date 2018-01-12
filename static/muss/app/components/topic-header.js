@@ -3,7 +3,6 @@ import { computed, observer } from '@ember/object';
 import { inject as service} from '@ember/service';
 import { isPresent } from "@ember/utils";
 import $ from 'jquery';
-import ENV from './../config/environment';
 import { closeAllEditor, getUrlConnectionWs, setTitlePage, showModalLogin } from '../libs/utils';
 
 export default Component.extend({
@@ -12,7 +11,6 @@ export default Component.extend({
     store: service('store'),
     session: service('session'),
     currentUser: service('current-user'),
-    namespace: ENV.APP.API_NAMESPACE,
     currentUrl: window.location.href,
     isLoaded: false,
     topic: null,
@@ -103,7 +101,7 @@ export default Component.extend({
     * @description: Get or make hit count for topic
     */
     getOrMakeHitTopic() {
-        return this.get('ajax').request('/' + this.namespace + '/hitcounts/', {
+        return this.get('ajax').request('/hitcounts/', {
             method: 'POST',
             data: {'topic': this.topic.id}
         }).then(response => {
@@ -131,7 +129,7 @@ export default Component.extend({
         */
         likeTopic() {
             if(this.get('session.isAuthenticated')) {
-                this.get('ajax').request('/' + this.namespace + '/liketopics/', {
+                this.get('ajax').request('/liketopics/', {
                     method: 'POST',
                     data: {
                         'topic': this.topicId,
@@ -150,7 +148,7 @@ export default Component.extend({
         * @description: Delete like topic in db
         */
         unLikeTopic() {
-            this.get('ajax').request('/' + this.namespace + '/liketopics/' + this.topicId + '/', {
+            this.get('ajax').request('/liketopics/' + this.topicId + '/', {
                 method: 'DELETE',
                 data: {
                     'users': this.userLogin

@@ -2,14 +2,12 @@ import TextArea from "@ember/component/text-area";
 import { inject as service} from '@ember/service';
 import { isEmpty } from "@ember/utils";
 import layout from '../../templates/components/utils/simple-mde-editor';
-import ENV from './../../config/environment';
 
 export default TextArea.extend({
     ajax: service('ajax'),
     change: null,
     currentEditor: null,
     layout,
-    namespace: ENV.APP.API_NAMESPACE,
     value: null,
 
     init() {
@@ -42,7 +40,7 @@ export default TextArea.extend({
                                 formData.append('upload_img_' + i, imgs[i]);
                             }
 
-                            self.get('ajax').request("/" + self.namespace + "/uploads/", {
+                            self.get('ajax').request("/uploads/", {
                                 method: 'POST',
                                 processData: false,
                                 contentType: false,

@@ -3,7 +3,6 @@ import { inject as service} from '@ember/service';
 import Configuration from 'ember-simple-auth/configuration';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 import RSVP from "rsvp";
-import config from './../config/environment';
 
 export default Route.extend(ApplicationRouteMixin, {
     ajax: service('ajax'),
@@ -11,6 +10,7 @@ export default Route.extend(ApplicationRouteMixin, {
     currentUser: service('current-user'),
 
     beforeModel() {
+        //Set route authentication
         Configuration.authenticationRoute = 'index';
         Configuration.authenticationRoute = 'index';
     },
@@ -18,10 +18,10 @@ export default Route.extend(ApplicationRouteMixin, {
     model() {
         if(this.get('currentUser').user != undefined) {
             let user_id = parseInt(this.get('currentUser').user.id);
-            let namespace = config.APP.API_NAMESPACE;
+
             return RSVP.hash({
                 notifications: this.get('store').query('notification', {"user": user_id, "limit": 10}),
-                totalNotifications: this.get('ajax').request('/' + namespace + '/get-total-pending-notifications-user/', {
+                totalNotifications: this.get('ajax').request('/get-total-pending-notifications-user/', {
                     method: 'GET',
                     data: {
                         user_id: user_id

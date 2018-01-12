@@ -3,14 +3,12 @@ import { computed } from '@ember/object';
 import { inject as service} from '@ember/service';
 import { isPresent } from "@ember/utils";
 import $ from 'jquery';
-import ENV from './../config/environment';
 import { closeAllEditor, showModalLogin } from '../libs/utils';
 
 export default Component.extend({
     ajax: service('ajax'),
     session: service('session'),
     currentUser: service('current-user'),
-    namespace: ENV.APP.API_NAMESPACE,
     isCreatorComment: false,
     userLogin: null,
     commentId: null,
@@ -78,7 +76,7 @@ export default Component.extend({
         */
         likeComment() {
             if(this.get('session.isAuthenticated')) {
-                this.get('ajax').request('/' + this.namespace + '/likecomments/', {
+                this.get('ajax').request('/likecomments/', {
                     method: 'POST',
                     data: {
                         'comment': this.commentId,
@@ -97,7 +95,7 @@ export default Component.extend({
         * @description: Delete like comment in db
         */
         unLikeComment() {
-            this.get('ajax').request('/' + this.namespace + '/likecomments/' + this.commentId + '/', {
+            this.get('ajax').request('/likecomments/' + this.commentId + '/', {
                 method: 'DELETE',
                 data: {
                     'users': this.userLogin

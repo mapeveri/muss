@@ -18,6 +18,9 @@ export default Base.extend({
                     data: {
                         token: data.token,
                     },
+                    headers: {
+                        'Authorization': "jwt " + data.token
+                    }
                 };
                 let promise = new Promise((resolve, reject) => {
                     $.ajax(requestOptions).then(() => {
