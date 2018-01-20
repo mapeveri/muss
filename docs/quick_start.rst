@@ -36,7 +36,7 @@ Next, located in the root directory project, install the packages dependencies i
     $ pip install -r requirements.txt
 
 
-Go to the folder /conf/ and rename file settings_local.py.txt to settings_local.py and .env.example to .env. Then configure thats variables.
+Go to the folder /conf/ and rename file settings_local.py.txt to settings_local.py and .env.example to .env. Then configure that's variables.
 These variables are to configure the database and secret key of Django.
 
 Secret Django Key
