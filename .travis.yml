@@ -6,7 +6,7 @@ python:
   - "3.6"
 
 env:
-  - DJANGO=2.0.1
+  - DJANGO=2.0.3
 
 branches:
   only:
@@ -16,7 +16,7 @@ services:
   - redis-server
 
 addons:
-  postgresql: "9.4"
+  postgresql: "9.5"
 
 install:
   - cd conf
