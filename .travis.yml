@@ -6,7 +6,7 @@ python:
   - "3.6"
 
 env:
-  - DJANGO=2.0.4
+  - DJANGO=2.0.5
 
 branches:
   only:
