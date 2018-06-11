@@ -26,5 +26,19 @@ module.exports = function(defaults) {
     app.import("bower_components/toastr/toastr.min.js");
     app.import("node_modules/simplemde/dist/simplemde.min.js");
     app.import("node_modules/simplemde/dist/simplemde.min.css");
+
+    const dirFontsSemantic = 'node_modules/semantic-ui-css/themes/default/assets/fonts/';
+    app.import(`${dirFontsSemantic}brand-icons.eot`, {destDir: '/assets/themes/default/assets/fonts'});
+    app.import(`${dirFontsSemantic}brand-icons.svg`, {destDir: '/assets/themes/default/assets/fonts'});
+    app.import(`${dirFontsSemantic}brand-icons.ttf`, {destDir: '/assets/themes/default/assets/fonts'});
+    app.import(`${dirFontsSemantic}brand-icons.woff`, {destDir: '/assets/themes/default/assets/fonts'});
+    app.import(`${dirFontsSemantic}brand-icons.woff2`, {destDir: '/assets/themes/default/assets/fonts'});
+
+    app.import(`${dirFontsSemantic}outline-icons.eot`, {destDir: '/assets/themes/default/assets/fonts'});
+    app.import(`${dirFontsSemantic}outline-icons.svg`, {destDir: '/assets/themes/default/assets/fonts'});
+    app.import(`${dirFontsSemantic}outline-icons.ttf`, {destDir: '/assets/themes/default/assets/fonts'});
+    app.import(`${dirFontsSemantic}outline-icons.woff`, {destDir: '/assets/themes/default/assets/fonts'});
+    app.import(`${dirFontsSemantic}outline-icons.woff2`, {destDir: '/assets/themes/default/assets/fonts'});
+
     return app.toTree();
 };
