@@ -27,17 +27,21 @@ export default Component.extend({
             self.set("isLoading", false);
         }
 
-        $(window).scroll(function () {
+        $(window).scroll(() => {
             if ($(window).scrollTop() >= ($(document).height() - $(window).height()) - 1) {
                 if(self.isLoading) {
                     if(self.page <= pages) {
                         query['page'] = self.page;
                         self.page = self.page + 1;
-                        self.get('store').query(self.api, query).then(function(data) {
+                        self.get('store').query(self.api, query).then((data) => {
                             if(self.submodel != null) {
-                                self.model[self.submodel].addObjects(data.get("content"));
+                                data.get("content").forEach((item) => {
+                                    self.model[self.submodel].content.pushObject(item);
+                                });
                             } else {
-                                self.model.addObjects(data.get("content"));
+                                data.get("content").forEach((item) => {
+                                    self.model.content.pushObject(item);
+                                });
                             }
 
                             if(self.page >= pages) {
