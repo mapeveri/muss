@@ -50,7 +50,7 @@ Built With
 5. Redis
 
 
-Docuementation
+Documentation
 --------------
 
 **Documentation** is `avaliable online
