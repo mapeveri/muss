@@ -3,6 +3,7 @@ Django==2.1.4
 django-admin-interface==0.5.8
 channels==1.1.8
 asgi-redis==1.4.2
+asgiref==1.1.2
 djangorestframework==3.8.2
 djangorestframework-jsonapi==2.4.0
 django-cors-headers==2.1.0
