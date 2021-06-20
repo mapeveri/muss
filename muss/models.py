@@ -262,6 +262,7 @@ class Topic(models.Model):
         return self.title
 
     def delete(self, *args, **kwargs):
+        # TODO: Revisar
         Topic.objects.filter(pk=self.pk).delete()
         self.update_forum_topics(
             self.forum.category.name, self.forum, "subtraction"
