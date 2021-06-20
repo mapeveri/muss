@@ -1,9 +1,14 @@
-psycopg2==2.7.3.1
+psycopg2==2.8.4
+psycopg2-binary==2.8.4
 Django==2.1.5
 django-admin-interface==0.5.8
 channels==1.1.8
 asgi-redis==1.4.2
 asgiref==1.1.2
+aioredis==1.2.0
+redis==2.10.6
+hiredis==1.0.0
+msgpack==0.6.2
 djangorestframework==3.8.2
 djangorestframework-jsonapi==2.4.0
 django-cors-headers==2.1.0
