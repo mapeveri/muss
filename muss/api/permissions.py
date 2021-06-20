@@ -1,11 +1,14 @@
 from rest_framework import permissions
-from muss import models, utils
+
+from muss import models
+from muss.services.user.forum import is_user_moderator_forum
 
 
 class IsReadOnly(permissions.BasePermission):
     """
     Readonly permissions.
     """
+
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:
             return True
@@ -16,6 +19,7 @@ class TopicPermissions(permissions.BasePermission):
     Check if is superuser or moderator or creator
     of topic for can crete, remove, etc.
     """
+
     def check_permissions_topic(self, request, forum, user):
         if forum:
             category = forum.category.name
@@ -24,7 +28,7 @@ class TopicPermissions(permissions.BasePermission):
             category = None
 
         # Get if is moderator
-        is_moderator = utils.is_user_moderator_forum(
+        is_moderator = is_user_moderator_forum(
             category, forum, request.user
         )
 
@@ -74,6 +78,7 @@ class CommentPermissions(permissions.BasePermission):
     Check if is superuser or moderator or creator
     of comment for can crete, remove, etc.
     """
+
     def check_permissions_comment(self, request, topic, user):
         if topic:
             forum = topic.forum
@@ -83,7 +88,7 @@ class CommentPermissions(permissions.BasePermission):
             category = None
 
         # Get if is moderator
-        is_moderator = utils.is_user_moderator_forum(
+        is_moderator = is_user_moderator_forum(
             category, forum, request.user
         )
 

@@ -1,10 +1,8 @@
-from django.db.models import F, Q
+from django.db.models import Q
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.http import Http404
 from django.shortcuts import get_object_or_404
-
 from django.utils import timezone
 
 from rest_framework import status, viewsets
@@ -15,16 +13,28 @@ from rest_framework.renderers import BrowsableAPIRenderer
 from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
-from muss import (
-    models, notifications_email as nt_email,
-    realtime, utils, notifications as nt
-)
-from muss.api import serializers, utils as utils_api
+from muss import models, utils
+from muss.api import serializers
 from muss.api.permissions import (
     CommentPermissions, TopicPermissions, IsReadOnly,
     RegisterPermissions
 )
 from muss.api.renderers import JSONRendererApiJson
+from muss.services.category import get_categories_forums
+from muss.services.comment import create_comment
+from muss.services.hitcount_topic import create_hitcount_topic
+from muss.services.like import (
+    create_like_comment, delete_like_comment,
+    create_like_topic, delete_like_topic
+)
+from muss.services.register_forum import (
+    get_all_registers, get_register_by_members, create_register
+)
+from muss.services.topic import create_topic, filter_topic_by_filter
+from muss.services.user.forum import (
+    check_permissions_forum_user, get_forums_by_user
+)
+from muss.services.user.topic import user_can_create_topic
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -60,10 +70,12 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
 
     def list(self, request, *args, **kwargs):
         type_filter = self.request.GET.get('filter')
+
         if type_filter == 'forums':
             # Get list with categories and forums
-            queryset = utils_api.get_categories_forums()
+            queryset = get_categories_forums()
             page = self.paginate_queryset(queryset)
+
             if page is not None:
                 queryset_page = self.get_paginated_response(page)
                 data = queryset_page.__dict__
@@ -97,6 +109,7 @@ class ForumViewSet(viewsets.ReadOnlyModelViewSet):
         if pk and slug and type_filter == "only":
             # Get only forum
             self.queryset = self.queryset.filter(pk=pk, slug=slug)
+
         return self.queryset
 
 
@@ -112,55 +125,7 @@ class TopicViewSet(viewsets.ModelViewSet):
     )
 
     def get_queryset(self, *args, **kwargs):
-        type_filter = self.request.GET.get('filter')
-        pk = self.request.GET.get('pk')
-        slug = self.request.GET.get('slug')
-        search_title = self.request.GET.get('title')
-        suggest = self.request.GET.get('suggest')
-        username = self.request.GET.get('username')
-
-        if type_filter == 'only_topic' and pk and slug:
-            # Get only topic
-            self.queryset = self.queryset.filter(
-                pk=pk, slug=slug, is_moderate=True
-            )
-        elif type_filter == 'by_forum' and slug:
-            # Filter topics by forum
-            self.queryset = self.queryset.filter(
-                forum__slug=slug, is_moderate=True
-            )
-        elif type_filter == 'search' and search_title:
-            # Search topics
-            self.queryset = self.queryset.annotate(
-                search=SearchVector('title', 'description')
-            ).filter(search=SearchQuery(search_title), is_moderate=True)
-
-        elif type_filter == "by_user" and username:
-            # Filter by user topic
-            self.queryset = self.queryset.filter(
-                user__username=username, is_moderate=True
-            )
-        elif type_filter == "latest":
-            # Get the latest 10 topics
-            self.queryset = self.queryset.filter(
-                is_moderate=True).order_by("-date")[:10]
-        elif type_filter == 'suggests' and suggest:
-            # Filter suggest topic
-            topic = get_object_or_404(
-                models.Topic, pk=suggest, is_moderate=True
-            )
-            words = topic.title.split(" ")
-            condition = Q()
-            for word in words:
-                condition |= Q(title__icontains=word)
-
-            self.queryset = models.Topic.objects.filter(
-                condition, Q(forum__pk=topic.forum_id, is_moderate=True)
-            ).exclude(
-                pk=topic.pk
-            )[:10]
-
-        return self.queryset
+        return filter_topic_by_filter(self.request.GET, self.queryset)
 
     def get_permissions(self):
         # If is troll then only is read only
@@ -175,68 +140,34 @@ class TopicViewSet(viewsets.ModelViewSet):
         user_id = int(request.data['user']['id'])
 
         # If is my user or is superuser can create
-        if user_id == request.user.id or request.user.is_superuser:
-            forum = get_object_or_404(models.Forum, pk=forum_id)
-            user = get_object_or_404(get_user_model(), pk=request.user.id)
-
-            category = forum.category.name
-            # If has permissions
-            if utils.user_can_create_topic(category, forum, request.user):
-                # Save the record topic
-                if serializer.is_valid():
-                    # Check if moderation topic
-                    is_moderate = utils.check_topic_moderate(
-                        request.user, forum
-                    )
-                    # If the forum is moderate send email
-                    serializer = utils.check_moderate_topic_email(
-                        request, forum, serializer
-                    )
-                    # Save record
-                    topic = serializer.save(
-                        forum=forum, user=user, is_moderate=is_moderate
-                    )
-                else:
-                    return Response(
-                        serializer.errors,
-                        status=status.HTTP_400_BAD_REQUEST
-                    )
-
-                # If is moderate send notifications
-                if is_moderate:
-                    domain = utils.get_domain(request)
-                    # Send email to moderators
-                    nt_email.send_notification_topic_to_moderators(
-                        forum, topic, domain
-                    )
-
-                    # Get moderators forum and send notification
-                    list_us = nt.get_moderators_and_send_notification_topic(
-                        request, forum, topic
-                    )
-
-                    # Data necessary for realtime
-                    data = realtime.data_base_realtime(
-                        topic, forum, True
-                    )
-
-                    # Send new notification realtime
-                    realtime.new_notification(data, list_us)
-
-                    # Send new topic in forum
-                    realtime.new_topic_forum(forum_id, data)
-
-                return Response(
-                    serializer.data, status=status.HTTP_201_CREATED
-                )
-            else:
-                raise PermissionDenied({
-                    "message": "You don't have permission to access"
-                })
-        else:
+        if user_id != request.user.id and not request.user.is_superuser:
             raise PermissionDenied({
-                    "message": "The user is invalid"
-                })
+                "message": "The user is invalid"
+            })
+
+        forum = get_object_or_404(models.Forum, pk=forum_id)
+        user = get_object_or_404(get_user_model(), pk=request.user.id)
+        category = forum.category.name
+
+        # If has permissions
+        if not user_can_create_topic(category, forum, request.user):
+            raise PermissionDenied({
+                "message": "You don't have permission to access"
+            })
+
+        # Save the record topic
+        if not serializer.is_valid():
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        domain = utils.get_domain(request)
+        create_topic(request.user, forum, serializer, domain)
+
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED
+        )
 
 
 class RegisterViewSet(viewsets.ModelViewSet):
@@ -264,72 +195,51 @@ class RegisterViewSet(viewsets.ModelViewSet):
         if forum and user and type_filter == "get_register":
             user_id = int(user)
             forum_id = int(forum)
-            self.queryset = self.queryset.filter(
-                forum__pk=forum_id, user__pk=user_id
-            )
+            self.queryset = get_all_registers(user, forum, self.queryset)
+
         elif type_filter == "members" and forum:
-            forum_id = int(forum)
-            # Get register users
-            forum = get_object_or_404(
-                models.Forum, pk=forum_id, hidden=False
-            )
-            moderators = forum.moderators.all()
-            # Get registers, exclude moderators
-            self.queryset = forum.register_forums.filter(
-                ~Q(user__in=moderators), is_enabled=True
-            )
+            self.queryset = get_register_by_members(forum)
+
         return self.queryset
 
     def create(self, request, **kwargs):
         user_id = int(request.data['user']['id'])
         is_my_user = user_id == request.user.id
+
         # If is my user or is superuser can create
-        if is_my_user or request.user.is_superuser:
-            forum_id = int(request.data['forum']['id'])
-
-            # Check if the forum is public or not
-            forum = get_object_or_404(models.Forum, pk=forum_id)
-            if forum.public_forum:
-                request.data['is_enable'] = True
-            else:
-                if request.user.is_superuser:
-                    request.data['is_enable'] = True
-                else:
-                    request.data['is_enable'] = False
-
-                    exists_register = models.Register.objects.filter(
-                        forum_id=forum_id, user=request.user
-                    )
-
-                    # If the register not exists
-                    if exists_register.count() == 0:
-                        nt_email.send_email_new_register_to_moderators(
-                            forum, request.user
-                        )
-                    else:
-                        raise PermissionDenied({
-                            "message": "You are already Registered"
-                        })
-
-            return super(RegisterViewSet, self).create(request, **kwargs)
-        else:
+        if not is_my_user and not request.user.is_superuser:
             raise PermissionDenied({
-                    "message": "The user is invalid"
+                "message": "The user is invalid"
+            })
+
+        forum_id = int(request.data['forum']['id'])
+
+        # Check if the forum is public or not
+        forum = get_object_or_404(models.Forum, pk=forum_id)
+        if forum.public_forum or request.user.is_superuser:
+            request.data['is_enable'] = True
+        else:
+            request.data['is_enable'] = False
+
+            # If the register not exists
+            if create_register(forum, request.user) > 0:
+                raise PermissionDenied({
+                    "message": "You are already Registered"
                 })
+
+        return super(RegisterViewSet, self).create(request, **kwargs)
 
     def perform_create(self, serializer):
         request = self.request
         forum_id = int(request.data['forum']['id'])
         forum = get_object_or_404(models.Forum, pk=forum_id)
-        if serializer.is_valid():
-            serializer.save(
-                forum=forum, user=request.user
-            )
-        else:
+        if not serializer.is_valid():
             return Response(
                 serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST
             )
+
+        serializer.save(forum=forum, user=request.user)
 
         return Response(
             serializer.data, status=status.HTTP_201_CREATED
@@ -357,63 +267,38 @@ class CommentViewSet(viewsets.ModelViewSet):
         topic = self.request.GET.get('topic')
         if topic:
             self.queryset = self.queryset.filter(topic__pk=topic)
+
         return self.queryset
 
     def perform_create(self, serializer):
-        request = self.request
         # Get user id
-        user_id = request.data['user']['id']
-
+        user_id = self.request.data['user']['id']
         # Get topic
-        topic_id = request.data['topic']['id']
+        topic_id = self.request.data['topic']['id']
         topic = get_object_or_404(models.Topic, pk=topic_id)
 
-        is_my_user = int(user_id) == request.user.id
+        is_my_user = int(user_id) == self.request.user.id
         # If is my user or is superuser can create
-        if is_my_user or request.user.is_superuser:
-            # Save the record comment
-            if serializer.is_valid():
-                comment = serializer.save(
-                    topic=topic, user=request.user
-                )
-            else:
-                return Response(
-                    serializer.errors,
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-
-            # Send notifications comment
-            params = nt.get_users_and_send_notification_comment(
-                request, topic, comment
-            )
-            list_us = params['list_us']
-            list_email = params['list_email']
-
-            # Get url for email
-            url = url = utils.get_url_topic(request, topic)
-
-            # Send email
-            nt_email.send_mail_comment(str(url), list_email)
-
-            # Data necessary for realtime
-            data = realtime.data_base_realtime(
-                comment, topic.forum, False
-            )
-
-            # Send new notification realtime
-            realtime.new_notification(data, list_us)
-
-            # Send new comment in realtime
-            comment_description = request.data['description']
-            realtime.new_comment(data, comment_description)
-
-            return Response(
-                serializer.data, status=status.HTTP_201_CREATED
-            )
-        else:
+        if not is_my_user and not self.request.user.is_superuser:
             raise PermissionDenied({
-                    "message": "Error: User incorrect."
-                })
+                "message": "Error: User incorrect."
+            })
+
+        if not serializer.is_valid():
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Get url for email
+        url = utils.get_url_topic(self.request, topic)
+
+        # Save comment
+        create_comment(self.request.user, serializer, topic, url)
+
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED
+        )
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
@@ -500,32 +385,7 @@ class HitcountTopicViewSet(viewsets.ModelViewSet):
 
         session = request.session.session_key
         ip = request.META['REMOTE_ADDR']
-
-        topic = get_object_or_404(models.Topic, pk=topic_id)
-        hit = models.HitcountTopic.objects.filter(topic=topic)
-
-        # Check if exists hitcount for topic
-        if not hit.exists():
-            # Create hitcout topic
-            models.HitcountTopic.objects.create(
-                topic=topic, data=[{'session': session, 'ip': ip}]
-            )
-            count = 1
-        else:
-            # Check if exists the session in the topic
-            s = hit.filter(data__contains=[{'session': session, 'ip': ip}])
-            if not s.exists():
-                # Not exists, then i create the session
-                record = hit.first()
-                data = record.data
-                # Insert new session to existing sessions
-                data.append({'session': session, 'ip': ip})
-                record.data = data
-                # Update record in the field data
-                record.save()
-                count = len(data)
-            else:
-                count = len(hit.first().data)
+        count = create_hitcount_topic(topic_id, session, ip)
 
         return Response({"success": True, "total": count})
 
@@ -534,45 +394,16 @@ class CheckPermissionsForumUserView(APIView):
     """
     Check the permissions that a user has in a forum private
     """
-    def get(self, request, format=None):
-        response = {
-            'register': False,
-            'is_moderator': False,
-            'is_troll': False,
-            'is_pending_moderate': False,
-        }
 
+    def get(self, request, format=None):
         # Parameters
         user_id = self.request.GET.get('user_id')
         forum_id = self.request.GET.get('forum_id')
 
-        if user_id and forum_id:
-            # Check if user is registered in the forum
-            register = models.Register.objects.filter(
-                user__pk=user_id, forum__pk=forum_id
-            )
-
-            if register.count() > 0:
-                if register.first().is_enabled:
-                    response['register'] = True
-                else:
-                    response['is_pending_moderate'] = True
-
-            # Check if user logged is moderator in the forum
-            total_moderator = models.Forum.objects.filter(
-                pk=forum_id, moderators__in=[user_id]
-            ).count()
-
-            if total_moderator > 0:
-                response['is_moderator'] = True
-
-            # Check if user logged is a troll
-            profile = models.Profile.objects.filter(user__id=user_id)
-            if profile.exists():
-                response['is_troll'] = profile.first().is_troll
-        else:
+        if not user_id or not forum_id:
             raise Http404
 
+        response = check_permissions_forum_user(user_id, forum_id)
         return Response(response)
 
 
@@ -592,34 +423,7 @@ class LikeTopicViewSet(viewsets.ModelViewSet):
         except KeyError:
             raise Http404
 
-        lt = models.LikeTopic.objects.filter(topic__pk=topic_pk)
-        if lt.exists():
-            s = lt.filter(users__contains=[{'user': user}])
-            if not s.exists():
-                # Not exists, then i add the user
-                record = lt.first()
-                users = record.users
-                # Insert new user to existing users
-                users.append({'user': user})
-                record.users = users
-                # Update record in the field users
-                record.save()
-
-                # Increment total like
-                models.Topic.objects.filter(pk=topic_pk).update(
-                    total_likes=F('total_likes') + 1
-                )
-        else:
-            topic = models.Topic.objects.filter(pk=topic_pk)
-            models.LikeTopic.objects.create(
-                topic=topic.first(), users=[{'user': user}]
-            )
-
-            # Increment total like
-            topic.update(
-                total_likes=F('total_likes') + 1
-            )
-
+        create_like_topic(user, topic_pk)
         return Response({'success': 'ok'})
 
     def destroy(self, request, pk=None):
@@ -628,21 +432,7 @@ class LikeTopicViewSet(viewsets.ModelViewSet):
         except KeyError:
             raise Http404
 
-        lt = models.LikeTopic.objects.filter(topic__pk=pk).first()
-        users = lt.users
-
-        for i, d in enumerate(users):
-            if d['user'] == user_pk:
-                users.pop(i)
-                break
-
-        lt.users = users
-        lt.save()
-
-        # Decrement like in total like
-        models.Topic.objects.filter(pk=pk).update(
-            total_likes=F('total_likes') - 1
-        )
+        delete_like_topic(pk, user_pk)
 
         return Response({'success': 'ok'})
 
@@ -663,34 +453,7 @@ class LikeCommentViewSet(viewsets.ModelViewSet):
         except KeyError:
             raise Http404
 
-        lc = models.LikeComment.objects.filter(comment__pk=comment_pk)
-        if lc.exists():
-            s = lc.filter(users__contains=[{'user': user}])
-            if not s.exists():
-                # Not exists, then i add the user
-                record = lc.first()
-                users = record.users
-                # Insert new user to existing users
-                users.append({'user': user})
-                record.users = users
-                # Update record in the field users
-                record.save()
-
-                # Increment total like
-                models.Comment.objects.filter(pk=comment_pk).update(
-                    total_likes=F('total_likes') + 1
-                )
-        else:
-            comment = models.Comment.objects.filter(pk=comment_pk)
-            models.LikeComment.objects.create(
-                comment=comment.first(), users=[{'user': user}]
-            )
-
-            # Increment total like
-            comment.update(
-                total_likes=F('total_likes') + 1
-            )
-
+        create_like_comment(user, comment_pk)
         return Response({'success': 'ok'})
 
     def destroy(self, request, pk=None):
@@ -699,22 +462,7 @@ class LikeCommentViewSet(viewsets.ModelViewSet):
         except KeyError:
             raise Http404
 
-        lc = models.LikeComment.objects.filter(comment__pk=pk).first()
-        users = lc.users
-
-        for i, d in enumerate(users):
-            if d['user'] == user_pk:
-                users.pop(i)
-                break
-
-        lc.users = users
-        lc.save()
-
-        # Decrement like in total like
-        models.Comment.objects.filter(pk=pk).update(
-            total_likes=F('total_likes') - 1
-        )
-
+        delete_like_comment(pk, user_pk)
         return Response({'success': 'ok'})
 
 
@@ -734,76 +482,80 @@ class NotificationViewSet(viewsets.ModelViewSet):
         except TypeError:
             user_id = None
 
+        if not self.request.user.is_authenticated:
+            raise Http404
+
+        if user_id != self.request.user.id:
+            raise Http404
+
+        User = get_user_model()
+        user = get_object_or_404(User, pk=user_id)
         limit = self.request.GET.get('limit')
 
-        if self.request.user.is_authenticated:
-            if user_id == self.request.user.id:
-                User = get_user_model()
-                user = get_object_or_404(User, pk=user_id)
-                if limit:
-                    return self.queryset.filter(
-                        user=user
-                    ).order_by("-date")[:int(limit)]
-                else:
-                    return self.queryset.filter(user=user).order_by("-date")
-            else:
-                raise Http404
+        if limit:
+            return self.queryset.filter(
+                user=user
+            ).order_by("-date")[:int(limit)]
         else:
-            raise Http404
+            return self.queryset.filter(user=user).order_by("-date")
 
 
 class GetTotalPendingNotificationsUser(APIView):
     """
     Get total pending notification user
     """
+
     def get(self, request, format=None):
         # Parameters
         user_id = self.request.GET.get('user_id')
-        if user_id:
-            user_id = int(user_id)
-            if self.request.user.is_authenticated:
-                if user_id == self.request.user.id:
-                    User = get_user_model()
-                    user = get_object_or_404(User, pk=user_id)
-                    total = models.Notification.objects.filter(
-                        user=user, is_seen=False
-                    ).count()
-
-                    return Response({"total": total})
-                else:
-                    raise Http404
-            else:
-                raise Http404
-        else:
+        if not user_id:
             raise Http404
+
+        user_id = int(user_id)
+        if not self.request.user.is_authenticated:
+            raise Http404
+
+        if user_id != self.request.user.id:
+            raise Http404
+
+        User = get_user_model()
+        user = get_object_or_404(User, pk=user_id)
+        total = models.Notification.objects.filter(
+            user=user, is_seen=False
+        ).count()
+
+        return Response({"total": total})
 
 
 class UpdateSeenNotifications(APIView):
     """
     Update is_seen property in notification by user
     """
+
     def post(self, request, format=None):
         user_id = self.request.POST.get('user_id')
-        if user_id:
-            user_id = int(user_id)
-            if self.request.user.is_authenticated:
-                if user_id == self.request.user.id:
-                    models.Notification.objects.filter(
-                        user=request.user
-                    ).update(is_seen=True)
-                    return Response({"success": True})
-                else:
-                    raise Http404
-            else:
-                raise Http404
-        else:
+        if not user_id:
             raise Http404
+
+        user_id = int(user_id)
+        if not self.request.user.is_authenticated:
+            raise Http404
+
+        if user_id != self.request.user.id:
+            raise Http404
+
+        models.Notification.objects.filter(
+            user=request.user
+        ).update(is_seen=True)
+
+        return Response({"success": True})
 
 
 class UploadsView(APIView):
     """
     Upload files in editor
     """
+
     def post(self, request, format=None):
         urls = []
         if request.user.is_authenticated:
@@ -815,6 +567,7 @@ class UploadsView(APIView):
                 domain = utils.get_domain(request)
                 url = domain + settings.MEDIA_URL + r.attachment.name
                 urls.append(url)
+
         return Response({"success": True, "urls": urls})
 
 
@@ -822,33 +575,12 @@ class GetForumsByUser(APIView):
     """
     Get forums member user
     """
+
     def get(self, request, format=None):
         # Parameters
         username = self.request.GET.get('username')
-        if username:
-            list_forums = []
-            registers = models.Register.objects.filter(
-                user__username=username
-            )
-            for register in registers:
-                forum = register.forum
-                list_forums.append({
-                    'name': forum.name,
-                    'slug': forum.slug,
-                    'id': register.forum_id,
-                    'moderator': False
-                })
-            forums = models.Forum.objects.filter(
-                moderators__username__in=[username]
-            )
-            for forum in forums:
-                list_forums.append({
-                    'name': forum.name,
-                    'slug': forum.slug,
-                    'id': forum.pk,
-                    'moderator': True
-                })
-
-            return Response({"forums": list_forums})
-        else:
+        if not username:
             raise Http404
+
+        list_forums = get_forums_by_user(username)
+        return Response({"forums": list_forums})

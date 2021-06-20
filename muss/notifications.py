@@ -1,7 +1,7 @@
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 
-from muss.utils import get_users_topic
+from muss.services.user.topic import get_users_topic
 from muss.models import Notification
 
 
@@ -41,13 +41,13 @@ def save_notification_model(related_object, id_object, user):
     notification.save()
 
 
-def get_moderators_and_send_notification_topic(request, forum, topic):
+def get_moderators_and_send_notification_topic(user, forum, topic):
     """
     Get list moderators to send notification for realtime
     and send notificaiton to model Notification for topic.
 
     Args:
-        request (obj): Object request.
+        user (obj): Object user logged.
         forum (obj): Object forum.
         topic (obj): Object topic.
 
@@ -60,7 +60,7 @@ def get_moderators_and_send_notification_topic(request, forum, topic):
     related_object = ContentType.objects.get_for_model(topic)
     for moderator in forum.moderators.all():
         # If not is my user
-        if moderator.id != request.user.id:
+        if moderator.id != user.id:
             # Send notification to moderator
             save_notification_model(
                 related_object, topic.pk, moderator
@@ -70,20 +70,20 @@ def get_moderators_and_send_notification_topic(request, forum, topic):
     return list_us
 
 
-def get_users_and_send_notification_comment(request, topic, comment):
+def get_users_and_send_notification_comment(user_logged, topic, comment):
     """
     Get list users to send notification for realtime
     and send notificaiton to model Notification for comment.
 
     Args:
-        request (obj): Object request.
+        user_logged (obj): Object user logged.
         forum (obj): Object forum.
         comment (obj): Object comment.
 
     Returns:
         dict: List users and list_emails.
     """
-    myuser = request.user
+    myuser = user_logged
     # Send notifications
     list_us, list_emails = get_users_topic(topic, myuser.id)
 

@@ -15,7 +15,7 @@ from django.utils.crypto import get_random_string
 from django.utils.timesince import timesince
 from django.utils.translation import ugettext_lazy as _
 
-from .validators import valid_extension_image
+from muss.validators import valid_extension_image
 
 
 class Category(models.Model):
@@ -262,8 +262,8 @@ class Topic(models.Model):
         return self.title
 
     def delete(self, *args, **kwargs):
-        # TODO: Revisar
-        Topic.objects.filter(pk=self.pk).delete()
+        super(Topic, self).delete(*args, **kwargs)
+
         self.update_forum_topics(
             self.forum.category.name, self.forum, "subtraction"
         )

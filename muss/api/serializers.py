@@ -8,8 +8,13 @@ from rest_framework_json_api.relations import (
     SerializerMethodResourceRelatedField
 )
 
-from muss import models, utils
+from muss import models
 from muss.api.fields import CustomFileField
+from muss.services.forum import (
+    get_childs_forums, get_parents_forums, get_pending_moderations
+)
+from muss.services.user.comment import get_users_who_commented_topic
+from muss.services.user.profile import get_photo_profile
 from muss.validators import valid_extension_image
 
 
@@ -23,7 +28,7 @@ class UserSerializer(serializers.ModelSerializer):
         """
         Get photo profile topic user
         """
-        return utils.get_photo_profile(obj)
+        return get_photo_profile(obj)
 
     def create(self, validated_data):
         User = get_user_model()
@@ -68,52 +73,22 @@ class ForumSerializer(serializers.ModelSerializer):
         """
         Get forums childs of forum
         """
-        forums = []
-        for forum in obj.parents.all():
-            forums.append({
-                'pk': forum.pk, 'slug': forum.slug,
-                'name': forum.name
-            })
-        return forums
+
+        return get_childs_forums(obj)
 
     def get_parents_forums(self, obj):
         """
         Get forums parent of forum
         """
-        forums = []
-        if obj:
-            if not(obj.parent is None):
-                parents = models.Forum.objects.raw("""
-                    with recursive forums_parents as (
-                        select id, parent_id, name, slug
-                            from muss_forum
-                            where id = """ + str(obj.pk) + """
-                        union all
-                        select f.id, f.parent_id, f.name, f.slug
-                            from muss_forum f
-                            join forums_parents p on p.parent_id = f.id
-                        )
-                        select * from forums_parents
-                        WHERE id <> """ + str(obj.pk) + """
-                        ORDER BY id;"""
-                    )
 
-                for forum in parents:
-                    forums.append({
-                        'pk': forum.pk, 'slug': forum.slug,
-                        'name': forum.name
-                    })
-        return forums
+        return get_parents_forums(obj)
 
     def get_pending_moderations(self, obj):
         """
         Check if the forum has topic pending moderations
         """
-        if obj.is_moderate:
-            total = obj.forums.filter(is_moderate=False).count()
-            if total > 0:
-                return True
-        return False
+
+        return get_pending_moderations(obj)
 
     class Meta:
         model = models.Forum
@@ -161,32 +136,8 @@ class TopicSerializer(serializers.ModelSerializer):
 
     def get_users_topic_comment(self, obj):
         # I get the users who participated in the topic
-        users = []
-        list_users = []
         username_topic = obj.user.username
-
-        for comment in obj.topics.all():
-            username = comment.user.username
-            if not (username in list_users):
-                photo = utils.get_photo_profile(comment.user.id)
-                record = {
-                    "username": username,
-                    "photo": photo
-                }
-                # If is creator topic, add top
-                if username == username_topic:
-                    users.insert(0, record)
-                else:
-                    users.append(record)
-                list_users.append(username)
-
-        # If creator topic not exists, add
-        if not (username_topic in list_users) and obj.topics.count() > 0:
-            photo = utils.get_photo_profile(obj.user.id)
-            users.insert(0, {
-                "username": username_topic,
-                "photo": photo
-            })
+        users = get_users_who_commented_topic(username_topic, obj)
 
         return users
 

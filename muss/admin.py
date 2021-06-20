@@ -16,6 +16,7 @@ from muss import (
     forms, models, utils, notifications_email as nt_email,
     realtime, notifications as nt
 )
+from muss.services.topic import check_topic_moderate
 
 
 class TopicAdmin(admin.ModelAdmin):
@@ -67,7 +68,7 @@ class TopicAdmin(admin.ModelAdmin):
         forum_id = obj.forum_id
 
         if not change:
-            is_moderate = utils.check_topic_moderate(
+            is_moderate = check_topic_moderate(
                 request.user, forum
             )
             instance.is_moderate = is_moderate
@@ -84,7 +85,7 @@ class TopicAdmin(admin.ModelAdmin):
 
             # Get moderators forum and send notification
             list_us = nt.get_moderators_and_send_notification_topic(
-                request, forum, obj
+                request.user, forum, obj
             )
 
             # Data necessary for realtime
@@ -252,7 +253,7 @@ class CommentAdmin(admin.ModelAdmin):
         if not change:
             # Send notifications comment
             params = nt.get_users_and_send_notification_comment(
-                request, topic, obj
+                request.user, topic, obj
             )
             list_us = params['list_us']
             list_email = params['list_email']
