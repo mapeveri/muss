@@ -23,6 +23,9 @@ EMAIL_FROM = EMAIL_MUSS
 
 GOOGLE_API_KEY = ""
 
+# For debug
+INTERNAL_IPS = ['127.0.0.1']
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

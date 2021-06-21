@@ -11,9 +11,10 @@ def get_users_who_commented_topic(username_topic: str, obj: Topic) -> list:
     list_users = []
 
     for comment in obj.topics.all():
-        username = comment.user.username
+        comment_user = comment.user
+        username = comment_user.username
         if not (username in list_users):
-            photo = get_photo_profile(comment.user.id)
+            photo = get_photo_profile(comment_user.id)
             record = {
                 "username": username,
                 "photo": photo

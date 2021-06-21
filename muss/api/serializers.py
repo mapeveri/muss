@@ -115,7 +115,7 @@ class TopicSerializer(serializers.ModelSerializer):
         """
         Get total hitcounts
         """
-        hit = models.HitcountTopic.objects.filter(topic=obj)
+        hit = obj.topichitcount
         if hit.exists():
             count = len(hit.first().data)
         else:
@@ -243,13 +243,14 @@ class NotificationSerializer(serializers.ModelSerializer):
 
     def get_comment(self, obj):
         try:
-            if str(obj.content_object._meta) == "muss.comment":
+            content = obj.content_object
+            if str(content._meta) == "muss.comment":
                 return {
-                    'topicid': obj.content_object.topic.pk,
-                    'slug': obj.content_object.topic.slug,
-                    'title': obj.content_object.topic.title,
-                    'username': obj.content_object.user.username,
-                    'userid': obj.content_object.user.pk
+                    'topicid': content.topic.pk,
+                    'slug': content.topic.slug,
+                    'title': content.topic.title,
+                    'username': content.user.username,
+                    'userid': content.user.pk
                 }
             else:
                 return {}
@@ -258,13 +259,14 @@ class NotificationSerializer(serializers.ModelSerializer):
 
     def get_topic(self, obj):
         try:
-            if str(obj.content_object._meta) == "muss.topic":
+            content = obj.content_object
+            if str(content._meta) == "muss.topic":
                 return {
-                    'topicid': obj.content_object.pk,
-                    'slug': obj.content_object.slug,
-                    'title': obj.content_object.title,
-                    'username': obj.content_object.user.username,
-                    'userid': obj.content_object.user.pk
+                    'topicid': content.pk,
+                    'slug': content.slug,
+                    'title': content.title,
+                    'username': content.user.username,
+                    'userid': content.user.pk
                 }
             else:
                 return {}
@@ -273,11 +275,12 @@ class NotificationSerializer(serializers.ModelSerializer):
 
     def get_register(self, obj):
         try:
-            if str(obj.content_object._meta) == "muss.register":
+            content = obj.content_object
+            if str(content._meta) == "muss.register":
                 return {
-                    'forumid': obj.content_object.forum.pk,
-                    'slug': obj.content_object.forum.slug,
-                    'forum': obj.content_object.forum.name,
+                    'forumid': content.forum.pk,
+                    'slug': content.forum.slug,
+                    'forum': content.forum.name,
                 }
             else:
                 return {}

@@ -42,7 +42,9 @@ class UserViewSet(viewsets.ModelViewSet):
     ViewSets for user
     """
     User = get_user_model()
-    queryset = User.objects.all().order_by("pk")
+    queryset = User.objects.all() \
+        .select_related('user') \
+        .order_by("pk")
     serializer_class = serializers.UserSerializer
     resource_name = 'users'
     http_method_names = ['get', 'post']
@@ -98,7 +100,10 @@ class ForumViewSet(viewsets.ReadOnlyModelViewSet):
     """
     ViewSets for forum
     """
-    queryset = models.Forum.objects.all()
+    queryset = models.Forum.objects.all() \
+        .select_related('category') \
+        .select_related('parent') \
+        .prefetch_related('moderators')
     serializer_class = serializers.ForumSerializer
 
     def get_queryset(self, *args, **kwargs):
@@ -118,7 +123,13 @@ class TopicViewSet(viewsets.ModelViewSet):
     ViewSets for topic
     """
     resource_name = 'topics'
-    queryset = models.Topic.objects.all()
+    queryset = models.Topic.objects.all() \
+        .select_related('forum') \
+        .select_related('user') \
+        .prefetch_related('topichitcount') \
+        .prefetch_related('topics') \
+        .select_related('likes_topic') \
+        .prefetch_related('topics__user')
     serializer_class = serializers.TopicSerializer
     permission_classes = (
         IsAuthenticatedOrReadOnly, TopicPermissions,
@@ -251,7 +262,8 @@ class CommentViewSet(viewsets.ModelViewSet):
     ViewSets for comment
     """
     resource_name = 'comments'
-    queryset = models.Comment.objects.all()
+    queryset = models.Comment.objects.all() \
+        .select_related('likes_comment')
     serializer_class = serializers.CommentSerializer
     authentication_classes = (JSONWebTokenAuthentication,)
     permission_classes = (CommentPermissions,)
@@ -306,7 +318,9 @@ class ProfileViewSet(viewsets.ModelViewSet):
     ViewSets for profile
     """
     resource_name = 'profiles'
-    queryset = models.Profile.objects.all().order_by("pk")
+    queryset = models.Profile.objects.all() \
+        .select_related('user') \
+        .order_by("pk")
     serializer_class = serializers.ProfileSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
     http_method_names = ['get', 'patch']
@@ -353,15 +367,15 @@ class MessageForumViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self, *args, **kwargs):
         forum_id = self.request.GET.get('forum')
-        if forum_id:
-            forum_id = int(forum_id)
-            now = timezone.now()
-            self.queryset = self.queryset.filter(
-                Q(forum__pk=forum_id),
-                Q(message_expires_from__lte=now, message_expires_to__gte=now)
-            )
-        else:
+        if not forum_id:
             raise Http404
+
+        forum_id = int(forum_id)
+        now = timezone.now()
+        self.queryset = self.queryset.filter(
+            Q(forum__pk=forum_id),
+            Q(message_expires_from__lte=now, message_expires_to__gte=now)
+        )
 
         return self.queryset
 
@@ -370,7 +384,9 @@ class HitcountTopicViewSet(viewsets.ModelViewSet):
     """
     ViewSets for HitcountTopic
     """
-    queryset = models.HitcountTopic.objects.all().order_by("pk")
+    queryset = models.HitcountTopic.objects.all() \
+        .select_related('topic') \
+        .order_by("pk")
     serializer_class = serializers.HitcountTopicSerializer
     http_method_names = ['get', 'post']
 
@@ -411,7 +427,9 @@ class LikeTopicViewSet(viewsets.ModelViewSet):
     """
     Viewset for LikeTopic
     """
-    queryset = models.LikeTopic.objects.all().order_by("pk")
+    queryset = models.LikeTopic.objects.all() \
+        .select_related('topic') \
+        .order_by("pk")
     serializer_class = serializers.LikeTopicSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
     http_method_names = ['get', 'post', 'delete']
@@ -441,7 +459,9 @@ class LikeCommentViewSet(viewsets.ModelViewSet):
     """
     Viewset for LikeComment
     """
-    queryset = models.LikeComment.objects.all().order_by("pk")
+    queryset = models.LikeComment.objects.all() \
+        .select_related('comment') \
+        .order_by("pk")
     serializer_class = serializers.LikeCommentSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
     http_method_names = ['get', 'post', 'delete']
@@ -470,7 +490,10 @@ class NotificationViewSet(viewsets.ModelViewSet):
     """
     ViewSets for user
     """
-    queryset = models.Notification.objects.all()
+    queryset = models.Notification.objects.all() \
+        .select_related('content_type') \
+        .prefetch_related('content_object') \
+        .select_related('user')
     serializer_class = serializers.NotificationSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
     resource_name = 'notifications'
