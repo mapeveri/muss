@@ -1,6 +1,6 @@
 psycopg2==2.8.4
 psycopg2-binary==2.8.4
-Django==2.2.27
+Django==2.2.28
 django-admin-interface==0.5.8
 channels==1.1.8
 asgi-redis==1.4.2
