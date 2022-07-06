@@ -36,7 +36,7 @@ Features
 19. Suggested Topics in topic.
 20. Open and Close topic.
 21. Support to likes in topics and comments.
-22. Check if a user is a troll.
+22. Check if an user is a troll.
 23. Support Open Graph.
 
 
@@ -54,7 +54,7 @@ Documentation
 --------------
 
 **Documentation** is `avaliable online
-<http://muss.readthedocs.io/en/latest/index.html>`_, or in the **docs**
+<http://muss.readthedocs.io/en/latest/index.html>`_ or in the **docs**
 directory of the project.
 
 
