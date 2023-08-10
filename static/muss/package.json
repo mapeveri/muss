@@ -35,7 +35,7 @@
     "ember-link-action": "0.1.0",
     "ember-load-initializers": "^1.1.0",
     "ember-resolver": "^4.5.6",
-    "ember-simple-auth": "^1.6.0",
+    "ember-simple-auth": "^1.9.2",
     "ember-source": "^3.2.0",
     "ember-truth-helpers": "^2.0.0",
     "ember-welcome-page": "^3.2.0",
