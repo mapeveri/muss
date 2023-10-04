@@ -14,4 +14,4 @@ djangorestframework-jsonapi==2.4.0
 django-cors-headers==2.1.0
 djangorestframework-jwt==1.11.0
 mistune==2.0.3 # parser markdown
-Pillow==9.3.0
+Pillow==10.0.1
