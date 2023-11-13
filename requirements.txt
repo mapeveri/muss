@@ -6,7 +6,7 @@ channels==1.1.8
 asgi-redis==1.4.2
 asgiref==1.1.2
 aioredis==1.2.0
-redis==2.10.6
+redis==4.4.4
 hiredis==1.0.0
 msgpack==0.6.2
 djangorestframework==3.11.2
