@@ -1,7 +1,7 @@
 Muss
 ====
 
-**THIS REPO IS DEPRECATED.**
+**WARNING: this repo is not maintained anymore**
 
 .. image:: https://coveralls.io/repos/github/mapeveri/muss/badge.svg?branch=master
     :target: https://coveralls.io/github/mapeveri/muss?branch=master
